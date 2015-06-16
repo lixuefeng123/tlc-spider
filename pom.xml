@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cn.com.fero</groupId>
+    <artifactId>tlc-spider</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>tlc-spider</name>
+
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>Fero Nexus Repository</name>
+            <url>http://192.168.0.252:8081/nexus/content/groups/public</url>
+        </repository>
+        <!--<repository>-->
+        <!--<id>CN</id>-->
+        <!--<name>OSChina Central</name>-->
+        <!--<url>http://maven.oschina.net/content/groups/public/</url>-->
+        <!--</repository>-->
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus</id>
+            <name>Fero Nexus Repository</name>
+            <url>http://192.168.0.252:8081/nexus/content/groups/public</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <package.environment>src/main/config/dev</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <package.environment>src/main/config/test</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <package.environment>src/main/config/prod</package.environment>
+            </properties>
+        </profile>
+    </profiles>
+
+    <properties>
+        <module.job>tlc-spider-job</module.job>
+        <module.config>tlc-spider-config</module.config>
+        <module.parser>tlc-spider-parser</module.parser>
+        <module.script>tlc-spider-script</module.script>
+        <module.server>tlc-spider-server</module.server>
+        <module.util>tlc-spider-util</module.util>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jdk.version>1.7</jdk.version>
+        <spring.version>4.0.5.RELEASE</spring.version>
+        <aspectj.version>1.5.4</aspectj.version>
+        <junit.version>4.9</junit.version>
+        <slf4j.version>1.6.1</slf4j.version>
+        <slf4j-jcl.version>1.7.5</slf4j-jcl.version>
+        <logback.version>0.9.29</logback.version>
+        <guava.version>10.0.1</guava.version>
+        <jackson.version>2.2.3</jackson.version>
+        <json-lib.version>2.4</json-lib.version>
+        <quartz.version>2.2.1</quartz.version>
+        <commons-lang3.version>3.4</commons-lang3.version>
+        <commons-collections.version>4.0</commons-collections.version>
+        <httpcomponents.version>4.2.3</httpcomponents.version>
+        <plugin-compile.version>2.5.1</plugin-compile.version>
+        <plugin-surefire.version>2.12.4</plugin-surefire.version>
+        <plugin-dependency.version>2.8</plugin-dependency.version>
+    </properties>
+
+    <modules>
+        <module>${module.config}</module>
+        <module>${module.job}</module>
+        <module>${module.parser}</module>
+        <module>${module.script}</module>
+        <module>${module.server}</module>
+        <module>${module.util}</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- tlc-spider -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>${project.artifactId}</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- spring -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <!-- aspectj -->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+
+            <!-- junit -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- log -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j-jcl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+            <!-- jason-->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sf.json-lib</groupId>
+                <artifactId>json-lib</artifactId>
+                <version>${json-lib.version}</version>
+                <classifier>jdk15</classifier>
+            </dependency>
+
+            <!-- util -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcomponents-client</artifactId>
+                <version>${httpcomponents.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcomponents-client</artifactId>
+                <version>${httpcomponents.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!--<includes>-->
+                    <!--<include>**/*.*</include>-->
+                <!--</includes>-->
+                <excludes>
+                    <exclude>**/*.*</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${plugin-compile.version}</version>
+                    <configuration>
+                        <source>${jdk.version}</source>
+                        <target>${jdk.version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${plugin-surefire.version}</version>
+                    <configuration>
+                        <skipTests>true</skipTests>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${plugin-dependency.version}</version>
+                    <!--<executions>-->
+                        <!--<execution>-->
+                            <!--<id>copy-dependencies</id>-->
+                            <!--<phase>package</phase>-->
+                            <!--<goals>-->
+                                <!--<goal>copy-dependencies</goal>-->
+                            <!--</goals>-->
+                            <!--<configuration>-->
+                                <!--<outputDirectory>${project.build.directory}/lib</outputDirectory>-->
+                            <!--</configuration>-->
+                        <!--</execution>-->
+                    <!--</executions>-->
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>

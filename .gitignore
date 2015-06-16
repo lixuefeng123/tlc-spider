@@ -1,0 +1,12 @@
+**/target/*
+**/out/*
+**/rebel.xml
+**/.settings
+tlc-spider-*/.gitignore
+*.iml
+*.war
+.idea/*
+**/*.eml
+gtsboss.userlibraries
+.classpath
+.project

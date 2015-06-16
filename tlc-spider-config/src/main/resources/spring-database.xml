@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.springframework.org/schema/beans"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="gtsbossDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${jdbc.mysql.gtsboss.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.mysql.gtsboss.url}"/>
+        <property name="user" value="${jdbc.mysql.gtsboss.username}"/>
+        <property name="password" value="${jdbc.mysql.gtsboss.password}"/>
+        <property name="maxPoolSize" value="${c3p0.maxPoolSize}"/>
+        <property name="minPoolSize" value="${c3p0.minPoolSize}"/>
+        <property name="initialPoolSize" value="${c3p0.initialPoolSize}"/>
+        <property name="maxStatements" value="${c3p0.maxStatements}"/>
+        <property name="maxStatementsPerConnection" value="${c3p0.maxStatementsPerConnection}"/>
+        <property name="maxIdleTime" value="${c3p0.maxIdleTime}"/>
+        <property name="acquireRetryAttempts" value="${c3p0.acquireRetryAttempts}"/>
+        <property name="acquireRetryDelay" value="${c3p0.acquireRetryDelay}"/>
+        <property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}"/>
+        <property name="checkoutTimeout" value="${c3p0.checkoutTimeout}"/>
+    </bean>
+
+    <bean id="gtsbossSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="gtsbossDataSource"/>
+        <property name="typeAliasesPackage" value="cn.com.fero.gtsboss.mybatis.entity"/>
+        <property name="mapperLocations" value="classpath*:cn/com/fero/gtsboss/mybatis/mapper/*-SqlMapper.xml"/>
+        <property name="plugins">
+            <array>
+                <bean class="PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                            offsetAsPageNum=true
+                            rowBoundsWithCount=true
+                            pageSizeZero=true
+                            reasonable=true
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+    <bean id="gtsbossMapper" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="cn.com.fero.gtsboss.mybatis.persistence"/>
+        <property name="sqlSessionFactoryBeanName" value="gtsbossSessionFactory"/>
+    </bean>
+    <!--<bean id="gtsbossMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
+    <!--<property name="mapperInterface" value="cn.com.fero.gtsboss.mybatis.persistence.ArticleMapper" />-->
+    <!--<property name="sqlSessionFactory" ref="gtsbossSessionFactory"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="gtsbossTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+    <!--<property name="dataSource" ref="gtsbossDataSource"/>-->
+    <!--</bean>-->
+
+    <!--<tx:advice id="gtsbossTxAdvice" transaction-manager="gtsbossTransactionManager">-->
+    <!--<tx:attributes>-->
+    <!--<tx:method name="*" read-only="true"/>-->
+    <!--<tx:method name="add*" propagation="REQUIRED" rollback-for="java.lang.Throwable"-->
+    <!--isolation="READ_COMMITTED"/>-->
+    <!--<tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Throwable"-->
+    <!--isolation="REPEATABLE_READ"/>-->
+    <!--<tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Throwable"-->
+    <!--isolation="REPEATABLE_READ"/>-->
+    <!--</tx:attributes>-->
+    <!--</tx:advice>-->
+
+    <!--<aop:config proxy-target-class="true">-->
+    <!--<aop:pointcut id="gtsbossPointcut" expression="execution(* cn.com.fero.gtsboss.controller.*.*(..))" />-->
+    <!--<aop:advisor advice-ref="gtsbossTxAdvice" pointcut-ref="gtsbossPointcut" />-->
+    <!--</aop:config>-->
+
+</beans>
