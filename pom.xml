@@ -92,12 +92,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- tlc-spider -->
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>${project.artifactId}</artifactId>
-                <version>${project.version}</version>
-            </dependency>
             <!-- spring -->
             <dependency>
                 <groupId>org.springframework</groupId>

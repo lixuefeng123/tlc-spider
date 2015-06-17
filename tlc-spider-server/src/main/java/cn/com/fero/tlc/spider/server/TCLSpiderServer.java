@@ -6,6 +6,6 @@ package cn.com.fero.tlc.spider.server;
 public class TCLSpiderServer {
 
     public static void main(String[] args) {
-
+        System.out.println("hello");
     }
 }
