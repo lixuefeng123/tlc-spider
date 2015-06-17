@@ -55,7 +55,7 @@
     </profiles>
 
     <properties>
-        <module.job>tlc-spider-job</module.job>
+        <module.quartz>tlc-spider-quartz</module.quartz>
         <module.config>tlc-spider-config</module.config>
         <module.parser>tlc-spider-parser</module.parser>
         <module.script>tlc-spider-script</module.script>
@@ -73,9 +73,11 @@
         <jackson.version>2.2.3</jackson.version>
         <json-lib.version>2.4</json-lib.version>
         <quartz.version>2.2.1</quartz.version>
+        <htmlcleaner.version>2.2.1</htmlcleaner.version>
         <commons-lang3.version>3.4</commons-lang3.version>
         <commons-collections.version>4.0</commons-collections.version>
-        <httpcomponents.version>4.2.3</httpcomponents.version>
+        <http-client.version>4.3.1</http-client.version>
+        <http-core.version>4.3</http-core.version>
         <plugin-compile.version>2.5.1</plugin-compile.version>
         <plugin-surefire.version>2.12.4</plugin-surefire.version>
         <plugin-dependency.version>2.8</plugin-dependency.version>
@@ -83,7 +85,7 @@
 
     <modules>
         <module>${module.config}</module>
-        <module>${module.job}</module>
+        <module>${module.quartz}</module>
         <module>${module.parser}</module>
         <module>${module.script}</module>
         <module>${module.server}</module>
@@ -95,7 +97,7 @@
             <!-- spring -->
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
+                <artifactId>spring-beans</artifactId>
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
@@ -105,7 +107,17 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
@@ -187,20 +199,24 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpcomponents-client</artifactId>
-                <version>${httpcomponents.version}</version>
+                <artifactId>httpcore</artifactId>
+                <version>${http-core.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpcomponents-client</artifactId>
-                <version>${httpcomponents.version}</version>
+                <artifactId>httpclient</artifactId>
+                <version>${http-client.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.quartz-scheduler</groupId>
                 <artifactId>quartz</artifactId>
                 <version>${quartz.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>net.sourceforge.htmlcleaner</groupId>
+                <artifactId>htmlcleaner</artifactId>
+                <version>${htmlcleaner.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -214,12 +230,12 @@
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
-                <!--<includes>-->
-                    <!--<include>**/*.*</include>-->
-                <!--</includes>-->
-                <excludes>
-                    <exclude>**/*.*</exclude>
-                </excludes>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+                <!--<excludes>-->
+                    <!--<exclude>**/*.*</exclude>-->
+                <!--</excludes>-->
             </resource>
         </resources>
         <pluginManagement>

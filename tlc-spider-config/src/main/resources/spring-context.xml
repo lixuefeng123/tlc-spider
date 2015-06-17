@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:annotation-config/>
-    <aop:aspectj-autoproxy/>
+    <!--<aop:aspectj-autoproxy/>-->
     <context:component-scan base-package="cn.com.fero.tlc.spider"/>
     <context:property-placeholder location="classpath*:tlc.spider.properties"/>
 

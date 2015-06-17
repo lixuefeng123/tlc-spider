@@ -12,4 +12,11 @@
     <artifactId>tlc-spider-parser</artifactId>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>net.sourceforge.htmlcleaner</groupId>
+            <artifactId>htmlcleaner</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>
