@@ -11,8 +11,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class TCLSpiderServer {
 
+    private static TLCSpiderScheduler tlcSpiderScheduler;
+
     public static void main(String[] args) throws InterruptedException {
-        TLCSpiderScheduler tlcSpiderScheduler = null;
+        tlcSpiderScheduler = null;
         try {
             LoggerUtil.getLogger().info("loading spring application context");
             ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath*: spring-*.xml");
