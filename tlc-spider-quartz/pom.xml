@@ -15,12 +15,12 @@
     <dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>${project.parent.artifactId}-config</artifactId>
+            <artifactId>${project.parent.artifactId}-util</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>${project.parent.artifactId}-util</artifactId>
+            <artifactId>${project.parent.artifactId}-http</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>

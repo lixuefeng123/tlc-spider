@@ -1,0 +1,32 @@
+# BindUserId 融资用户ID
+# BindUserName 融资用户名
+# BindCompanyId 融资公司ID
+# BindCompanyName 融资公司名
+# PartsCount 份数
+# BankInterest 银行收益
+# RepaySourceType
+# ReadyBeginTime
+# CreditLevel 信用等级
+# CreateUserId 融资项目创建人ID
+# CreateCompanyId 融资项目创建公司ID
+# JMBeginTime
+# AreaCode
+# CreateTime 创建时间
+# UpdateUserId 更新用户ID
+# UpdateTime 更新时间
+# CreateUserName 创建人名称
+# CreateCompanyName 创建公司名称
+# IsShow 是否显示
+# ProjectType 项目类别
+# IsExclusivePublic
+# MinInvestPartsCount 最小投资份数
+# ExclusiveCode
+# LCAmount
+# ICount
+# IAmount
+# FinanceApplyStatus
+# HotStatus
+# DbType
+# title
+# CONTENT
+# IsLimitCount 最小投资份数

@@ -57,7 +57,7 @@
     <properties>
         <module.quartz>tlc-spider-quartz</module.quartz>
         <module.config>tlc-spider-config</module.config>
-        <module.parser>tlc-spider-parser</module.parser>
+        <module.http>tlc-spider-parser</module.http>
         <module.script>tlc-spider-script</module.script>
         <module.server>tlc-spider-server</module.server>
         <module.util>tlc-spider-util</module.util>
@@ -86,7 +86,7 @@
     <modules>
         <module>${module.config}</module>
         <module>${module.quartz}</module>
-        <module>${module.parser}</module>
+        <module>${module.http}</module>
         <module>${module.script}</module>
         <module>${module.server}</module>
         <module>${module.util}</module>

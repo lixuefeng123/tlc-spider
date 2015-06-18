@@ -25,7 +25,7 @@ public class TCLSpiderServer {
             LoggerUtil.getLogger().info("loading tailicai spider jobs");
             tlcSpiderScheduler.loadJobs();
 
-            LoggerUtil.getLogger().info("start tailicai scheduler and jobs");
+            LoggerUtil.getLogger().info("starting tailicai scheduler and jobs");
             tlcSpiderScheduler.start();
         } catch (BeansException e) {
             LoggerUtil.getLogger().error(e.toString());

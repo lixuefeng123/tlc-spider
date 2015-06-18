@@ -16,7 +16,7 @@
                     <property name="jobGroupName" value="bank" />
                     <property name="triggerName" value="hxewtTrigger" />
                     <property name="triggerGroupName" value="bankTrigger" />
-                    <property name="cronExpression" value="0/3 * * * * ?" />
+                    <property name="cronExpression" value="0/20 * * * * ?" />
                 </bean>
             </list>
         </property>
