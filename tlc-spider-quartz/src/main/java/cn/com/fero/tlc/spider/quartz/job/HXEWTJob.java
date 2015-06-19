@@ -4,6 +4,7 @@ import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.vo.FinanceValue;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
+import cn.com.fero.tlc.spider.util.SplitUtil;
 import org.htmlcleaner.TagNode;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -25,20 +26,22 @@ public class HXEWTJob extends TLCSpiderJob {
         String productContent = TLCSpiderRequest.get(URL_PRODUCT);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='list_con']");
         for(TagNode product : productList) {
-            String projectName = TLCSpiderHTMLParser.parserText(product, "/span[1]/a[1]");
-            String projectBeginTime = TLCSpiderHTMLParser.parserText(product, "/div[@class='time'][1]/strong");
-            String amount = TLCSpiderHTMLParser.parserText(product, "/ul[1]/li[1]/span[1]/strong[1]");
-            String investmentInterest = TLCSpiderHTMLParser.parserText(product, "/ul[1]/li[2]/span[1]/strong[1]");
-            String duration = TLCSpiderHTMLParser.parserText(product, "/ul[1]/li[3]/span[1]/strong[1]");
-            String leftAmount = TLCSpiderHTMLParser.parserText(product, "/ul[1]/li[4]/span[1]/strong[1]");
-            String realProgress = TLCSpiderHTMLParser.parserText(product, "/div[@class='jd'][1]/strong[1]");
+            String projectName = TLCSpiderHTMLParser.parserText(product, "//span[1]/a[1]");
+            String projectBeginTime = TLCSpiderHTMLParser.parserText(product, "//div[@class='time'][1]/strong").split(":", 2)[1];
+//            String amount = TLCSpiderHTMLParser.parserText(product, "//ul[1]/li[1]/span[1]/strong[1]");
+            String investmentInterest = TLCSpiderHTMLParser.parserText(product, "//ul[1]/li[2]/span[1]/strong[1]");
+            String duration = TLCSpiderHTMLParser.parserText(product, "//ul[1]/li[3]/span[1]/strong[1]");
+            duration = SplitUtil.splitNumberChinese(duration, 1);
+            String leftAmount = TLCSpiderHTMLParser.parserText(product, "//ul[1]/li[4]/span[1]/strong[1]");
+            String realProgress = TLCSpiderHTMLParser.parserText(product, "//div[@class='jd'][1]/strong[1]");
             String progress = realProgress;
-            String detailLink = TLCSpiderHTMLParser.parserText(product, "/ul[1]/li[5]/a");
-            String financingId = detailLink.split("/")[1].split(".")[0];
+            String detailLink = TLCSpiderHTMLParser.parseAttribute(product, "//ul[1]/li[5]/a", "href");
+            String financingId = detailLink.split("/")[2].split("\\.")[0];
+//            String financingId = detailLink.split("/")[2].split(".")[0];
             String projectCode = financingId;
 
             String detailContent = TLCSpiderRequest.get(URL_PRODUCT_DETAIL + detailLink);
-            String amount2 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[1]/td[1]");
+            String amount = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[1]/td[1]").split(" ")[1];
             String type1 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[5]/td[2]/p[1]/span[1]");
             String type2 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[5]/td[2]/p[1]/span[2]");
             String type3 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[5]/td[2]/p[1]/span[3]");
@@ -54,22 +57,27 @@ public class HXEWTJob extends TLCSpiderJob {
             }
 
             String begin1 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[3]/td[2]/p[1]/span[1]");
-            String begin2 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[3]/td[2]/p[1]/span[1]/span[1]");
-            String begin3 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[3]/td[2]/p[1]/span[1]/span[2]");
-            String begin4 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[3]/td[2]/p[1]/span[2]");
-            String begin5 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[3]/td[2]/p[1]/span[3]");
-            String begin6 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[3]/td[2]/p[1]/span[4]");
-            String begin7 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[3]/td[2]/p[1]/span[5]");
-            String valueBegin = begin1 + begin2 + begin3 + begin4 + begin5 + begin6 + begin7;
+            String begin2 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[3]/td[2]/p[1]/span[2]");
+            String begin3 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[3]/td[2]/p[1]/span[3]");
+            String begin4 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[3]/td[2]/p[1]/span[4]");
+            String begin5 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[3]/td[2]/p[1]/span[5]");
+            String valueBegin = begin1 + begin2 + begin3 + begin4 + begin5;
 
             String repay1 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[4]/td[2]/p[1]/span[1]");
-            String repay2 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[4]/td[2]/p[1]/span[1]/span[1]");
-            String repay3 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[4]/td[2]/p[1]/span[2]");
-            String repay4 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[4]/td[2]/p[1]/span[3]");
-            String repay5 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[4]/td[2]/p[1]/span[4]");
-            String repay6 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[4]/td[2]/p[1]/span[4]/span[1]");
-            String repay7 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[4]/td[2]/p[1]/span[5]");
-            String repayBegin = repay1 + repay2 + repay3 + repay4 + repay5 + repay6 + repay7;
+            String repay2 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[4]/td[2]/p[1]/span[2]");
+            String repay3 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[4]/td[2]/p[1]/span[3]");
+            String repay4 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[4]/td[2]/p[1]/span[4]");
+            String repay5 = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[4]/td[2]/p[1]/span[5]");
+            String repayBegin = repay1 + repay2 + repay3 + repay4 + repay5;
+
+            int minAmount = 1;
+            String minInvestPartsCountStr = TLCSpiderHTMLParser.parserText(detailContent, "//table[1]//tr[2]/td[4]").split("：")[1];
+            minInvestPartsCountStr = minInvestPartsCountStr.split(" ")[0].replaceAll(",", "");
+            minInvestPartsCountStr = SplitUtil.splitNumberChinese(minInvestPartsCountStr, 1);
+            minInvestPartsCountStr = minInvestPartsCountStr.replaceAll(",", "");
+            Integer minInvestPartsCount = Integer.parseInt(minInvestPartsCountStr) / minAmount;
+            Integer partsCount = Integer.parseInt(amount.substring(0, amount.lastIndexOf(".")).replaceAll(",", "")) / minAmount;
+
 
             FinanceValue financeValue = new FinanceValue();
             financeValue.setProjectName(projectName);
@@ -84,6 +92,8 @@ public class HXEWTJob extends TLCSpiderJob {
             financeValue.setRepayType(repayType);
             financeValue.setValueBegin(valueBegin);
             financeValue.setRepayBegin(repayBegin);
+            financeValue.setMinInvestPartsCount(minInvestPartsCount.toString());
+            financeValue.setPartsCount(partsCount.toString());
             System.out.println(financeValue);
 
         }

@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by gizmo on 15/6/17.
  */
-public class LoggerUtil {
+public final class LoggerUtil {
     private static final Logger logger = LoggerFactory.getLogger(LoggerUtil.class);
 
     private LoggerUtil(){

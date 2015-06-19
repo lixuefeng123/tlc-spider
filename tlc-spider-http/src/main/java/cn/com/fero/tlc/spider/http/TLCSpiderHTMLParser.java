@@ -43,7 +43,7 @@ public class TLCSpiderHTMLParser {
                TagNode html = htmlCleaner.clean(content);
                Object[] result = html.evaluateXPath(xpath);
                TagNode tagNode = (TagNode)result[0];
-               return tagNode.getText().toString();
+               return tagNode.getText().toString().trim();
           } catch (Exception e) {
                throw new TLCSpiderParserException(e);
           }
@@ -51,7 +51,8 @@ public class TLCSpiderHTMLParser {
 
      public static String parserText(TagNode tagNode, String xpath) {
           try {
-               return tagNode.evaluateXPath(xpath).toString();
+               Object tag = tagNode.evaluateXPath(xpath)[0];
+               return ((TagNode) tag).getText().toString().trim();
           } catch (Exception e) {
                throw new TLCSpiderParserException(e);
           }
@@ -64,7 +65,7 @@ public class TLCSpiderHTMLParser {
                TagNode html = htmlCleaner.clean(content);
                Object[] result = html.evaluateXPath(xpath);
                TagNode tagNode = (TagNode)result[0];
-               return tagNode.getAttributeByName(attribute);
+               return tagNode.getAttributeByName(attribute).trim();
           } catch (Exception e) {
                throw new TLCSpiderParserException(e);
           }
@@ -72,7 +73,16 @@ public class TLCSpiderHTMLParser {
 
      public static String parseAttribute(TagNode tagNode, String xpath, String attribute) {
           try {
-               return tagNode.getAttributeByName(attribute);
+               Object tag = tagNode.evaluateXPath(xpath)[0];
+               return ((TagNode) tag).getAttributeByName(attribute);
+          } catch (Exception e) {
+               throw new TLCSpiderParserException(e);
+          }
+     }
+
+     public static String parseAttribute(TagNode tagNode, String attribute) {
+          try {
+               return tagNode.getAttributeByName(attribute).trim();
           } catch (Exception e) {
                throw new TLCSpiderParserException(e);
           }
