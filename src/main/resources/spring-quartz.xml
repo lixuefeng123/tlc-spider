@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.springframework.org/schema/beans"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="schedulerFactory" class="org.quartz.impl.StdSchedulerFactory"/>
+
+    <bean id="tlcSpiderScheduler" class="cn.com.fero.tlc.spider.quartz.schedule.TLCSpiderScheduler">
+        <property name="schedulerFactory" ref="schedulerFactory"/>
+        <property name="jobList">
+            <list>
+                <!--<bean id="hxewtJob" class="cn.com.fero.tlc.spider.quartz.job.HXEWTJob">-->
+                    <!--<property name="jobName" value="hxewtJob"/>-->
+                    <!--<property name="jobGroupName" value="bank"/>-->
+                    <!--<property name="triggerName" value="hxewtTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="bankTrigger"/>-->
+                    <!--<property name="cronExpression" value="0/20 * * * * ?"/>-->
+                <!--</bean>-->
+                <bean id="nyyhnyeJob" class="cn.com.fero.tlc.spider.quartz.job.NYYHNYEJob">
+                    <property name="jobName" value="nyyhnyeJob"/>
+                    <property name="jobGroupName" value="bank"/>
+                    <property name="triggerName" value="nyyhnyeTrigger"/>
+                    <property name="triggerGroupName" value="bankTrigger"/>
+                    <property name="cronExpression" value="0/10 * * * * ?"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+</beans>

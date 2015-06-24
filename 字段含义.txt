@@ -1,0 +1,45 @@
+financingId 项目ID
+projectCode 项目编号
+projectName 项目名称
+bindUserId 融资用户ID
+bindUserName 融资用户名
+bindCompanyId 融资公司ID
+bindCompanyName 融资公司名
+amount 融资总额
+partsCount 份数
+bankInterest 银行收益
+investmentInterest 预期投资收益
+duration 投资期限（天）
+repayType 还款方式 0:项目到期付本息 1:按月付息 2:等额本息
+valueBegin 项目起息日
+repayBegin 项目到期日期
+repaySourceType
+projectBeginTime 项目开始时间
+readyBeginTime
+projectStatus 项目状态
+creditLevel 信用等级
+createUserId 融资项目创建人ID
+createCompanyId 融资项目创建公司ID
+jmBeginTime
+areaCode
+createTime 创建时间
+updateUserId 更新用户ID
+updateTime 更新时间
+createUserName 创建人名称
+createCompanyName 创建公司名称
+isShow 是否显示
+projectType 项目类别
+isExclusivePublic
+minInvestPartsCount 最小投资份数
+exclusiveCode
+lCAmount
+iCount
+iAmount
+realProgress 实际融资进度
+progress 融资进度
+financeApplyStatus
+hotStatus
+dbType
+title
+content
+isLimitCount 最小投资份数
