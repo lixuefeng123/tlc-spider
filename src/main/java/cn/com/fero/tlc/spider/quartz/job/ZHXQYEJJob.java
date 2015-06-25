@@ -26,6 +26,7 @@ public class ZHXQYEJJob extends TLCSpiderJob {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         LoggerUtil.getLogger().info("开始抓取招商银行小企业E家");
 
+        //TODO 抓取页数， 抓取所有
         Map<String, String> param = new HashMap();
         param.put("TargetAction", "GetProjectList_Index");
         param.put("PageSize", "10");
