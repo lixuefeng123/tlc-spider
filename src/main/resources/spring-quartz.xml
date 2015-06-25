@@ -17,10 +17,38 @@
                     <!--<property name="triggerGroupName" value="bankTrigger"/>-->
                     <!--<property name="cronExpression" value="0/20 * * * * ?"/>-->
                 <!--</bean>-->
-                <bean id="nyyhnyeJob" class="cn.com.fero.tlc.spider.quartz.job.NYYHNYEJob">
-                    <property name="jobName" value="nyyhnyeJob"/>
+                <!--<bean id="nyyhnyeJob" class="cn.com.fero.tlc.spider.quartz.job.NYYHNYEJob">-->
+                    <!--<property name="jobName" value="nyyhnyeJob"/>-->
+                    <!--<property name="jobGroupName" value="bank"/>-->
+                    <!--<property name="triggerName" value="nyyhnyeTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="bankTrigger"/>-->
+                    <!--<property name="cronExpression" value="0/10 * * * * ?"/>-->
+                <!--</bean>-->
+                <!--<bean id="cznsyhJob" class="cn.com.fero.tlc.spider.quartz.job.CZNSYHJob">-->
+                    <!--<property name="jobName" value="cznsyhJob"/>-->
+                    <!--<property name="jobGroupName" value="bank"/>-->
+                    <!--<property name="triggerName" value="cznsyhTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="bankTrigger"/>-->
+                    <!--<property name="cronExpression" value="0/10 * * * * ?"/>-->
+                <!--</bean>-->
+                <!--<bean id="bsyhBankJob" class="cn.com.fero.tlc.spider.quartz.job.BSYHBankJob">-->
+                    <!--<property name="jobName" value="bsyhBankJob"/>-->
+                    <!--<property name="jobGroupName" value="bank"/>-->
+                    <!--<property name="triggerName" value="bsyhBankTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="bankTrigger"/>-->
+                    <!--<property name="cronExpression" value="0/10 * * * * ?"/>-->
+                <!--</bean>-->
+                <!--<bean id="bsyhFinanceJob" class="cn.com.fero.tlc.spider.quartz.job.BSYHFinanceJob">-->
+                    <!--<property name="jobName" value="bsyhFinanceJob"/>-->
+                    <!--<property name="jobGroupName" value="bank"/>-->
+                    <!--<property name="triggerName" value="bsyhFinanceTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="bankTrigger"/>-->
+                    <!--<property name="cronExpression" value="0/10 * * * * ?"/>-->
+                <!--</bean>-->
+                <bean id="zhxqyejJob" class="cn.com.fero.tlc.spider.quartz.job.ZHXQYEJJob">
+                    <property name="jobName" value="zhxqyejJob"/>
                     <property name="jobGroupName" value="bank"/>
-                    <property name="triggerName" value="nyyhnyeTrigger"/>
+                    <property name="triggerName" value="zhxqyejTrigger"/>
                     <property name="triggerGroupName" value="bankTrigger"/>
                     <property name="cronExpression" value="0/10 * * * * ?"/>
                 </bean>

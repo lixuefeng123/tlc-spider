@@ -4,7 +4,7 @@ import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
 import cn.com.fero.tlc.spider.util.SplitUtil;
-import cn.com.fero.tlc.spider.vo.FinanceValue;
+import cn.com.fero.tlc.spider.vo.TransObject;
 import org.htmlcleaner.TagNode;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -26,7 +26,7 @@ public class HXEWTJob extends TLCSpiderJob {
         LoggerUtil.getLogger().info("开始抓取华夏银行E网通");
         String productContent = TLCSpiderRequest.get(URL_PRODUCT);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='list_con']");
-        List<FinanceValue> financeValueList = new ArrayList();
+        List<TransObject> transObjectList = new ArrayList();
 
         for (TagNode product : productList) {
             String projectName = TLCSpiderHTMLParser.parserText(product, "//span[1]/a[1]");
@@ -82,25 +82,25 @@ public class HXEWTJob extends TLCSpiderJob {
             Integer partsCount = Integer.parseInt(amount.substring(0, amount.lastIndexOf(".")).replaceAll(",", "")) / minAmount;
 
 
-            FinanceValue financeValue = new FinanceValue();
-            financeValue.setProjectName(projectName);
-            financeValue.setProjectBeginTime(projectBeginTime);
-            financeValue.setAmount(amount);
-            financeValue.setInvestmentInterest(investmentInterest);
-            financeValue.setDuration(duration);
-            financeValue.setRealProgress(realProgress);
-            financeValue.setProgress(progress);
-            financeValue.setFinancingId(financingId);
-            financeValue.setProjectCode(projectCode);
-            financeValue.setRepayType(repayType);
-            financeValue.setValueBegin(valueBegin);
-            financeValue.setRepayBegin(repayBegin);
-            financeValue.setMinInvestPartsCount(minInvestPartsCount.toString());
-            financeValue.setPartsCount(partsCount.toString());
+            TransObject transObject = new TransObject();
+            transObject.setProjectName(projectName);
+            transObject.setProjectBeginTime(projectBeginTime);
+            transObject.setAmount(amount);
+            transObject.setInvestmentInterest(investmentInterest);
+            transObject.setDuration(duration);
+            transObject.setRealProgress(realProgress);
+            transObject.setProgress(progress);
+            transObject.setFinancingId(financingId);
+            transObject.setProjectCode(projectCode);
+            transObject.setRepayType(repayType);
+            transObject.setValueBegin(valueBegin);
+            transObject.setRepayBegin(repayBegin);
+            transObject.setMinInvestPartsCount(minInvestPartsCount.toString());
+            transObject.setPartsCount(partsCount.toString());
 
-            financeValueList.add(financeValue);
+            transObjectList.add(transObject);
         }
 
-        print(financeValueList);
+        print(transObjectList);
     }
 }

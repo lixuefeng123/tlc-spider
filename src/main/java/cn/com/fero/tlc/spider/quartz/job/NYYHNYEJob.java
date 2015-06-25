@@ -5,7 +5,7 @@ import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.util.DateFormatUtil;
 import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
-import cn.com.fero.tlc.spider.vo.FinanceValue;
+import cn.com.fero.tlc.spider.vo.TransObject;
 import cn.com.fero.tlc.spider.vo.NYYHNYE;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.JobExecutionContext;
@@ -19,7 +19,6 @@ import java.util.*;
  */
 //广东南粤银行南粤E+抓取
 public class NYYHNYEJob extends TLCSpiderJob {
-//    private static final String URL_PRODUCT = "https://one.gdnybank.com/pages/er_index.html";
     private static final String URL_PRODUCT_LIST = "https://one.gdnybank.com/directbank/erongProjectsList.do";
 
     @Override
@@ -37,7 +36,7 @@ public class NYYHNYEJob extends TLCSpiderJob {
         param.put("pagesize", totalCount);
         String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
         List<NYYHNYE> nyyhnyeList = JsonUtil.getArray(productContent, "projList", NYYHNYE.class);
-        List<FinanceValue> financeValueList = new ArrayList();
+        List<TransObject> transObjectList = new ArrayList();
 
 
 //        "sumAmt": "23900",
@@ -54,30 +53,32 @@ public class NYYHNYEJob extends TLCSpiderJob {
 //        "setlBatchDate": "20150805",
 
         for(NYYHNYE nyyhnye : nyyhnyeList) {
-            FinanceValue financeValue = new FinanceValue();
-            financeValue.setFinancingId(nyyhnye.getProdCode());
-            financeValue.setProjectCode(nyyhnye.getProjCode());
-            financeValue.setProjectName(nyyhnye.getProjName());
-            financeValue.setAmount(nyyhnye.getProductSize());
-            financeValue.setDuration(nyyhnye.getLimitType());
-            financeValue.setInvestmentInterest(Double.parseDouble(nyyhnye.getYieldRate()) * 100 + "%");
-            financeValue.setRealProgress(Double.parseDouble(nyyhnye.getBuyPercent()) * 100 + "%");
-            financeValue.setProgress(Double.parseDouble(nyyhnye.getBuyPercent()) * 100 + "%");
+            TransObject transObject = new TransObject();
+            transObject.setFinancingId(nyyhnye.getProdCode());
+            transObject.setProjectCode(nyyhnye.getProjCode());
+            transObject.setProjectName(nyyhnye.getProjName());
+            transObject.setAmount(nyyhnye.getProductSize());
+            transObject.setDuration(nyyhnye.getLimitType());
+            transObject.setInvestmentInterest(Double.parseDouble(nyyhnye.getYieldRate()) * 100 + "%");
+            transObject.setRealProgress(Double.parseDouble(nyyhnye.getBuyPercent()) * 100 + "%");
+            transObject.setProgress(Double.parseDouble(nyyhnye.getBuyPercent()) * 100 + "%");
             if(StringUtils.isNotEmpty(nyyhnye.getPubStaDate()) && StringUtils.isNotEmpty(nyyhnye.getPubStaTime())) {
-                financeValue.setProjectBeginTime(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_TIME_FORMAT, nyyhnye.getPubStaDate(), nyyhnye.getPubStaTime()));
+                transObject.setProjectBeginTime(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_TIME_FORMAT, nyyhnye.getPubStaDate(), nyyhnye.getPubStaTime()));
             } else if(StringUtils.isNotEmpty(nyyhnye.getPubStaDate())){
-                financeValue.setProjectBeginTime(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_FORMAT, nyyhnye.getPubStaDate()));
+                transObject.setProjectBeginTime(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_FORMAT, nyyhnye.getPubStaDate()));
             }
             if(StringUtils.isNotEmpty(nyyhnye.getSellStaDate()) && StringUtils.isNotEmpty(nyyhnye.getSellStaTime())) {
-                financeValue.setValueBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_TIME_FORMAT, nyyhnye.getSellStaDate(), nyyhnye.getSellStaTime()));
+                transObject.setValueBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_TIME_FORMAT, nyyhnye.getSellStaDate(), nyyhnye.getSellStaTime()));
             } else if(StringUtils.isNotEmpty(nyyhnye.getPubStaDate())) {
-                financeValue.setValueBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_FORMAT, nyyhnye.getSellStaDate()));
+                transObject.setValueBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_FORMAT, nyyhnye.getSellStaDate()));
             }
             if(StringUtils.isNotEmpty(nyyhnye.getSellEndDate()) && StringUtils.isNotEmpty(nyyhnye.getSellEndTime())) {
-                financeValue.setRepayBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_TIME_FORMAT, nyyhnye.getSellEndDate(), nyyhnye.getSellEndTime()));
+                transObject.setRepayBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_TIME_FORMAT, nyyhnye.getSellEndDate(), nyyhnye.getSellEndTime()));
             } else if(StringUtils.isNotEmpty(nyyhnye.getSellEndDate())){
-                financeValue.setRepayBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_FORMAT, nyyhnye.getSellEndDate()));
+                transObject.setRepayBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_FORMAT, nyyhnye.getSellEndDate()));
             }
+
+            //TODO 转换
 //            financeValue.setPartsCount();
 //            financeValue.setBankInterest();
 //            financeValue.setRepayType();
@@ -108,9 +109,9 @@ public class NYYHNYEJob extends TLCSpiderJob {
 //            financeValue.setTitle();
 //            financeValue.setContent();
 //            financeValue.setIsLimitCount();
-            financeValueList.add(financeValue);
+            transObjectList.add(transObject);
         }
 
-        print(financeValueList);
+        print(transObjectList);
     }
 }

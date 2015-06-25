@@ -1,6 +1,7 @@
 package cn.com.fero.tlc.spider.http;
 
 import cn.com.fero.tlc.spider.exception.TLCSpiderParserException;
+import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
 
@@ -33,8 +34,12 @@ public class TLCSpiderHTMLParser {
         try {
             HtmlCleaner htmlCleaner = new HtmlCleaner();
             TagNode html = htmlCleaner.clean(content);
-            Object[] result = html.evaluateXPath(xpath);
-            TagNode tagNode = (TagNode) result[0];
+            Object[] children = html.evaluateXPath(xpath);
+            if(null == children || children.length <= 0) {
+                return StringUtils.EMPTY;
+            }
+
+            TagNode tagNode = (TagNode) children[0];
             return tagNode.getText().toString().trim();
         } catch (Exception e) {
             throw new TLCSpiderParserException(e);
@@ -43,7 +48,12 @@ public class TLCSpiderHTMLParser {
 
     public static String parserText(TagNode tagNode, String xpath) {
         try {
-            Object tag = tagNode.evaluateXPath(xpath)[0];
+            Object[] children = tagNode.evaluateXPath(xpath);
+            if(null == children || children.length <= 0) {
+                return StringUtils.EMPTY;
+            }
+
+            Object tag = children[0];
             return ((TagNode) tag).getText().toString().trim();
         } catch (Exception e) {
             throw new TLCSpiderParserException(e);
@@ -55,8 +65,12 @@ public class TLCSpiderHTMLParser {
         try {
             HtmlCleaner htmlCleaner = new HtmlCleaner();
             TagNode html = htmlCleaner.clean(content);
-            Object[] result = html.evaluateXPath(xpath);
-            TagNode tagNode = (TagNode) result[0];
+            Object[] children = html.evaluateXPath(xpath);
+            if(null == children || children.length <= 0) {
+                return StringUtils.EMPTY;
+            }
+
+            TagNode tagNode = (TagNode) children[0];
             return tagNode.getAttributeByName(attribute).trim();
         } catch (Exception e) {
             throw new TLCSpiderParserException(e);
@@ -65,7 +79,12 @@ public class TLCSpiderHTMLParser {
 
     public static String parseAttribute(TagNode tagNode, String xpath, String attribute) {
         try {
-            Object tag = tagNode.evaluateXPath(xpath)[0];
+            Object[] children = tagNode.evaluateXPath(xpath);
+            if(null == children || children.length <= 0) {
+                return StringUtils.EMPTY;
+            }
+
+            Object tag = children[0];
             return ((TagNode) tag).getAttributeByName(attribute);
         } catch (Exception e) {
             throw new TLCSpiderParserException(e);

@@ -1,9 +1,9 @@
 package cn.com.fero.tlc.spider.vo;
 
 /**
- * Created by gizmo on 15/6/18.
+ * Created by wanghongmeng on 2015/6/25.
  */
-public class FinanceValue {
+public class ZHXQYEJ {
     private String financingId;
     private String projectCode;
     private String projectName;
@@ -26,7 +26,7 @@ public class FinanceValue {
     private String creditLevel;
     private String createUserId;
     private String createCompanyId;
-    private String jmBeginTime;
+    private String jMBeginTime;
     private String areaCode;
     private String createTime;
     private String updateUserId;
@@ -38,17 +38,18 @@ public class FinanceValue {
     private String isExclusivePublic;
     private String minInvestPartsCount;
     private String exclusiveCode;
-    private String lcAmount;
+    private String lCAmount;
     private String iCount;
     private String iAmount;
     private String realProgress;
     private String progress;
     private String financeApplyStatus;
     private String hotStatus;
+    private String remainAmount;
+    private String projectPayType;
     private String dbType;
-    private String title;
-    private String content;
-    private String isLimitCount;
+    private String displayType;
+    private String salesType;
 
     public String getFinancingId() {
         return financingId;
@@ -226,12 +227,12 @@ public class FinanceValue {
         this.createCompanyId = createCompanyId;
     }
 
-    public String getJmBeginTime() {
-        return jmBeginTime;
+    public String getjMBeginTime() {
+        return jMBeginTime;
     }
 
-    public void setJmBeginTime(String jmBeginTime) {
-        this.jmBeginTime = jmBeginTime;
+    public void setjMBeginTime(String jMBeginTime) {
+        this.jMBeginTime = jMBeginTime;
     }
 
     public String getAreaCode() {
@@ -322,27 +323,27 @@ public class FinanceValue {
         this.exclusiveCode = exclusiveCode;
     }
 
-    public String getLcAmount() {
-        return lcAmount;
+    public String getlCAmount() {
+        return lCAmount;
     }
 
-    public void setLcAmount(String lcAmount) {
-        this.lcAmount = lcAmount;
+    public void setlCAmount(String lCAmount) {
+        this.lCAmount = lCAmount;
     }
 
-    public String getICount() {
+    public String getiCount() {
         return iCount;
     }
 
-    public void setICount(String iCount) {
+    public void setiCount(String iCount) {
         this.iCount = iCount;
     }
 
-    public String getIAmount() {
+    public String getiAmount() {
         return iAmount;
     }
 
-    public void setIAmount(String iAmount) {
+    public void setiAmount(String iAmount) {
         this.iAmount = iAmount;
     }
 
@@ -378,6 +379,22 @@ public class FinanceValue {
         this.hotStatus = hotStatus;
     }
 
+    public String getRemainAmount() {
+        return remainAmount;
+    }
+
+    public void setRemainAmount(String remainAmount) {
+        this.remainAmount = remainAmount;
+    }
+
+    public String getProjectPayType() {
+        return projectPayType;
+    }
+
+    public void setProjectPayType(String projectPayType) {
+        this.projectPayType = projectPayType;
+    }
+
     public String getDbType() {
         return dbType;
     }
@@ -386,28 +403,20 @@ public class FinanceValue {
         this.dbType = dbType;
     }
 
-    public String getTitle() {
-        return title;
+    public String getDisplayType() {
+        return displayType;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDisplayType(String displayType) {
+        this.displayType = displayType;
     }
 
-    public String getContent() {
-        return content;
+    public String getSalesType() {
+        return salesType;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getIsLimitCount() {
-        return isLimitCount;
-    }
-
-    public void setIsLimitCount(String isLimitCount) {
-        this.isLimitCount = isLimitCount;
+    public void setSalesType(String salesType) {
+        this.salesType = salesType;
     }
 
     @Override
@@ -415,67 +424,75 @@ public class FinanceValue {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        FinanceValue that = (FinanceValue) o;
+        ZHXQYEJ zhxqyej = (ZHXQYEJ) o;
 
-        if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
-        if (areaCode != null ? !areaCode.equals(that.areaCode) : that.areaCode != null) return false;
-        if (bankInterest != null ? !bankInterest.equals(that.bankInterest) : that.bankInterest != null) return false;
-        if (bindCompanyId != null ? !bindCompanyId.equals(that.bindCompanyId) : that.bindCompanyId != null)
+        if (amount != null ? !amount.equals(zhxqyej.amount) : zhxqyej.amount != null) return false;
+        if (areaCode != null ? !areaCode.equals(zhxqyej.areaCode) : zhxqyej.areaCode != null) return false;
+        if (bankInterest != null ? !bankInterest.equals(zhxqyej.bankInterest) : zhxqyej.bankInterest != null)
             return false;
-        if (bindCompanyName != null ? !bindCompanyName.equals(that.bindCompanyName) : that.bindCompanyName != null)
+        if (bindCompanyId != null ? !bindCompanyId.equals(zhxqyej.bindCompanyId) : zhxqyej.bindCompanyId != null)
             return false;
-        if (bindUserId != null ? !bindUserId.equals(that.bindUserId) : that.bindUserId != null) return false;
-        if (bindUserName != null ? !bindUserName.equals(that.bindUserName) : that.bindUserName != null) return false;
-        if (content != null ? !content.equals(that.content) : that.content != null) return false;
-        if (createCompanyId != null ? !createCompanyId.equals(that.createCompanyId) : that.createCompanyId != null)
+        if (bindCompanyName != null ? !bindCompanyName.equals(zhxqyej.bindCompanyName) : zhxqyej.bindCompanyName != null)
             return false;
-        if (createCompanyName != null ? !createCompanyName.equals(that.createCompanyName) : that.createCompanyName != null)
+        if (bindUserId != null ? !bindUserId.equals(zhxqyej.bindUserId) : zhxqyej.bindUserId != null) return false;
+        if (bindUserName != null ? !bindUserName.equals(zhxqyej.bindUserName) : zhxqyej.bindUserName != null)
             return false;
-        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
-        if (createUserId != null ? !createUserId.equals(that.createUserId) : that.createUserId != null) return false;
-        if (createUserName != null ? !createUserName.equals(that.createUserName) : that.createUserName != null)
+        if (createCompanyId != null ? !createCompanyId.equals(zhxqyej.createCompanyId) : zhxqyej.createCompanyId != null)
             return false;
-        if (creditLevel != null ? !creditLevel.equals(that.creditLevel) : that.creditLevel != null) return false;
-        if (dbType != null ? !dbType.equals(that.dbType) : that.dbType != null) return false;
-        if (duration != null ? !duration.equals(that.duration) : that.duration != null) return false;
-        if (exclusiveCode != null ? !exclusiveCode.equals(that.exclusiveCode) : that.exclusiveCode != null)
+        if (createCompanyName != null ? !createCompanyName.equals(zhxqyej.createCompanyName) : zhxqyej.createCompanyName != null)
             return false;
-        if (financeApplyStatus != null ? !financeApplyStatus.equals(that.financeApplyStatus) : that.financeApplyStatus != null)
+        if (createTime != null ? !createTime.equals(zhxqyej.createTime) : zhxqyej.createTime != null) return false;
+        if (createUserId != null ? !createUserId.equals(zhxqyej.createUserId) : zhxqyej.createUserId != null)
             return false;
-        if (financingId != null ? !financingId.equals(that.financingId) : that.financingId != null) return false;
-        if (hotStatus != null ? !hotStatus.equals(that.hotStatus) : that.hotStatus != null) return false;
-        if (iAmount != null ? !iAmount.equals(that.iAmount) : that.iAmount != null) return false;
-        if (iCount != null ? !iCount.equals(that.iCount) : that.iCount != null) return false;
-        if (investmentInterest != null ? !investmentInterest.equals(that.investmentInterest) : that.investmentInterest != null)
+        if (createUserName != null ? !createUserName.equals(zhxqyej.createUserName) : zhxqyej.createUserName != null)
             return false;
-        if (isExclusivePublic != null ? !isExclusivePublic.equals(that.isExclusivePublic) : that.isExclusivePublic != null)
+        if (creditLevel != null ? !creditLevel.equals(zhxqyej.creditLevel) : zhxqyej.creditLevel != null) return false;
+        if (dbType != null ? !dbType.equals(zhxqyej.dbType) : zhxqyej.dbType != null) return false;
+        if (displayType != null ? !displayType.equals(zhxqyej.displayType) : zhxqyej.displayType != null) return false;
+        if (duration != null ? !duration.equals(zhxqyej.duration) : zhxqyej.duration != null) return false;
+        if (exclusiveCode != null ? !exclusiveCode.equals(zhxqyej.exclusiveCode) : zhxqyej.exclusiveCode != null)
             return false;
-        if (isLimitCount != null ? !isLimitCount.equals(that.isLimitCount) : that.isLimitCount != null) return false;
-        if (isShow != null ? !isShow.equals(that.isShow) : that.isShow != null) return false;
-        if (jmBeginTime != null ? !jmBeginTime.equals(that.jmBeginTime) : that.jmBeginTime != null) return false;
-        if (lcAmount != null ? !lcAmount.equals(that.lcAmount) : that.lcAmount != null) return false;
-        if (minInvestPartsCount != null ? !minInvestPartsCount.equals(that.minInvestPartsCount) : that.minInvestPartsCount != null)
+        if (financeApplyStatus != null ? !financeApplyStatus.equals(zhxqyej.financeApplyStatus) : zhxqyej.financeApplyStatus != null)
             return false;
-        if (partsCount != null ? !partsCount.equals(that.partsCount) : that.partsCount != null) return false;
-        if (progress != null ? !progress.equals(that.progress) : that.progress != null) return false;
-        if (projectBeginTime != null ? !projectBeginTime.equals(that.projectBeginTime) : that.projectBeginTime != null)
+        if (financingId != null ? !financingId.equals(zhxqyej.financingId) : zhxqyej.financingId != null) return false;
+        if (hotStatus != null ? !hotStatus.equals(zhxqyej.hotStatus) : zhxqyej.hotStatus != null) return false;
+        if (iAmount != null ? !iAmount.equals(zhxqyej.iAmount) : zhxqyej.iAmount != null) return false;
+        if (iCount != null ? !iCount.equals(zhxqyej.iCount) : zhxqyej.iCount != null) return false;
+        if (investmentInterest != null ? !investmentInterest.equals(zhxqyej.investmentInterest) : zhxqyej.investmentInterest != null)
             return false;
-        if (projectCode != null ? !projectCode.equals(that.projectCode) : that.projectCode != null) return false;
-        if (projectName != null ? !projectName.equals(that.projectName) : that.projectName != null) return false;
-        if (projectStatus != null ? !projectStatus.equals(that.projectStatus) : that.projectStatus != null)
+        if (isExclusivePublic != null ? !isExclusivePublic.equals(zhxqyej.isExclusivePublic) : zhxqyej.isExclusivePublic != null)
             return false;
-        if (projectType != null ? !projectType.equals(that.projectType) : that.projectType != null) return false;
-        if (readyBeginTime != null ? !readyBeginTime.equals(that.readyBeginTime) : that.readyBeginTime != null)
+        if (isShow != null ? !isShow.equals(zhxqyej.isShow) : zhxqyej.isShow != null) return false;
+        if (jMBeginTime != null ? !jMBeginTime.equals(zhxqyej.jMBeginTime) : zhxqyej.jMBeginTime != null) return false;
+        if (lCAmount != null ? !lCAmount.equals(zhxqyej.lCAmount) : zhxqyej.lCAmount != null) return false;
+        if (minInvestPartsCount != null ? !minInvestPartsCount.equals(zhxqyej.minInvestPartsCount) : zhxqyej.minInvestPartsCount != null)
             return false;
-        if (realProgress != null ? !realProgress.equals(that.realProgress) : that.realProgress != null) return false;
-        if (repayBegin != null ? !repayBegin.equals(that.repayBegin) : that.repayBegin != null) return false;
-        if (repaySourceType != null ? !repaySourceType.equals(that.repaySourceType) : that.repaySourceType != null)
+        if (partsCount != null ? !partsCount.equals(zhxqyej.partsCount) : zhxqyej.partsCount != null) return false;
+        if (progress != null ? !progress.equals(zhxqyej.progress) : zhxqyej.progress != null) return false;
+        if (projectBeginTime != null ? !projectBeginTime.equals(zhxqyej.projectBeginTime) : zhxqyej.projectBeginTime != null)
             return false;
-        if (repayType != null ? !repayType.equals(that.repayType) : that.repayType != null) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null) return false;
-        if (updateUserId != null ? !updateUserId.equals(that.updateUserId) : that.updateUserId != null) return false;
-        if (valueBegin != null ? !valueBegin.equals(that.valueBegin) : that.valueBegin != null) return false;
+        if (projectCode != null ? !projectCode.equals(zhxqyej.projectCode) : zhxqyej.projectCode != null) return false;
+        if (projectName != null ? !projectName.equals(zhxqyej.projectName) : zhxqyej.projectName != null) return false;
+        if (projectPayType != null ? !projectPayType.equals(zhxqyej.projectPayType) : zhxqyej.projectPayType != null)
+            return false;
+        if (projectStatus != null ? !projectStatus.equals(zhxqyej.projectStatus) : zhxqyej.projectStatus != null)
+            return false;
+        if (projectType != null ? !projectType.equals(zhxqyej.projectType) : zhxqyej.projectType != null) return false;
+        if (readyBeginTime != null ? !readyBeginTime.equals(zhxqyej.readyBeginTime) : zhxqyej.readyBeginTime != null)
+            return false;
+        if (realProgress != null ? !realProgress.equals(zhxqyej.realProgress) : zhxqyej.realProgress != null)
+            return false;
+        if (remainAmount != null ? !remainAmount.equals(zhxqyej.remainAmount) : zhxqyej.remainAmount != null)
+            return false;
+        if (repayBegin != null ? !repayBegin.equals(zhxqyej.repayBegin) : zhxqyej.repayBegin != null) return false;
+        if (repaySourceType != null ? !repaySourceType.equals(zhxqyej.repaySourceType) : zhxqyej.repaySourceType != null)
+            return false;
+        if (repayType != null ? !repayType.equals(zhxqyej.repayType) : zhxqyej.repayType != null) return false;
+        if (salesType != null ? !salesType.equals(zhxqyej.salesType) : zhxqyej.salesType != null) return false;
+        if (updateTime != null ? !updateTime.equals(zhxqyej.updateTime) : zhxqyej.updateTime != null) return false;
+        if (updateUserId != null ? !updateUserId.equals(zhxqyej.updateUserId) : zhxqyej.updateUserId != null)
+            return false;
+        if (valueBegin != null ? !valueBegin.equals(zhxqyej.valueBegin) : zhxqyej.valueBegin != null) return false;
 
         return true;
     }
@@ -504,7 +521,7 @@ public class FinanceValue {
         result = 31 * result + (creditLevel != null ? creditLevel.hashCode() : 0);
         result = 31 * result + (createUserId != null ? createUserId.hashCode() : 0);
         result = 31 * result + (createCompanyId != null ? createCompanyId.hashCode() : 0);
-        result = 31 * result + (jmBeginTime != null ? jmBeginTime.hashCode() : 0);
+        result = 31 * result + (jMBeginTime != null ? jMBeginTime.hashCode() : 0);
         result = 31 * result + (areaCode != null ? areaCode.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (updateUserId != null ? updateUserId.hashCode() : 0);
@@ -516,23 +533,24 @@ public class FinanceValue {
         result = 31 * result + (isExclusivePublic != null ? isExclusivePublic.hashCode() : 0);
         result = 31 * result + (minInvestPartsCount != null ? minInvestPartsCount.hashCode() : 0);
         result = 31 * result + (exclusiveCode != null ? exclusiveCode.hashCode() : 0);
-        result = 31 * result + (lcAmount != null ? lcAmount.hashCode() : 0);
+        result = 31 * result + (lCAmount != null ? lCAmount.hashCode() : 0);
         result = 31 * result + (iCount != null ? iCount.hashCode() : 0);
         result = 31 * result + (iAmount != null ? iAmount.hashCode() : 0);
         result = 31 * result + (realProgress != null ? realProgress.hashCode() : 0);
         result = 31 * result + (progress != null ? progress.hashCode() : 0);
         result = 31 * result + (financeApplyStatus != null ? financeApplyStatus.hashCode() : 0);
         result = 31 * result + (hotStatus != null ? hotStatus.hashCode() : 0);
+        result = 31 * result + (remainAmount != null ? remainAmount.hashCode() : 0);
+        result = 31 * result + (projectPayType != null ? projectPayType.hashCode() : 0);
         result = 31 * result + (dbType != null ? dbType.hashCode() : 0);
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (isLimitCount != null ? isLimitCount.hashCode() : 0);
+        result = 31 * result + (displayType != null ? displayType.hashCode() : 0);
+        result = 31 * result + (salesType != null ? salesType.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("FinanceValue{");
+        final StringBuilder sb = new StringBuilder("ZHXQYEJ{");
         sb.append("financingId='").append(financingId).append('\'');
         sb.append(", projectCode='").append(projectCode).append('\'');
         sb.append(", projectName='").append(projectName).append('\'');
@@ -555,7 +573,7 @@ public class FinanceValue {
         sb.append(", creditLevel='").append(creditLevel).append('\'');
         sb.append(", createUserId='").append(createUserId).append('\'');
         sb.append(", createCompanyId='").append(createCompanyId).append('\'');
-        sb.append(", jmBeginTime='").append(jmBeginTime).append('\'');
+        sb.append(", jMBeginTime='").append(jMBeginTime).append('\'');
         sb.append(", areaCode='").append(areaCode).append('\'');
         sb.append(", createTime='").append(createTime).append('\'');
         sb.append(", updateUserId='").append(updateUserId).append('\'');
@@ -567,17 +585,18 @@ public class FinanceValue {
         sb.append(", isExclusivePublic='").append(isExclusivePublic).append('\'');
         sb.append(", minInvestPartsCount='").append(minInvestPartsCount).append('\'');
         sb.append(", exclusiveCode='").append(exclusiveCode).append('\'');
-        sb.append(", lcAmount='").append(lcAmount).append('\'');
+        sb.append(", lCAmount='").append(lCAmount).append('\'');
         sb.append(", iCount='").append(iCount).append('\'');
         sb.append(", iAmount='").append(iAmount).append('\'');
         sb.append(", realProgress='").append(realProgress).append('\'');
         sb.append(", progress='").append(progress).append('\'');
         sb.append(", financeApplyStatus='").append(financeApplyStatus).append('\'');
         sb.append(", hotStatus='").append(hotStatus).append('\'');
+        sb.append(", remainAmount='").append(remainAmount).append('\'');
+        sb.append(", projectPayType='").append(projectPayType).append('\'');
         sb.append(", dbType='").append(dbType).append('\'');
-        sb.append(", title='").append(title).append('\'');
-        sb.append(", content='").append(content).append('\'');
-        sb.append(", isLimitCount='").append(isLimitCount).append('\'');
+        sb.append(", displayType='").append(displayType).append('\'');
+        sb.append(", salesType='").append(salesType).append('\'');
         sb.append('}');
         return sb.toString();
     }
