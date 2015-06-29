@@ -27,7 +27,6 @@ public class ZHXQYEJJob extends TLCSpiderJob {
         LoggerUtil.getLogger().info("开始抓取招商银行小企业E家");
         List<TransObject> transObjectList = new ArrayList();
 
-        //TODO 抓取页数， 抓取所有
         Map<String, String> param = new HashMap();
         param.put("TargetAction", "GetProjectList_Index");
 //        param.put("PageSize", "10");
