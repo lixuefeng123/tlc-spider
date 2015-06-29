@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://www.springframework.org/schema/beans"
-        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="schedulerFactory" class="org.quartz.impl.StdSchedulerFactory"/>
 
@@ -45,10 +45,17 @@
                     <!--<property name="triggerGroupName" value="bankTrigger"/>-->
                     <!--<property name="cronExpression" value="0/10 * * * * ?"/>-->
                 <!--</bean>-->
-                <bean id="zhxqyejJob" class="cn.com.fero.tlc.spider.quartz.job.ZHXQYEJJob">
-                    <property name="jobName" value="zhxqyejJob"/>
+                <!--<bean id="zhxqyejJob" class="cn.com.fero.tlc.spider.quartz.job.ZHXQYEJJob">-->
+                    <!--<property name="jobName" value="zhxqyejJob"/>-->
+                    <!--<property name="jobGroupName" value="bank"/>-->
+                    <!--<property name="triggerName" value="zhxqyejTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="bankTrigger"/>-->
+                    <!--<property name="cronExpression" value="0/10 * * * * ?"/>-->
+                <!--</bean>-->
+                <bean id="lzyheredJob" class="cn.com.fero.tlc.spider.quartz.job.LZYHEREDJob">
+                    <property name="jobName" value="lzyheredJob"/>
                     <property name="jobGroupName" value="bank"/>
-                    <property name="triggerName" value="zhxqyejTrigger"/>
+                    <property name="triggerName" value="lzyheredTrigger"/>
                     <property name="triggerGroupName" value="bankTrigger"/>
                     <property name="cronExpression" value="0/10 * * * * ?"/>
                 </bean>

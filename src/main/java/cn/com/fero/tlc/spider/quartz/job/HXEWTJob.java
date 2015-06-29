@@ -18,13 +18,13 @@ import java.util.List;
  */
 //华夏银行E网通抓取
 public class HXEWTJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT = "http://hxewt.com/invest/main.html";
+    private static final String URL_PRODUCT_LIST = "http://hxewt.com/invest/main.html";
     private static final String URL_PRODUCT_DETAIL = "http://hxewt.com";
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         LoggerUtil.getLogger().info("开始抓取华夏银行E网通");
-        String productContent = TLCSpiderRequest.get(URL_PRODUCT);
+        String productContent = TLCSpiderRequest.get(URL_PRODUCT_LIST);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='list_con']");
         List<TransObject> transObjectList = new ArrayList();
 

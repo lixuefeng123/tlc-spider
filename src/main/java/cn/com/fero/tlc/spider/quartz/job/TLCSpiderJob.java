@@ -1,7 +1,10 @@
 package cn.com.fero.tlc.spider.quartz.job;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
+import org.quartz.PersistJobDataAfterExecution;
+import org.quartz.StatefulJob;
 import org.springframework.beans.factory.annotation.Required;
 
 import java.util.List;
@@ -9,6 +12,8 @@ import java.util.List;
 /**
  * Created by gizmo on 15/6/17.
  */
+@DisallowConcurrentExecution
+@PersistJobDataAfterExecution
 public abstract class TLCSpiderJob implements Job {
     private String jobName;
     private String jobGroupName;
