@@ -24,7 +24,7 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        LoggerUtil.getLogger().info("开始抓取尧都农商银行E融九州抓取");
+        LoggerUtil.getLogger().info("开始抓取尧都农商银行E融九州");
         List<TransObject> transObjectList = new ArrayList();
 
         Map<String, String> param = new HashMap();
