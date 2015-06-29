@@ -1,5 +1,5 @@
 #华夏e网通 http://hxewt.com/
-招商银行小企业e家 http://e.cmbchina.com/
+#招商银行小企业e家 http://e.cmbchina.com/
 兰州银行e融e贷 https://eeonline.lzbank.com/
 尧都农商银行e融九州 https://e.ydnsh.com/
 宁波银行直销银行 https://u.zxyh.nbcb.com.cn/
@@ -7,8 +7,8 @@
 民生银行民生易贷 https://www.msyidai.com/
 民生银行民生转赚 https://www.mszhuanzhuan.com/
 华润银行资产交易平台 http://e.crbank.com.cn/
-广东南粤银行南粤e＋ https://one.gdnybank.com/
+#广东南粤银行南粤e＋ https://one.gdnybank.com/
 平安银行陆金所 http://www.lufax.com/
 浦发银行靠浦e投 https://ebank.spdb.com.cn/fmall/#/P2BBuyQueryRes
-长子农商银行长青融e贷 http://ryd.zznsyh.cn
+#长子农商银行长青融e贷 http://ryd.zznsyh.cn
 江苏泗阳农村商业银行 http://www.syrcbank.com/ E阳贷 http://www.eyangdai.com/
