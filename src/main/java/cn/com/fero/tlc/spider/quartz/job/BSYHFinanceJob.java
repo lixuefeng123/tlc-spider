@@ -31,14 +31,14 @@ public class BSYHFinanceJob extends TLCSpiderJob {
         List<TransObject> transObjectList = new ArrayList();
 
         for (TagNode product : productList) {
-            String projectName = TLCSpiderHTMLParser.parserText(product, "//td[1]/a[1]");
-            String investmentInterest = TLCSpiderHTMLParser.parserText(product, "//td[2]");
-            String duration = TLCSpiderHTMLParser.parserText(product, "//td[3]");
+            String projectName = TLCSpiderHTMLParser.parseText(product, "//td[1]/a[1]");
+            String investmentInterest = TLCSpiderHTMLParser.parseText(product, "//td[2]");
+            String duration = TLCSpiderHTMLParser.parseText(product, "//td[3]");
             duration = String.valueOf(Integer.parseInt(SplitUtil.splitNumberChinese(duration, 1)) * 30);
-            String amount = TLCSpiderHTMLParser.parserText(product, "//td[4]/strong").split("\\.")[0].replaceAll(",", "");
-            String repayType = TLCSpiderHTMLParser.parserText(product, "//td[5]/a");
+            String amount = TLCSpiderHTMLParser.parseText(product, "//td[4]/strong").split("\\.")[0].replaceAll(",", "");
+            String repayType = TLCSpiderHTMLParser.parseText(product, "//td[5]/a");
             if(StringUtils.isEmpty(repayType)) {
-                repayType = TLCSpiderHTMLParser.parserText(product, "//td[5]");
+                repayType = TLCSpiderHTMLParser.parseText(product, "//td[5]");
             }
             if (repayType.contains("到期") && (repayType.contains("本") || repayType.contains("息"))) {
                 repayType = "0";
@@ -47,7 +47,7 @@ public class BSYHFinanceJob extends TLCSpiderJob {
             } else {
                 repayType = "2";
             }
-            String realProgress = TLCSpiderHTMLParser.parserText(product, "//td[6]/div[@class='persent']").replaceAll("&nbsp;", "").split("\\n")[1].trim() + "%";
+            String realProgress = TLCSpiderHTMLParser.parseText(product, "//td[6]/div[@class='persent']").replaceAll("&nbsp;", "").split("\\n")[1].trim() + "%";
             String progress = realProgress;
             String detailLink = TLCSpiderHTMLParser.parseAttribute(product, "//td[1]/a[1]", "href");
             String financingId = detailLink.split("=")[2];
@@ -56,7 +56,7 @@ public class BSYHFinanceJob extends TLCSpiderJob {
             String detailContent = TLCSpiderRequest.get(detailLink);
 
             int minAmount = 1;
-            String minInvestPartsCountStr = TLCSpiderHTMLParser.parserText(detailContent, "//div[@class='pi_tl_middle clear']//li[@class='eq2']//span[@id='pi_date_left']").split("\\.")[0];
+            String minInvestPartsCountStr = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='pi_tl_middle clear']//li[@class='eq2']//span[@id='pi_date_left']").split("\\.")[0];
             Integer minInvestPartsCount = Integer.parseInt(minInvestPartsCountStr) / minAmount;
             Integer partsCount = Integer.parseInt(amount) / minAmount;
 

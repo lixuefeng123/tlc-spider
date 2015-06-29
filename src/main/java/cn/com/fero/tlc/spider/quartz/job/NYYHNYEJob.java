@@ -35,7 +35,7 @@ public class NYYHNYEJob extends TLCSpiderJob {
 
         param.put("pagesize", totalCount);
         String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        List<NYYHNYE> nyyhnyeList = JsonUtil.getArray(productContent, "projList", NYYHNYE.class);
+        List<NYYHNYE> nyyhnyeList = JsonUtil.json2Array(productContent, "projList", NYYHNYE.class);
         List<TransObject> transObjectList = new ArrayList();
 
 

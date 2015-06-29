@@ -38,31 +38,31 @@ public class LZYHEREDJob extends TLCSpiderJob {
         param.put("pre", ")");
 
         String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String totalCount = TLCSpiderHTMLParser.parserText(countContent, "//div[@class='main_m_line1']//a[@class='inv_b_div1a'][last()]");
+        String totalCount = TLCSpiderHTMLParser.parseText(countContent, "//div[@class='main_m_line1']//a[@class='inv_b_div1a'][last()]");
         int totalCountNum = Integer.parseInt(totalCount);
 
-        for(int a = 1; a <= totalCountNum; a++) {
-            param.put("pn", String.valueOf(a));
+        for(Integer a = 1; a <= totalCountNum; a++) {
+            param.put("pn", a.toString());
             String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
             List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='main_l_main']/div[@class='main_m_line']");
 
             for(TagNode product : productList) {
-                String projectName = TLCSpiderHTMLParser.parserText(product, "//div[@class='m_l_left']/div[@class='m_l_title']/span");
-                String amount = TLCSpiderHTMLParser.parserText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left2'][2]");
+                String projectName = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='m_l_title']/span");
+                String amount = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left2'][2]");
                 amount = SplitUtil.splitNumberChinese(amount, 1);
                 amount += "00000";
 
                 int minAmount = 1;
-                String minInvestPartsCountStr = TLCSpiderHTMLParser.parserText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left2'][1]");
+                String minInvestPartsCountStr = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left2'][1]");
                 minInvestPartsCountStr = SplitUtil.splitNumberChinese(minInvestPartsCountStr, 1);
                 Integer minInvestPartsCount = Integer.parseInt(minInvestPartsCountStr) / minAmount;
                 Integer partsCount = Integer.parseInt(amount) / minAmount;
 
-                String investmentInterest = TLCSpiderHTMLParser.parserText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left3']/font");
-                String duration = TLCSpiderHTMLParser.parserText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left1']");
+                String investmentInterest = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left3']/font");
+                String duration = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left1']");
                 duration = SplitUtil.splitNumberChinese(duration, 1);
-//                String realProgress =TLCSpiderHTMLParser.parserText(product, "//div[@class='svgDemo']");
-//                String realProgress =TLCSpiderHTMLParser.parserText(product, "//div[@class='svgDemo']//script");
+//                String realProgress =TLCSpiderHTMLParser.parseText(product, "//div[@class='svgDemo']");
+//                String realProgress =TLCSpiderHTMLParser.parseText(product, "//div[@class='svgDemo']//script");
 //                realProgress = Double.parseDouble(realProgress) * 100 + "%";
 //                String progress = realProgress;
                 String detailLink = TLCSpiderHTMLParser.parseAttribute(product, "//a[@class='m_l_right right_unok']", "onclick");
@@ -77,13 +77,13 @@ public class LZYHEREDJob extends TLCSpiderJob {
                     projectCode = financingId;
                     String detailContent = TLCSpiderRequest.get(URL_PRODUCT_DETAIL + financingId);
 
-                    projectBeginTime = TLCSpiderHTMLParser.parserText(detailContent, "//div[@class='invest_l_top1']/div[@class='l_t_tfont_date']/span[@class='date_span']");
+                    projectBeginTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='invest_l_top1']/div[@class='l_t_tfont_date']/span[@class='date_span']");
                     projectBeginTime = projectBeginTime.split(":", 2)[1];
 
-                    valueBegin = TLCSpiderHTMLParser.parserText(detailContent, "//div[@class='invest_l_top1']/div[@class='l_t_tfont_date2']/span[@class='date2_span']");
+                    valueBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='invest_l_top1']/div[@class='l_t_tfont_date2']/span[@class='date2_span']");
                     valueBegin = valueBegin.split(":")[1].trim();
 
-                    repayBegin = TLCSpiderHTMLParser.parserText(detailContent, "//div[@class='invest_l_top1']/div[@class='l_t_tfont_date2']").split(":")[2].trim();
+                    repayBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='invest_l_top1']/div[@class='l_t_tfont_date2']").split(":")[2].trim();
                 }
 
                 TransObject transObject = new TransObject();

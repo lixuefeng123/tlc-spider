@@ -3,7 +3,6 @@ package cn.com.fero.tlc.spider.quartz.job;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
-import cn.com.fero.tlc.spider.vo.CZNSYH;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
 import org.quartz.JobExecutionContext;
@@ -39,11 +38,11 @@ public class ZHXQYEJJob extends TLCSpiderJob {
 //        String totalCount = JsonUtil.getString(pageStr, "TotalCount");
         String totalPage = JsonUtil.getString(pageStr, "TotalPage");
         int totalPageNum = Integer.parseInt(totalPage);
-        for(int a = 1; a <= totalPageNum; a++) {
-            param.put("PageIndex", String.valueOf(a));
+        for(Integer a = 1; a <= totalPageNum; a++) {
+            param.put("PageIndex", a.toString());
             String listContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
             String listStr = JsonUtil.getString(listContent, "DicData");
-            List<ZHXQYEJ> zhxqyejList = JsonUtil.getArray(listStr, "NormalList", ZHXQYEJ.class);
+            List<ZHXQYEJ> zhxqyejList = JsonUtil.json2Array(listStr, "NormalList", ZHXQYEJ.class);
             for(ZHXQYEJ zhxqyej : zhxqyejList) {
                 TransObject transObject = new TransObject();
                 transObject.setFinancingId(zhxqyej.getFinancingId());
@@ -92,7 +91,7 @@ public class ZHXQYEJJob extends TLCSpiderJob {
             }
         }
 
-
-        print(transObjectList);
+        String response = TLCSpiderRequest.sendJson("http://tailicaiop.fero.com.cn/spiderapi/p2p/post", JsonUtil.array2Json(transObjectList));
+        LoggerUtil.getLogger().info("发送招商银行小企业E家状态：" + response);
     }
 }

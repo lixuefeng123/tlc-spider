@@ -100,6 +100,8 @@ public class TLCSpiderRequest {
             httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost(url);
             StringEntity entity = new StringEntity(json);
+            entity.setContentEncoding(TLCSpiderConstants.ENCODING);
+            entity.setContentType(TLCSpiderConstants.CONTENT_TYPE_JSON);
             httpPost.setEntity(entity);
 
             response = httpClient.execute(httpPost);

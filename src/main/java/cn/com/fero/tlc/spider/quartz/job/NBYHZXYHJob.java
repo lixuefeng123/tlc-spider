@@ -4,7 +4,6 @@ import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
 import cn.com.fero.tlc.spider.vo.NBYHZXYH;
-import cn.com.fero.tlc.spider.vo.RDNSYHERJZ;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -40,13 +39,13 @@ public class NBYHZXYHJob extends TLCSpiderJob {
         String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
         String countStr = JsonUtil.getString(countContent, "Data");
         String totalCount = JsonUtil.getString(countStr, "TotalCount");
-
         int totalCountNum = Integer.parseInt(totalCount) % pageSize == 0 ? Integer.parseInt(totalCount) / pageSize : (Integer.parseInt(totalCount) / pageSize + 1);
-        for(int a = 1; a <= totalCountNum; a++) {
-            param.put("PageSize", String.valueOf(a));
+
+        for(Integer a = 1; a <= totalCountNum; a++) {
+            param.put("PageIndex", a.toString());
             String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
             String dataStr = JsonUtil.getString(productContent, "Data");
-            List<NBYHZXYH> nbyhzxyhList = JsonUtil.getArray(dataStr, "ResultList", NBYHZXYH.class);
+            List<NBYHZXYH> nbyhzxyhList = JsonUtil.json2Array(dataStr, "ResultList", NBYHZXYH.class);
             for(NBYHZXYH nbyhzxyh : nbyhzxyhList) {
                 TransObject transObject = new TransObject();
                 transObject.setFinancingId(nbyhzxyh.getFinancingId());
@@ -68,6 +67,7 @@ public class NBYHZXYHJob extends TLCSpiderJob {
                 transObject.setProgress(nbyhzxyh.getProgress());
                 transObject.setFinanceApplyStatus(nbyhzxyh.getFinanceApplyStatus());
                 transObject.setHotStatus(nbyhzxyh.getHotStatus());
+                //TODO 未处理属性 ProgressForOrder: 0.99 RemainPartsCount: 3 UnrealJMBeginTime: "/Date(1435736774353)/"
                 transObjectList.add(transObject);
             }
         }

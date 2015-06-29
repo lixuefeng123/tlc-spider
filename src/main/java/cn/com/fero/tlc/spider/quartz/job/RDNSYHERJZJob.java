@@ -5,7 +5,6 @@ import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
 import cn.com.fero.tlc.spider.vo.RDNSYHERJZ;
 import cn.com.fero.tlc.spider.vo.TransObject;
-import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -26,6 +25,7 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         LoggerUtil.getLogger().info("开始抓取尧都农商银行E融九州");
         List<TransObject> transObjectList = new ArrayList();
+        Integer pageSize = 10;
 
         Map<String, String> param = new HashMap();
         param.put("targetAction", "CmbFinancingSearch");
@@ -36,42 +36,50 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
         param.put("ProjectStatus", "");
         param.put("ProjectAmount", "");
 
-        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String dataStr = JsonUtil.getString(pageContent, "Data");
-        List<RDNSYHERJZ> rdnsyherjzList = JsonUtil.getArray(dataStr, "ResultList", RDNSYHERJZ.class, "YMInterest");
+        String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String countStr = JsonUtil.getString(countContent, "Data");
+        String totalCount = JsonUtil.getString(countStr, "TotalCount");
+        int totalCountNum = Integer.parseInt(totalCount) % pageSize == 0 ? Integer.parseInt(totalCount) / pageSize : (Integer.parseInt(totalCount) / pageSize + 1);
 
-        for(RDNSYHERJZ rdnsyherjz : rdnsyherjzList) {
-            TransObject transObject = new TransObject();
-            transObject.setFinancingId(rdnsyherjz.getFinancingId());
-            transObject.setProjectCode(rdnsyherjz.getProjectCode());
-            transObject.setProjectName(rdnsyherjz.getProjectName());
-            transObject.setBindUserId(rdnsyherjz.getBindUserId());
-            transObject.setBindUserName(rdnsyherjz.getBindUserName());
-            transObject.setBindCompanyId(rdnsyherjz.getBindCompanyId());
-            transObject.setBindCompanyName(rdnsyherjz.getBindCompanyName());
-            transObject.setAmount(rdnsyherjz.getAmount());
-            transObject.setPartsCount(rdnsyherjz.getMinInvestPartsCount());
-            transObject.setBankInterest(rdnsyherjz.getBankInterest());
-            transObject.setInvestmentInterest(rdnsyherjz.getInvestmentInterest());
-            transObject.setDuration(rdnsyherjz.getDuration());
-            transObject.setRepayType(rdnsyherjz.getRepayType());
-            transObject.setValueBegin(rdnsyherjz.getValueBegin());
-            transObject.setRepayBegin(rdnsyherjz.getRepayBegin());
-            transObject.setProjectBeginTime(rdnsyherjz.getProjectBeginTime());
-            transObject.setReadyBeginTime(rdnsyherjz.getReadyBeginTime());
-            transObject.setProjectStatus(rdnsyherjz.getProjectStatus());
-            transObject.setJmBeginTime(rdnsyherjz.getjMBeginTime());
-            transObject.setCreateTime(rdnsyherjz.getCreateTime());
-            transObject.setIsShow(rdnsyherjz.getIsShow());
-            transObject.setProjectType(rdnsyherjz.getProjectType());
-            transObject.setIsExclusivePublic(rdnsyherjz.getIsExclusivePublic());
-            transObject.setMinInvestPartsCount(rdnsyherjz.getMinInvestPartsCount());
-            transObject.setExclusiveCode(rdnsyherjz.getExclusiveCode());
-            transObject.setRealProgress(rdnsyherjz.getRealProgress());
-            transObject.setProgress(rdnsyherjz.getProgress());
-            transObject.setFinanceApplyStatus(rdnsyherjz.getFinanceApplyStatus());
-            transObject.setHotStatus(rdnsyherjz.getHotStatus());
-            transObjectList.add(transObject);
+        for(Integer a = 1; a <= totalCountNum; a++) {
+            param.put("PageIndex", a.toString());
+            String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+            String dataStr = JsonUtil.getString(productContent, "Data");
+            List<RDNSYHERJZ> rdnsyherjzList = JsonUtil.json2Array(countStr, "ResultList", RDNSYHERJZ.class, "YMInterest");
+            for(RDNSYHERJZ rdnsyherjz : rdnsyherjzList) {
+                TransObject transObject = new TransObject();
+                transObject.setFinancingId(rdnsyherjz.getFinancingId());
+                transObject.setProjectCode(rdnsyherjz.getProjectCode());
+                transObject.setProjectName(rdnsyherjz.getProjectName());
+                transObject.setBindUserId(rdnsyherjz.getBindUserId());
+                transObject.setBindUserName(rdnsyherjz.getBindUserName());
+                transObject.setBindCompanyId(rdnsyherjz.getBindCompanyId());
+                transObject.setBindCompanyName(rdnsyherjz.getBindCompanyName());
+                transObject.setAmount(rdnsyherjz.getAmount());
+                transObject.setPartsCount(rdnsyherjz.getMinInvestPartsCount());
+                transObject.setBankInterest(rdnsyherjz.getBankInterest());
+                transObject.setInvestmentInterest(rdnsyherjz.getInvestmentInterest());
+                transObject.setDuration(rdnsyherjz.getDuration());
+                transObject.setRepayType(rdnsyherjz.getRepayType());
+                transObject.setValueBegin(rdnsyherjz.getValueBegin());
+                transObject.setRepayBegin(rdnsyherjz.getRepayBegin());
+                transObject.setProjectBeginTime(rdnsyherjz.getProjectBeginTime());
+                transObject.setReadyBeginTime(rdnsyherjz.getReadyBeginTime());
+                transObject.setProjectStatus(rdnsyherjz.getProjectStatus());
+                transObject.setJmBeginTime(rdnsyherjz.getjMBeginTime());
+                transObject.setCreateTime(rdnsyherjz.getCreateTime());
+                transObject.setIsShow(rdnsyherjz.getIsShow());
+                transObject.setProjectType(rdnsyherjz.getProjectType());
+                transObject.setIsExclusivePublic(rdnsyherjz.getIsExclusivePublic());
+                transObject.setMinInvestPartsCount(rdnsyherjz.getMinInvestPartsCount());
+                transObject.setExclusiveCode(rdnsyherjz.getExclusiveCode());
+                transObject.setRealProgress(rdnsyherjz.getRealProgress());
+                transObject.setProgress(rdnsyherjz.getProgress());
+                transObject.setFinanceApplyStatus(rdnsyherjz.getFinanceApplyStatus());
+                transObject.setHotStatus(rdnsyherjz.getHotStatus());
+                //TODO 未处理属性 YMInterest: 0.5
+                transObjectList.add(transObject);
+            }
         }
 
         print(transObjectList);

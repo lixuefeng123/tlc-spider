@@ -30,7 +30,7 @@ public class TLCSpiderHTMLParser {
         }
     }
 
-    public static String parserText(String content, String xpath) {
+    public static String parseText(String content, String xpath) {
         try {
             HtmlCleaner htmlCleaner = new HtmlCleaner();
             TagNode html = htmlCleaner.clean(content);
@@ -46,7 +46,7 @@ public class TLCSpiderHTMLParser {
         }
     }
 
-    public static String parserText(TagNode tagNode, String xpath) {
+    public static String parseText(TagNode tagNode, String xpath) {
         try {
             Object[] children = tagNode.evaluateXPath(xpath);
             if(null == children || children.length <= 0) {

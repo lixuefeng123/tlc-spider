@@ -25,7 +25,7 @@ public class CZNSYHJob extends TLCSpiderJob {
 
         String content = TLCSpiderRequest.get(URL_PRODUCT_LIST);
         String dataStr = JsonUtil.getString(content, "data");
-        List<CZNSYH> cznsyhList = JsonUtil.getArray(dataStr, "data", CZNSYH.class);
+        List<CZNSYH> cznsyhList = JsonUtil.json2Array(dataStr, "data", CZNSYH.class);
         List<TransObject> transObjectList = new ArrayList();
 //
 //        {

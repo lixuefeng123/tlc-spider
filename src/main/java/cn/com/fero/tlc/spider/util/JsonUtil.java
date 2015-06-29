@@ -4,6 +4,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import net.sf.json.util.JavaIdentifierTransformer;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -24,6 +25,14 @@ public final class JsonUtil {
         }
 
         return JSONObject.fromObject(obj).toString();
+    }
+
+    public static String array2Json(List list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return StringUtils.EMPTY;
+        }
+
+        return JSONArray.fromObject(list).toString();
     }
 
     public static Object json2Object(String jsonStr, Class clazz, String... excludePropery) {
@@ -65,7 +74,7 @@ public final class JsonUtil {
         return jsonObject.get(key).toString();
     }
 
-    public static List getArray(String jsonStr, String key, Class clazz, String... excludeProperty) {
+    public static List json2Array(String jsonStr, String key, Class clazz, String... excludeProperty) {
         if (StringUtils.isEmpty(jsonStr) || StringUtils.isEmpty(key)) {
             throw new IllegalArgumentException();
         }
