@@ -532,7 +532,7 @@ public class TransObject {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("FinanceValue{");
+        final StringBuilder sb = new StringBuilder("TransObject{");
         sb.append("financingId='").append(financingId).append('\'');
         sb.append(", projectCode='").append(projectCode).append('\'');
         sb.append(", projectName='").append(projectName).append('\'');

@@ -10,6 +10,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -69,6 +70,37 @@ public class TLCSpiderRequest {
                 paramList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
             }
             httpPost.setEntity(new UrlEncodedFormEntity(paramList, CharsetUtils.get(TLCSpiderConstants.ENCODING)));
+
+            response = httpClient.execute(httpPost);
+            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.ENCODING);
+        } catch (Exception e) {
+            throw new TLCSpiderRequestException(e);
+        } finally {
+            try {
+                if (null != httpClient) {
+                    httpClient.close();
+                }
+                if (null != response) {
+                    response.close();
+                }
+            } catch (Exception e) {
+                throw new TLCSpiderRequestException(e);
+            }
+        }
+    }
+
+    public static String sendJson(String url, String json) {
+        if(StringUtils.isEmpty(url) || StringUtils.isEmpty(json)) {
+            throw new IllegalArgumentException();
+        }
+
+        CloseableHttpClient httpClient = null;
+        CloseableHttpResponse response = null;
+        try {
+            httpClient = HttpClients.createDefault();
+            HttpPost httpPost = new HttpPost(url);
+            StringEntity entity = new StringEntity(json);
+            httpPost.setEntity(entity);
 
             response = httpClient.execute(httpPost);
             return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.ENCODING);
