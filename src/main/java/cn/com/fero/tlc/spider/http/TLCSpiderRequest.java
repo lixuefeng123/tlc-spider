@@ -121,4 +121,38 @@ public class TLCSpiderRequest {
             }
         }
     }
+
+//
+//    public static String sendPost(String url, String json) {
+//        if(StringUtils.isEmpty(url) || StringUtils.isEmpty(json)) {
+//            throw new IllegalArgumentException();
+//        }
+//
+//        CloseableHttpClient httpClient = null;
+//        CloseableHttpResponse response = null;
+//        try {
+//            httpClient = HttpClients.createDefault();
+//            HttpPost httpPost = new HttpPost(url);
+//
+//            List <NameValuePair> params = new ArrayList<NameValuePair>();
+//            params.add(new BasicNameValuePair("str", "I am Post String"));
+//            httpPost.setEntity(new UrlEncodedFormEntity(params,HTTP.UTF_8));
+//
+//            response = httpClient.execute(httpPost);
+//            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.ENCODING);
+//        } catch (Exception e) {
+//            throw new TLCSpiderRequestException(e);
+//        } finally {
+//            try {
+//                if (null != httpClient) {
+//                    httpClient.close();
+//                }
+//                if (null != response) {
+//                    response.close();
+//                }
+//            } catch (Exception e) {
+//                throw new TLCSpiderRequestException(e);
+//            }
+//        }
+//    }
 }

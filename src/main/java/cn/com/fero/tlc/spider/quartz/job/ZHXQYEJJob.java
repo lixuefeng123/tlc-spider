@@ -91,7 +91,11 @@ public class ZHXQYEJJob extends TLCSpiderJob {
             }
         }
 
-        String response = TLCSpiderRequest.sendJson("http://tailicaiop.fero.com.cn/spiderapi/p2p/post", JsonUtil.array2Json(transObjectList));
+        Map<String, String> map = new HashMap();
+        map.put("sid", "1");
+        map.put("token", "m88l48Mguil4+F9ilbodCID5MFnHl30cQmzVJ7FeAmOV");
+        map.put("data", JsonUtil.array2Json(transObjectList));
+        String response = TLCSpiderRequest.post("http://192.168.2.19:3005/spiderapi/p2p/post", map);
         LoggerUtil.getLogger().info("发送招商银行小企业E家状态：" + response);
     }
 }

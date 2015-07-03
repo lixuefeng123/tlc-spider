@@ -2,6 +2,7 @@ package cn.com.fero.tlc.spider.quartz.job;
 
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
+import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
 import cn.com.fero.tlc.spider.util.SplitUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
@@ -78,12 +79,12 @@ public class LZYHEREDJob extends TLCSpiderJob {
                     String detailContent = TLCSpiderRequest.get(URL_PRODUCT_DETAIL + financingId);
 
                     projectBeginTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='invest_l_top1']/div[@class='l_t_tfont_date']/span[@class='date_span']");
-                    projectBeginTime = projectBeginTime.split(":", 2)[1];
+//                    projectBeginTime = projectBeginTime.split(":", 2)[1];
 
                     valueBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='invest_l_top1']/div[@class='l_t_tfont_date2']/span[@class='date2_span']");
-                    valueBegin = valueBegin.split(":")[1].trim();
+//                    valueBegin = valueBegin.split(":")[1].trim();
 
-                    repayBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='invest_l_top1']/div[@class='l_t_tfont_date2']").split(":")[2].trim();
+//                    repayBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='invest_l_top1']/div[@class='l_t_tfont_date2']").split(":")[2].trim();
                 }
 
                 TransObject transObject = new TransObject();
@@ -105,6 +106,11 @@ public class LZYHEREDJob extends TLCSpiderJob {
             }
         }
 
-        print(transObjectList);
+        Map<String, String> map = new HashMap();
+        map.put("sid", "2");
+        map.put("token", "j1zTVyiJLtJK51tbCdEY5d3DO6W6VxW+ZAK4l3zrWZOx");
+        map.put("data", JsonUtil.array2Json(transObjectList));
+        String response = TLCSpiderRequest.post("http://192.168.2.19:3005/spiderapi/p2p/post", map);
+        LoggerUtil.getLogger().info("发送招商银行小企业E家状态：" + response);
     }
 }
