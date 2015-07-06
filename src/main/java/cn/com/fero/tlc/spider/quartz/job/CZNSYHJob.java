@@ -67,7 +67,7 @@ public class CZNSYHJob extends TLCSpiderJob {
 //            "interestDay": null
 //        }
 
-        for(CZNSYH cznsyh : cznsyhList) {
+        for (CZNSYH cznsyh : cznsyhList) {
             TransObject transObject = new TransObject();
             //TODO 转换
             transObjectList.add(transObject);

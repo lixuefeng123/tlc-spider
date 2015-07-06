@@ -43,12 +43,12 @@ public class LZYHEREDJob extends TLCSpiderJob {
         String totalCount = TLCSpiderHTMLParser.parseText(countContent, "//div[@class='main_m_line1']//a[@class='inv_b_div1a'][last()]");
         int totalCountNum = Integer.parseInt(totalCount);
 
-        for(Integer a = 1; a <= totalCountNum; a++) {
+        for (Integer a = 1; a <= totalCountNum; a++) {
             param.put("pn", a.toString());
             String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
             List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='main_l_main']/div[@class='main_m_line']");
 
-            for(TagNode product : productList) {
+            for (TagNode product : productList) {
                 String projectName = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='m_l_title']/span");
                 String amount = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left2'][2]");
                 amount = SplitUtil.splitNumberChinese(amount, 1);
@@ -74,7 +74,7 @@ public class LZYHEREDJob extends TLCSpiderJob {
                 String projectCode = null;
                 String valueBegin = null;
                 String repayBegin = null;
-                if(detailLink.contains("viewProject")) {
+                if (detailLink.contains("viewProject")) {
                     financingId = detailLink.split("'")[1];
                     projectCode = financingId;
                     String detailContent = TLCSpiderRequest.get(URL_PRODUCT_DETAIL + financingId);

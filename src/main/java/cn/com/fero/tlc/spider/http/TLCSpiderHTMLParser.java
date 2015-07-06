@@ -35,7 +35,7 @@ public class TLCSpiderHTMLParser {
             HtmlCleaner htmlCleaner = new HtmlCleaner();
             TagNode html = htmlCleaner.clean(content);
             Object[] children = html.evaluateXPath(xpath);
-            if(null == children || children.length <= 0) {
+            if (null == children || children.length <= 0) {
                 return StringUtils.EMPTY;
             }
 
@@ -49,7 +49,7 @@ public class TLCSpiderHTMLParser {
     public static String parseText(TagNode tagNode, String xpath) {
         try {
             Object[] children = tagNode.evaluateXPath(xpath);
-            if(null == children || children.length <= 0) {
+            if (null == children || children.length <= 0) {
                 return StringUtils.EMPTY;
             }
 
@@ -66,7 +66,7 @@ public class TLCSpiderHTMLParser {
             HtmlCleaner htmlCleaner = new HtmlCleaner();
             TagNode html = htmlCleaner.clean(content);
             Object[] children = html.evaluateXPath(xpath);
-            if(null == children || children.length <= 0) {
+            if (null == children || children.length <= 0) {
                 return StringUtils.EMPTY;
             }
 
@@ -80,7 +80,7 @@ public class TLCSpiderHTMLParser {
     public static String parseAttribute(TagNode tagNode, String xpath, String attribute) {
         try {
             Object[] children = tagNode.evaluateXPath(xpath);
-            if(null == children || children.length <= 0) {
+            if (null == children || children.length <= 0) {
                 return StringUtils.EMPTY;
             }
 

@@ -25,7 +25,7 @@ import java.util.Map;
  */
 public class TLCSpiderRequest {
     public static String get(String url) {
-        if(StringUtils.isEmpty(url)) {
+        if (StringUtils.isEmpty(url)) {
             throw new IllegalArgumentException();
         }
 
@@ -53,7 +53,7 @@ public class TLCSpiderRequest {
     }
 
     public static String post(String url, Map<String, String> param) {
-        if(StringUtils.isEmpty(url) || MapUtils.isEmpty(param)) {
+        if (StringUtils.isEmpty(url) || MapUtils.isEmpty(param)) {
             throw new IllegalArgumentException();
         }
 
@@ -64,7 +64,7 @@ public class TLCSpiderRequest {
             HttpPost httpPost = new HttpPost(url);
 
             List<NameValuePair> paramList = new ArrayList();
-            for(Map.Entry<String, String> entry : param.entrySet()) {
+            for (Map.Entry<String, String> entry : param.entrySet()) {
                 paramList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
             }
             httpPost.setEntity(new UrlEncodedFormEntity(paramList, CharsetUtils.get(TLCSpiderConstants.HTTP_CHARACTER_ENCODING)));
@@ -88,7 +88,7 @@ public class TLCSpiderRequest {
     }
 
     public static String sendJson(String url, String json) {
-        if(StringUtils.isEmpty(url) || StringUtils.isEmpty(json)) {
+        if (StringUtils.isEmpty(url) || StringUtils.isEmpty(json)) {
             throw new IllegalArgumentException();
         }
 

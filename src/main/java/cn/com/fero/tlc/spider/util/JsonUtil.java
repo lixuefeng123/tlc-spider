@@ -15,7 +15,7 @@ import java.util.List;
  * Created by wanghongmeng on 2015/6/24.
  */
 public final class JsonUtil {
-    private JsonUtil () {
+    private JsonUtil() {
         throw new UnsupportedOperationException();
     }
 

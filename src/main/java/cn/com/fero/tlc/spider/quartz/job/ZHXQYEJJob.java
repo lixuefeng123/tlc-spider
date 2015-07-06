@@ -37,8 +37,8 @@ public class ZHXQYEJJob extends TLCSpiderJob {
         String totalPage = JsonUtil.getString(pageStr, "TotalPage");
         int totalPageNum = Integer.parseInt(totalPage);
         boolean isContinue = true;
-        for(Integer a = 1; a <= totalPageNum; a++) {
-            if(!isContinue) {
+        for (Integer a = 1; a <= totalPageNum; a++) {
+            if (!isContinue) {
                 break;
             }
 
@@ -46,9 +46,9 @@ public class ZHXQYEJJob extends TLCSpiderJob {
             String listContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
             String listStr = JsonUtil.getString(listContent, "DicData");
             List<ZHXQYEJ> zhxqyejList = JsonUtil.json2Array(listStr, "NormalList", ZHXQYEJ.class);
-            for(ZHXQYEJ zhxqyej : zhxqyejList) {
+            for (ZHXQYEJ zhxqyej : zhxqyejList) {
                 TransObject transObject = constructTransObject(zhxqyej);
-                if(!transObject.getProgress().equals("100%") || updateMap.containsKey(transObject.getFinancingId())) {
+                if (!transObject.getProgress().equals("100%") || updateMap.containsKey(transObject.getFinancingId())) {
                     DATA.add(transObject);
                 } else {
                     isContinue = false;
@@ -58,7 +58,7 @@ public class ZHXQYEJJob extends TLCSpiderJob {
                     break;
                 }
 
-                if(DATA.size() >= TLCSpiderConstants.SPIDER_PAGE_SIZE_SEND) {
+                if (DATA.size() >= TLCSpiderConstants.SPIDER_PAGE_SIZE_SEND) {
                     LoggerUtil.getLogger().info("发送" + JOB_TITLE + "数据, size = " + DATA.size());
                     postData();
                     DATA.clear();

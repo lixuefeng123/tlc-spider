@@ -42,12 +42,12 @@ public class QDYHCFEWJob extends TLCSpiderJob {
         String totalCount = JsonUtil.getString(countStr, "TotalCount");
         int totalCountNum = Integer.parseInt(totalCount) % pageSize == 0 ? Integer.parseInt(totalCount) / pageSize : (Integer.parseInt(totalCount) / pageSize + 1);
 
-        for(Integer a = 1; a <= totalCountNum; a++) {
+        for (Integer a = 1; a <= totalCountNum; a++) {
             param.put("PageIndex", a.toString());
             String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
             String dataStr = JsonUtil.getString(productContent, "Data");
             List<QDYHCFEW> qdyhcfewList = JsonUtil.json2Array(dataStr, "ResultList", QDYHCFEW.class);
-            for(QDYHCFEW qdyhcfew : qdyhcfewList) {
+            for (QDYHCFEW qdyhcfew : qdyhcfewList) {
                 TransObject transObject = new TransObject();
                 transObject.setFinancingId(qdyhcfew.getFinancingId());
                 transObject.setProjectCode(qdyhcfew.getProjectCode());

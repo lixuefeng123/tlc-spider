@@ -6,13 +6,16 @@ import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.DateFormatUtil;
 import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
-import cn.com.fero.tlc.spider.vo.TransObject;
 import cn.com.fero.tlc.spider.vo.NYYHNYE;
+import cn.com.fero.tlc.spider.vo.TransObject;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -53,7 +56,7 @@ public class NYYHNYEJob extends TLCSpiderJob {
 //        "startFlag": "1",
 //        "setlBatchDate": "20150805",
 
-        for(NYYHNYE nyyhnye : nyyhnyeList) {
+        for (NYYHNYE nyyhnye : nyyhnyeList) {
             TransObject transObject = new TransObject();
             transObject.setFinancingId(nyyhnye.getProdCode());
             transObject.setProjectCode(nyyhnye.getProjCode());
@@ -63,19 +66,19 @@ public class NYYHNYEJob extends TLCSpiderJob {
             transObject.setInvestmentInterest(Double.parseDouble(nyyhnye.getYieldRate()) * 100 + "%");
             transObject.setRealProgress(Double.parseDouble(nyyhnye.getBuyPercent()) * 100 + "%");
             transObject.setProgress(Double.parseDouble(nyyhnye.getBuyPercent()) * 100 + "%");
-            if(StringUtils.isNotEmpty(nyyhnye.getPubStaDate()) && StringUtils.isNotEmpty(nyyhnye.getPubStaTime())) {
+            if (StringUtils.isNotEmpty(nyyhnye.getPubStaDate()) && StringUtils.isNotEmpty(nyyhnye.getPubStaTime())) {
                 transObject.setProjectBeginTime(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_DEFAULT_FORMAT_DATE_TIME, nyyhnye.getPubStaDate(), nyyhnye.getPubStaTime()));
-            } else if(StringUtils.isNotEmpty(nyyhnye.getPubStaDate())){
+            } else if (StringUtils.isNotEmpty(nyyhnye.getPubStaDate())) {
                 transObject.setProjectBeginTime(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_DEFAULT_FORMAT_DATA, nyyhnye.getPubStaDate()));
             }
-            if(StringUtils.isNotEmpty(nyyhnye.getSellStaDate()) && StringUtils.isNotEmpty(nyyhnye.getSellStaTime())) {
+            if (StringUtils.isNotEmpty(nyyhnye.getSellStaDate()) && StringUtils.isNotEmpty(nyyhnye.getSellStaTime())) {
                 transObject.setValueBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_DEFAULT_FORMAT_DATE_TIME, nyyhnye.getSellStaDate(), nyyhnye.getSellStaTime()));
-            } else if(StringUtils.isNotEmpty(nyyhnye.getPubStaDate())) {
+            } else if (StringUtils.isNotEmpty(nyyhnye.getPubStaDate())) {
                 transObject.setValueBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_DEFAULT_FORMAT_DATA, nyyhnye.getSellStaDate()));
             }
-            if(StringUtils.isNotEmpty(nyyhnye.getSellEndDate()) && StringUtils.isNotEmpty(nyyhnye.getSellEndTime())) {
+            if (StringUtils.isNotEmpty(nyyhnye.getSellEndDate()) && StringUtils.isNotEmpty(nyyhnye.getSellEndTime())) {
                 transObject.setRepayBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_DEFAULT_FORMAT_DATE_TIME, nyyhnye.getSellEndDate(), nyyhnye.getSellEndTime()));
-            } else if(StringUtils.isNotEmpty(nyyhnye.getSellEndDate())){
+            } else if (StringUtils.isNotEmpty(nyyhnye.getSellEndDate())) {
                 transObject.setRepayBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_DEFAULT_FORMAT_DATA, nyyhnye.getSellEndDate()));
             }
 

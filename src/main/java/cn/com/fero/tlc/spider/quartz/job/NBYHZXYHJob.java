@@ -42,12 +42,12 @@ public class NBYHZXYHJob extends TLCSpiderJob {
         String totalCount = JsonUtil.getString(countStr, "TotalCount");
         int totalCountNum = Integer.parseInt(totalCount) % pageSize == 0 ? Integer.parseInt(totalCount) / pageSize : (Integer.parseInt(totalCount) / pageSize + 1);
 
-        for(Integer a = 1; a <= totalCountNum; a++) {
+        for (Integer a = 1; a <= totalCountNum; a++) {
             param.put("PageIndex", a.toString());
             String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
             String dataStr = JsonUtil.getString(productContent, "Data");
             List<NBYHZXYH> nbyhzxyhList = JsonUtil.json2Array(dataStr, "ResultList", NBYHZXYH.class);
-            for(NBYHZXYH nbyhzxyh : nbyhzxyhList) {
+            for (NBYHZXYH nbyhzxyh : nbyhzxyhList) {
                 TransObject transObject = new TransObject();
                 transObject.setFinancingId(nbyhzxyh.getFinancingId());
                 transObject.setProjectCode(nbyhzxyh.getProjectCode());

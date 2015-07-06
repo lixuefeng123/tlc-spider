@@ -73,11 +73,11 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
     }
 
     protected void print(List list) {
-        if(CollectionUtils.isEmpty(list)) {
+        if (CollectionUtils.isEmpty(list)) {
             return;
         }
 
-        for(Object obj : list) {
+        for (Object obj : list) {
             System.out.println(obj);
         }
     }
@@ -86,13 +86,13 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
         Map<String, String> map = constructPostParam();
         String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_GET_URL, map);
         String status = JsonUtil.getString(result, "state");
-        if(!TLCSpiderConstants.HTTP_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
+        if (!TLCSpiderConstants.HTTP_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
             throw new InvalidDataException(result);
         }
 
         List<TransObject> updateList = JsonUtil.json2Array(result, TLCSpiderConstants.HTTP_PARAM_DATA, TransObject.class);
         Map<String, TransObject> updateMap = new HashMap();
-        for(TransObject transObject : updateList) {
+        for (TransObject transObject : updateList) {
             map.put(transObject.getFinancingId(), null);
         }
         return updateMap;
@@ -102,7 +102,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         try {
             this.doExecute();
-        } catch(Exception e) {
+        } catch (Exception e) {
             Map<String, String> map = constructPostParam();
             map.put(TLCSpiderConstants.HTTP_PARAM_STATUS_NAME, TLCSpiderConstants.HTTP_PARAM_STATUS_FAIL_CODE);
             map.put(TLCSpiderConstants.HTTP_PARAM_MESSAGE, ExceptionUtils.getFullStackTrace(e));

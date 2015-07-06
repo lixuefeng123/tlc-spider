@@ -39,7 +39,7 @@ public class BSYHFinanceJob extends TLCSpiderJob {
             duration = String.valueOf(Integer.parseInt(SplitUtil.splitNumberChinese(duration, 1)) * 30);
             String amount = TLCSpiderHTMLParser.parseText(product, "//td[4]/strong").split("\\.")[0].replaceAll(",", "");
             String repayType = TLCSpiderHTMLParser.parseText(product, "//td[5]/a");
-            if(StringUtils.isEmpty(repayType)) {
+            if (StringUtils.isEmpty(repayType)) {
                 repayType = TLCSpiderHTMLParser.parseText(product, "//td[5]");
             }
             if (repayType.contains("到期") && (repayType.contains("本") || repayType.contains("息"))) {

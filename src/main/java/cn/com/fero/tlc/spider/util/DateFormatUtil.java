@@ -19,7 +19,7 @@ public final class DateFormatUtil {
 
     public static String formatDateTime(String format, String... args) {
         try {
-            if(StringUtils.isEmpty(format) || ArrayUtils.isEmpty(args)) {
+            if (StringUtils.isEmpty(format) || ArrayUtils.isEmpty(args)) {
                 throw new IllegalArgumentException();
             }
 
@@ -27,7 +27,7 @@ public final class DateFormatUtil {
             sdf.applyPattern(format);
 
             StringBuilder str = new StringBuilder();
-            for(String arg : args) {
+            for (String arg : args) {
                 str.append(arg);
             }
 
