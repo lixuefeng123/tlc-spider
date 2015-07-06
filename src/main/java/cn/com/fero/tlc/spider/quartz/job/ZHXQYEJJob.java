@@ -20,11 +20,13 @@ import java.util.Map;
 //招商银行小企业E家抓取
 public class ZHXQYEJJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = "https://efinance.cmbchinaucs.com/Handler/ActionPageV4.aspx";
+    private static final String SID = "1";
+    private static final String TOKEN = "m88l48Mguil4+F9ilbodCID5MFnHl30cQmzVJ7FeAmOV";
+    private static final List<TransObject> transObjectList = new ArrayList();
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         LoggerUtil.getLogger().info("开始抓取招商银行小企业E家");
-        List<TransObject> transObjectList = new ArrayList();
 
         Map<String, String> param = new HashMap();
         param.put("TargetAction", "GetProjectList_Index");

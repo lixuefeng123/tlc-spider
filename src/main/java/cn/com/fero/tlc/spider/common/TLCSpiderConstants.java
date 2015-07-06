@@ -14,4 +14,6 @@ public final class TLCSpiderConstants {
     public static final String NYYHNYE_DATE_TIME_FORMAT = "yyyyMMddHHmmss";
     public static final String NYYHNYE_DATE_FORMAT = "yyyyMMdd";
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String TLC_POST_URL = "http://192.168.2.19:3005/spiderapi/p2p/post";
+
 }
