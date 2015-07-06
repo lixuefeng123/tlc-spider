@@ -25,7 +25,6 @@ import java.util.Map;
 public class NYYHNYEJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = "https://one.gdnybank.com/directbank/erongProjectsList.do";
 
-    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         LoggerUtil.getLogger().info("开始抓取广东南粤银行南粤E+");
 
@@ -117,15 +116,5 @@ public class NYYHNYEJob extends TLCSpiderJob {
         }
 
         print(transObjectList);
-    }
-
-    @Override
-    protected Map<String, String> constructPostParam() {
-        return null;
-    }
-
-    @Override
-    public void doExecute() {
-
     }
 }

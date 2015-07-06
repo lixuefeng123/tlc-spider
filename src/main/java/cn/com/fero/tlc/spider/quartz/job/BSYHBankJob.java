@@ -24,7 +24,6 @@ public class BSYHBankJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = "https://www.xiaomabank.com/finance.do";
     private static final String URL_PRODUCT_DETAIL = "https://www.xiaomabank.com/";
 
-    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         LoggerUtil.getLogger().info("开始抓取包商银行小马bank");
 
@@ -88,13 +87,4 @@ public class BSYHBankJob extends TLCSpiderJob {
         print(transObjectList);
     }
 
-    @Override
-    protected Map<String, String> constructPostParam() {
-        return null;
-    }
-
-    @Override
-    public void doExecute() {
-
-    }
 }

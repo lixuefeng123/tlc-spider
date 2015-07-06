@@ -25,7 +25,6 @@ public class LZYHEREDJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = "https://eeonline.lzbank.com/eplus-frontend/Projects_list.action";
     private static final String URL_PRODUCT_DETAIL = "https://eeonline.lzbank.com/eplus-frontend/Projects_viewProject.action?projectId=";
 
-    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         LoggerUtil.getLogger().info("开始抓取兰州银行E融E贷");
         List<TransObject> transObjectList = new ArrayList();
@@ -115,13 +114,4 @@ public class LZYHEREDJob extends TLCSpiderJob {
         LoggerUtil.getLogger().info("发送招商银行小企业E家状态：" + response);
     }
 
-    @Override
-    protected Map<String, String> constructPostParam() {
-        return null;
-    }
-
-    @Override
-    public void doExecute() {
-
-    }
 }

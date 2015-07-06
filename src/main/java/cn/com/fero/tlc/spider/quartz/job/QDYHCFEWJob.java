@@ -22,7 +22,6 @@ import java.util.Map;
 public class QDYHCFEWJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = "https://e.qdccb.com/Ajax/ProcessRequest";
 
-    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         LoggerUtil.getLogger().info("开始抓取青岛银行财富E屋");
         List<TransObject> transObjectList = new ArrayList();
@@ -97,15 +96,5 @@ public class QDYHCFEWJob extends TLCSpiderJob {
         }
 
         print(transObjectList);
-    }
-
-    @Override
-    protected Map<String, String> constructPostParam() {
-        return null;
-    }
-
-    @Override
-    public void doExecute() {
-
     }
 }

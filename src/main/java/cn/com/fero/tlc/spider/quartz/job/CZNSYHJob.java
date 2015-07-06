@@ -21,7 +21,6 @@ import java.util.Map;
 public class CZNSYHJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = "https://ryd.zznsyh.cn/client/rest/home/data?index=1&size=1000&orderMap%5BpresaleDateEnd%5D=DESC&_=1435210991402";
 
-    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         LoggerUtil.getLogger().info("开始抓取长子农商银行长青融E贷");
 
@@ -76,13 +75,4 @@ public class CZNSYHJob extends TLCSpiderJob {
         print(cznsyhList);
     }
 
-    @Override
-    protected Map<String, String> constructPostParam() {
-        return null;
-    }
-
-    @Override
-    public void doExecute() {
-
-    }
 }

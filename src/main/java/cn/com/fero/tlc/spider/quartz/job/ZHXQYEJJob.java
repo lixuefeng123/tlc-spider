@@ -7,11 +7,9 @@ import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
+import com.sun.media.sound.InvalidDataException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -23,71 +21,66 @@ public class ZHXQYEJJob extends TLCSpiderJob {
     private static final String SID = "1";
     private static final String TOKEN = "2kd2Z1U=VbNhBw1XYxiuMJBaYP9FB=oPEJn3wn3qxKWU";
     private static final String JOB_TITLE = "招商银行小企业E家";
-    private static final List<TransObject> DATA = new ArrayList();
 
     @Override
-    public void doExecute() throws Exception {
-        LoggerUtil.getLogger().info("获取" + JOB_TITLE + "更新列表");
-        Map<String, TransObject> updateMap = getUpdateMap();
-
-        LoggerUtil.getLogger().info("开始抓取" + JOB_TITLE);
-        Map<String, String> param = constructRequestParam();
-        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+    public int getTotalPage() {
+        Map<String, String> spiderParam = constructSpiderParam();
+        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, spiderParam);
         String pageStr = JsonUtil.getString(pageContent, "DicData");
         String totalPage = JsonUtil.getString(pageStr, "TotalPage");
-        int totalPageNum = Integer.parseInt(totalPage);
-        boolean isContinue = true;
-        for (Integer a = 1; a <= totalPageNum; a++) {
-            if (!isContinue) {
-                break;
-            }
-
-            param.put("PageIndex", a.toString());
-            String listContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-            String listStr = JsonUtil.getString(listContent, "DicData");
-            List<ZHXQYEJ> zhxqyejList = JsonUtil.json2Array(listStr, "NormalList", ZHXQYEJ.class);
-            for (ZHXQYEJ zhxqyej : zhxqyejList) {
-                TransObject transObject = constructTransObject(zhxqyej);
-                if (!transObject.getProgress().equals("100%") || updateMap.containsKey(transObject.getFinancingId())) {
-                    DATA.add(transObject);
-                } else {
-                    isContinue = false;
-                    LoggerUtil.getLogger().info("发送" + JOB_TITLE + "数据, size = " + DATA.size());
-                    postData();
-                    DATA.clear();
-                    break;
-                }
-
-                if (DATA.size() >= TLCSpiderConstants.SPIDER_PAGE_SIZE_SEND) {
-                    LoggerUtil.getLogger().info("发送" + JOB_TITLE + "数据, size = " + DATA.size());
-                    postData();
-                    DATA.clear();
-                }
-            }
-        }
-
-        LoggerUtil.getLogger().info("发送" + JOB_TITLE + "数据, size = " + DATA.size());
-        postData();
-        DATA.clear();
+        return Integer.parseInt(totalPage);
     }
 
     @Override
-    public Map<String, String> constructPostParam() {
+    public Map<String, String> constructSystemParam() {
         Map<String, String> map = new HashMap();
         map.put(TLCSpiderConstants.HTTP_PARAM_STATUS_NAME, TLCSpiderConstants.HTTP_PARAM_STATUS_SUCCESS_CODE);
         map.put(TLCSpiderConstants.HTTP_PARAM_SID, SID);
         map.put(TLCSpiderConstants.HTTP_PARAM_TOKEN, TOKEN);
-        map.put(TLCSpiderConstants.HTTP_PARAM_DATA, JsonUtil.array2Json(DATA));
         map.put(TLCSpiderConstants.HTTP_PARAM_JOB_TITLE, JOB_TITLE);
         return map;
     }
 
-    private Map<String, String> constructRequestParam() {
+    @Override
+    public Map<String, String> constructSpiderParam() {
         Map<String, String> param = new HashMap();
         param.put("TargetAction", "GetProjectList_Index");
-        param.put("PageIndex", "1");
         param.put("Sort", "normal");
+        param.put(TLCSpiderConstants.HTTP_PARAM_PAGE, "PageIndex");
         return param;
+    }
+
+    @Override
+    public Map<String, TransObject> getUpdateMap() throws InvalidDataException {
+        Map<String, String> map = constructSystemParam();
+        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_GET_URL, map);
+        String status = JsonUtil.getString(result, "state");
+        if (!TLCSpiderConstants.HTTP_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
+            throw new InvalidDataException(result);
+        }
+
+        List<TransObject> updateList = JsonUtil.json2Array(result, TLCSpiderConstants.HTTP_PARAM_DATA, TransObject.class);
+        Map<String, TransObject> updateMap = new HashMap();
+        for (TransObject transObject : updateList) {
+            map.put(transObject.getFinancingId(), null);
+        }
+        return updateMap;
+    }
+
+    @Override
+    public List<TransObject> getDataList() {
+        Map<String, String> param = constructSpiderParam();
+        String listContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String listStr = JsonUtil.getString(listContent, "DicData");
+        List<ZHXQYEJ> zhxqyejList = JsonUtil.json2Array(listStr, "NormalList", ZHXQYEJ.class);
+
+        List<TransObject> transObjectList = new ArrayList();
+        for(ZHXQYEJ zhxqyej : zhxqyejList) {
+            TransObject transObject = constructTransObject(zhxqyej);
+            transObjectList.add(transObject);
+        }
+
+        return transObjectList;
     }
 
     private TransObject constructTransObject(ZHXQYEJ zhxqyej) {

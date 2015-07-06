@@ -23,7 +23,6 @@ public class HXEWTJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = "http://hxewt.com/invest/main.html";
     private static final String URL_PRODUCT_DETAIL = "http://hxewt.com";
 
-    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         LoggerUtil.getLogger().info("开始抓取华夏银行E网通");
         String productContent = TLCSpiderRequest.get(URL_PRODUCT_LIST);
@@ -104,15 +103,5 @@ public class HXEWTJob extends TLCSpiderJob {
         }
 
         print(transObjectList);
-    }
-
-    @Override
-    protected Map<String, String> constructPostParam() {
-        return null;
-    }
-
-    @Override
-    public void doExecute() {
-
     }
 }

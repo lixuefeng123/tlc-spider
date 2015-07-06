@@ -24,7 +24,6 @@ public class BSYHFinanceJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = "https://www.xmjr.com/finance.do";
 //    private static final String URL_PRODUCT_DETAIL = "https://www.xmjr.com/";
 
-    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         LoggerUtil.getLogger().info("开始抓取包商银行小马金融");
 
@@ -80,15 +79,5 @@ public class BSYHFinanceJob extends TLCSpiderJob {
         }
 
         print(transObjectList);
-    }
-
-    @Override
-    protected Map<String, String> constructPostParam() {
-        return null;
-    }
-
-    @Override
-    public void doExecute() {
-
     }
 }

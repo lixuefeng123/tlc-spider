@@ -14,16 +14,16 @@ public final class TCLSpiderServer {
     public static void main(String[] args) throws InterruptedException {
         TLCSpiderScheduler tlcSpiderScheduler = null;
         try {
-            LoggerUtil.getLogger().info("loading spring application context");
+            LoggerUtil.getLogger().info("加载spring配置文件");
             ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath*: spring-*.xml");
 
-            LoggerUtil.getLogger().info("get tailicai scheduler");
+            LoggerUtil.getLogger().info("获取钛理财scheduler");
             tlcSpiderScheduler = (TLCSpiderScheduler) applicationContext.getBean("tlcSpiderScheduler");
 
-            LoggerUtil.getLogger().info("loading tailicai spider jobs");
+            LoggerUtil.getLogger().info("加载钛理财jobs");
             tlcSpiderScheduler.loadJobs();
 
-            LoggerUtil.getLogger().info("starting tailicai scheduler and jobs");
+            LoggerUtil.getLogger().info("开始钛理财抓取");
             tlcSpiderScheduler.start();
         } catch (BeansException e) {
             LoggerUtil.getLogger().error(e.toString());

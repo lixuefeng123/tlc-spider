@@ -12,6 +12,7 @@ public final class TLCSpiderConstants {
     public static final String HTTP_PARAM_TOKEN = "token";
     public static final String HTTP_PARAM_DATA = "data";
     public static final String HTTP_PARAM_MESSAGE = "message";
+    public static final String HTTP_PARAM_PAGE = "page";
     public static final String HTTP_PARAM_STATUS_SUCCESS_CODE = "200";
     public static final String HTTP_PARAM_STATUS_FAIL_CODE = "500";
     public static final String SPIDER_PAGE_SIZE_GET = "8";
