@@ -14,6 +14,15 @@ public final class TLCSpiderConstants {
     public static final String NYYHNYE_DATE_TIME_FORMAT = "yyyyMMddHHmmss";
     public static final String NYYHNYE_DATE_FORMAT = "yyyyMMdd";
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    public static final String TLC_POST_URL = "http://192.168.2.19:3005/spiderapi/p2p/post";
-
+    public static final String PARAM_JOB_TITLE = "jobTitle";
+    public static final String PARAM_STATUS_NAME = "status";
+    public static final String PARAM_STATUS_SUCCESS_CODE = "200";
+    public static final String PARAM_STATUS_FAIL_CODE = "500";
+    public static final String PARAM_SID = "sid";
+    public static final String PARAM_TOKEN = "token";
+    public static final String PARAM_DATA = "data";
+    public static final String PARAM_MESSAGE = "message";
+    public static final int POST_DATA_SIZE = 100;
+    public static final String TLC_SPIDER_SEND_URL = "http://tailicaiop.fero.com.cn/spiderapi/p2p/post";
+    public static final String TLC_SPIDER_GET_URL = "http://tailicaiop.fero.com.cn/spiderapi/p2p/updatelist";
 }

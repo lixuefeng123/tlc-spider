@@ -6,7 +6,7 @@
 
     <bean id="schedulerFactory" class="org.quartz.impl.StdSchedulerFactory"/>
 
-    <bean id="tlcSpiderScheduler" class="cn.com.fero.tlc.spider.quartz.schedule.TLCSpiderScheduler">
+    <bean id="tlcSpiderScheduler" class="cn.com.fero.tlc.spider.quartz.TLCSpiderScheduler">
         <property name="schedulerFactory" ref="schedulerFactory"/>
         <property name="jobList">
             <list>

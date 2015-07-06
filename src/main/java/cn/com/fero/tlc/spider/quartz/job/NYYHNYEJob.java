@@ -2,6 +2,7 @@ package cn.com.fero.tlc.spider.quartz.job;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
+import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.DateFormatUtil;
 import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
@@ -113,5 +114,15 @@ public class NYYHNYEJob extends TLCSpiderJob {
         }
 
         print(transObjectList);
+    }
+
+    @Override
+    protected Map<String, String> constructPostParam() {
+        return null;
+    }
+
+    @Override
+    public void doExecute() {
+
     }
 }

@@ -4,6 +4,7 @@ package cn.com.fero.tlc.spider.vo;
  * Created by gizmo on 15/6/18.
  */
 public class TransObject {
+    private int id;
     private String financingId;
     private String projectCode;
     private String projectName;
@@ -49,6 +50,14 @@ public class TransObject {
     private String title;
     private String content;
     private String isLimitCount;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFinancingId() {
         return financingId;
@@ -417,6 +426,7 @@ public class TransObject {
 
         TransObject that = (TransObject) o;
 
+        if (id != that.id) return false;
         if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
         if (areaCode != null ? !areaCode.equals(that.areaCode) : that.areaCode != null) return false;
         if (bankInterest != null ? !bankInterest.equals(that.bankInterest) : that.bankInterest != null) return false;
@@ -482,7 +492,8 @@ public class TransObject {
 
     @Override
     public int hashCode() {
-        int result = financingId != null ? financingId.hashCode() : 0;
+        int result = id;
+        result = 31 * result + (financingId != null ? financingId.hashCode() : 0);
         result = 31 * result + (projectCode != null ? projectCode.hashCode() : 0);
         result = 31 * result + (projectName != null ? projectName.hashCode() : 0);
         result = 31 * result + (bindUserId != null ? bindUserId.hashCode() : 0);
@@ -533,7 +544,8 @@ public class TransObject {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("TransObject{");
-        sb.append("financingId='").append(financingId).append('\'');
+        sb.append("id=").append(id);
+        sb.append(", financingId='").append(financingId).append('\'');
         sb.append(", projectCode='").append(projectCode).append('\'');
         sb.append(", projectName='").append(projectName).append('\'');
         sb.append(", bindUserId='").append(bindUserId).append('\'');

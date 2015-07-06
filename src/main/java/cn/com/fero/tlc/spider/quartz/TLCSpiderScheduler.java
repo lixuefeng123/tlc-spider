@@ -1,7 +1,7 @@
-package cn.com.fero.tlc.spider.quartz.schedule;
+package cn.com.fero.tlc.spider.quartz;
 
 import cn.com.fero.tlc.spider.exception.TLCSpiderSchedulerException;
-import cn.com.fero.tlc.spider.quartz.job.TLCSpiderJob;
+import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Required;
 

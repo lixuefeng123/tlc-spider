@@ -1,6 +1,6 @@
 package cn.com.fero.tlc.spider.server;
 
-import cn.com.fero.tlc.spider.quartz.schedule.TLCSpiderScheduler;
+import cn.com.fero.tlc.spider.quartz.TLCSpiderScheduler;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

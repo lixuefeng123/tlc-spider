@@ -1,9 +1,9 @@
 package cn.com.fero.tlc.spider.quartz.job;
 
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
+import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
-import cn.com.fero.tlc.spider.vo.NBYHZXYH;
 import cn.com.fero.tlc.spider.vo.QDYHCFEW;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.quartz.JobExecutionContext;
@@ -97,5 +97,15 @@ public class QDYHCFEWJob extends TLCSpiderJob {
         }
 
         print(transObjectList);
+    }
+
+    @Override
+    protected Map<String, String> constructPostParam() {
+        return null;
+    }
+
+    @Override
+    public void doExecute() {
+
     }
 }

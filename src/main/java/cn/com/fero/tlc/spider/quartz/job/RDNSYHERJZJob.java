@@ -1,6 +1,7 @@
 package cn.com.fero.tlc.spider.quartz.job;
 
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
+import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
 import cn.com.fero.tlc.spider.vo.RDNSYHERJZ;
@@ -83,5 +84,15 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
         }
 
         print(transObjectList);
+    }
+
+    @Override
+    protected Map<String, String> constructPostParam() {
+        return null;
+    }
+
+    @Override
+    public void doExecute() {
+
     }
 }

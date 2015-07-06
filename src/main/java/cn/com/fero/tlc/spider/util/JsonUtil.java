@@ -91,4 +91,22 @@ public final class JsonUtil {
 
         return objectList;
     }
+
+    public static List json2Array(String jsonStr, Class clazz) {
+        if (StringUtils.isEmpty(jsonStr)) {
+            throw new IllegalArgumentException();
+        }
+
+        JSONObject jsonObject = JSONObject.fromObject(jsonStr);
+        JSONArray array = jsonObject.getJSONArray(jsonStr);
+        Iterator iterator = array.iterator();
+        List objectList = new ArrayList();
+
+        while (iterator.hasNext()) {
+            Object obj = iterator.next();
+            objectList.add(json2Object(obj.toString(), clazz));
+        }
+
+        return objectList;
+    }
 }

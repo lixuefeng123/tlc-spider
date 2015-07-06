@@ -2,6 +2,7 @@ package cn.com.fero.tlc.spider.quartz.job;
 
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
+import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
 import cn.com.fero.tlc.spider.util.SplitUtil;
@@ -62,7 +63,7 @@ public class LZYHEREDJob extends TLCSpiderJob {
                 String investmentInterest = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left3']/font");
                 String duration = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left1']");
                 duration = SplitUtil.splitNumberChinese(duration, 1);
-//                String realProgress =TLCSpiderHTMLParser.parseText(product, "//div[@class='svgDemo']");
+//                String realProgress =TLCSpiderHTMLParser.parseText(product, "//div[@0 class='svgDemo']");
 //                String realProgress =TLCSpiderHTMLParser.parseText(product, "//div[@class='svgDemo']//script");
 //                realProgress = Double.parseDouble(realProgress) * 100 + "%";
 //                String progress = realProgress;
@@ -112,5 +113,15 @@ public class LZYHEREDJob extends TLCSpiderJob {
         map.put("data", JsonUtil.array2Json(transObjectList));
         String response = TLCSpiderRequest.post("http://192.168.2.19:3005/spiderapi/p2p/post", map);
         LoggerUtil.getLogger().info("发送招商银行小企业E家状态：" + response);
+    }
+
+    @Override
+    protected Map<String, String> constructPostParam() {
+        return null;
+    }
+
+    @Override
+    public void doExecute() {
+
     }
 }
