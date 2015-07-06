@@ -107,12 +107,12 @@ public class HXEWTJob extends TLCSpiderJob {
     }
 
     @Override
-    protected Map<String, String> constructPostParam() {
+    protected Map<String, String> constructPostParam(List<TransObject> transObjectList) {
         return null;
     }
 
     @Override
-    public void doExecute() {
+    public void doExecute(Map<String, TransObject> updateMap) throws Exception {
 
     }
 }

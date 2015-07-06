@@ -83,7 +83,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
     }
 
     protected Map<String, TransObject> getUpdateMap() throws InvalidDataException {
-        Map<String, String> map = constructPostParam();
+        Map<String, String> map = constructPostParam(null);
         String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_GET_URL, map);
         String status = JsonUtil.getString(result, "state");
         if (!TLCSpiderConstants.HTTP_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
@@ -101,17 +101,22 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         try {
-            this.doExecute();
+            String jobTitle = constructPostParam(null).get(TLCSpiderConstants.HTTP_PARAM_JOB_TITLE);
+            LoggerUtil.getLogger().info("开始获取" + jobTitle + "更新列表");
+            Map<String, TransObject> updateMap = getUpdateMap();
+            LoggerUtil.getLogger().info(jobTitle + "更新条数 = "+ updateMap.size());
+
+            this.doExecute(updateMap);
         } catch (Exception e) {
-            Map<String, String> map = constructPostParam();
+            Map<String, String> map = constructPostParam(null);
             map.put(TLCSpiderConstants.HTTP_PARAM_STATUS_NAME, TLCSpiderConstants.HTTP_PARAM_STATUS_FAIL_CODE);
             map.put(TLCSpiderConstants.HTTP_PARAM_MESSAGE, ExceptionUtils.getFullStackTrace(e));
             postData(map);
         }
     }
 
-    protected void postData() {
-        Map<String, String> map = constructPostParam();
+    protected void postData(List<TransObject> transObjectList) {
+        Map<String, String> map = constructPostParam(transObjectList);
         postData(map);
     }
 
@@ -120,5 +125,5 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
         LoggerUtil.getLogger().info("发送" + map.get(TLCSpiderConstants.HTTP_PARAM_JOB_TITLE) + "状态：" + response);
     }
 
-    abstract protected Map<String, String> constructPostParam();
+    abstract protected Map<String, String> constructPostParam(List<TransObject> transObjectList);
 }

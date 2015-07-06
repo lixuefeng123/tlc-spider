@@ -23,61 +23,77 @@ public class ZHXQYEJJob extends TLCSpiderJob {
     private static final String SID = "1";
     private static final String TOKEN = "2kd2Z1U=VbNhBw1XYxiuMJBaYP9FB=oPEJn3wn3qxKWU";
     private static final String JOB_TITLE = "招商银行小企业E家";
-    private static final List<TransObject> DATA = new ArrayList();
 
     @Override
-    public void doExecute() throws Exception {
-        LoggerUtil.getLogger().info("获取" + JOB_TITLE + "更新列表");
-        Map<String, TransObject> updateMap = getUpdateMap();
+    public void doExecute( Map<String, TransObject> updateMap) throws Exception {
+        List<TransObject> transObjectList = new ArrayList();
 
-        LoggerUtil.getLogger().info("开始抓取" + JOB_TITLE);
+//        LoggerUtil.getLogger().info("开始获取" + JOB_TITLE + "更新列表");
+//        Map<String, TransObject> updateMap = getUpdateMap();
+//        LoggerUtil.getLogger().info(JOB_TITLE + "更新条数 = "+ updateMap.size());
+
         Map<String, String> param = constructRequestParam();
-        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String pageStr = JsonUtil.getString(pageContent, "DicData");
-        String totalPage = JsonUtil.getString(pageStr, "TotalPage");
-        int totalPageNum = Integer.parseInt(totalPage);
+        LoggerUtil.getLogger().info("开始抓取" + JOB_TITLE + "总页数");
+        int totalPageNum = getTotalCount(param);
+        LoggerUtil.getLogger().info(JOB_TITLE + "总页数数 = " + totalPageNum);
+
         boolean isContinue = true;
-        for (Integer a = 1; a <= totalPageNum; a++) {
+        for (Integer page = 1; page <= totalPageNum; page++) {
             if (!isContinue) {
                 break;
             }
 
-            param.put("PageIndex", a.toString());
-            String listContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-            String listStr = JsonUtil.getString(listContent, "DicData");
-            List<ZHXQYEJ> zhxqyejList = JsonUtil.json2Array(listStr, "NormalList", ZHXQYEJ.class);
+            LoggerUtil.getLogger().info("开始抓取" + JOB_TITLE + "第" + page + "页");
+            param.put("PageIndex", page.toString());
+            List<ZHXQYEJ> zhxqyejList = getZHXQYEList(param);
+
             for (ZHXQYEJ zhxqyej : zhxqyejList) {
                 TransObject transObject = constructTransObject(zhxqyej);
                 if (!transObject.getProgress().equals("100%") || updateMap.containsKey(transObject.getFinancingId())) {
-                    DATA.add(transObject);
+                    transObjectList.add(transObject);
                 } else {
                     isContinue = false;
-                    LoggerUtil.getLogger().info("发送" + JOB_TITLE + "数据, size = " + DATA.size());
-                    postData();
-                    DATA.clear();
+                    LoggerUtil.getLogger().info("发送" + JOB_TITLE + "数据, size = " + transObjectList.size());
+                    postData(transObjectList);
+                    transObjectList.clear();
                     break;
                 }
 
-                if (DATA.size() >= TLCSpiderConstants.SPIDER_PAGE_SIZE_SEND) {
-                    LoggerUtil.getLogger().info("发送" + JOB_TITLE + "数据, size = " + DATA.size());
-                    postData();
-                    DATA.clear();
+                if (transObjectList.size() >= TLCSpiderConstants.SPIDER_PAGE_SIZE_SEND) {
+                    LoggerUtil.getLogger().info("发送" + JOB_TITLE + "数据, size = " + transObjectList.size());
+                    postData(transObjectList);
+                    transObjectList.clear();
                 }
             }
         }
 
-        LoggerUtil.getLogger().info("发送" + JOB_TITLE + "数据, size = " + DATA.size());
-        postData();
-        DATA.clear();
+        if(transObjectList.size() > 0) {
+            LoggerUtil.getLogger().info("发送" + JOB_TITLE + "数据, size = " + transObjectList.size());
+            postData(transObjectList);
+            transObjectList.clear();
+        }
+    }
+
+    private List<ZHXQYEJ> getZHXQYEList(Map<String, String> param) {
+        String listContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String listStr = JsonUtil.getString(listContent, "DicData");
+        return JsonUtil.json2Array(listStr, "NormalList", ZHXQYEJ.class);
+    }
+
+    private int getTotalCount(Map<String, String> param) {
+        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String pageStr = JsonUtil.getString(pageContent, "DicData");
+        String totalPage = JsonUtil.getString(pageStr, "TotalPage");
+        return Integer.parseInt(totalPage);
     }
 
     @Override
-    public Map<String, String> constructPostParam() {
+    public Map<String, String> constructPostParam(List<TransObject> transObjectList) {
         Map<String, String> map = new HashMap();
         map.put(TLCSpiderConstants.HTTP_PARAM_STATUS_NAME, TLCSpiderConstants.HTTP_PARAM_STATUS_SUCCESS_CODE);
         map.put(TLCSpiderConstants.HTTP_PARAM_SID, SID);
         map.put(TLCSpiderConstants.HTTP_PARAM_TOKEN, TOKEN);
-        map.put(TLCSpiderConstants.HTTP_PARAM_DATA, JsonUtil.array2Json(DATA));
+        map.put(TLCSpiderConstants.HTTP_PARAM_DATA, JsonUtil.array2Json(transObjectList));
         map.put(TLCSpiderConstants.HTTP_PARAM_JOB_TITLE, JOB_TITLE);
         return map;
     }
