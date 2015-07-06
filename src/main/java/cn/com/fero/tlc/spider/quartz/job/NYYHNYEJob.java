@@ -29,7 +29,7 @@ public class NYYHNYEJob extends TLCSpiderJob {
         Map<String, String> param = new HashMap();
         param.put("timeLimitType", "0");
         param.put("page", "0");
-        param.put("pagesize", TLCSpiderConstants.PAGE_SIZE);
+        param.put("pagesize", TLCSpiderConstants.SPIDER_PAGE_SIZE_GET);
 
         String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
         String totalCount = JsonUtil.getString(countContent, "count");
@@ -64,19 +64,19 @@ public class NYYHNYEJob extends TLCSpiderJob {
             transObject.setRealProgress(Double.parseDouble(nyyhnye.getBuyPercent()) * 100 + "%");
             transObject.setProgress(Double.parseDouble(nyyhnye.getBuyPercent()) * 100 + "%");
             if(StringUtils.isNotEmpty(nyyhnye.getPubStaDate()) && StringUtils.isNotEmpty(nyyhnye.getPubStaTime())) {
-                transObject.setProjectBeginTime(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_TIME_FORMAT, nyyhnye.getPubStaDate(), nyyhnye.getPubStaTime()));
+                transObject.setProjectBeginTime(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_DEFAULT_FORMAT_DATE_TIME, nyyhnye.getPubStaDate(), nyyhnye.getPubStaTime()));
             } else if(StringUtils.isNotEmpty(nyyhnye.getPubStaDate())){
-                transObject.setProjectBeginTime(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_FORMAT, nyyhnye.getPubStaDate()));
+                transObject.setProjectBeginTime(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_DEFAULT_FORMAT_DATA, nyyhnye.getPubStaDate()));
             }
             if(StringUtils.isNotEmpty(nyyhnye.getSellStaDate()) && StringUtils.isNotEmpty(nyyhnye.getSellStaTime())) {
-                transObject.setValueBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_TIME_FORMAT, nyyhnye.getSellStaDate(), nyyhnye.getSellStaTime()));
+                transObject.setValueBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_DEFAULT_FORMAT_DATE_TIME, nyyhnye.getSellStaDate(), nyyhnye.getSellStaTime()));
             } else if(StringUtils.isNotEmpty(nyyhnye.getPubStaDate())) {
-                transObject.setValueBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_FORMAT, nyyhnye.getSellStaDate()));
+                transObject.setValueBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_DEFAULT_FORMAT_DATA, nyyhnye.getSellStaDate()));
             }
             if(StringUtils.isNotEmpty(nyyhnye.getSellEndDate()) && StringUtils.isNotEmpty(nyyhnye.getSellEndTime())) {
-                transObject.setRepayBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_TIME_FORMAT, nyyhnye.getSellEndDate(), nyyhnye.getSellEndTime()));
+                transObject.setRepayBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_DEFAULT_FORMAT_DATE_TIME, nyyhnye.getSellEndDate(), nyyhnye.getSellEndTime()));
             } else if(StringUtils.isNotEmpty(nyyhnye.getSellEndDate())){
-                transObject.setRepayBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.NYYHNYE_DATE_FORMAT, nyyhnye.getSellEndDate()));
+                transObject.setRepayBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_DEFAULT_FORMAT_DATA, nyyhnye.getSellEndDate()));
             }
 
             //TODO 转换

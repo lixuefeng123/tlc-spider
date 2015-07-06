@@ -4,7 +4,6 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.exception.TLCSpiderRequestException;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -14,7 +13,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.CharsetUtils;
 import org.apache.http.util.EntityUtils;
 
@@ -37,7 +35,7 @@ public class TLCSpiderRequest {
             httpClient = HttpClients.createDefault();
             HttpGet httpget = new HttpGet(url);
             response = httpClient.execute(httpget);
-            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.ENCODING);
+            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.HTTP_CHARACTER_ENCODING);
         } catch (Exception e) {
             throw new TLCSpiderRequestException(e);
         } finally {
@@ -69,10 +67,10 @@ public class TLCSpiderRequest {
             for(Map.Entry<String, String> entry : param.entrySet()) {
                 paramList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
             }
-            httpPost.setEntity(new UrlEncodedFormEntity(paramList, CharsetUtils.get(TLCSpiderConstants.ENCODING)));
+            httpPost.setEntity(new UrlEncodedFormEntity(paramList, CharsetUtils.get(TLCSpiderConstants.HTTP_CHARACTER_ENCODING)));
 
             response = httpClient.execute(httpPost);
-            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.ENCODING);
+            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.HTTP_CHARACTER_ENCODING);
         } catch (Exception e) {
             throw new TLCSpiderRequestException(e);
         } finally {
@@ -100,12 +98,12 @@ public class TLCSpiderRequest {
             httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost(url);
             StringEntity entity = new StringEntity(json);
-            entity.setContentEncoding(TLCSpiderConstants.ENCODING);
-            entity.setContentType(TLCSpiderConstants.CONTENT_TYPE_JSON);
+            entity.setContentEncoding(TLCSpiderConstants.HTTP_CHARACTER_ENCODING);
+            entity.setContentType(TLCSpiderConstants.HTTP_CONTENT_TYPE_JSON);
             httpPost.setEntity(entity);
 
             response = httpClient.execute(httpPost);
-            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.ENCODING);
+            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.HTTP_CHARACTER_ENCODING);
         } catch (Exception e) {
             throw new TLCSpiderRequestException(e);
         } finally {
@@ -139,7 +137,7 @@ public class TLCSpiderRequest {
 //            httpPost.setEntity(new UrlEncodedFormEntity(params,HTTP.UTF_8));
 //
 //            response = httpClient.execute(httpPost);
-//            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.ENCODING);
+//            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.HTTP_CHARACTER_ENCODING);
 //        } catch (Exception e) {
 //            throw new TLCSpiderRequestException(e);
 //        } finally {

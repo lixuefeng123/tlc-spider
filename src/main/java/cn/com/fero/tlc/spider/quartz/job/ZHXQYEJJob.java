@@ -7,7 +7,6 @@ import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
-import com.sun.media.sound.InvalidDataException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,7 +58,7 @@ public class ZHXQYEJJob extends TLCSpiderJob {
                     break;
                 }
 
-                if(DATA.size() >= TLCSpiderConstants.POST_DATA_SIZE) {
+                if(DATA.size() >= TLCSpiderConstants.SPIDER_PAGE_SIZE_SEND) {
                     LoggerUtil.getLogger().info("发送" + JOB_TITLE + "数据, size = " + DATA.size());
                     postData();
                     DATA.clear();
@@ -75,11 +74,11 @@ public class ZHXQYEJJob extends TLCSpiderJob {
     @Override
     public Map<String, String> constructPostParam() {
         Map<String, String> map = new HashMap();
-        map.put(TLCSpiderConstants.PARAM_STATUS_NAME, TLCSpiderConstants.PARAM_STATUS_SUCCESS_CODE);
-        map.put(TLCSpiderConstants.PARAM_SID, SID);
-        map.put(TLCSpiderConstants.PARAM_TOKEN, TOKEN);
-        map.put(TLCSpiderConstants.PARAM_DATA, JsonUtil.array2Json(DATA));
-        map.put(TLCSpiderConstants.PARAM_JOB_TITLE, JOB_TITLE);
+        map.put(TLCSpiderConstants.HTTP_PARAM_STATUS_NAME, TLCSpiderConstants.HTTP_PARAM_STATUS_SUCCESS_CODE);
+        map.put(TLCSpiderConstants.HTTP_PARAM_SID, SID);
+        map.put(TLCSpiderConstants.HTTP_PARAM_TOKEN, TOKEN);
+        map.put(TLCSpiderConstants.HTTP_PARAM_DATA, JsonUtil.array2Json(DATA));
+        map.put(TLCSpiderConstants.HTTP_PARAM_JOB_TITLE, JOB_TITLE);
         return map;
     }
 

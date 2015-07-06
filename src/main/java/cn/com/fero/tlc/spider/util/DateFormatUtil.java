@@ -32,7 +32,7 @@ public final class DateFormatUtil {
             }
 
             Date date = sdf.parse(str.toString());
-            return DateFormatUtils.format(date, TLCSpiderConstants.DATE_TIME_FORMAT);
+            return DateFormatUtils.format(date, TLCSpiderConstants.SPIDER_DEFAULT_FORMAT_DISPLAY_DATE_TIME);
         } catch (Exception e) {
             throw new TLCSpiderUtilException(e);
         }

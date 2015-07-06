@@ -2,7 +2,6 @@ package cn.com.fero.tlc.spider.quartz;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
-import cn.com.fero.tlc.spider.quartz.TLCSpiderExecutor;
 import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
@@ -85,13 +84,13 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
 
     protected Map<String, TransObject> getUpdateMap() throws InvalidDataException {
         Map<String, String> map = constructPostParam();
-        String result = TLCSpiderRequest.post(TLCSpiderConstants.TLC_SPIDER_GET_URL, map);
+        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_GET_URL, map);
         String status = JsonUtil.getString(result, "state");
-        if(!TLCSpiderConstants.PARAM_STATUS_SUCCESS_CODE.equals(status)) {
+        if(!TLCSpiderConstants.HTTP_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
             throw new InvalidDataException(result);
         }
 
-        List<TransObject> updateList = JsonUtil.json2Array(result, TLCSpiderConstants.PARAM_DATA, TransObject.class);
+        List<TransObject> updateList = JsonUtil.json2Array(result, TLCSpiderConstants.HTTP_PARAM_DATA, TransObject.class);
         Map<String, TransObject> updateMap = new HashMap();
         for(TransObject transObject : updateList) {
             map.put(transObject.getFinancingId(), null);
@@ -105,8 +104,8 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
             this.doExecute();
         } catch(Exception e) {
             Map<String, String> map = constructPostParam();
-            map.put(TLCSpiderConstants.PARAM_STATUS_NAME, TLCSpiderConstants.PARAM_STATUS_FAIL_CODE);
-            map.put(TLCSpiderConstants.PARAM_MESSAGE, ExceptionUtils.getFullStackTrace(e));
+            map.put(TLCSpiderConstants.HTTP_PARAM_STATUS_NAME, TLCSpiderConstants.HTTP_PARAM_STATUS_FAIL_CODE);
+            map.put(TLCSpiderConstants.HTTP_PARAM_MESSAGE, ExceptionUtils.getFullStackTrace(e));
             postData(map);
         }
     }
@@ -117,8 +116,8 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
     }
 
     protected void postData(Map<String, String> map) {
-        String response = TLCSpiderRequest.post(TLCSpiderConstants.TLC_SPIDER_SEND_URL, map);
-        LoggerUtil.getLogger().info("发送" + map.get(TLCSpiderConstants.PARAM_JOB_TITLE) + "状态：" + response);
+        String response = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_SEND_URL, map);
+        LoggerUtil.getLogger().info("发送" + map.get(TLCSpiderConstants.HTTP_PARAM_JOB_TITLE) + "状态：" + response);
     }
 
     abstract protected Map<String, String> constructPostParam();
