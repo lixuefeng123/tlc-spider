@@ -13,15 +13,15 @@ public final class SplitUtil {
         throw new UnsupportedClassVersionError();
     }
 
-    public static String splitChineseNumber(String str, int index) {
-        Pattern pattern = Pattern.compile("([\u4E00-\u9FA5]*)([0-9|a-z|A-Z]*)");
-        Matcher matcher = pattern.matcher(str);
-        while (matcher.find()) {
-            return matcher.group(index);
-        }
-
-        return StringUtils.EMPTY;
-    }
+//    public static String splitChineseNumber(String str, int index) {
+//        Pattern pattern = Pattern.compile("([\u4E00-\u9FA5]*)([0-9|a-z|A-Z]*)");
+//        Matcher matcher = pattern.matcher(str);
+//        while (matcher.find()) {
+//            return matcher.group(index);
+//        }
+//
+//        return StringUtils.EMPTY;
+//    }
 
     public static String splitNumberChinese(String str, int index) {
         Pattern pattern = Pattern.compile("([0-9|a-z|A-Z]*)([\u4E00-\u9FA5]*)");
@@ -31,5 +31,12 @@ public final class SplitUtil {
         }
 
         return StringUtils.EMPTY;
+    }
+
+    public static String extractString(String orignalStr, String patternStr) {
+        Pattern pattern = Pattern.compile(patternStr);
+        Matcher matcher = pattern.matcher(orignalStr);
+        String result = matcher.toString();
+        return result;
     }
 }

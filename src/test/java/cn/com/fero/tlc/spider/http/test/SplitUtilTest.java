@@ -9,8 +9,13 @@ import org.junit.Test;
 public class SplitUtilTest {
 
     @Test
-    public void testSplitChineseNumber() {
-        String str = "1,000元 最高投标金额";
-        System.out.println(SplitUtil.splitChineseNumber(str, 2));
+    public void testExtract() {
+        String str = "\n" +
+                "                                 \t$(function() {\n" +
+                "\t                                 \tdemo.init(\"1\", \"0.95\");\n" +
+                "                                 \t})\n" +
+                "                                 ";
+        String trimStr = str.replaceAll("\\n", "").replaceAll("\t", "").replaceAll(" ", "");
+        System.out.println(trimStr.split("\"")[3]);
     }
 }

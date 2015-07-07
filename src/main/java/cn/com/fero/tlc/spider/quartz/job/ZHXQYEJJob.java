@@ -68,63 +68,63 @@ public class ZHXQYEJJob extends TLCSpiderJob {
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
-        String listContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String listStr = JsonUtil.getString(listContent, "DicData");
-        List<ZHXQYEJ> zhxqyejList = JsonUtil.json2Array(listStr, "NormalList", ZHXQYEJ.class);
+        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String productJsonStr = JsonUtil.getString(productContent, "DicData");
+        List<ZHXQYEJ> productList = JsonUtil.json2Array(productJsonStr, "NormalList", ZHXQYEJ.class);
 
         List<TransObject> transObjectList = new ArrayList();
-        for(ZHXQYEJ zhxqyej : zhxqyejList) {
-            TransObject transObject = constructTransObject(zhxqyej);
+        for(ZHXQYEJ product : productList) {
+            TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }
 
         return transObjectList;
     }
 
-    private TransObject constructTransObject(ZHXQYEJ zhxqyej) {
+    private TransObject convertToTransObject(ZHXQYEJ product) {
         TransObject transObject = new TransObject();
-        transObject.setFinancingId(zhxqyej.getFinancingId());
-        transObject.setProjectCode(zhxqyej.getProjectCode());
-        transObject.setProjectName(zhxqyej.getProjectName());
-        transObject.setBindUserId(zhxqyej.getBindUserId());
-        transObject.setBindUserName(zhxqyej.getBindUserName());
-        transObject.setBindCompanyId(zhxqyej.getBindCompanyId());
-        transObject.setBindCompanyName(zhxqyej.getBindCompanyName());
-        transObject.setAmount(zhxqyej.getAmount());
-        transObject.setPartsCount(zhxqyej.getMinInvestPartsCount());
-        transObject.setBankInterest(zhxqyej.getBankInterest());
-        transObject.setInvestmentInterest(zhxqyej.getInvestmentInterest());
-        transObject.setDuration(zhxqyej.getDuration());
-        transObject.setRepayType(zhxqyej.getRepayType());
-        transObject.setValueBegin(zhxqyej.getValueBegin());
-        transObject.setRepayBegin(zhxqyej.getRepayBegin());
-        transObject.setRepaySourceType(zhxqyej.getRepaySourceType());
-        transObject.setProjectBeginTime(zhxqyej.getProjectBeginTime());
-        transObject.setReadyBeginTime(zhxqyej.getReadyBeginTime());
-        transObject.setProjectStatus(zhxqyej.getProjectStatus());
-        transObject.setCreditLevel(zhxqyej.getCreditLevel());
-        transObject.setCreateUserId(zhxqyej.getCreateUserId());
-        transObject.setCreateCompanyId(zhxqyej.getCreateCompanyId());
-        transObject.setJmBeginTime(zhxqyej.getjMBeginTime());
-        transObject.setAreaCode(zhxqyej.getAreaCode());
-        transObject.setCreateTime(zhxqyej.getCreateTime());
-        transObject.setUpdateUserId(zhxqyej.getUpdateUserId());
-        transObject.setUpdateTime(zhxqyej.getUpdateTime());
-        transObject.setCreateUserName(zhxqyej.getCreateUserName());
-        transObject.setCreateCompanyName(zhxqyej.getCreateCompanyName());
-        transObject.setIsShow(zhxqyej.getIsShow());
-        transObject.setProjectType(zhxqyej.getProjectType());
-        transObject.setIsExclusivePublic(zhxqyej.getIsExclusivePublic());
-        transObject.setMinInvestPartsCount(zhxqyej.getMinInvestPartsCount());
-        transObject.setExclusiveCode(zhxqyej.getExclusiveCode());
-        transObject.setLcAmount(zhxqyej.getlCAmount());
-        transObject.setICount(zhxqyej.getiCount());
-        transObject.setIAmount(zhxqyej.getiAmount());
-        transObject.setRealProgress(zhxqyej.getRealProgress());
-        transObject.setProgress(zhxqyej.getProgress());
-        transObject.setFinanceApplyStatus(zhxqyej.getFinanceApplyStatus());
-        transObject.setHotStatus(zhxqyej.getHotStatus());
-        transObject.setDbType(zhxqyej.getDbType());
+        transObject.setFinancingId(product.getFinancingId());
+        transObject.setProjectCode(product.getProjectCode());
+        transObject.setProjectName(product.getProjectName());
+        transObject.setBindUserId(product.getBindUserId());
+        transObject.setBindUserName(product.getBindUserName());
+        transObject.setBindCompanyId(product.getBindCompanyId());
+        transObject.setBindCompanyName(product.getBindCompanyName());
+        transObject.setAmount(product.getAmount());
+        transObject.setPartsCount(product.getMinInvestPartsCount());
+        transObject.setBankInterest(product.getBankInterest());
+        transObject.setInvestmentInterest(product.getInvestmentInterest());
+        transObject.setDuration(product.getDuration());
+        transObject.setRepayType(product.getRepayType());
+        transObject.setValueBegin(product.getValueBegin());
+        transObject.setRepayBegin(product.getRepayBegin());
+        transObject.setRepaySourceType(product.getRepaySourceType());
+        transObject.setProjectBeginTime(product.getProjectBeginTime());
+        transObject.setReadyBeginTime(product.getReadyBeginTime());
+        transObject.setProjectStatus(product.getProjectStatus());
+        transObject.setCreditLevel(product.getCreditLevel());
+        transObject.setCreateUserId(product.getCreateUserId());
+        transObject.setCreateCompanyId(product.getCreateCompanyId());
+        transObject.setJmBeginTime(product.getjMBeginTime());
+        transObject.setAreaCode(product.getAreaCode());
+        transObject.setCreateTime(product.getCreateTime());
+        transObject.setUpdateUserId(product.getUpdateUserId());
+        transObject.setUpdateTime(product.getUpdateTime());
+        transObject.setCreateUserName(product.getCreateUserName());
+        transObject.setCreateCompanyName(product.getCreateCompanyName());
+        transObject.setIsShow(product.getIsShow());
+        transObject.setProjectType(product.getProjectType());
+        transObject.setIsExclusivePublic(product.getIsExclusivePublic());
+        transObject.setMinInvestPartsCount(product.getMinInvestPartsCount());
+        transObject.setExclusiveCode(product.getExclusiveCode());
+        transObject.setLcAmount(product.getlCAmount());
+        transObject.setICount(product.getiCount());
+        transObject.setIAmount(product.getiAmount());
+        transObject.setRealProgress(product.getRealProgress());
+        transObject.setProgress(product.getProgress());
+        transObject.setFinanceApplyStatus(product.getFinanceApplyStatus());
+        transObject.setHotStatus(product.getHotStatus());
+        transObject.setDbType(product.getDbType());
         return transObject;
     }
 }

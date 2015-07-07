@@ -12,10 +12,10 @@ investmentInterest 预期投资收益
 duration 投资期限（天）
 repayType 还款方式 0:项目到期付本息 1:按月付息 2:等额本息
 valueBegin 项目起息日
-repayBegin 项目到期日期
+repayBegin 项目还款日
 repaySourceType
 projectBeginTime 项目开始时间
-readyBeginTime
+readyBeginTime 项目预售时间
 projectStatus 项目状态
 creditLevel 信用等级
 createUserId 融资项目创建人ID
