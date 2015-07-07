@@ -17,6 +17,6 @@ public interface TLCSpiderExecutor {
 
     public Map<String, TransObject> getUpdateMap() throws InvalidDataException;
 
-    public List<TransObject> getDataList();
+    public List<TransObject> getDataList(Map<String, String> param);
 
 }

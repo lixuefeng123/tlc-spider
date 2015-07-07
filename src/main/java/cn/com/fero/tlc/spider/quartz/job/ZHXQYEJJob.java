@@ -45,7 +45,7 @@ public class ZHXQYEJJob extends TLCSpiderJob {
         Map<String, String> param = new HashMap();
         param.put("TargetAction", "GetProjectList_Index");
         param.put("Sort", "normal");
-        param.put(TLCSpiderConstants.SPIDER_PARAM_PAGE_INDEX, "PageIndex");
+        param.put(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME, "PageIndex");
         return param;
     }
 
@@ -67,8 +67,7 @@ public class ZHXQYEJJob extends TLCSpiderJob {
     }
 
     @Override
-    public List<TransObject> getDataList() {
-        Map<String, String> param = constructSpiderParam();
+    public List<TransObject> getDataList(Map<String, String> param) {
         String listContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
         String listStr = JsonUtil.getString(listContent, "DicData");
         List<ZHXQYEJ> zhxqyejList = JsonUtil.json2Array(listStr, "NormalList", ZHXQYEJ.class);

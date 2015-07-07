@@ -96,20 +96,22 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
                 }
 
                 LoggerUtil.getLogger().info("开始抓取" + jobTitle + "第" + page + "页");
-                spiderParam.put(spiderParam.get(TLCSpiderConstants.SPIDER_PARAM_PAGE_INDEX), page.toString());
-                List<TransObject> resultList = getDataList();
+                spiderParam.put(spiderParam.get(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME), page.toString());
+                List<TransObject> resultList = getDataList(spiderParam);
 
                 for (TransObject transObject : resultList) {
-                    if(updateMap.containsKey(transObject.getFinancingId())) {
-                        transObject.setId(updateMap.get(transObject.getFinancingId()).getId());
-                        transObjectList.add(transObject);
-                    } else if (!StringUtils.equalsIgnoreCase(transObject.getProgress(), TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
-                        transObjectList.add(transObject);
-                    } else {
-                        isContinue = false;
-                        sendDataToSystem(transObjectList, jobTitle);
-                        break;
-                    }
+//                    if(updateMap.containsKey(transObject.getFinancingId())) {
+//                        transObject.setId(updateMap.get(transObject.getFinancingId()).getId());
+//                        transObjectList.add(transObject);
+//                    } else if (!StringUtils.equalsIgnoreCase(transObject.getProgress(), TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
+//                        transObjectList.add(transObject);
+//                    } else {
+//                        isContinue = false;
+//                        sendDataToSystem(transObjectList, jobTitle);
+//                        break;
+//                    }
+
+                    transObjectList.add(transObject);
 
                     if (transObjectList.size() >= TLCSpiderConstants.SPIDER_PAGE_SIZE_SEND) {
                         sendDataToSystem(transObjectList, jobTitle);
@@ -177,7 +179,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
     }
 
     @Override
-    public List<TransObject> getDataList() {
+    public List<TransObject> getDataList(Map<String, String> param) {
         return Collections.EMPTY_LIST;
     }
 }
