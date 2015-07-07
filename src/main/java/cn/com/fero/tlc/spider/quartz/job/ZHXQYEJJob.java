@@ -22,37 +22,37 @@ public class ZHXQYEJJob extends TLCSpiderJob {
     private static final String JOB_TITLE = "招商银行小企业E家";
 
     @Override
-    public int getTotalPage() {
-        Map<String, String> spiderParam = constructSpiderParam();
-        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, spiderParam);
-        String pageStr = JsonUtil.getString(pageContent, "DicData");
-        String totalPage = JsonUtil.getString(pageStr, "TotalPage");
-        return Integer.parseInt(totalPage);
-    }
-
-    @Override
     public Map<String, String> constructSystemParam() {
-        Map<String, String> map = new HashMap();
-        map.put(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME, TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE);
-        map.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
-        map.put(TLCSpiderConstants.SPIDER_PARAM_TOKEN, TOKEN);
-        map.put(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE, JOB_TITLE);
-        return map;
+        Map<String, String> param = new HashMap();
+        param.put(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME, TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE);
+        param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
+        param.put(TLCSpiderConstants.SPIDER_PARAM_TOKEN, TOKEN);
+        param.put(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE, JOB_TITLE);
+        param.put(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME, "PageIndex");
+        return param;
     }
 
     @Override
     public Map<String, String> constructSpiderParam() {
         Map<String, String> param = new HashMap();
         param.put("TargetAction", "GetProjectList_Index");
+        param.put("PageSize", "10");
+        param.put("PageIndex", "1");
         param.put("Sort", "normal");
-        param.put(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME, "PageIndex");
         return param;
     }
 
     @Override
-    public Map<String, TransObject> getUpdateMap() throws InvalidDataException {
-        Map<String, String> map = constructSystemParam();
-        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, map);
+    public int getTotalPage(Map<String, String> param) {
+        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String pageStr = JsonUtil.getString(pageContent, "DicData");
+        String totalPage = JsonUtil.getString(pageStr, "TotalPage");
+        return Integer.parseInt(totalPage);
+    }
+
+    @Override
+    public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) throws InvalidDataException {
+        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param);
         String status = JsonUtil.getString(result, "state");
         if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
             throw new InvalidDataException(result);
@@ -61,13 +61,13 @@ public class ZHXQYEJJob extends TLCSpiderJob {
         List<TransObject> updateList = JsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
         Map<String, TransObject> updateMap = new HashMap();
         for (TransObject transObject : updateList) {
-            map.put(transObject.getFinancingId(), null);
+            updateMap.put(transObject.getFinancingId(), null);
         }
         return updateMap;
     }
 
     @Override
-    public List<TransObject> getDataList(Map<String, String> param) {
+    public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String listContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
         String listStr = JsonUtil.getString(listContent, "DicData");
         List<ZHXQYEJ> zhxqyejList = JsonUtil.json2Array(listStr, "NormalList", ZHXQYEJ.class);

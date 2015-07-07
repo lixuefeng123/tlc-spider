@@ -8,7 +8,6 @@ import cn.com.fero.tlc.spider.vo.TransObject;
 import com.sun.media.sound.InvalidDataException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Required;
 
@@ -19,7 +18,7 @@ import java.util.*;
  */
 @DisallowConcurrentExecution
 @PersistJobDataAfterExecution
-public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
+public abstract class TLCSpiderJob implements Job, TLCSpiderJobExecutor {
     private String jobName;
     private String jobGroupName;
     private String triggerName;
@@ -78,26 +77,26 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
 
             Map<String, String> systemParam = constructSystemParam();
             String jobTitle = systemParam.get(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE);
+            String pageName = systemParam.get(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME);
 
             LoggerUtil.getLogger().info("开始获取" + jobTitle + "更新列表");
-            Map<String, TransObject> updateMap = getUpdateMap();
+            Map<String, TransObject> updateMap = getUpdateDataMap(systemParam);
             LoggerUtil.getLogger().info(jobTitle + "更新条数 = "+ updateMap.size());
 
             LoggerUtil.getLogger().info("开始抓取" + jobTitle + "总页数");
-            int totalPage = getTotalPage();
+            Map<String, String> spiderParam = constructSpiderParam();
+            int totalPage = getTotalPage(spiderParam);
             LoggerUtil.getLogger().info(jobTitle + "总页数数 = " + totalPage);
 
-            Map<String, String> spiderParam = constructSpiderParam();
             boolean isContinue = true;
-
             for (Integer page = 1; page <= totalPage; page++) {
                 if (!isContinue) {
                     break;
                 }
 
                 LoggerUtil.getLogger().info("开始抓取" + jobTitle + "第" + page + "页");
-                spiderParam.put(spiderParam.get(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME), page.toString());
-                List<TransObject> resultList = getDataList(spiderParam);
+                spiderParam.put(pageName, page.toString());
+                List<TransObject> resultList = getSpiderDataList(spiderParam);
 
                 for (TransObject transObject : resultList) {
 //                    if(updateMap.containsKey(transObject.getFinancingId())) {
@@ -154,19 +153,9 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
     }
 
     @Override
-    public int getTotalPage() throws Exception {
-        return 0;
-    }
-
-    @Override
     public Map<String, String> constructSystemParam() {
         return Collections.EMPTY_MAP;
     }
-
-//    @Override
-//    public Map<String, String> constructSystemParam(List<TransObject> transObjectList) {
-//        return Collections.EMPTY_MAP;
-//    }
 
     @Override
     public Map<String, String> constructSpiderParam() {
@@ -174,12 +163,17 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
     }
 
     @Override
-    public Map<String, TransObject> getUpdateMap() throws InvalidDataException {
+    public int getTotalPage(Map<String, String> param) throws Exception {
+        return 0;
+    }
+
+    @Override
+    public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) throws InvalidDataException {
         return Collections.EMPTY_MAP;
     }
 
     @Override
-    public List<TransObject> getDataList(Map<String, String> param) {
+    public List<TransObject> getSpiderDataList(Map<String, String> param) {
         return Collections.EMPTY_LIST;
     }
 }
