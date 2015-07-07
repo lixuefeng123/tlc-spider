@@ -113,5 +113,4 @@ public class LZYHEREDJob extends TLCSpiderJob {
         String response = TLCSpiderRequest.post("http://192.168.2.19:3005/spiderapi/p2p/post", map);
         LoggerUtil.getLogger().info("发送招商银行小企业E家状态：" + response);
     }
-
 }
