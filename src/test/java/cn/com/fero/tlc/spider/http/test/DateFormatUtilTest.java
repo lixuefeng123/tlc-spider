@@ -11,6 +11,6 @@ public class DateFormatUtilTest {
 
     @Test
     public void test() {
-        System.out.println(DateFormatUtils.format(1435276800000L, TLCSpiderConstants.SPIDER_DEFAULT_FORMAT_DISPLAY_DATE_TIME));
+        System.out.println(DateFormatUtils.format(1435276800000L, TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
     }
 }

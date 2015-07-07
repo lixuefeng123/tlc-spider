@@ -34,7 +34,7 @@ public class TLCSpiderRequest {
             httpClient = HttpClients.createDefault();
             HttpGet httpget = new HttpGet(url);
             response = httpClient.execute(httpget);
-            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.HTTP_CHARACTER_ENCODING);
+            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.SPIDER_CONST_CHARACTER_ENCODING);
         } catch (Exception e) {
             throw new TLCSpiderRequestException(e);
         } finally {
@@ -66,10 +66,10 @@ public class TLCSpiderRequest {
             for (Map.Entry<String, String> entry : param.entrySet()) {
                 paramList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
             }
-            httpPost.setEntity(new UrlEncodedFormEntity(paramList, CharsetUtils.get(TLCSpiderConstants.HTTP_CHARACTER_ENCODING)));
+            httpPost.setEntity(new UrlEncodedFormEntity(paramList, CharsetUtils.get(TLCSpiderConstants.SPIDER_CONST_CHARACTER_ENCODING)));
 
             response = httpClient.execute(httpPost);
-            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.HTTP_CHARACTER_ENCODING);
+            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.SPIDER_CONST_CHARACTER_ENCODING);
         } catch (Exception e) {
             throw new TLCSpiderRequestException(e);
         } finally {

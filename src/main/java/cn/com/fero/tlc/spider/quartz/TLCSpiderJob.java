@@ -8,6 +8,7 @@ import cn.com.fero.tlc.spider.vo.TransObject;
 import com.sun.media.sound.InvalidDataException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Required;
 
@@ -76,7 +77,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
             List<TransObject> transObjectList = new ArrayList();
 
             Map<String, String> systemParam = constructSystemParam();
-            String jobTitle = systemParam.get(TLCSpiderConstants.HTTP_PARAM_JOB_TITLE);
+            String jobTitle = systemParam.get(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE);
 
             LoggerUtil.getLogger().info("开始获取" + jobTitle + "更新列表");
             Map<String, TransObject> updateMap = getUpdateMap();
@@ -95,11 +96,14 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
                 }
 
                 LoggerUtil.getLogger().info("开始抓取" + jobTitle + "第" + page + "页");
-                spiderParam.put(spiderParam.get(TLCSpiderConstants.HTTP_PARAM_PAGE), page.toString());
+                spiderParam.put(spiderParam.get(TLCSpiderConstants.SPIDER_PARAM_PAGE_INDEX), page.toString());
                 List<TransObject> resultList = getDataList();
 
                 for (TransObject transObject : resultList) {
-                    if (!transObject.getProgress().equals("100%") || updateMap.containsKey(transObject.getFinancingId())) {
+                    if(updateMap.containsKey(transObject.getFinancingId())) {
+                        transObject.setId(updateMap.get(transObject.getFinancingId()).getId());
+                        transObjectList.add(transObject);
+                    } else if (!StringUtils.equalsIgnoreCase(transObject.getProgress(), TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
                         transObjectList.add(transObject);
                     } else {
                         isContinue = false;
@@ -118,8 +122,8 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
             }
         } catch (Exception e) {
             Map<String, String> map = constructSystemParam();
-            map.put(TLCSpiderConstants.HTTP_PARAM_STATUS_NAME, TLCSpiderConstants.HTTP_PARAM_STATUS_FAIL_CODE);
-            map.put(TLCSpiderConstants.HTTP_PARAM_MESSAGE, ExceptionUtils.getFullStackTrace(e));
+            map.put(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME, TLCSpiderConstants.SPIDER_PARAM_STATUS_FAIL_CODE);
+            map.put(TLCSpiderConstants.SPIDER_PARAM_MESSAGE, ExceptionUtils.getFullStackTrace(e));
             sendDataToSystem(map);
         }
     }
@@ -137,14 +141,14 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderExecutor {
     protected void sendDataToSystem(List<TransObject> transObjectList, String jobTitle) {
         LoggerUtil.getLogger().info("发送" + jobTitle + "数据, size = " + transObjectList.size());
         Map<String, String> map = constructSystemParam();
-        map.put(TLCSpiderConstants.HTTP_PARAM_DATA, JsonUtil.array2Json(transObjectList));
+        map.put(TLCSpiderConstants.SPIDER_PARAM_DATA, JsonUtil.array2Json(transObjectList));
         sendDataToSystem(map);
         transObjectList.clear();
     }
 
     protected void sendDataToSystem(Map<String, String> map) {
-        String response = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_SEND_URL, map);
-        LoggerUtil.getLogger().info("发送" + map.get(TLCSpiderConstants.HTTP_PARAM_JOB_TITLE) + "状态：" + response);
+        String response = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_SEND, map);
+        LoggerUtil.getLogger().info("发送" + map.get(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE) + "状态：" + response);
     }
 
     @Override
