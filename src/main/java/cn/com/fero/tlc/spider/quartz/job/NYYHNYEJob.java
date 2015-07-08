@@ -5,15 +5,12 @@ import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.DateFormatUtil;
 import cn.com.fero.tlc.spider.util.JsonUtil;
-import cn.com.fero.tlc.spider.util.LoggerUtil;
 import cn.com.fero.tlc.spider.util.PropertiesUtil;
 import cn.com.fero.tlc.spider.vo.NYYHNYE;
-import cn.com.fero.tlc.spider.vo.RDNSYHERJZ;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.apache.commons.lang3.StringUtils;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,7 +62,7 @@ public class NYYHNYEJob extends TLCSpiderJob {
         List<NYYHNYE> productList = JsonUtil.json2Array(productContent, "projList", NYYHNYE.class);
 
         List<TransObject> transObjectList = new ArrayList();
-        for(NYYHNYE product : productList) {
+        for (NYYHNYE product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }
@@ -80,9 +77,15 @@ public class NYYHNYEJob extends TLCSpiderJob {
         transObject.setProjectName(product.getProjName());
         transObject.setAmount(product.getProductSize());
         transObject.setDuration(product.getLimitType());
-        transObject.setInvestmentInterest(Double.parseDouble(product.getYieldRate()) * 100 + "%");
-        transObject.setRealProgress(Double.parseDouble(product.getBuyPercent()) * 100 + "%");
-        transObject.setProgress(Double.parseDouble(product.getBuyPercent()) * 100 + "%");
+        transObject.setInvestmentInterest(String.format("%.2f", Double.parseDouble(product.getYieldRate()) * 100));
+        if(product.getBuyPercent().equals(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
+            transObject.setProgress(product.getBuyPercent());
+            transObject.setRealProgress(product.getBuyPercent());
+        } else {
+            transObject.setProgress("0" + product.getBuyPercent());
+            transObject.setRealProgress("0" + product.getBuyPercent());
+        }
+        transObject.setPartsCount(String.valueOf(Integer.parseInt(product.getProductSize()) / Integer.parseInt(product.getSingleSum())));
         if (StringUtils.isNotEmpty(product.getPubStaDate()) && StringUtils.isNotEmpty(product.getPubStaTime())) {
             transObject.setProjectBeginTime(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATE_TIME, product.getPubStaDate(), product.getPubStaTime()));
         } else if (StringUtils.isNotEmpty(product.getPubStaDate())) {
@@ -98,38 +101,66 @@ public class NYYHNYEJob extends TLCSpiderJob {
         } else if (StringUtils.isNotEmpty(product.getSellEndDate())) {
             transObject.setRepayBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATA, product.getSellEndDate()));
         }
-
-        //TODO 转换
-//            financeValue.setPartsCount();
-//            financeValue.setBankInterest();
-//            financeValue.setRepayType();
-//            financeValue.setRepaySourceType();
-//            financeValue.setReadyBeginTime();
-//            financeValue.setProjectStatus();
-//            financeValue.setCreditLevel();
-//            financeValue.setCreateUserId();
-//            financeValue.setCreateCompanyId();
-//            financeValue.setJmBeginTime();
-//            financeValue.setAreaCode();
-//            financeValue.setCreateTime();
-//            financeValue.setUpdateUserId();
-//            financeValue.setUpdateTime();
-//            financeValue.setCreateUserName();
-//            financeValue.setCreateCompanyName();
-//            financeValue.setIsShow();
-//            financeValue.setProjectType();
-//            financeValue.setIsExclusivePublic();
-//            financeValue.setMinInvestPartsCount();
-//            financeValue.setExclusiveCode();
-//            financeValue.setLcAmount();
-//            financeValue.setICount();
-//            financeValue.setIAmount();
-//            financeValue.setFinanceApplyStatus();
-//            financeValue.setHotStatus();
-//            financeValue.setDbType();
-//            financeValue.setTitle();
-//            financeValue.setContent();
-//            financeValue.setIsLimitCount();
+        if (product.getInvestFlag().equals("1")) {
+            transObject.setRepayType(TLCSpiderConstants.REPAY_TYPE.TOTAL.toString());
+        } else if (product.getInvestFlag().equals("2")) {
+            transObject.setRepayType(TLCSpiderConstants.REPAY_TYPE.MONTHLY_INTEREST.toString());
+        } else {
+            transObject.setRepayType(TLCSpiderConstants.REPAY_TYPE.MONTHLY_MONNEY_INTEREST.toString());
+        }
+        if (product.getBuyFlag().equals("0")) {
+            transObject.setProjectStatus("创建");
+        } else if (product.getBuyFlag().equals("01")) {
+            transObject.setProjectStatus("发布处理中");
+        } else if (product.getBuyFlag().equals("02")) {
+            transObject.setProjectStatus("发布审批失败");
+        } else if (product.getBuyFlag().equals("03")) {
+            transObject.setProjectStatus("已发布");
+        } else if (product.getBuyFlag().equals("1")) {
+            transObject.setProjectStatus("募集中");
+        } else if (product.getBuyFlag().equals("2")) {
+            transObject.setProjectStatus("募集完成");
+        } else if (product.getBuyFlag().equals("21")) {
+            transObject.setProjectStatus("募集完成处理中");
+        } else if (product.getBuyFlag().equals("22")) {
+            transObject.setProjectStatus("募集审批成功");
+        } else if (product.getBuyFlag().equals("3")) {
+            transObject.setProjectStatus("项目不成立");
+        } else if (product.getBuyFlag().equals("31")) {
+            transObject.setProjectStatus("募集失败处理中");
+        } else if (product.getBuyFlag().equals("32")) {
+            transObject.setProjectStatus("募集审批失败");
+        } else if (product.getBuyFlag().equals("33")) {
+            transObject.setProjectStatus("已终止");
+        } else if (product.getBuyFlag().equals("4")) {
+            transObject.setProjectStatus("已划款");
+        } else if (product.getBuyFlag().equals("40")) {
+            transObject.setProjectStatus("划款提交");
+        } else if (product.getBuyFlag().equals("41")) {
+            transObject.setProjectStatus("划款处理中");
+        } else if (product.getBuyFlag().equals("42")) {
+            transObject.setProjectStatus("划款审批失败");
+        } else if (product.getBuyFlag().equals("43")) {
+            transObject.setProjectStatus("划款审批成功");
+        } else if (product.getBuyFlag().equals("5")) {
+            transObject.setProjectStatus("已成立");
+        } else if (product.getBuyFlag().equals("51") && product.getInvestFlag().equals("1")) {
+            transObject.setProjectStatus("到期待确认");
+        } else if (product.getBuyFlag().equals("51") && product.getInvestFlag().equals("2")) {
+            transObject.setProjectStatus("已成立");
+        } else if (product.getBuyFlag().equals("6")) {
+            transObject.setProjectStatus("已到期");
+        } else if (product.getBuyFlag().equals("7")) {
+            transObject.setProjectStatus("已清算");
+        } else if (product.getBuyFlag().equals("71")) {
+            transObject.setProjectStatus("清算审批中");
+        } else if (product.getBuyFlag().equals("72")) {
+            transObject.setProjectStatus("清算审批失败");
+        } else if (product.getBuyFlag().equals("73")) {
+            transObject.setProjectStatus("清算审批成功");
+        } else if (product.getBuyFlag().equals("74")) {
+            transObject.setProjectStatus("清算处理中");
+        }
         return transObject;
     }
 }

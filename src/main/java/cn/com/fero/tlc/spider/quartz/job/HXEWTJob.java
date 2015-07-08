@@ -169,11 +169,11 @@ public class HXEWTJob extends TLCSpiderJob {
             String type5 = TLCSpiderHTMLParser.parseText(detailContent, "//table[1]//tr[5]/td[2]/p[1]/span[5]");
             String repayType = type1 + type2 + type3 + type4 + type5;
             if (repayType.contains("到期") && repayType.contains("本") && repayType.contains("息")) {
-                repayType = "0";
+                repayType = TLCSpiderConstants.REPAY_TYPE.TOTAL.toString();
             } else if (repayType.contains("按月")) {
-                repayType = "1";
+                repayType = TLCSpiderConstants.REPAY_TYPE.MONTHLY_INTEREST.toString();
             } else {
-                repayType = "2";
+                repayType = TLCSpiderConstants.REPAY_TYPE.MONTHLY_MONNEY_INTEREST.toString();
             }
 
             String begin1 = TLCSpiderHTMLParser.parseText(detailContent, "//table[1]//tr[3]/td[2]/p[1]/span[1]");

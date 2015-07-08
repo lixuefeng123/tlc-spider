@@ -1,5 +1,6 @@
 package cn.com.fero.tlc.spider.quartz.job;
 
+import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
@@ -42,11 +43,11 @@ public class BSYHFinanceJob extends TLCSpiderJob {
                 repayType = TLCSpiderHTMLParser.parseText(product, "//td[5]");
             }
             if (repayType.contains("到期") && (repayType.contains("本") || repayType.contains("息"))) {
-                repayType = "0";
+                repayType = TLCSpiderConstants.REPAY_TYPE.TOTAL.toString();
             } else if (repayType.contains("按月") && repayType.contains("付息")) {
-                repayType = "1";
+                repayType = TLCSpiderConstants.REPAY_TYPE.MONTHLY_INTEREST.toString();
             } else {
-                repayType = "2";
+                repayType = TLCSpiderConstants.REPAY_TYPE.MONTHLY_MONNEY_INTEREST.toString();
             }
             String realProgress = TLCSpiderHTMLParser.parseText(product, "//td[6]/div[@class='persent']").replaceAll("&nbsp;", "").split("\\n")[1].trim() + "%";
             String progress = realProgress;
