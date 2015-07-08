@@ -31,6 +31,7 @@ public class NBYHZXYHJob extends TLCSpiderJob {
     private static final String SID = PropertiesUtil.getResource("tlc.spider.nbyhzxyh.sid");
     private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.nbyhzxyh.token");
     private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.nbyhzxyh.title");
+    private static final String PAGE_NAME = "PageIndex";
 
     @Override
     public Map<String, String> constructSystemParam() {
@@ -39,7 +40,7 @@ public class NBYHZXYHJob extends TLCSpiderJob {
         param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
         param.put(TLCSpiderConstants.SPIDER_PARAM_TOKEN, TOKEN);
         param.put(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE, JOB_TITLE);
-        param.put(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME, "PageIndex");
+        param.put(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME, PAGE_NAME);
         return param;
     }
 
@@ -47,7 +48,7 @@ public class NBYHZXYHJob extends TLCSpiderJob {
     public Map<String, String> constructSpiderParam() {
         Map<String, String> param = new HashMap();
         param.put("targetAction", "CmbFinancingSearch");
-        param.put("PageIndex", "1");
+        param.put(PAGE_NAME, TLCSpiderConstants.SPIDER_PARAM_PAGE_ONE);
         param.put("PageSize", "10");
         param.put("Interest", "");
         param.put("Duration", "");

@@ -7,7 +7,6 @@ import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.PropertiesUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
-import com.sun.media.sound.InvalidDataException;
 
 import java.util.*;
 
@@ -23,6 +22,7 @@ public class ZHXQYEJJob extends TLCSpiderJob {
     private static final String SID = PropertiesUtil.getResource("tlc.spider.zhxqyej.sid");
     private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.zhxqyej.token");
     private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.zhxqyej.title");
+    private static final String PAGE_NAME = "PageIndex";
 
     @Override
     public Map<String, String> constructSystemParam() {
@@ -31,7 +31,7 @@ public class ZHXQYEJJob extends TLCSpiderJob {
         param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
         param.put(TLCSpiderConstants.SPIDER_PARAM_TOKEN, TOKEN);
         param.put(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE, JOB_TITLE);
-        param.put(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME, "PageIndex");
+        param.put(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME, PAGE_NAME);
         return param;
     }
 
@@ -40,7 +40,7 @@ public class ZHXQYEJJob extends TLCSpiderJob {
         Map<String, String> param = new HashMap();
         param.put("TargetAction", "GetProjectList_Index");
         param.put("PageSize", "10");
-        param.put("PageIndex", "1");
+        param.put(PAGE_NAME, TLCSpiderConstants.SPIDER_PARAM_PAGE_ONE);
         param.put("Sort", "normal");
         return param;
     }

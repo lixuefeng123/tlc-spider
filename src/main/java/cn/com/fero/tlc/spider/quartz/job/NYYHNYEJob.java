@@ -28,6 +28,7 @@ public class NYYHNYEJob extends TLCSpiderJob {
     private static final String SID = PropertiesUtil.getResource("tlc.spider.nyyhnye.sid");
     private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.nyyhnye.token");
     private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.nyyhnye.title");
+    private static final String PAGE_NAME = "page";
 
     @Override
     public Map<String, String> constructSystemParam() {
@@ -36,7 +37,7 @@ public class NYYHNYEJob extends TLCSpiderJob {
         param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
         param.put(TLCSpiderConstants.SPIDER_PARAM_TOKEN, TOKEN);
         param.put(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE, JOB_TITLE);
-        param.put(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME, "page");
+        param.put(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME, PAGE_NAME);
         return param;
     }
 
@@ -44,7 +45,7 @@ public class NYYHNYEJob extends TLCSpiderJob {
     public Map<String, String> constructSpiderParam() {
         Map<String, String> param = new HashMap();
         param.put("timeLimitType", "0");
-        param.put("page", "0");
+        param.put(PAGE_NAME, TLCSpiderConstants.SPIDER_PARAM_PAGE_ZERO);
         param.put("pagesize", "8");
         return param;
     }

@@ -28,6 +28,7 @@ public class LZYHEREDJob extends TLCSpiderJob {
     private static final String SID = PropertiesUtil.getResource("tlc.spider.lzyhered.sid");
     private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.lzyhered.token");
     private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.lzyhered.title");
+    private static final String PAGE_NAME = "pn";
 
     @Override
     public Map<String, String> constructSystemParam() {
@@ -36,7 +37,7 @@ public class LZYHEREDJob extends TLCSpiderJob {
         param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
         param.put(TLCSpiderConstants.SPIDER_PARAM_TOKEN, TOKEN);
         param.put(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE, JOB_TITLE);
-        param.put(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME, "pn");
+        param.put(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME, PAGE_NAME);
         return param;
     }
 
@@ -48,7 +49,7 @@ public class LZYHEREDJob extends TLCSpiderJob {
         param.put("cond3", "0");
         param.put("cond4", "0");
         param.put("cond5", "0");
-        param.put("pn", "1");
+        param.put(PAGE_NAME, TLCSpiderConstants.SPIDER_PARAM_PAGE_ONE);
         param.put("id", "");
         param.put("pre", "");
         return param;

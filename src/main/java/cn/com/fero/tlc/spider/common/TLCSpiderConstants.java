@@ -19,6 +19,8 @@ public final class TLCSpiderConstants {
     public static final String SPIDER_PARAM_DATA = "data";
     public static final String SPIDER_PARAM_MESSAGE = "message";
     public static final String SPIDER_PARAM_PAGE_NAME = "page";
+    public static final String SPIDER_PARAM_PAGE_ONE = "1";
+    public static final String SPIDER_PARAM_PAGE_ZERO = "0";
     public static final String SPIDER_PARAM_STATUS_SUCCESS_CODE = "200";
     public static final String SPIDER_PARAM_STATUS_FAIL_CODE = "500";
     public static final String SPIDER_PAGE_SIZE_GET = "10";
