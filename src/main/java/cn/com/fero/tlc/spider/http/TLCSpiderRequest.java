@@ -32,8 +32,9 @@ public class TLCSpiderRequest {
         CloseableHttpResponse response = null;
         try {
             httpClient = HttpClients.createDefault();
-            HttpGet httpget = new HttpGet(url);
-            response = httpClient.execute(httpget);
+            HttpGet httpGet = new HttpGet(url);
+
+            response = httpClient.execute(httpGet);
             return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.SPIDER_CONST_CHARACTER_ENCODING);
         } catch (Exception e) {
             throw new TLCSpiderRequestException(e);

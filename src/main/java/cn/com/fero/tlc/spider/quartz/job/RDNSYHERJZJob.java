@@ -28,6 +28,7 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
     private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.token");
     private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.title");
     private static final String PAGE_NAME = "PageIndex";
+    private static final String PAGE_SIZE = "10";
 
     @Override
     public Map<String, String> constructSystemParam() {
@@ -43,9 +44,9 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
     @Override
     public Map<String, String> constructSpiderParam() {
         Map<String, String> param = new HashMap();
-        param.put("targetAction", "CmbFinancingSearch");
         param.put(PAGE_NAME, TLCSpiderConstants.SPIDER_PARAM_PAGE_ONE);
-        param.put("PageSize", "10");
+        param.put("PageSize", PAGE_SIZE);
+        param.put("targetAction", "CmbFinancingSearch");
         param.put("Interest", "");
         param.put("Duration", "");
         param.put("ProjectStatus", "");
@@ -58,7 +59,7 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
         String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
         String countStr = JsonUtil.getString(countContent, "Data");
         String totalCount = JsonUtil.getString(countStr, "TotalCount");
-        int pageSize = Integer.parseInt(TLCSpiderConstants.SPIDER_PAGE_SIZE_GET);
+        int pageSize = Integer.parseInt(PAGE_SIZE);
         int totalCountNum = Integer.parseInt(totalCount) % pageSize == 0 ? Integer.parseInt(totalCount) / pageSize : (Integer.parseInt(totalCount) / pageSize + 1);
         return totalCountNum;
     }
