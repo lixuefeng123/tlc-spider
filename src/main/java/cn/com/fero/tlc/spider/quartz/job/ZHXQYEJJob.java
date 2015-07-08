@@ -16,6 +16,7 @@ import java.util.*;
  */
 //招商银行小企业E家抓取
 public class ZHXQYEJJob extends TLCSpiderJob {
+    
     private static final String URL_PRODUCT_LIST = "https://efinance.cmbchinaucs.com/Handler/ActionPageV4.aspx";
     private static final String SID = "1";
     private static final String TOKEN = "2kd2Z1U=VbNhBw1XYxiuMJBaYP9FB=oPEJn3wn3qxKWU";
