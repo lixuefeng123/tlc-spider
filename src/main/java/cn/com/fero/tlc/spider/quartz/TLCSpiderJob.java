@@ -122,6 +122,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderJobExecutor {
                 sendDataToSystem(transObjectList, jobTitle);
             }
         } catch (Exception e) {
+            LoggerUtil.getLogger().error("发生异常：" + ExceptionUtils.getFullStackTrace(e));
             Map<String, String> map = constructSystemParam();
             map.put(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME, TLCSpiderConstants.SPIDER_PARAM_STATUS_FAIL_CODE);
             map.put(TLCSpiderConstants.SPIDER_PARAM_MESSAGE, ExceptionUtils.getFullStackTrace(e));

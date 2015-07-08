@@ -19,7 +19,7 @@ public final class TLCSpiderConstants {
     public static final String SPIDER_PARAM_PAGE_NAME = "page";
     public static final String SPIDER_PARAM_STATUS_SUCCESS_CODE = "200";
     public static final String SPIDER_PARAM_STATUS_FAIL_CODE = "500";
-    public static final String SPIDER_PAGE_SIZE_GET = "8";
+    public static final String SPIDER_PAGE_SIZE_GET = "10";
     public static final int SPIDER_PAGE_SIZE_SEND = 100;
     public static final String SPIDER_URL_SEND = "http://192.168.3.19:3005/spiderapi/p2p/post";
     public static final String SPIDER_URL_GET = "http://192.168.3.19:3005/spiderapi/p2p/updatelist";

@@ -19,8 +19,14 @@ public final class DateFormatUtil {
 
     public static String formatDateTime(String format, String... args) {
         try {
-            if (StringUtils.isEmpty(format) || ArrayUtils.isEmpty(args)) {
-                throw new IllegalArgumentException();
+            if (StringUtils.isEmpty(format)) {
+                return StringUtils.EMPTY;
+            }
+
+            for(String arg : args) {
+                if (StringUtils.isEmpty(arg)) {
+                    return StringUtils.EMPTY;
+                }
             }
 
             SimpleDateFormat sdf = new SimpleDateFormat();

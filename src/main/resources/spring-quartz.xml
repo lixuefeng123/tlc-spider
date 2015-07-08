@@ -52,20 +52,20 @@
                     <!--<property name="triggerGroupName" value="bankTrigger"/>-->
                     <!--<property name="cronExpression" value="0/10 * * * * ?"/>-->
                 <!--</bean>-->
-                <bean id="lzyheredJob" class="cn.com.fero.tlc.spider.quartz.job.LZYHEREDJob">
-                <property name="jobName" value="lzyheredJob"/>
-                <property name="jobGroupName" value="bank"/>
-                <property name="triggerName" value="lzyheredTrigger"/>
-                <property name="triggerGroupName" value="bankTrigger"/>
-                <property name="cronExpression" value="0/10 * * * * ?"/>
-                </bean>
-                <!--<bean id="rdnsyherjzJob" class="cn.com.fero.tlc.spider.quartz.job.RDNSYHERJZJob">-->
-                <!--<property name="jobName" value="rdnsyherjzJob"/>-->
+                <!--<bean id="lzyheredJob" class="cn.com.fero.tlc.spider.quartz.job.LZYHEREDJob">-->
+                <!--<property name="jobName" value="lzyheredJob"/>-->
                 <!--<property name="jobGroupName" value="bank"/>-->
-                <!--<property name="triggerName" value="rdnsyherjzTrigger"/>-->
+                <!--<property name="triggerName" value="lzyheredTrigger"/>-->
                 <!--<property name="triggerGroupName" value="bankTrigger"/>-->
                 <!--<property name="cronExpression" value="0/10 * * * * ?"/>-->
                 <!--</bean>-->
+                <bean id="rdnsyherjzJob" class="cn.com.fero.tlc.spider.quartz.job.RDNSYHERJZJob">
+                <property name="jobName" value="rdnsyherjzJob"/>
+                <property name="jobGroupName" value="bank"/>
+                <property name="triggerName" value="rdnsyherjzTrigger"/>
+                <property name="triggerGroupName" value="bankTrigger"/>
+                <property name="cronExpression" value="0/10 * * * * ?"/>
+                </bean>
                 <!--<bean id="nbyhzxyhJob" class="cn.com.fero.tlc.spider.quartz.job.NBYHZXYHJob">-->
                 <!--<property name="jobName" value="nbyhzxyhJob"/>-->
                 <!--<property name="jobGroupName" value="bank"/>-->
