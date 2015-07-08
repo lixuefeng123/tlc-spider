@@ -45,7 +45,7 @@ public class NYYHNYEJob extends TLCSpiderJob {
         Map<String, String> param = new HashMap();
         param.put("timeLimitType", "0");
         param.put("page", "0");
-        param.put("pagesize", TLCSpiderConstants.SPIDER_PAGE_SIZE_GET);
+        param.put("pagesize", "8");
         return param;
     }
 

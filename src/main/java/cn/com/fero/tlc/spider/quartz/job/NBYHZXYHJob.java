@@ -48,7 +48,7 @@ public class NBYHZXYHJob extends TLCSpiderJob {
         Map<String, String> param = new HashMap();
         param.put("targetAction", "CmbFinancingSearch");
         param.put("PageIndex", "1");
-        param.put("PageSize", TLCSpiderConstants.SPIDER_PAGE_SIZE_GET);
+        param.put("PageSize", "10");
         param.put("Interest", "");
         param.put("Duration", "");
         param.put("ProjectStatus", "");

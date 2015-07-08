@@ -39,7 +39,7 @@ public class ZHXQYEJJob extends TLCSpiderJob {
     public Map<String, String> constructSpiderParam() {
         Map<String, String> param = new HashMap();
         param.put("TargetAction", "GetProjectList_Index");
-        param.put("PageSize", TLCSpiderConstants.SPIDER_PAGE_SIZE_GET);
+        param.put("PageSize", "10");
         param.put("PageIndex", "1");
         param.put("Sort", "normal");
         return param;

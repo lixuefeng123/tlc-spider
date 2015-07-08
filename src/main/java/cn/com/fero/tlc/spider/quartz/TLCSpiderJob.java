@@ -90,7 +90,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderJobExecutor {
             LoggerUtil.getLogger().info(jobTitle + "总页数数 = " + totalPage);
 
             boolean isContinue = true;
-            for (Integer page = 0; page < totalPage; page++) {
+            for (Integer page = 1; page <= totalPage; page++) {
                 if (!isContinue) {
                     break;
                 }
@@ -175,19 +175,19 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderJobExecutor {
 
     @Override
     public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) throws InvalidDataException {
-//        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param);
-//        String status = JsonUtil.getString(result, TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
-//        if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
-//            throw new InvalidDataException(result);
-//        }
-//
-//        List<TransObject> updateList = JsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
-//        Map<String, TransObject> updateMap = new HashMap();
-//        for (TransObject transObject : updateList) {
-//            updateMap.put(transObject.getFinancingId(), transObject);
-//        }
-//        return updateMap;
-        return Collections.EMPTY_MAP;
+        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param);
+        String status = JsonUtil.getString(result, TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
+        if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
+            throw new InvalidDataException(result);
+        }
+
+        List<TransObject> updateList = JsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
+        Map<String, TransObject> updateMap = new HashMap();
+        for (TransObject transObject : updateList) {
+            updateMap.put(transObject.getFinancingId(), transObject);
+        }
+        return updateMap;
+//        return Collections.EMPTY_MAP;
     }
 
     @Override
