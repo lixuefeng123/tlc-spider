@@ -5,6 +5,7 @@ import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.DateFormatUtil;
 import cn.com.fero.tlc.spider.util.JsonUtil;
+import cn.com.fero.tlc.spider.util.PropertiesUtil;
 import cn.com.fero.tlc.spider.vo.RDNSYHERJZ;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import com.sun.media.sound.InvalidDataException;
@@ -21,10 +22,10 @@ import java.util.Map;
 //尧都农商银行E融九州抓取
 public class RDNSYHERJZJob extends TLCSpiderJob {
 
-    private static final String URL_PRODUCT_LIST = "https://e.ydnsh.com/Ajax/ProcessRequest";
-    private static final String SID = "1";
-    private static final String TOKEN = "2kd2Z1U=VbNhBw1XYxiuMJBaYP9FB=oPEJn3wn3qxKWU";
-    private static final String JOB_TITLE = "尧都农商银行E融九州";
+    private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.url.list");
+    private static final String SID = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.sid");
+    private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.token");
+    private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.title");
 
     @Override
     public Map<String, String> constructSystemParam() {

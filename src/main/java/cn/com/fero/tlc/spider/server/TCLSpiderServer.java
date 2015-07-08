@@ -2,6 +2,7 @@ package cn.com.fero.tlc.spider.server;
 
 import cn.com.fero.tlc.spider.quartz.TLCSpiderScheduler;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -26,7 +27,7 @@ public final class TCLSpiderServer {
             LoggerUtil.getLogger().info("开始钛理财抓取");
             tlcSpiderScheduler.start();
         } catch (BeansException e) {
-            LoggerUtil.getLogger().error(e.toString());
+            LoggerUtil.getLogger().error(ExceptionUtils.getFullStackTrace(e));
             if (null != tlcSpiderScheduler) {
                 tlcSpiderScheduler.shutdown();
             }

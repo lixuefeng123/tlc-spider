@@ -4,6 +4,7 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.JsonUtil;
+import cn.com.fero.tlc.spider.util.PropertiesUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
 import com.sun.media.sound.InvalidDataException;
@@ -17,10 +18,10 @@ import java.util.*;
 //招商银行小企业E家抓取
 public class ZHXQYEJJob extends TLCSpiderJob {
 
-    private static final String URL_PRODUCT_LIST = "https://efinance.cmbchinaucs.com/Handler/ActionPageV4.aspx";
-    private static final String SID = "1";
-    private static final String TOKEN = "2kd2Z1U=VbNhBw1XYxiuMJBaYP9FB=oPEJn3wn3qxKWU";
-    private static final String JOB_TITLE = "招商银行小企业E家";
+    private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.zhxqyej.url.list");
+    private static final String SID = PropertiesUtil.getResource("tlc.spider.zhxqyej.sid");
+    private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.zhxqyej.token");
+    private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.zhxqyej.title");
 
     @Override
     public Map<String, String> constructSystemParam() {

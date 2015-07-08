@@ -1,5 +1,7 @@
 package cn.com.fero.tlc.spider.common;
 
+import cn.com.fero.tlc.spider.util.PropertiesUtil;
+
 /**
  * Created by wanghongmeng on 2015/6/24.
  */
@@ -21,8 +23,8 @@ public final class TLCSpiderConstants {
     public static final String SPIDER_PARAM_STATUS_FAIL_CODE = "500";
     public static final String SPIDER_PAGE_SIZE_GET = "10";
     public static final int SPIDER_PAGE_SIZE_SEND = 100;
-    public static final String SPIDER_URL_SEND = "http://192.168.3.19:3005/spiderapi/p2p/post";
-    public static final String SPIDER_URL_GET = "http://192.168.3.19:3005/spiderapi/p2p/updatelist";
+    public static final String SPIDER_URL_SEND = PropertiesUtil.getResource("tlc.spider.interactive.url.send");
+    public static final String SPIDER_URL_GET = PropertiesUtil.getResource("tlc.spider.interactive.url.get");
     private TLCSpiderConstants() {
         throw new UnsupportedOperationException();
     }

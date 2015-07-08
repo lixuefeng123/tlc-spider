@@ -1,4 +1,5 @@
-package cn.com.fero.tlc.spider.http.test;//package cn.com.fero.tlc.spider.controller.test;
+package cn.com.fero.tlc.spider.http.test;
+//package cn.com.fero.tlc.spider.controller.test;
 //
 //import org.junit.runner.RunWith;
 //import org.springframework.test.context.ContextConfiguration;

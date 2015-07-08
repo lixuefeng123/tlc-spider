@@ -10,6 +10,6 @@
     <context:annotation-config/>
     <!--<aop:aspectj-autoproxy/>-->
     <context:component-scan base-package="cn.com.fero.tlc.spider"/>
-    <context:property-placeholder location="classpath*:tlc.spider.properties"/>
+    <context:property-placeholder location="classpath*:tlc-spider.properties"/>
 
 </beans>

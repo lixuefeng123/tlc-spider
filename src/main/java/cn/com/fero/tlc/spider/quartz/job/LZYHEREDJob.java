@@ -5,6 +5,7 @@ import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.JsonUtil;
+import cn.com.fero.tlc.spider.util.PropertiesUtil;
 import cn.com.fero.tlc.spider.util.SplitUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import com.sun.media.sound.InvalidDataException;
@@ -22,11 +23,11 @@ import java.util.Map;
 //兰州银行E融E贷抓取
 public class LZYHEREDJob extends TLCSpiderJob {
 
-    private static final String URL_PRODUCT_LIST = "https://eeonline.lzbank.com/eplus-frontend/Projects_list.action";
-    private static final String URL_PRODUCT_DETAIL = "https://eeonline.lzbank.com/eplus-frontend/Projects_viewProject.action?projectId=";
-    private static final String SID = "1";
-    private static final String TOKEN = "2kd2Z1U=VbNhBw1XYxiuMJBaYP9FB=oPEJn3wn3qxKWU";
-    private static final String JOB_TITLE = "兰州银行E融E贷";
+    private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.lzyhered.url.list");
+    private static final String URL_PRODUCT_DETAIL = PropertiesUtil.getResource("tlc.spider.lzyhered.url.detail");
+    private static final String SID = PropertiesUtil.getResource("tlc.spider.lzyhered.sid");
+    private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.lzyhered.token");
+    private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.lzyhered.title");
 
     @Override
     public Map<String, String> constructSystemParam() {
