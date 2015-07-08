@@ -62,22 +62,6 @@ public class LZYHEREDJob extends TLCSpiderJob {
     }
 
     @Override
-    public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) throws InvalidDataException {
-        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param);
-        String status = JsonUtil.getString(result, "state");
-        if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
-            throw new InvalidDataException(result);
-        }
-
-        List<TransObject> updateList = JsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
-        Map<String, TransObject> updateMap = new HashMap();
-        for (TransObject transObject : updateList) {
-            updateMap.put(transObject.getFinancingId(), null);
-        }
-        return updateMap;
-    }
-
-    @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='main_l_main']/div[@class='main_m_line']");
@@ -144,7 +128,7 @@ public class LZYHEREDJob extends TLCSpiderJob {
         transObject.setProjectCode(projectCode);
         transObject.setValueBegin(valueBegin);
         transObject.setRepayBegin(repayBegin);
-        transObject.setMinInvestPartsCount(minInvestPartsCount.toString());
+        transObject.setMinInvestPartsCount(minInvestPartsCount);
         transObject.setPartsCount(partsCount);
 
         return transObject;

@@ -17,6 +17,7 @@ import java.util.*;
  */
 //招商银行小企业E家抓取
 public class ZHXQYEJJob extends TLCSpiderJob {
+    //detail: https://ba.cmbchinaucs.com/FinanDet.aspx?FinancingId=c5af372b-cc4d-4d1d-9002-be58734ae996
 
     private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.zhxqyej.url.list");
     private static final String SID = PropertiesUtil.getResource("tlc.spider.zhxqyej.sid");
@@ -38,7 +39,7 @@ public class ZHXQYEJJob extends TLCSpiderJob {
     public Map<String, String> constructSpiderParam() {
         Map<String, String> param = new HashMap();
         param.put("TargetAction", "GetProjectList_Index");
-        param.put("PageSize", "10");
+        param.put("PageSize", TLCSpiderConstants.SPIDER_PAGE_SIZE_GET);
         param.put("PageIndex", "1");
         param.put("Sort", "normal");
         return param;
@@ -50,22 +51,6 @@ public class ZHXQYEJJob extends TLCSpiderJob {
         String pageStr = JsonUtil.getString(pageContent, "DicData");
         String totalPage = JsonUtil.getString(pageStr, "TotalPage");
         return Integer.parseInt(totalPage);
-    }
-
-    @Override
-    public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) throws InvalidDataException {
-        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param);
-        String status = JsonUtil.getString(result, "state");
-        if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
-            throw new InvalidDataException(result);
-        }
-
-        List<TransObject> updateList = JsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
-        Map<String, TransObject> updateMap = new HashMap();
-        for (TransObject transObject : updateList) {
-            updateMap.put(transObject.getFinancingId(), null);
-        }
-        return updateMap;
     }
 
     @Override

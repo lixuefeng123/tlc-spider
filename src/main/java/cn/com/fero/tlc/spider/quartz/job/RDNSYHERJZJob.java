@@ -21,6 +21,7 @@ import java.util.Map;
  */
 //尧都农商银行E融九州抓取
 public class RDNSYHERJZJob extends TLCSpiderJob {
+    //detail: https://e.ydnsh.com/home/detail?FinancingId=15b43001-555c-4dda-845c-31b62879fbe7
 
     private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.url.list");
     private static final String SID = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.sid");
@@ -59,22 +60,6 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
         int pageSize = Integer.parseInt(TLCSpiderConstants.SPIDER_PAGE_SIZE_GET);
         int totalCountNum = Integer.parseInt(totalCount) % pageSize == 0 ? Integer.parseInt(totalCount) / pageSize : (Integer.parseInt(totalCount) / pageSize + 1);
         return totalCountNum;
-    }
-
-    @Override
-    public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) throws InvalidDataException {
-        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param);
-        String status = JsonUtil.getString(result, "state");
-        if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
-            throw new InvalidDataException(result);
-        }
-
-        List<TransObject> updateList = JsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
-        Map<String, TransObject> updateMap = new HashMap();
-        for (TransObject transObject : updateList) {
-            updateMap.put(transObject.getFinancingId(), null);
-        }
-        return updateMap;
     }
 
     @Override

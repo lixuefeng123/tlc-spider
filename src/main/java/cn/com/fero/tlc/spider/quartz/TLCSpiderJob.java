@@ -8,6 +8,7 @@ import cn.com.fero.tlc.spider.vo.TransObject;
 import com.sun.media.sound.InvalidDataException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Required;
 
@@ -99,22 +100,26 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderJobExecutor {
                 List<TransObject> resultList = getSpiderDataList(spiderParam);
 
                 for (TransObject transObject : resultList) {
-//                    if(updateMap.containsKey(transObject.getFinancingId())) {
-//                        transObject.setId(updateMap.get(transObject.getFinancingId()).getId());
-//                        transObjectList.add(transObject);
-//                    } else if (!StringUtils.equalsIgnoreCase(transObject.getProgress(), TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
-//                        transObjectList.add(transObject);
-//                    } else {
-//                        isContinue = false;
-//                        sendDataToSystem(transObjectList, jobTitle);
-//                        break;
-//                    }
+                    if (StringUtils.equalsIgnoreCase(transObject.getProgress(), TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
+                        isContinue = false;
+                        for(Map.Entry<String, TransObject> entry : updateMap.entrySet()) {
+                            TransObject to = entry.getValue();
+                            to.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
+                            to.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
+                            transObjectList.add(to);
+                        }
+                        break;
+                    } else {
+                        if(updateMap.containsKey(transObject.getFinancingId())) {
+                            updateMap.remove(updateMap.get(transObject.getFinancingId()));
+                        }
 
-                    transObjectList.add(transObject);
-
-                    if (transObjectList.size() >= TLCSpiderConstants.SPIDER_PAGE_SIZE_SEND) {
-                        sendDataToSystem(transObjectList, jobTitle);
+                        transObjectList.add(transObject);
                     }
+                }
+
+                if (transObjectList.size() >= TLCSpiderConstants.SPIDER_PAGE_SIZE_SEND) {
+                    sendDataToSystem(transObjectList, jobTitle);
                 }
             }
 
@@ -170,7 +175,18 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderJobExecutor {
 
     @Override
     public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) throws InvalidDataException {
-        return Collections.EMPTY_MAP;
+        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param);
+        String status = JsonUtil.getString(result, TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
+        if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
+            throw new InvalidDataException(result);
+        }
+
+        List<TransObject> updateList = JsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
+        Map<String, TransObject> updateMap = new HashMap();
+        for (TransObject transObject : updateList) {
+            updateMap.put(transObject.getFinancingId(), transObject);
+        }
+        return updateMap;
     }
 
     @Override
