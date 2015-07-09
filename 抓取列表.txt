@@ -5,7 +5,7 @@
 #宁波银行直销银行 https://u.zxyh.nbcb.com.cn/
 #广东南粤银行南粤e＋ https://one.gdnybank.com/
 #长子农商银行长青融e贷 http://ryd.zznsyh.cn
-青岛银行财富e屋 https://e.qdccb.com/
+#青岛银行财富e屋 https://e.qdccb.com/
 民生银行民生易贷 https://www.msyidai.com/
 民生银行民生转赚 https://www.mszhuanzhuan.com/
 华润银行资产交易平台 http://e.crbank.com.cn/

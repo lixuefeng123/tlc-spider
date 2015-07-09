@@ -24,7 +24,7 @@ import java.util.Map;
  */
 //青岛银行财富E屋抓取
 public class QDYHCFEWJob extends TLCSpiderJob {
-    //detail: https://e.qdccb.com//home/detail?FinancingId=85433605-1ad3-4243-bb4e-836f8310cf62
+    //detail: https://e.qdccb.com/home/detail?FinancingId=85433605-1ad3-4243-bb4e-836f8310cf62
 
     private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.qdyhcfew.url.list");
     private static final String SID = PropertiesUtil.getResource("tlc.spider.qdyhcfew.sid");
