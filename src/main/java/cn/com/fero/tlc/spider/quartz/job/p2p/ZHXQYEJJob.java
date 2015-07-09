@@ -1,32 +1,27 @@
-package cn.com.fero.tlc.spider.quartz.job;
+package cn.com.fero.tlc.spider.quartz.job.p2p;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.DateFormatUtil;
 import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.PropertiesUtil;
-import cn.com.fero.tlc.spider.vo.RDNSYHERJZ;
 import cn.com.fero.tlc.spider.vo.TransObject;
-import com.sun.media.sound.InvalidDataException;
+import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
  * Created by gizmo on 15/6/17.
  */
-//尧都农商银行E融九州抓取
-public class RDNSYHERJZJob extends TLCSpiderJob {
-    //detail: https://e.ydnsh.com/home/detail?FinancingId=15b43001-555c-4dda-845c-31b62879fbe7
+//招商银行小企业E家抓取
+public class ZHXQYEJJob extends TLCSpiderJob {
+    //detail: https://ba.cmbchinaucs.com/FinanDet.aspx?FinancingId=c5af372b-cc4d-4d1d-9002-be58734ae996
 
-    private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.url.list");
-    private static final String SID = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.sid");
-    private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.token");
-    private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.title");
+    private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.zhxqyej.url.list");
+    private static final String SID = PropertiesUtil.getResource("tlc.spider.zhxqyej.sid");
+    private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.zhxqyej.token");
+    private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.zhxqyej.title");
     private static final String PAGE_NAME = "PageIndex";
     private static final String PAGE_SIZE = "10";
 
@@ -46,32 +41,27 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
         Map<String, String> param = new HashMap();
         param.put(PAGE_NAME, TLCSpiderConstants.SPIDER_PARAM_PAGE_ONE);
         param.put("PageSize", PAGE_SIZE);
-        param.put("targetAction", "CmbFinancingSearch");
-        param.put("Interest", "");
-        param.put("Duration", "");
-        param.put("ProjectStatus", "");
-        param.put("ProjectAmount", "");
+        param.put("TargetAction", "GetProjectList_Index");
+        param.put("Sort", "normal");
         return param;
     }
 
     @Override
     public int getTotalPage(Map<String, String> param) {
-        String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String countStr = JsonUtil.getString(countContent, "Data");
-        String totalCount = JsonUtil.getString(countStr, "TotalCount");
-        int pageSize = Integer.parseInt(PAGE_SIZE);
-        int totalCountNum = Integer.parseInt(totalCount) % pageSize == 0 ? Integer.parseInt(totalCount) / pageSize : (Integer.parseInt(totalCount) / pageSize + 1);
-        return totalCountNum;
+        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String pageStr = JsonUtil.getString(pageContent, "DicData");
+        String totalPage = JsonUtil.getString(pageStr, "TotalPage");
+        return Integer.parseInt(totalPage);
     }
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String productJsonStr = JsonUtil.getString(productContent, "Data");
-        List<RDNSYHERJZ> productList = JsonUtil.json2Array(productJsonStr, "ResultList", RDNSYHERJZ.class, "YMInterest");
+        String productJsonStr = JsonUtil.getString(productContent, "DicData");
+        List<ZHXQYEJ> productList = JsonUtil.json2Array(productJsonStr, "NormalList", ZHXQYEJ.class);
 
         List<TransObject> transObjectList = new ArrayList();
-        for(RDNSYHERJZ product : productList) {
+        for(ZHXQYEJ product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }
@@ -79,7 +69,7 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
         return transObjectList;
     }
 
-    private TransObject convertToTransObject(RDNSYHERJZ product) {
+    private TransObject convertToTransObject(ZHXQYEJ product) {
         TransObject transObject = new TransObject();
         transObject.setFinancingId(product.getFinancingId());
         transObject.setProjectCode(product.getProjectCode());
@@ -89,28 +79,40 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
         transObject.setBindCompanyId(product.getBindCompanyId());
         transObject.setBindCompanyName(product.getBindCompanyName());
         transObject.setAmount(product.getAmount());
-        transObject.setPartsCount(product.getPartsCount());
+        transObject.setPartsCount(product.getMinInvestPartsCount());
         transObject.setBankInterest(product.getBankInterest());
         transObject.setInvestmentInterest(product.getInvestmentInterest());
         transObject.setDuration(product.getDuration());
         transObject.setRepayType(product.getRepayType());
-        transObject.setValueBegin(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getValueBegin()));
-        transObject.setRepayBegin(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getRepayBegin()));
-        transObject.setProjectBeginTime(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getProjectBeginTime()));
-        transObject.setReadyBeginTime(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getReadyBeginTime()));
+        transObject.setValueBegin(product.getValueBegin());
+        transObject.setRepayBegin(product.getRepayBegin());
+        transObject.setRepaySourceType(product.getRepaySourceType());
+        transObject.setProjectBeginTime(product.getProjectBeginTime());
+        transObject.setReadyBeginTime(product.getReadyBeginTime());
         transObject.setProjectStatus(product.getProjectStatus());
-        transObject.setJmBeginTime(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getjMBeginTime()));
-        transObject.setCreateTime(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getCreateTime()));
+        transObject.setCreditLevel(product.getCreditLevel());
+        transObject.setCreateUserId(product.getCreateUserId());
+        transObject.setCreateCompanyId(product.getCreateCompanyId());
+        transObject.setJmBeginTime(product.getjMBeginTime());
+        transObject.setAreaCode(product.getAreaCode());
+        transObject.setCreateTime(product.getCreateTime());
+        transObject.setUpdateUserId(product.getUpdateUserId());
+        transObject.setUpdateTime(product.getUpdateTime());
+        transObject.setCreateUserName(product.getCreateUserName());
+        transObject.setCreateCompanyName(product.getCreateCompanyName());
         transObject.setIsShow(product.getIsShow());
         transObject.setProjectType(product.getProjectType());
         transObject.setIsExclusivePublic(product.getIsExclusivePublic());
         transObject.setMinInvestPartsCount(product.getMinInvestPartsCount());
         transObject.setExclusiveCode(product.getExclusiveCode());
+        transObject.setLcAmount(product.getlCAmount());
+        transObject.setICount(product.getiCount());
+        transObject.setIAmount(product.getiAmount());
         transObject.setRealProgress(product.getRealProgress());
         transObject.setProgress(product.getProgress());
         transObject.setFinanceApplyStatus(product.getFinanceApplyStatus());
         transObject.setHotStatus(product.getHotStatus());
-        //TODO 未处理属性 YMInterest: 0.5
+        transObject.setDbType(product.getDbType());
         return transObject;
     }
 }

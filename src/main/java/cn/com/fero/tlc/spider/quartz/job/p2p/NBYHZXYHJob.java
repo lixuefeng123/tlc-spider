@@ -1,4 +1,4 @@
-package cn.com.fero.tlc.spider.quartz.job;
+package cn.com.fero.tlc.spider.quartz.job.p2p;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
