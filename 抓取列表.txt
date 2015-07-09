@@ -10,7 +10,7 @@
 #青岛银行财富e屋 https://e.qdccb.com/
 #华润银行资产交易平台 http://e.crbank.com.cn/
 #民生银行民生易贷 https://www.msyidai.com/
-民生银行民生转赚 https://www.mszhuanzhuan.com/
+#民生银行民生转赚 https://www.mszhuanzhuan.com/
 平安银行陆金所 http://www.lufax.com/
 浦发银行靠浦e投 https://ebank.spdb.com.cn/fmall/#/P2BBuyQueryRes
 E阳贷 http://www.eyangdai.com/

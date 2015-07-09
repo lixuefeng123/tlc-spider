@@ -73,7 +73,14 @@
                     <!--<property name="triggerGroupName" value="bankTrigger"/>-->
                     <!--<property name="cronExpression" value="0/10 * * * * ?"/>-->
                 <!--</bean>-->
-                <bean id="msyhmsydJob" class="cn.com.fero.tlc.spider.quartz.job.p2p.MSYHMSYDJob">
+                <!--<bean id="msyhmsydJob" class="cn.com.fero.tlc.spider.quartz.job.p2p.MSYHMSYDJob">-->
+                    <!--<property name="jobName" value="qdyhcfewJob"/>-->
+                    <!--<property name="jobGroupName" value="bank"/>-->
+                    <!--<property name="triggerName" value="qdyhcfewTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="bankTrigger"/>-->
+                    <!--<property name="cronExpression" value="0/10 * * * * ?"/>-->
+                <!--</bean>-->
+                <bean id="msyhmszzJob" class="cn.com.fero.tlc.spider.quartz.job.p2p.MSYHMSZZJob">
                     <property name="jobName" value="qdyhcfewJob"/>
                     <property name="jobGroupName" value="bank"/>
                     <property name="triggerName" value="qdyhcfewTrigger"/>
