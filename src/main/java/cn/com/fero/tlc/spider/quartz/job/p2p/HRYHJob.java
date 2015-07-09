@@ -59,8 +59,8 @@ public class HRYHJob extends TLCSpiderJob {
         String dataStr = JsonUtil.getString(countContent, "Data");
         String totalCountStr = JsonUtil.getString(dataStr, "TotalCount");
         int pageSize = Integer.parseInt(PAGE_SIZE);
-        int totalCount = Integer.parseInt(totalCountStr) % pageSize == 0 ? Integer.parseInt(totalCountStr) / pageSize : (Integer.parseInt(totalCountStr) / pageSize + 1);
-        return totalCount;
+        int totalPage = Integer.parseInt(totalCountStr) % pageSize == 0 ? Integer.parseInt(totalCountStr) / pageSize : (Integer.parseInt(totalCountStr) / pageSize + 1);
+        return totalPage;
     }
 
     @Override

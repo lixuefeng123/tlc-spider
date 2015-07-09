@@ -6,6 +6,8 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -39,6 +41,17 @@ public final class DateFormatUtil {
 
             Date date = sdf.parse(str.toString());
             return DateFormatUtils.format(date, TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME);
+        } catch (Exception e) {
+            throw new TLCSpiderUtilException(e);
+        }
+    }
+
+
+    public static String formatDate(String dateStr, String format) {
+        try {
+            Date date = new Date(dateStr);
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            return sdf.format(date);
         } catch (Exception e) {
             throw new TLCSpiderUtilException(e);
         }

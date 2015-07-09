@@ -54,8 +54,8 @@ public class NYYHNYEJob extends TLCSpiderJob {
     @Override
     public int getTotalPage(Map<String, String> param) {
         String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String totalCount = JsonUtil.getString(countContent, "count");
-        return Integer.parseInt(totalCount);
+        String totalPage = JsonUtil.getString(countContent, "count");
+        return Integer.parseInt(totalPage);
     }
 
     @Override

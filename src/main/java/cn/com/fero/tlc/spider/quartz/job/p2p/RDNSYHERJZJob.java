@@ -59,8 +59,8 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
         String countStr = JsonUtil.getString(countContent, "Data");
         String totalCount = JsonUtil.getString(countStr, "TotalCount");
         int pageSize = Integer.parseInt(PAGE_SIZE);
-        int totalCountNum = Integer.parseInt(totalCount) % pageSize == 0 ? Integer.parseInt(totalCount) / pageSize : (Integer.parseInt(totalCount) / pageSize + 1);
-        return totalCountNum;
+        int totalPage = Integer.parseInt(totalCount) % pageSize == 0 ? Integer.parseInt(totalCount) / pageSize : (Integer.parseInt(totalCount) / pageSize + 1);
+        return totalPage;
     }
 
     @Override

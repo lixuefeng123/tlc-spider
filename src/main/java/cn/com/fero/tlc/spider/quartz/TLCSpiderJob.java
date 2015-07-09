@@ -100,6 +100,9 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderJobExecutor {
                     spiderParam.put(pageName, page.toString());
                 }
                 List<TransObject> resultList = getSpiderDataList(spiderParam);
+                if(CollectionUtils.isEmpty(resultList)) {
+                    break;
+                }
 
                 for (TransObject transObject : resultList) {
                     if (StringUtils.equalsIgnoreCase(transObject.getProgress(), TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
@@ -174,7 +177,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderJobExecutor {
 
     @Override
     public int getTotalPage(Map<String, String> param) throws Exception {
-        return 0;
+        return Integer.MAX_VALUE;
     }
 
     @Override

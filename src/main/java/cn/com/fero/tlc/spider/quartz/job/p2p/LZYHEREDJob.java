@@ -58,8 +58,8 @@ public class LZYHEREDJob extends TLCSpiderJob {
     @Override
     public int getTotalPage(Map<String, String> param) {
         String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String totalCount = TLCSpiderHTMLParser.parseText(countContent, "//div[@class='main_m_line1']//a[@class='inv_b_div1a'][last()]");
-        return Integer.parseInt(totalCount);
+        String totalPage = TLCSpiderHTMLParser.parseText(countContent, "//div[@class='main_m_line1']//a[@class='inv_b_div1a'][last()]");
+        return Integer.parseInt(totalPage);
     }
 
     @Override
