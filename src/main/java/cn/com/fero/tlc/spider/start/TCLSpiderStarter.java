@@ -1,4 +1,4 @@
-package cn.com.fero.tlc.spider.server;
+package cn.com.fero.tlc.spider.start;
 
 import cn.com.fero.tlc.spider.quartz.TLCSpiderScheduler;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
@@ -10,7 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Created by wanghongmeng on 2015/6/16.
  */
-public final class TCLSpiderServer {
+public final class TCLSpiderStarter {
 
     public static void main(String[] args) throws InterruptedException {
         TLCSpiderScheduler tlcSpiderScheduler = null;

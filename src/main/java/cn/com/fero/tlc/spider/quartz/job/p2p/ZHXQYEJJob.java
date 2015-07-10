@@ -8,7 +8,10 @@ import cn.com.fero.tlc.spider.util.PropertiesUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -61,7 +64,7 @@ public class ZHXQYEJJob extends TLCSpiderJob {
         List<ZHXQYEJ> productList = JsonUtil.json2Array(productJsonStr, "NormalList", ZHXQYEJ.class);
 
         List<TransObject> transObjectList = new ArrayList();
-        for(ZHXQYEJ product : productList) {
+        for (ZHXQYEJ product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }

@@ -10,7 +10,6 @@ import cn.com.fero.tlc.spider.vo.NYYHNYE;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.apache.commons.lang3.StringUtils;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,7 +79,7 @@ public class NYYHNYEJob extends TLCSpiderJob {
         transObject.setAmount(product.getProductSize());
         transObject.setDuration(product.getLimitType());
         transObject.setInvestmentInterest(String.format("%.2f", Double.parseDouble(product.getYieldRate()) * 100));
-        if(product.getBuyPercent().equals(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
+        if (product.getBuyPercent().equals(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
             transObject.setProgress(product.getBuyPercent());
             transObject.setRealProgress(product.getBuyPercent());
         } else {

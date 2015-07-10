@@ -2,12 +2,9 @@ package cn.com.fero.tlc.spider.util;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.exception.TLCSpiderUtilException;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -25,7 +22,7 @@ public final class DateFormatUtil {
                 return StringUtils.EMPTY;
             }
 
-            for(String arg : args) {
+            for (String arg : args) {
                 if (StringUtils.isEmpty(arg)) {
                     return StringUtils.EMPTY;
                 }

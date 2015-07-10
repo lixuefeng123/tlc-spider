@@ -7,7 +7,6 @@ import cn.com.fero.tlc.spider.util.DateFormatUtil;
 import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.PropertiesUtil;
 import cn.com.fero.tlc.spider.vo.HRYH;
-import cn.com.fero.tlc.spider.vo.QDYHCFEW;
 import cn.com.fero.tlc.spider.vo.TransObject;
 
 import java.util.ArrayList;
@@ -70,7 +69,7 @@ public class HRYHJob extends TLCSpiderJob {
         List<HRYH> productList = JsonUtil.json2Array(productJsonStr, "ResultList", HRYH.class);
 
         List<TransObject> transObjectList = new ArrayList();
-        for(HRYH product : productList) {
+        for (HRYH product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }
@@ -96,7 +95,7 @@ public class HRYHJob extends TLCSpiderJob {
         transObject.setValueBegin(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getValueBegin()));
         transObject.setRepayBegin(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getRepayBegin()));
         transObject.setRepaySourceType(product.getRepaySourceType());
-        transObject.setProjectBeginTime(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getProjectBeginTime()) );
+        transObject.setProjectBeginTime(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getProjectBeginTime()));
         transObject.setReadyBeginTime(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getReadyBeginTime()));
         transObject.setProjectStatus(product.getProjectStatus());
         transObject.setCreditLevel(product.getCreditLevel());

@@ -3,10 +3,8 @@ package cn.com.fero.tlc.spider.quartz.job.p2p;
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.DateFormatUtil;
 import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.PropertiesUtil;
-import cn.com.fero.tlc.spider.vo.HRYH;
 import cn.com.fero.tlc.spider.vo.PFYH;
 import cn.com.fero.tlc.spider.vo.TransObject;
 
@@ -19,7 +17,7 @@ import java.util.Map;
 /**
  * Created by gizmo on 15/6/17.
  */
-//青岛银行财富E屋抓取
+//浦发银行轻松理财抓取
 public class PFYHJob extends TLCSpiderJob {
     //detail: https://ebank.spdb.com.cn/fmall/#/P2BBuyInput/15070800000261
 
@@ -53,23 +51,13 @@ public class PFYHJob extends TLCSpiderJob {
         return param;
     }
 
-//    @Override
-//    public int getTotalPage(Map<String, String> param) {
-//        String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-//        String dataStr = JsonUtil.getString(countContent, "Data");
-//        String totalCountStr = JsonUtil.getString(dataStr, "TotalCount");
-//        int pageSize = Integer.parseInt(PAGE_SIZE);
-//        int totalCount = Integer.parseInt(totalCountStr) % pageSize == 0 ? Integer.parseInt(totalCountStr) / pageSize : (Integer.parseInt(totalCountStr) / pageSize + 1);
-//        return totalCount;
-//    }
-
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
         List<PFYH> productList = JsonUtil.json2Array(productContent, "LoopResult", PFYH.class);
 
         List<TransObject> transObjectList = new ArrayList();
-        for(PFYH product : productList) {
+        for (PFYH product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }

@@ -5,7 +5,6 @@ import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.LoggerUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
-import com.sun.media.sound.InvalidDataException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -79,7 +78,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderJobExecutor {
         String pageName = systemParam.get(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME);
         try {
             Map<String, TransObject> updateMap = getUpdateDataMap(systemParam);
-            LoggerUtil.getLogger().info(jobTitle + "更新条数 = "+ updateMap.size());
+            LoggerUtil.getLogger().info(jobTitle + "更新条数 = " + updateMap.size());
 
             LoggerUtil.getLogger().info("开始抓取" + jobTitle + "总页数");
             Map<String, String> spiderParam = constructSpiderParam();
@@ -94,33 +93,34 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderJobExecutor {
 
                 LoggerUtil.getLogger().info("开始抓取" + jobTitle + "第" + page + "页");
                 String startPage = spiderParam.get(pageName);
-                if(TLCSpiderConstants.SPIDER_PARAM_PAGE_ZERO.equals(startPage)) {
+                if (TLCSpiderConstants.SPIDER_PARAM_PAGE_ZERO.equals(startPage)) {
                     spiderParam.put(pageName, String.valueOf((page - 1)));
                 } else {
                     spiderParam.put(pageName, page.toString());
                 }
                 List<TransObject> resultList = getSpiderDataList(spiderParam);
-                if(CollectionUtils.isEmpty(resultList)) {
+                if (CollectionUtils.isEmpty(resultList)) {
                     break;
                 }
 
                 for (TransObject transObject : resultList) {
-                    if (StringUtils.equalsIgnoreCase(transObject.getProgress(), TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
-                        isContinue = false;
-                        for(Map.Entry<String, TransObject> entry : updateMap.entrySet()) {
-                            TransObject to = entry.getValue();
-                            to.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
-                            to.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
-                            transObjectList.add(to);
-                        }
-                        break;
-                    } else {
-                        if(updateMap.containsKey(transObject.getFinancingId())) {
-                            updateMap.remove(updateMap.get(transObject.getFinancingId()));
-                        }
-
-                        transObjectList.add(transObject);
-                    }
+//                    if (StringUtils.equalsIgnoreCase(transObject.getProgress(), TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
+//                        isContinue = false;
+//                        for (Map.Entry<String, TransObject> entry : updateMap.entrySet()) {
+//                            TransObject to = entry.getValue();
+//                            to.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
+//                            to.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
+//                            transObjectList.add(to);
+//                        }
+//                        break;
+//                    } else {
+//                        if (updateMap.containsKey(transObject.getFinancingId())) {
+//                            updateMap.remove(updateMap.get(transObject.getFinancingId()));
+//                        }
+//
+//                        transObjectList.add(transObject);
+//                    }
+                    transObjectList.add(transObject);
                 }
 
                 if (transObjectList.size() >= TLCSpiderConstants.SPIDER_PAGE_SIZE_SEND) {
@@ -128,7 +128,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderJobExecutor {
                 }
             }
 
-            if(transObjectList.size() > 0) {
+            if (transObjectList.size() > 0) {
                 sendDataToSystem(transObjectList, jobTitle);
             }
         } catch (Exception e) {
@@ -167,7 +167,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderJobExecutor {
 
     protected String convertToParamStr(Map<String, String> param) {
         StringBuilder paramBuilder = new StringBuilder();
-        for(Map.Entry<String, String> entry : param.entrySet()) {
+        for (Map.Entry<String, String> entry : param.entrySet()) {
             paramBuilder.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
         }
         return paramBuilder.substring(0, paramBuilder.length() - 1);
@@ -184,25 +184,25 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderJobExecutor {
     }
 
     @Override
-    public int getTotalPage(Map<String, String> param) throws Exception {
+    public int getTotalPage(Map<String, String> param) {
         return Integer.MAX_VALUE;
     }
 
     @Override
-    public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) throws InvalidDataException {
-        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param);
-        String status = JsonUtil.getString(result, TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
-        if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
-            throw new InvalidDataException(result);
-        }
-
-        List<TransObject> updateList = JsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
-        Map<String, TransObject> updateMap = new HashMap();
-        for (TransObject transObject : updateList) {
-            updateMap.put(transObject.getFinancingId(), transObject);
-        }
-        return updateMap;
-//        return Collections.EMPTY_MAP;
+    public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) {
+//        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param);
+//        String status = JsonUtil.getString(result, TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
+//        if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
+//            throw new IllegalStateException(result);
+//        }
+//
+//        List<TransObject> updateList = JsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
+//        Map<String, TransObject> updateMap = new HashMap();
+//        for (TransObject transObject : updateList) {
+//            updateMap.put(transObject.getFinancingId(), transObject);
+//        }
+//        return updateMap;
+        return Collections.EMPTY_MAP;
     }
 
     @Override

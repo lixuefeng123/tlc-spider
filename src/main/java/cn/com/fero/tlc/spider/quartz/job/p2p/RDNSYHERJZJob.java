@@ -70,7 +70,7 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
         List<RDNSYHERJZ> productList = JsonUtil.json2Array(productJsonStr, "ResultList", RDNSYHERJZ.class, "YMInterest");
 
         List<TransObject> transObjectList = new ArrayList();
-        for(RDNSYHERJZ product : productList) {
+        for (RDNSYHERJZ product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }

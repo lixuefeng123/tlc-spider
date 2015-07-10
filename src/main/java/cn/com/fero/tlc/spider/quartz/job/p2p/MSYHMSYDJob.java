@@ -4,20 +4,12 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.*;
-import cn.com.fero.tlc.spider.vo.CZNSYH;
+import cn.com.fero.tlc.spider.util.DateFormatUtil;
+import cn.com.fero.tlc.spider.util.PropertiesUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
-import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
-import com.sun.media.sound.InvalidDataException;
-import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.htmlcleaner.TagNode;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,7 +65,7 @@ public class MSYHMSYDJob extends TLCSpiderJob {
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@id='content-gray']//ul[@class='c-list']/li");
 
         List<TransObject> transObjectList = new ArrayList();
-        for(TagNode product : productList) {
+        for (TagNode product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }
@@ -101,7 +93,7 @@ public class MSYHMSYDJob extends TLCSpiderJob {
 
         String progress = TLCSpiderHTMLParser.parseText(product, "//ul/li[4]/span[2]/em");
         progress = progress.replaceAll("%", "");
-        if("100".equals(progress)) {
+        if ("100".equals(progress)) {
             progress = "1";
         } else {
             progress = String.valueOf(Double.valueOf(progress) / 100);
@@ -113,7 +105,7 @@ public class MSYHMSYDJob extends TLCSpiderJob {
         String detailContent = TLCSpiderRequest.get(detailLink);
         String minInvestUnit = TLCSpiderHTMLParser.parseText(detailContent, "//strong[@id='loan_minInvestUnit']");
         minInvestUnit = minInvestUnit.replace(",", "");
-        if(StringUtils.isNotEmpty(minInvestUnit)) {
+        if (StringUtils.isNotEmpty(minInvestUnit)) {
             int partsCount = Integer.parseInt(amount) / Integer.parseInt(minInvestUnit);
             transObject.setPartsCount(String.valueOf(partsCount));
         }

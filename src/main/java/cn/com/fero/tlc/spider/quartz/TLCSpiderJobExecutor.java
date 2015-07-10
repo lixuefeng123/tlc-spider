@@ -1,7 +1,7 @@
 package cn.com.fero.tlc.spider.quartz;
 
 import cn.com.fero.tlc.spider.vo.TransObject;
-import com.sun.media.sound.InvalidDataException;
+
 import java.util.List;
 import java.util.Map;
 
@@ -13,9 +13,9 @@ public interface TLCSpiderJobExecutor {
 
     public abstract Map<String, String> constructSpiderParam();
 
-    public abstract int getTotalPage(Map<String, String> param) throws Exception;
+    public abstract int getTotalPage(Map<String, String> param);
 
-    public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) throws InvalidDataException;
+    public Map<String, TransObject> getUpdateDataMap(Map<String, String> param);
 
     public List<TransObject> getSpiderDataList(Map<String, String> param);
 }

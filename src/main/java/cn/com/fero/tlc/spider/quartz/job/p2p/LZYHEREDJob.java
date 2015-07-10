@@ -4,11 +4,9 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.PropertiesUtil;
 import cn.com.fero.tlc.spider.util.SplitUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
-import com.sun.media.sound.InvalidDataException;
 import org.htmlcleaner.TagNode;
 
 import java.util.ArrayList;
@@ -86,7 +84,7 @@ public class LZYHEREDJob extends TLCSpiderJob {
         investmentInterest = investmentInterest.replaceAll("%", "");
         String duration = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left1']");
         duration = SplitUtil.splitNumberChinese(duration, 1);
-        String realProgress =TLCSpiderHTMLParser.parseText(product, "//div[@class='svgDemo']/script");
+        String realProgress = TLCSpiderHTMLParser.parseText(product, "//div[@class='svgDemo']/script");
 
         realProgress = realProgress.replaceAll("\\n", "").replaceAll("\t", "").replaceAll(" ", "");
         realProgress = realProgress.split("\"")[3];

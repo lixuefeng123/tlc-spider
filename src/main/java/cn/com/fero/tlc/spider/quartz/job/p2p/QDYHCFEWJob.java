@@ -5,13 +5,9 @@ import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.DateFormatUtil;
 import cn.com.fero.tlc.spider.util.JsonUtil;
-import cn.com.fero.tlc.spider.util.LoggerUtil;
 import cn.com.fero.tlc.spider.util.PropertiesUtil;
 import cn.com.fero.tlc.spider.vo.QDYHCFEW;
 import cn.com.fero.tlc.spider.vo.TransObject;
-import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,7 +70,7 @@ public class QDYHCFEWJob extends TLCSpiderJob {
         List<QDYHCFEW> productList = JsonUtil.json2Array(productJsonStr, "ResultList", QDYHCFEW.class);
 
         List<TransObject> transObjectList = new ArrayList();
-        for(QDYHCFEW product : productList) {
+        for (QDYHCFEW product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }
@@ -100,7 +96,7 @@ public class QDYHCFEWJob extends TLCSpiderJob {
         transObject.setValueBegin(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getValueBegin()));
         transObject.setRepayBegin(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getRepayBegin()));
         transObject.setRepaySourceType(product.getRepaySourceType());
-        transObject.setProjectBeginTime(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getProjectBeginTime()) );
+        transObject.setProjectBeginTime(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getProjectBeginTime()));
         transObject.setReadyBeginTime(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getReadyBeginTime()));
         transObject.setProjectStatus(product.getProjectStatus());
         transObject.setCreditLevel(product.getCreditLevel());

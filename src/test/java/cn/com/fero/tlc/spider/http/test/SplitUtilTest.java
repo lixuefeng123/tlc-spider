@@ -1,6 +1,5 @@
 package cn.com.fero.tlc.spider.http.test;
 
-import cn.com.fero.tlc.spider.util.SplitUtil;
 import org.junit.Test;
 
 /**

@@ -5,9 +5,7 @@ import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.PropertiesUtil;
-import cn.com.fero.tlc.spider.util.SplitUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
-import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.TagNode;
 
 import java.util.ArrayList;
@@ -74,7 +72,7 @@ public class LJSLCJob extends TLCSpiderJob {
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='main-wide-wrap']//ul[@class='main-list']/li");
 
         List<TransObject> transObjectList = new ArrayList();
-        for(TagNode product : productList) {
+        for (TagNode product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }

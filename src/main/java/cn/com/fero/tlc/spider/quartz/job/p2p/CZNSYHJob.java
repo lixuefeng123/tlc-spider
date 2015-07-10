@@ -4,18 +4,12 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.DateFormatUtil;
 import cn.com.fero.tlc.spider.util.JsonUtil;
-import cn.com.fero.tlc.spider.util.LoggerUtil;
 import cn.com.fero.tlc.spider.util.PropertiesUtil;
 import cn.com.fero.tlc.spider.vo.CZNSYH;
 import cn.com.fero.tlc.spider.vo.TransObject;
-import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
-import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,7 +71,7 @@ public class CZNSYHJob extends TLCSpiderJob {
         List<CZNSYH> productList = JsonUtil.json2Array(productJsonStr, "data", CZNSYH.class);
 
         List<TransObject> transObjectList = new ArrayList();
-        for(CZNSYH product : productList) {
+        for (CZNSYH product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }
@@ -95,14 +89,16 @@ public class CZNSYHJob extends TLCSpiderJob {
         transObject.setPartsCount(product.getSellLimit());
         transObject.setInvestmentInterest(product.getYieldRate());
         transObject.setDuration(product.getLoanPeriod());
-        if(product.getIncreaseTypeId().equals("1")) {
+        if (product.getIncreaseTypeId().equals("1")) {
             transObject.setRepayType(TLCSpiderConstants.REPAY_TYPE.TOTAL.toString());
-        } else if(product.getIncreaseTypeId().equals("2")) {
+        } else if (product.getIncreaseTypeId().equals("2")) {
             transObject.setRepayType(TLCSpiderConstants.REPAY_TYPE.MONTHLY_MONNEY_INTEREST.toString());
         } else {
             transObject.setRepayType(TLCSpiderConstants.REPAY_TYPE.MONTHLY_INTEREST.toString());
         }
-        transObject.setValueBegin(DateFormatUtils.format(Long.valueOf(product.getLoanDate()), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
+        if(StringUtils.isNotEmpty(product.getLoanDate())) {
+            transObject.setValueBegin(DateFormatUtils.format(Long.valueOf(product.getLoanDate()), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
+        }
 
         String detailLink = URL_PRODUCT_DETAIL + product.getId();
         String detailContent = TLCSpiderRequest.get(detailLink);
@@ -112,18 +108,18 @@ public class CZNSYHJob extends TLCSpiderJob {
         transObject.setProjectBeginTime(DateFormatUtils.format(Long.valueOf(product.getPresaleDateStart()), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
         transObject.setReadyBeginTime(DateFormatUtils.format(Long.valueOf(product.getPresaleDateStart()), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
 
-        if(product.getPercent().equals("100") && product.getStatus().equals("2") && !product.getRealStatus().equals("22")) {
+        if (product.getPercent().equals("100") && product.getStatus().equals("2") && !product.getRealStatus().equals("22")) {
             transObject.setProjectStatus("满标");
-        } else if(product.getRealStatus().equals("2")) {
+        } else if (product.getRealStatus().equals("2")) {
             transObject.setProjectStatus("投标");
-        } else if(product.getRealStatus().equals("1")) {
+        } else if (product.getRealStatus().equals("1")) {
             transObject.setProjectStatus("预热");
-        }else  {
+        } else {
             transObject.setProjectStatus("已结束");
         }
         transObject.setCreateTime(DateFormatUtils.format(Long.valueOf(product.getCreateTime()), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
         transObject.setUpdateTime(product.getUpdateTime());
-        if(product.getPercent().equals("100")) {
+        if (product.getPercent().equals("100")) {
             transObject.setProgress("1");
             transObject.setRealProgress("1");
         } else {

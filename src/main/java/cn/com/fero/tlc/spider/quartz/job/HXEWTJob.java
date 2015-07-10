@@ -9,7 +9,6 @@ import cn.com.fero.tlc.spider.util.LoggerUtil;
 import cn.com.fero.tlc.spider.util.SplitUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
-import com.sun.media.sound.InvalidDataException;
 import org.htmlcleaner.TagNode;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -61,11 +60,11 @@ public class HXEWTJob extends TLCSpiderJob {
     }
 
     @Override
-    public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) throws InvalidDataException {
+    public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) {
         String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param);
         String status = JsonUtil.getString(result, "state");
         if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
-            throw new InvalidDataException(result);
+            throw new IllegalStateException(result);
         }
 
         List<TransObject> updateList = JsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
@@ -83,7 +82,7 @@ public class HXEWTJob extends TLCSpiderJob {
         List<ZHXQYEJ> zhxqyejList = JsonUtil.json2Array(listStr, "NormalList", ZHXQYEJ.class);
 
         List<TransObject> transObjectList = new ArrayList();
-        for(ZHXQYEJ zhxqyej : zhxqyejList) {
+        for (ZHXQYEJ zhxqyej : zhxqyejList) {
             TransObject transObject = constructTransObject(zhxqyej);
             transObjectList.add(transObject);
         }

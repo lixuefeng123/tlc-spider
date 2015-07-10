@@ -4,13 +4,10 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.JsonUtil;
 import cn.com.fero.tlc.spider.util.PropertiesUtil;
 import cn.com.fero.tlc.spider.util.SplitUtil;
-import cn.com.fero.tlc.spider.vo.CZNSYH;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.htmlcleaner.TagNode;
 
 import java.util.ArrayList;
@@ -78,7 +75,7 @@ public class LJSTZJob extends TLCSpiderJob {
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='main-wide-wrap']//ul[@class='main-list']/li");
 
         List<TransObject> transObjectList = new ArrayList();
-        for(TagNode product : productList) {
+        for (TagNode product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }
@@ -98,7 +95,7 @@ public class LJSTZJob extends TLCSpiderJob {
         transObject.setProjectCode(projectCode);
 
         String duration = TLCSpiderHTMLParser.parseText(product, "//ul[@class='clearfix']//li[@class='invest-period']/p").trim();
-        if(duration.contains("月")) {
+        if (duration.contains("月")) {
             duration = SplitUtil.splitNumberChinese(duration, 1);
             duration = String.valueOf(Integer.parseInt(duration) * 30);
         } else {
@@ -118,7 +115,7 @@ public class LJSTZJob extends TLCSpiderJob {
 
         String progress = TLCSpiderHTMLParser.parseText(product, "//div[@class='product-status product-status-raise']//span[@class='progress-txt']");
         progress = progress.replaceAll("%", "");
-        if(progress.equals("100")) {
+        if (progress.equals("100")) {
             transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
             transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
         } else {
@@ -140,7 +137,7 @@ public class LJSTZJob extends TLCSpiderJob {
         transObject.setInvestmentInterest(investmentInterest);
 
         String increaseAmount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='raise-status-wrap']//div[@class='markUpInfo']//p[@class='mark-up-info']/span[2]");
-        if(StringUtils.isNotEmpty(increaseAmount)) {
+        if (StringUtils.isNotEmpty(increaseAmount)) {
             increaseAmount = increaseAmount.split("：")[1].split("\\.")[0].replaceAll(",", "");
             int partsCount = Integer.parseInt(amount) / Integer.parseInt(increaseAmount);
             transObject.setPartsCount(String.valueOf(partsCount));

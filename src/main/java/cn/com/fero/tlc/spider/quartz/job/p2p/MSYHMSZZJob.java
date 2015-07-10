@@ -62,7 +62,7 @@ public class MSYHMSZZJob extends TLCSpiderJob {
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='container']//div[@class='assets-inner']/ul/li");
 
         List<TransObject> transObjectList = new ArrayList();
-        for(TagNode product : productList) {
+        for (TagNode product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }
@@ -88,7 +88,7 @@ public class MSYHMSZZJob extends TLCSpiderJob {
 
         String progress = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='lxybody']//div[@class='plan-num']");
         progress = progress.replaceAll("%", "");
-        if("100".equals(progress)) {
+        if ("100".equals(progress)) {
             progress = "1";
         } else {
             progress = String.valueOf(Double.valueOf(progress) / 100);
@@ -100,13 +100,13 @@ public class MSYHMSZZJob extends TLCSpiderJob {
         String[] investArray = minInvestUnit.split("\\*");
         String parts = investArray[0].replaceAll("'", "").trim();
         String base = investArray[1].replaceAll("'", "").split("\\.")[0].trim();
-        if(StringUtils.isNotEmpty(minInvestUnit)) {
+        if (StringUtils.isNotEmpty(minInvestUnit)) {
             int partsCount = Integer.parseInt(amount) / (Integer.parseInt(parts) * Integer.parseInt(base));
             transObject.setPartsCount(String.valueOf(partsCount));
         }
 
         String repayType = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='lxybody']//div[@class='buybox frt']/div[@class='info'][2]//script");
-        if(StringUtils.isNotEmpty(repayType)) {
+        if (StringUtils.isNotEmpty(repayType)) {
             repayType = repayType.split("\\(")[1].split(",")[0];
             if (repayType.contains("2")) {
                 repayType = TLCSpiderConstants.REPAY_TYPE.TOTAL.toString();
@@ -123,7 +123,6 @@ public class MSYHMSZZJob extends TLCSpiderJob {
         String repayBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='lxybody']//div[@class='item-plan flt']//ul[@class='stepbox']//li[@class='step1-2']//div[@class='stepText'][2]");
         transObject.setRepayBegin(DateFormatUtil.formatDate(repayBegin, TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
 
-        System.out.println(transObject);
         return transObject;
     }
 }

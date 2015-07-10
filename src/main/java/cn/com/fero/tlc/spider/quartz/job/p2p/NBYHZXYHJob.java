@@ -3,16 +3,11 @@ package cn.com.fero.tlc.spider.quartz.job.p2p;
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.DateFormatUtil;
 import cn.com.fero.tlc.spider.util.JsonUtil;
-import cn.com.fero.tlc.spider.util.LoggerUtil;
 import cn.com.fero.tlc.spider.util.PropertiesUtil;
 import cn.com.fero.tlc.spider.vo.NBYHZXYH;
 import cn.com.fero.tlc.spider.vo.TransObject;
-import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,7 +70,7 @@ public class NBYHZXYHJob extends TLCSpiderJob {
         List<NBYHZXYH> productList = JsonUtil.json2Array(productJsonStr, "ResultList", NBYHZXYH.class);
 
         List<TransObject> transObjectList = new ArrayList();
-        for(NBYHZXYH product : productList) {
+        for (NBYHZXYH product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }

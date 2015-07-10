@@ -28,10 +28,15 @@ public final class TLCSpiderConstants {
     public static final String SPIDER_URL_SEND = PropertiesUtil.getResource("tlc.spider.interactive.url.send");
     public static final String SPIDER_URL_GET = PropertiesUtil.getResource("tlc.spider.interactive.url.get");
 
-    public enum REPAY_TYPE{
+    private TLCSpiderConstants() {
+        throw new UnsupportedOperationException();
+    }
+
+    public enum REPAY_TYPE {
         TOTAL("0"), MONTHLY_INTEREST("1"), MONTHLY_MONNEY_INTEREST("2");
 
         private String value;
+
         private REPAY_TYPE(String value) {
             this.value = value;
         }
@@ -39,8 +44,5 @@ public final class TLCSpiderConstants {
         public String toString() {
             return this.value;
         }
-    }
-    private TLCSpiderConstants() {
-        throw new UnsupportedOperationException();
     }
 }
