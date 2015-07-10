@@ -132,13 +132,4 @@ public class CZNSYHJob extends TLCSpiderJob {
         }
         return transObject;
     }
-
-    private String convertToParamStr(Map<String, String> param) {
-        StringBuilder paramBuilder = new StringBuilder();
-        paramBuilder.append("?");
-        for(Map.Entry<String, String> entry : param.entrySet()) {
-            paramBuilder.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
-        }
-        return paramBuilder.substring(0, paramBuilder.length() - 1);
-    }
 }

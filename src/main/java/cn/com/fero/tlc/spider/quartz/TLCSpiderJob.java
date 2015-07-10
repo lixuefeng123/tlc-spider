@@ -165,6 +165,14 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderJobExecutor {
         LoggerUtil.getLogger().info("发送" + map.get(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE) + "状态：" + response);
     }
 
+    protected String convertToParamStr(Map<String, String> param) {
+        StringBuilder paramBuilder = new StringBuilder();
+        for(Map.Entry<String, String> entry : param.entrySet()) {
+            paramBuilder.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+        }
+        return paramBuilder.substring(0, paramBuilder.length() - 1);
+    }
+
     @Override
     public Map<String, String> constructSystemParam() {
         return Collections.EMPTY_MAP;
