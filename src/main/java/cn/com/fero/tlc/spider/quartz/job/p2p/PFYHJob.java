@@ -101,7 +101,7 @@ public class PFYHJob extends TLCSpiderJob {
 //        transObject.setIsExclusivePublic(product.getIsExclusivePublic());
 //        transObject.setMinInvestPartsCount(product.getMinInvestPartsCount());
 //        transObject.setExclusiveCode(product.getExclusiveCode());
-//        transObject.setLcAmount(product.getlCAmount());
+//        transObject.setlCAmount(product.getlCAmount());
 //        transObject.setICount(product.getiCount());
 //        transObject.setIAmount(product.getiAmount());
 //        transObject.setRealProgress(product.getRealProgress());

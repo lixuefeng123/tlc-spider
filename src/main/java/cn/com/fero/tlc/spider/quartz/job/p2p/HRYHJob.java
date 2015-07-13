@@ -113,9 +113,9 @@ public class HRYHJob extends TLCSpiderJob {
         transObject.setIsExclusivePublic(product.getIsExclusivePublic());
         transObject.setMinInvestPartsCount(product.getMinInvestPartsCount());
         transObject.setExclusiveCode(product.getExclusiveCode());
-        transObject.setLcAmount(product.getlCAmount());
-        transObject.setICount(product.getiCount());
-        transObject.setIAmount(product.getiAmount());
+        transObject.setlCAmount(product.getlCAmount());
+        transObject.setiCount(product.getiCount());
+        transObject.setiAmount(product.getiAmount());
         transObject.setRealProgress(product.getRealProgress());
         transObject.setProgress(product.getProgress());
         transObject.setFinanceApplyStatus(product.getFinanceApplyStatus());

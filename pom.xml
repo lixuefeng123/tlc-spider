@@ -32,44 +32,47 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <package.environment>src/main/config/dev</package.environment>
+                <properties.package.environment>/src/main/config/dev</properties.package.environment>
             </properties>
         </profile>
         <profile>
             <id>test</id>
             <properties>
-                <package.environment>src/main/config/test</package.environment>
+                <properties.package.environment>/src/main/config/test</properties.package.environment>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
-                <package.environment>src/main/config/prod</package.environment>
+                <properties.package.environment>/src/main/config/prod</properties.package.environment>
             </properties>
         </profile>
     </profiles>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jdk.version>1.7</jdk.version>
-        <spring.version>4.0.5.RELEASE</spring.version>
-        <aspectj.version>1.5.4</aspectj.version>
-        <junit.version>4.9</junit.version>
-        <slf4j.version>1.6.1</slf4j.version>
-        <slf4j-jcl.version>1.7.5</slf4j-jcl.version>
-        <logback.version>0.9.29</logback.version>
-        <guava.version>10.0.1</guava.version>
-        <jackson.version>2.2.3</jackson.version>
-        <json-lib.version>2.4</json-lib.version>
-        <quartz.version>2.2.1</quartz.version>
-        <htmlcleaner.version>2.2.1</htmlcleaner.version>
-        <commons-lang3.version>3.4</commons-lang3.version>
-        <commons-collections.version>4.0</commons-collections.version>
-        <http-client.version>4.3.1</http-client.version>
-        <http-core.version>4.3</http-core.version>
-        <plugin-compile.version>2.5.1</plugin-compile.version>
-        <plugin-surefire.version>2.12.4</plugin-surefire.version>
-        <plugin-dependency.version>2.8</plugin-dependency.version>
+        <properties.project.build.sourceEncoding>UTF-8</properties.project.build.sourceEncoding>
+        <properties.version.jdk>1.7</properties.version.jdk>
+        <properties.version.spring>4.0.5.RELEASE</properties.version.spring>
+        <properties.version.junit>4.9</properties.version.junit>
+        <properties.version.slf4j-api>1.6.1</properties.version.slf4j-api>
+        <properties.version.slf4j-jcl>1.7.5</properties.version.slf4j-jcl>
+        <properties.version.logback>0.9.29</properties.version.logback>
+        <properties.version.guava>10.0.1</properties.version.guava>
+        <properties.version.jackson>2.2.3</properties.version.jackson>
+        <properties.version.json-lib>2.4</properties.version.json-lib>
+        <properties.version.quartz>2.2.1</properties.version.quartz>
+        <properties.version.htmlcleaner>2.2.1</properties.version.htmlcleaner>
+        <properties.version.commons-lang3>3.4</properties.version.commons-lang3>
+        <properties.version.commons-collections>4.0</properties.version.commons-collections>
+        <propertie.version.http-client>4.3.1</propertie.version.http-client>
+        <properties.version.http-core>4.3</properties.version.http-core>
+        <properties.version.plugin.compile>2.5.1</properties.version.plugin.compile>
+        <properties.version.plugin.jar>2.6</properties.version.plugin.jar>
+        <property.version.plugin.resources>2.6</property.version.plugin.resources>
+        <properties.version.plugin.surefire>2.12.4</properties.version.plugin.surefire>
+        <properties.version.plugin.dependency>2.8</properties.version.plugin.dependency>
+        <properties.version.plugin.assembly>2.4.1</properties.version.plugin.assembly>
+        <properties.version.plugin.antrun>1.7</properties.version.plugin.antrun>
     </properties>
 
     <dependencies>
@@ -77,175 +80,190 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>${spring.version}</version>
+            <version>${properties.version.spring}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <version>${spring.version}</version>
+            <version>${properties.version.spring}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
+            <version>${properties.version.spring}</version>
         </dependency>
-
-        <!-- aspectj -->
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>${aspectj.version}</version>
-        </dependency>
-
-        <!-- junit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <version>${properties.version.junit}</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- log -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
+            <version>${properties.version.slf4j-api}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j-jcl.version}</version>
+            <version>${properties.version.slf4j-jcl}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>${logback.version}</version>
+            <version>${properties.version.logback}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
+            <version>${properties.version.logback}</version>
         </dependency>
-
-        <!-- jason-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
+            <version>${properties.version.jackson}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
+            <version>${properties.version.jackson}</version>
         </dependency>
         <dependency>
             <groupId>net.sf.json-lib</groupId>
             <artifactId>json-lib</artifactId>
-            <version>${json-lib.version}</version>
+            <version>${properties.version.json-lib}</version>
             <classifier>jdk15</classifier>
         </dependency>
-
-        <!-- util -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
+            <version>${properties.version.guava}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
+            <version>${properties.version.commons-lang3}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>${commons-collections.version}</version>
+            <version>${properties.version.commons-collections}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
-            <version>${http-core.version}</version>
+            <version>${properties.version.http-core}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>${http-client.version}</version>
+            <version>${propertie.version.http-client}</version>
         </dependency>
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
-            <version>${quartz.version}</version>
+            <version>${properties.version.quartz}</version>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.htmlcleaner</groupId>
             <artifactId>htmlcleaner</artifactId>
-            <version>${htmlcleaner.version}</version>
+            <version>${properties.version.htmlcleaner}</version>
         </dependency>
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
-            </resource>
-        </resources>
+        <finalName>${project.artifactId}</finalName>
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>src/main/java</directory>-->
+                <!--<includes>-->
+                    <!--<include>**/*.xml</include>-->
+                <!--</includes>-->
+            <!--</resource>-->
+            <!--<resource>-->
+                <!--<directory>src/main/resources</directory>-->
+                <!--<excludes>-->
+                    <!--<exclude>**/*.*</exclude>-->
+                <!--</excludes>-->
+                <!--<filtering>true</filtering>-->
+            <!--</resource>-->
+        <!--</resources>-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${plugin-compile.version}</version>
+                <version>${properties.version.plugin.compile}</version>
                 <configuration>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>${properties.version.jdk}</source>
+                    <target>${properties.version.jdk}</target>
+                    <encoding>${properties.project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${property.version.plugin.resources}</version>
+                <configuration>
+                    <encoding>${properties.project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${properties.version.plugin.jar}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>*.xml</exclude>
+                        <exclude>*.properties</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${plugin-surefire.version}</version>
+                <version>${properties.version.plugin.surefire}</version>
                 <configuration>
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>${plugin-dependency.version}</version>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${properties.version.plugin.assembly}</version>
+                <configuration>
+                    <encoding>${properties.project.build.sourceEncoding}</encoding>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptors>
+                        <descriptor>/src/main/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>copy-dependencies</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>copy-dependencies</goal>
+                            <goal>single</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${properties.version.plugin.antrun}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <id>copy</id>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <target>
+                                <move todir="${project.basedir}">
+                                    <fileset dir="${project.build.directory}" includes="${project.build.finalName}.tar.gz"/>
+                                </move>
+                            </target>
                         </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
