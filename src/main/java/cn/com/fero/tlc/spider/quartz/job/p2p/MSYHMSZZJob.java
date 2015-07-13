@@ -4,8 +4,8 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.DateFormatUtil;
-import cn.com.fero.tlc.spider.util.PropertiesUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderDateFormatUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.TagNode;
@@ -21,11 +21,11 @@ import java.util.Map;
  */
 //民生银行民生转赚抓取
 public class MSYHMSZZJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.msyhmszz.url.list");
-    private static final String URL_PRODUCT_DETAIL = PropertiesUtil.getResource("tlc.spider.msyhmszz.url.detail");
-    private static final String SID = PropertiesUtil.getResource("tlc.spider.msyhmszz.sid");
-    private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.msyhmszz.token");
-    private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.msyhmszz.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmszz.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmszz.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmszz.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmszz.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmszz.title");
     private static final String PAGE_NAME = "page";
 
     @Override
@@ -119,9 +119,9 @@ public class MSYHMSZZJob extends TLCSpiderJob {
         }
 
         String valueBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='lxybody']//div[@class='item-plan flt']//ul[@class='stepbox']//li[@class='step1-1']//div[@class='stepText'][2]");
-        transObject.setValueBegin(DateFormatUtil.formatDate(valueBegin, TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
+        transObject.setValueBegin(TLCSpiderDateFormatUtil.formatDate(valueBegin, TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
         String repayBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='lxybody']//div[@class='item-plan flt']//ul[@class='stepbox']//li[@class='step1-2']//div[@class='stepText'][2]");
-        transObject.setRepayBegin(DateFormatUtil.formatDate(repayBegin, TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
+        transObject.setRepayBegin(TLCSpiderDateFormatUtil.formatDate(repayBegin, TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
 
         return transObject;
     }

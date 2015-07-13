@@ -6,10 +6,10 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by gizmo on 15/6/17.
  */
-public final class LoggerUtil {
-    private static final Logger logger = LoggerFactory.getLogger(LoggerUtil.class);
+public final class TLCSpiderLoggerUtil {
+    private static final Logger logger = LoggerFactory.getLogger(TLCSpiderLoggerUtil.class);
 
-    private LoggerUtil() {
+    private TLCSpiderLoggerUtil() {
         throw new UnsupportedOperationException();
     }
 

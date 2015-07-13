@@ -4,8 +4,8 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.JsonUtil;
-import cn.com.fero.tlc.spider.util.PropertiesUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.CZNSYH;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.apache.commons.lang3.StringUtils;
@@ -22,11 +22,11 @@ import java.util.Map;
  */
 //长子农商银行长青融E贷抓取
 public class CZNSYHJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.cznsyh.url.list");
-    private static final String URL_PRODUCT_DETAIL = PropertiesUtil.getResource("tlc.spider.cznsyh.url.detail");
-    private static final String SID = PropertiesUtil.getResource("tlc.spider.cznsyh.sid");
-    private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.cznsyh.token");
-    private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.cznsyh.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.title");
     private static final String PAGE_NAME = "index";
     private static final String PAGE_SIZE = "5";
 
@@ -55,9 +55,9 @@ public class CZNSYHJob extends TLCSpiderJob {
     public int getTotalPage(Map<String, String> param) {
         String paramStr = convertToParamStr(param);
         String pageContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr);
-        String dataStr = JsonUtil.getString(pageContent, "data");
-        String paginationStr = JsonUtil.getString(dataStr, "pagination");
-        String totalCount = JsonUtil.getString(paginationStr, "count");
+        String dataStr = TLCSpiderJsonUtil.getString(pageContent, "data");
+        String paginationStr = TLCSpiderJsonUtil.getString(dataStr, "pagination");
+        String totalCount = TLCSpiderJsonUtil.getString(paginationStr, "count");
         int pageSize = Integer.parseInt(PAGE_SIZE);
         int totalPage = Integer.parseInt(totalCount) % pageSize == 0 ? Integer.parseInt(totalCount) / pageSize : (Integer.parseInt(totalCount) / pageSize + 1);
         return totalPage;
@@ -67,8 +67,8 @@ public class CZNSYHJob extends TLCSpiderJob {
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String paramStr = convertToParamStr(param);
         String productContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr);
-        String productJsonStr = JsonUtil.getString(productContent, "data");
-        List<CZNSYH> productList = JsonUtil.json2Array(productJsonStr, "data", CZNSYH.class);
+        String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "data");
+        List<CZNSYH> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "data", CZNSYH.class);
 
         List<TransObject> transObjectList = new ArrayList();
         for (CZNSYH product : productList) {

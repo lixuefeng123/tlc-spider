@@ -11,8 +11,8 @@ import java.util.Date;
 /**
  * Created by wanghongmeng on 2015/6/24.
  */
-public final class DateFormatUtil {
-    private DateFormatUtil() {
+public final class TLCSpiderDateFormatUtil {
+    private TLCSpiderDateFormatUtil() {
         throw new UnsupportedOperationException();
     }
 

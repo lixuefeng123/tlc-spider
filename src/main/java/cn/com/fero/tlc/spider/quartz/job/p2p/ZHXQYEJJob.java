@@ -3,8 +3,8 @@ package cn.com.fero.tlc.spider.quartz.job.p2p;
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.JsonUtil;
-import cn.com.fero.tlc.spider.util.PropertiesUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
 
@@ -21,10 +21,10 @@ import java.util.Map;
 public class ZHXQYEJJob extends TLCSpiderJob {
     //detail: https://ba.cmbchinaucs.com/FinanDet.aspx?FinancingId=c5af372b-cc4d-4d1d-9002-be58734ae996
 
-    private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.zhxqyej.url.list");
-    private static final String SID = PropertiesUtil.getResource("tlc.spider.zhxqyej.sid");
-    private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.zhxqyej.token");
-    private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.zhxqyej.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.zhxqyej.url.list");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.zhxqyej.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.zhxqyej.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.zhxqyej.title");
     private static final String PAGE_NAME = "PageIndex";
     private static final String PAGE_SIZE = "10";
 
@@ -52,16 +52,16 @@ public class ZHXQYEJJob extends TLCSpiderJob {
     @Override
     public int getTotalPage(Map<String, String> param) {
         String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String pageStr = JsonUtil.getString(pageContent, "DicData");
-        String totalPage = JsonUtil.getString(pageStr, "TotalPage");
+        String pageStr = TLCSpiderJsonUtil.getString(pageContent, "DicData");
+        String totalPage = TLCSpiderJsonUtil.getString(pageStr, "TotalPage");
         return Integer.parseInt(totalPage);
     }
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String productJsonStr = JsonUtil.getString(productContent, "DicData");
-        List<ZHXQYEJ> productList = JsonUtil.json2Array(productJsonStr, "NormalList", ZHXQYEJ.class);
+        String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "DicData");
+        List<ZHXQYEJ> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "NormalList", ZHXQYEJ.class);
 
         List<TransObject> transObjectList = new ArrayList();
         for (ZHXQYEJ product : productList) {

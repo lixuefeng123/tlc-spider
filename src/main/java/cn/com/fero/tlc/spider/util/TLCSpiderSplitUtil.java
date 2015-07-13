@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
 /**
  * Created by gizmo on 15/6/19.
  */
-public final class SplitUtil {
-    private SplitUtil() {
+public final class TLCSpiderSplitUtil {
+    private TLCSpiderSplitUtil() {
         throw new UnsupportedClassVersionError();
     }
 

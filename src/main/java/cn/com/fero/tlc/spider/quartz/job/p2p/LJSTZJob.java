@@ -4,8 +4,8 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.PropertiesUtil;
-import cn.com.fero.tlc.spider.util.SplitUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderSplitUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.TagNode;
@@ -21,11 +21,11 @@ import java.util.Map;
  */
 //陆金所投资频道抓取
 public class LJSTZJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.lzjtz.url.list");
-    private static final String URL_PRODUCT_DETAIL = PropertiesUtil.getResource("tlc.spider.lzjtz.url.detail");
-    private static final String SID = PropertiesUtil.getResource("tlc.spider.lzjtz.sid");
-    private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.lzjtz.token");
-    private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.lzjtz.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.title");
     private static final String PAGE_NAME = "currentPage";
 
     @Override
@@ -96,10 +96,10 @@ public class LJSTZJob extends TLCSpiderJob {
 
         String duration = TLCSpiderHTMLParser.parseText(product, "//ul[@class='clearfix']//li[@class='invest-period']/p").trim();
         if (duration.contains("月")) {
-            duration = SplitUtil.splitNumberChinese(duration, 1);
+            duration = TLCSpiderSplitUtil.splitNumberChinese(duration, 1);
             duration = String.valueOf(Integer.parseInt(duration) * 30);
         } else {
-            duration = SplitUtil.splitNumberChinese(duration, 1);
+            duration = TLCSpiderSplitUtil.splitNumberChinese(duration, 1);
         }
         transObject.setDuration(duration);
 

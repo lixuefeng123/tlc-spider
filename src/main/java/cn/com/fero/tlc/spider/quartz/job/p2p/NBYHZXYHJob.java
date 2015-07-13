@@ -3,8 +3,8 @@ package cn.com.fero.tlc.spider.quartz.job.p2p;
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.JsonUtil;
-import cn.com.fero.tlc.spider.util.PropertiesUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.NBYHZXYH;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -22,10 +22,10 @@ import java.util.Map;
 public class NBYHZXYHJob extends TLCSpiderJob {
     //detail: https://u.zxyh.nbcb.com.cn/home/detail?FinancingId=6f15a3a0-4a8c-42db-9e39-aaaaf1548e8c
 
-    private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.nbyhzxyh.url.list");
-    private static final String SID = PropertiesUtil.getResource("tlc.spider.nbyhzxyh.sid");
-    private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.nbyhzxyh.token");
-    private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.nbyhzxyh.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.nbyhzxyh.url.list");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.nbyhzxyh.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.nbyhzxyh.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.nbyhzxyh.title");
     private static final String PAGE_NAME = "PageIndex";
     private static final String PAGE_SIZE = "10";
 
@@ -56,8 +56,8 @@ public class NBYHZXYHJob extends TLCSpiderJob {
     @Override
     public int getTotalPage(Map<String, String> param) {
         String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String countStr = JsonUtil.getString(countContent, "Data");
-        String totalCount = JsonUtil.getString(countStr, "TotalCount");
+        String countStr = TLCSpiderJsonUtil.getString(countContent, "Data");
+        String totalCount = TLCSpiderJsonUtil.getString(countStr, "TotalCount");
         int pageSize = Integer.parseInt(PAGE_SIZE);
         int totalPage = Integer.parseInt(totalCount) % pageSize == 0 ? Integer.parseInt(totalCount) / pageSize : (Integer.parseInt(totalCount) / pageSize + 1);
         return totalPage;
@@ -66,8 +66,8 @@ public class NBYHZXYHJob extends TLCSpiderJob {
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String productJsonStr = JsonUtil.getString(productContent, "Data");
-        List<NBYHZXYH> productList = JsonUtil.json2Array(productJsonStr, "ResultList", NBYHZXYH.class);
+        String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "Data");
+        List<NBYHZXYH> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "ResultList", NBYHZXYH.class);
 
         List<TransObject> transObjectList = new ArrayList();
         for (NBYHZXYH product : productList) {

@@ -1,7 +1,7 @@
 package cn.com.fero.tlc.spider.start;
 
 import cn.com.fero.tlc.spider.quartz.TLCSpiderScheduler;
-import cn.com.fero.tlc.spider.util.LoggerUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderLoggerUtil;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -15,19 +15,19 @@ public final class TCLSpiderStarter {
     public static void main(String[] args) throws InterruptedException {
         TLCSpiderScheduler tlcSpiderScheduler = null;
         try {
-            LoggerUtil.getLogger().info("加载spring配置文件");
+            TLCSpiderLoggerUtil.getLogger().info("加载spring配置文件");
             ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath*: spring-*.xml");
 
-            LoggerUtil.getLogger().info("获取钛理财scheduler");
+            TLCSpiderLoggerUtil.getLogger().info("获取钛理财scheduler");
             tlcSpiderScheduler = (TLCSpiderScheduler) applicationContext.getBean("tlcSpiderScheduler");
 
-            LoggerUtil.getLogger().info("加载钛理财jobs");
+            TLCSpiderLoggerUtil.getLogger().info("加载钛理财jobs");
             tlcSpiderScheduler.loadJobs();
 
-            LoggerUtil.getLogger().info("开始钛理财抓取");
+            TLCSpiderLoggerUtil.getLogger().info("开始钛理财抓取");
             tlcSpiderScheduler.start();
         } catch (BeansException e) {
-            LoggerUtil.getLogger().error(ExceptionUtils.getFullStackTrace(e));
+            TLCSpiderLoggerUtil.getLogger().error(ExceptionUtils.getFullStackTrace(e));
             if (null != tlcSpiderScheduler) {
                 tlcSpiderScheduler.shutdown();
             }

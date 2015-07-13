@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 /**
  * Created by wanghongmeng on 2015/7/8.
  */
-public final class PropertiesUtil {
+public final class TLCSpiderPropertiesUtil {
     private static final ResourceBundle resource;
 
     static {

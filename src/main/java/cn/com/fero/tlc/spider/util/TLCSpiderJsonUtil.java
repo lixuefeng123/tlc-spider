@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * Created by wanghongmeng on 2015/6/24.
  */
-public final class JsonUtil {
-    private JsonUtil() {
+public final class TLCSpiderJsonUtil {
+    private TLCSpiderJsonUtil() {
         throw new UnsupportedOperationException();
     }
 

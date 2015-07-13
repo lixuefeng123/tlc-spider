@@ -5,7 +5,7 @@ import org.junit.Test;
 /**
  * Created by gizmo on 15/6/19.
  */
-public class SplitUtilTest {
+public class TLCSpiderSplitUtilTest {
 
     @Test
     public void testExtract() {

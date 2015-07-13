@@ -4,8 +4,8 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.DateFormatUtil;
-import cn.com.fero.tlc.spider.util.PropertiesUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderDateFormatUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.TagNode;
@@ -21,11 +21,11 @@ import java.util.Map;
  */
 //民生银行民生易贷抓取
 public class MSYHMSYDJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.msyhmsyd.url.list");
-    private static final String URL_PRODUCT_DETAIL = PropertiesUtil.getResource("tlc.spider.msyhmsyd.url.detail");
-    private static final String SID = PropertiesUtil.getResource("tlc.spider.msyhmsyd.sid");
-    private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.msyhmsyd.token");
-    private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.msyhmsyd.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.title");
     private static final String PAGE_NAME = "page";
 
     @Override
@@ -121,9 +121,9 @@ public class MSYHMSYDJob extends TLCSpiderJob {
         transObject.setRepayType(repayType);
 
         String valueBegin = TLCSpiderHTMLParser.parseText(detailContent, "//span[@id='t_m_loan_borrowBearingStartDate']");
-        transObject.setValueBegin(DateFormatUtil.formatDate(valueBegin, TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
+        transObject.setValueBegin(TLCSpiderDateFormatUtil.formatDate(valueBegin, TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
         String repayBegin = TLCSpiderHTMLParser.parseText(detailContent, "//span[@id='t_m_loan_borrowBearingEndDate']");
-        transObject.setRepayBegin(DateFormatUtil.formatDate(repayBegin, TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
+        transObject.setRepayBegin(TLCSpiderDateFormatUtil.formatDate(repayBegin, TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
 
         return transObject;
     }

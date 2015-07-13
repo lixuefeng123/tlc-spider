@@ -4,8 +4,8 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.LoggerUtil;
-import cn.com.fero.tlc.spider.util.SplitUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderLoggerUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderSplitUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.htmlcleaner.TagNode;
 import org.quartz.JobExecutionContext;
@@ -26,7 +26,7 @@ public class BSYHBankJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_DETAIL = "https://www.xiaomabank.com/";
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        LoggerUtil.getLogger().info("开始抓取包商银行小马bank");
+        TLCSpiderLoggerUtil.getLogger().info("开始抓取包商银行小马bank");
 
         Map<String, String> param = new HashMap();
         param.put("borrowTypeXM", "1");
@@ -45,7 +45,7 @@ public class BSYHBankJob extends TLCSpiderJob {
             String projectName = TLCSpiderHTMLParser.parseText(product, "//td[1]/a[1]");
             String investmentInterest = TLCSpiderHTMLParser.parseText(product, "//td[3]");
             String duration = TLCSpiderHTMLParser.parseText(product, "//td[4]");
-            duration = String.valueOf(Integer.parseInt(SplitUtil.splitNumberChinese(duration, 1)) * 30);
+            duration = String.valueOf(Integer.parseInt(TLCSpiderSplitUtil.splitNumberChinese(duration, 1)) * 30);
             String amount = TLCSpiderHTMLParser.parseText(product, "//td[5]/strong").split("\\.")[0].replaceAll(",", "");
             String realProgress = TLCSpiderHTMLParser.parseText(product, "//td[6]/div[@class='persent']").replaceAll("&nbsp;", "").trim();
             String progress = realProgress;

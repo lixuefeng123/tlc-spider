@@ -3,9 +3,9 @@ package cn.com.fero.tlc.spider.quartz.job.p2p;
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.DateFormatUtil;
-import cn.com.fero.tlc.spider.util.JsonUtil;
-import cn.com.fero.tlc.spider.util.PropertiesUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderDateFormatUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.RDNSYHERJZ;
 import cn.com.fero.tlc.spider.vo.TransObject;
 
@@ -22,10 +22,10 @@ import java.util.Map;
 public class RDNSYHERJZJob extends TLCSpiderJob {
     //detail: https://e.ydnsh.com/home/detail?FinancingId=15b43001-555c-4dda-845c-31b62879fbe7
 
-    private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.url.list");
-    private static final String SID = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.sid");
-    private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.token");
-    private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.rdnsyherjz.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.rdnsyherjz.url.list");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.rdnsyherjz.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.rdnsyherjz.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.rdnsyherjz.title");
     private static final String PAGE_NAME = "PageIndex";
     private static final String PAGE_SIZE = "10";
 
@@ -56,8 +56,8 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
     @Override
     public int getTotalPage(Map<String, String> param) {
         String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String countStr = JsonUtil.getString(countContent, "Data");
-        String totalCount = JsonUtil.getString(countStr, "TotalCount");
+        String countStr = TLCSpiderJsonUtil.getString(countContent, "Data");
+        String totalCount = TLCSpiderJsonUtil.getString(countStr, "TotalCount");
         int pageSize = Integer.parseInt(PAGE_SIZE);
         int totalPage = Integer.parseInt(totalCount) % pageSize == 0 ? Integer.parseInt(totalCount) / pageSize : (Integer.parseInt(totalCount) / pageSize + 1);
         return totalPage;
@@ -66,8 +66,8 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String productJsonStr = JsonUtil.getString(productContent, "Data");
-        List<RDNSYHERJZ> productList = JsonUtil.json2Array(productJsonStr, "ResultList", RDNSYHERJZ.class, "YMInterest");
+        String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "Data");
+        List<RDNSYHERJZ> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "ResultList", RDNSYHERJZ.class, "YMInterest");
 
         List<TransObject> transObjectList = new ArrayList();
         for (RDNSYHERJZ product : productList) {
@@ -93,13 +93,13 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
         transObject.setInvestmentInterest(product.getInvestmentInterest());
         transObject.setDuration(product.getDuration());
         transObject.setRepayType(product.getRepayType());
-        transObject.setValueBegin(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getValueBegin()));
-        transObject.setRepayBegin(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getRepayBegin()));
-        transObject.setProjectBeginTime(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getProjectBeginTime()));
-        transObject.setReadyBeginTime(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getReadyBeginTime()));
+        transObject.setValueBegin(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getValueBegin()));
+        transObject.setRepayBegin(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getRepayBegin()));
+        transObject.setProjectBeginTime(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getProjectBeginTime()));
+        transObject.setReadyBeginTime(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getReadyBeginTime()));
         transObject.setProjectStatus(product.getProjectStatus());
-        transObject.setJmBeginTime(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getjMBeginTime()));
-        transObject.setCreateTime(DateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getCreateTime()));
+        transObject.setJmBeginTime(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getjMBeginTime()));
+        transObject.setCreateTime(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getCreateTime()));
         transObject.setIsShow(product.getIsShow());
         transObject.setProjectType(product.getProjectType());
         transObject.setIsExclusivePublic(product.getIsExclusivePublic());

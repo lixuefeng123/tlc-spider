@@ -4,9 +4,9 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.JsonUtil;
-import cn.com.fero.tlc.spider.util.LoggerUtil;
-import cn.com.fero.tlc.spider.util.SplitUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderLoggerUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderSplitUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
 import org.htmlcleaner.TagNode;
@@ -54,20 +54,20 @@ public class HXEWTJob extends TLCSpiderJob {
     @Override
     public int getTotalPage(Map<String, String> param) {
         String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String pageStr = JsonUtil.getString(pageContent, "DicData");
-        String totalPage = JsonUtil.getString(pageStr, "TotalPage");
+        String pageStr = TLCSpiderJsonUtil.getString(pageContent, "DicData");
+        String totalPage = TLCSpiderJsonUtil.getString(pageStr, "TotalPage");
         return Integer.parseInt(totalPage);
     }
 
     @Override
     public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) {
         String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param);
-        String status = JsonUtil.getString(result, "state");
+        String status = TLCSpiderJsonUtil.getString(result, "state");
         if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
             throw new IllegalStateException(result);
         }
 
-        List<TransObject> updateList = JsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
+        List<TransObject> updateList = TLCSpiderJsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
         Map<String, TransObject> updateMap = new HashMap();
         for (TransObject transObject : updateList) {
             updateMap.put(transObject.getFinancingId(), null);
@@ -78,8 +78,8 @@ public class HXEWTJob extends TLCSpiderJob {
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String listContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String listStr = JsonUtil.getString(listContent, "DicData");
-        List<ZHXQYEJ> zhxqyejList = JsonUtil.json2Array(listStr, "NormalList", ZHXQYEJ.class);
+        String listStr = TLCSpiderJsonUtil.getString(listContent, "DicData");
+        List<ZHXQYEJ> zhxqyejList = TLCSpiderJsonUtil.json2Array(listStr, "NormalList", ZHXQYEJ.class);
 
         List<TransObject> transObjectList = new ArrayList();
         for (ZHXQYEJ zhxqyej : zhxqyejList) {
@@ -139,7 +139,7 @@ public class HXEWTJob extends TLCSpiderJob {
 
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        LoggerUtil.getLogger().info("开始抓取华夏银行E网通");
+        TLCSpiderLoggerUtil.getLogger().info("开始抓取华夏银行E网通");
         String productContent = TLCSpiderRequest.get(URL_PRODUCT_LIST);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='list_con']");
         List<TransObject> transObjectList = new ArrayList();
@@ -150,7 +150,7 @@ public class HXEWTJob extends TLCSpiderJob {
 //            String amount = TLCSpiderHTMLParser.parseText(product, "//ul[1]/li[1]/span[1]/strong[1]");
             String investmentInterest = TLCSpiderHTMLParser.parseText(product, "//ul[1]/li[2]/span[1]/strong[1]");
             String duration = TLCSpiderHTMLParser.parseText(product, "//ul[1]/li[3]/span[1]/strong[1]");
-            duration = SplitUtil.splitNumberChinese(duration, 1);
+            duration = TLCSpiderSplitUtil.splitNumberChinese(duration, 1);
             String leftAmount = TLCSpiderHTMLParser.parseText(product, "//ul[1]/li[4]/span[1]/strong[1]");
             String realProgress = TLCSpiderHTMLParser.parseText(product, "//div[@class='jd'][1]/strong[1]");
             String progress = realProgress;
@@ -192,7 +192,7 @@ public class HXEWTJob extends TLCSpiderJob {
             int minAmount = 1;
             String minInvestPartsCountStr = TLCSpiderHTMLParser.parseText(detailContent, "//table[1]//tr[2]/td[4]").split("：")[1];
             minInvestPartsCountStr = minInvestPartsCountStr.split(" ")[0].replaceAll(",", "");
-            minInvestPartsCountStr = SplitUtil.splitNumberChinese(minInvestPartsCountStr, 1);
+            minInvestPartsCountStr = TLCSpiderSplitUtil.splitNumberChinese(minInvestPartsCountStr, 1);
             minInvestPartsCountStr = minInvestPartsCountStr.replaceAll(",", "");
             Integer minInvestPartsCount = Integer.parseInt(minInvestPartsCountStr) / minAmount;
             Integer partsCount = Integer.parseInt(amount.substring(0, amount.lastIndexOf(".")).replaceAll(",", "")) / minAmount;

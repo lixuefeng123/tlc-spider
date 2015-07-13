@@ -3,9 +3,9 @@ package cn.com.fero.tlc.spider.quartz.job.p2p;
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.DateFormatUtil;
-import cn.com.fero.tlc.spider.util.JsonUtil;
-import cn.com.fero.tlc.spider.util.PropertiesUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderDateFormatUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.NYYHNYE;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.apache.commons.lang3.StringUtils;
@@ -23,10 +23,10 @@ import java.util.Map;
 public class NYYHNYEJob extends TLCSpiderJob {
     //detail: https://one.gdnybank.com/pages/er_product_detail.html
 
-    private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.nyyhnye.url.list");
-    private static final String SID = PropertiesUtil.getResource("tlc.spider.nyyhnye.sid");
-    private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.nyyhnye.token");
-    private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.nyyhnye.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.nyyhnye.url.list");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.nyyhnye.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.nyyhnye.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.nyyhnye.title");
     private static final String PAGE_NAME = "page";
     private static final String PAGE_SIZE = "8";
 
@@ -53,14 +53,14 @@ public class NYYHNYEJob extends TLCSpiderJob {
     @Override
     public int getTotalPage(Map<String, String> param) {
         String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String totalPage = JsonUtil.getString(countContent, "count");
+        String totalPage = TLCSpiderJsonUtil.getString(countContent, "count");
         return Integer.parseInt(totalPage);
     }
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        List<NYYHNYE> productList = JsonUtil.json2Array(productContent, "projList", NYYHNYE.class);
+        List<NYYHNYE> productList = TLCSpiderJsonUtil.json2Array(productContent, "projList", NYYHNYE.class);
 
         List<TransObject> transObjectList = new ArrayList();
         for (NYYHNYE product : productList) {
@@ -88,19 +88,19 @@ public class NYYHNYEJob extends TLCSpiderJob {
         }
         transObject.setPartsCount(String.valueOf(Integer.parseInt(product.getProductSize()) / Integer.parseInt(product.getSingleSum())));
         if (StringUtils.isNotEmpty(product.getPubStaDate()) && StringUtils.isNotEmpty(product.getPubStaTime())) {
-            transObject.setProjectBeginTime(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATE_TIME, product.getPubStaDate(), product.getPubStaTime()));
+            transObject.setProjectBeginTime(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATE_TIME, product.getPubStaDate(), product.getPubStaTime()));
         } else if (StringUtils.isNotEmpty(product.getPubStaDate())) {
-            transObject.setProjectBeginTime(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATA, product.getPubStaDate()));
+            transObject.setProjectBeginTime(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATA, product.getPubStaDate()));
         }
         if (StringUtils.isNotEmpty(product.getSellStaDate()) && StringUtils.isNotEmpty(product.getSellStaTime())) {
-            transObject.setValueBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATE_TIME, product.getSellStaDate(), product.getSellStaTime()));
+            transObject.setValueBegin(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATE_TIME, product.getSellStaDate(), product.getSellStaTime()));
         } else if (StringUtils.isNotEmpty(product.getPubStaDate())) {
-            transObject.setValueBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATA, product.getSellStaDate()));
+            transObject.setValueBegin(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATA, product.getSellStaDate()));
         }
         if (StringUtils.isNotEmpty(product.getSellEndDate()) && StringUtils.isNotEmpty(product.getSellEndTime())) {
-            transObject.setRepayBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATE_TIME, product.getSellEndDate(), product.getSellEndTime()));
+            transObject.setRepayBegin(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATE_TIME, product.getSellEndDate(), product.getSellEndTime()));
         } else if (StringUtils.isNotEmpty(product.getSellEndDate())) {
-            transObject.setRepayBegin(DateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATA, product.getSellEndDate()));
+            transObject.setRepayBegin(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATA, product.getSellEndDate()));
         }
         if (product.getInvestFlag().equals("1")) {
             transObject.setRepayType(TLCSpiderConstants.REPAY_TYPE.TOTAL.toString());

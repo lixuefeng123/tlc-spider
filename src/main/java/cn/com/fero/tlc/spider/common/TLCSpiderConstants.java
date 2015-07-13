@@ -1,6 +1,6 @@
 package cn.com.fero.tlc.spider.common;
 
-import cn.com.fero.tlc.spider.util.PropertiesUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 
 /**
  * Created by wanghongmeng on 2015/6/24.
@@ -25,8 +25,8 @@ public final class TLCSpiderConstants {
     public static final String SPIDER_PARAM_STATUS_FAIL_CODE = "500";
     public static final String SPIDER_PAGE_SIZE_GET = "10";
     public static final int SPIDER_PAGE_SIZE_SEND = 100;
-    public static final String SPIDER_URL_SEND = PropertiesUtil.getResource("tlc.spider.interactive.url.send");
-    public static final String SPIDER_URL_GET = PropertiesUtil.getResource("tlc.spider.interactive.url.get");
+    public static final String SPIDER_URL_SEND = TLCSpiderPropertiesUtil.getResource("tlc.spider.interactive.url.send");
+    public static final String SPIDER_URL_GET = TLCSpiderPropertiesUtil.getResource("tlc.spider.interactive.url.get");
 
     private TLCSpiderConstants() {
         throw new UnsupportedOperationException();

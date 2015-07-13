@@ -4,8 +4,8 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.PropertiesUtil;
-import cn.com.fero.tlc.spider.util.SplitUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderSplitUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.htmlcleaner.TagNode;
 
@@ -21,11 +21,11 @@ import java.util.Map;
 //兰州银行E融E贷抓取
 public class LZYHEREDJob extends TLCSpiderJob {
 
-    private static final String URL_PRODUCT_LIST = PropertiesUtil.getResource("tlc.spider.lzyhered.url.list");
-    private static final String URL_PRODUCT_DETAIL = PropertiesUtil.getResource("tlc.spider.lzyhered.url.detail");
-    private static final String SID = PropertiesUtil.getResource("tlc.spider.lzyhered.sid");
-    private static final String TOKEN = PropertiesUtil.getResource("tlc.spider.lzyhered.token");
-    private static final String JOB_TITLE = PropertiesUtil.getResource("tlc.spider.lzyhered.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzyhered.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzyhered.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzyhered.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzyhered.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzyhered.title");
     private static final String PAGE_NAME = "pn";
 
     @Override
@@ -77,13 +77,13 @@ public class LZYHEREDJob extends TLCSpiderJob {
     private TransObject convertToTransObject(TagNode product) {
         String projectName = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='m_l_title']/span");
         String amount = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left2'][2]");
-        amount = SplitUtil.splitNumberChinese(amount, 1);
+        amount = TLCSpiderSplitUtil.splitNumberChinese(amount, 1);
         amount += "00000";
 
         String investmentInterest = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left3']/font");
         investmentInterest = investmentInterest.replaceAll("%", "");
         String duration = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left1']");
-        duration = SplitUtil.splitNumberChinese(duration, 1);
+        duration = TLCSpiderSplitUtil.splitNumberChinese(duration, 1);
         String realProgress = TLCSpiderHTMLParser.parseText(product, "//div[@class='svgDemo']/script");
 
         realProgress = realProgress.replaceAll("\\n", "").replaceAll("\t", "").replaceAll(" ", "");
