@@ -41,7 +41,6 @@ public class TLCSpiderScheduler {
             for (TLCSpiderJob job : jobList) {
 
                 JobKey jobKey = JobKey.jobKey(job.getJobName(), job.getJobGroupName());
-
                 JobDetail jobDetail;
                 if (scheduler.checkExists(jobKey)) {
                     jobDetail = scheduler.getJobDetail(jobKey);
