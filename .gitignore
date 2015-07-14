@@ -10,3 +10,4 @@ tlc-spider-*/.gitignore
 gtsboss.userlibraries
 .classpath
 .project
+*.tar.gz

@@ -32,7 +32,7 @@ projectType 项目类别
 isExclusivePublic
 minInvestPartsCount 最小投资份数
 exclusiveCode
-lCAmount
+lcAmount
 iCount
 iAmount
 realProgress 实际融资进度

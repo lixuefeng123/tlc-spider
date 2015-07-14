@@ -18,7 +18,7 @@
     <fileSets>
         <fileSet>
             <directory>/src/main/resources</directory>
-            <outputDirectory>/config</outputDirectory>
+            <outputDirectory>/conf</outputDirectory>
             <useDefaultExcludes>false</useDefaultExcludes>
             <excludes>
                 <exclude>**/logback.xml</exclude>
@@ -29,14 +29,14 @@
         </fileSet>
         <fileSet>
             <directory>${properties.package.environment}</directory>
-            <outputDirectory>/config</outputDirectory>
+            <outputDirectory>/conf</outputDirectory>
             <useDefaultExcludes>false</useDefaultExcludes>
             <directoryMode>755</directoryMode>
             <fileMode>0644</fileMode>
         </fileSet>
         <fileSet>
             <directory>/src/main/bin/shell</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>/bin</outputDirectory>
             <useDefaultExcludes>false</useDefaultExcludes>
             <directoryMode>755</directoryMode>
             <fileMode>0755</fileMode>

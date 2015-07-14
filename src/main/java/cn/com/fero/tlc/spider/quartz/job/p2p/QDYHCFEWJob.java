@@ -114,7 +114,7 @@ public class QDYHCFEWJob extends TLCSpiderJob {
         transObject.setIsExclusivePublic(product.getIsExclusivePublic());
         transObject.setMinInvestPartsCount(product.getMinInvestPartsCount());
         transObject.setExclusiveCode(product.getExclusiveCode());
-        transObject.setlCAmount(product.getlCAmount());
+        transObject.setLcAmount(product.getlCAmount());
         transObject.setiCount(product.getiCount());
         transObject.setiAmount(product.getiAmount());
         transObject.setRealProgress(product.getRealProgress());

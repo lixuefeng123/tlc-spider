@@ -126,7 +126,7 @@ public class HXEWTJob extends TLCSpiderJob {
         transObject.setIsExclusivePublic(zhxqyej.getIsExclusivePublic());
         transObject.setMinInvestPartsCount(zhxqyej.getMinInvestPartsCount());
         transObject.setExclusiveCode(zhxqyej.getExclusiveCode());
-        transObject.setlCAmount(zhxqyej.getlCAmount());
+        transObject.setLcAmount(zhxqyej.getlCAmount());
         transObject.setiCount(zhxqyej.getiCount());
         transObject.setiAmount(zhxqyej.getiAmount());
         transObject.setRealProgress(zhxqyej.getRealProgress());

@@ -39,7 +39,7 @@ public class TransObject {
     private String isExclusivePublic;
     private String minInvestPartsCount;
     private String exclusiveCode;
-    private String lCAmount;
+    private String lcAmount;
     private String iCount;
     private String iAmount;
     private String realProgress;
@@ -331,12 +331,12 @@ public class TransObject {
         this.exclusiveCode = exclusiveCode;
     }
 
-    public String getlCAmount() {
-        return lCAmount;
+    public String getLcAmount() {
+        return lcAmount;
     }
 
-    public void setlCAmount(String lCAmount) {
-        this.lCAmount = lCAmount;
+    public void setLcAmount(String lcAmount) {
+        this.lcAmount = lcAmount;
     }
 
     public String getiCount() {
@@ -463,7 +463,7 @@ public class TransObject {
         if (isLimitCount != null ? !isLimitCount.equals(that.isLimitCount) : that.isLimitCount != null) return false;
         if (isShow != null ? !isShow.equals(that.isShow) : that.isShow != null) return false;
         if (jmBeginTime != null ? !jmBeginTime.equals(that.jmBeginTime) : that.jmBeginTime != null) return false;
-        if (lCAmount != null ? !lCAmount.equals(that.lCAmount) : that.lCAmount != null) return false;
+        if (lcAmount != null ? !lcAmount.equals(that.lcAmount) : that.lcAmount != null) return false;
         if (minInvestPartsCount != null ? !minInvestPartsCount.equals(that.minInvestPartsCount) : that.minInvestPartsCount != null)
             return false;
         if (partsCount != null ? !partsCount.equals(that.partsCount) : that.partsCount != null) return false;
@@ -527,7 +527,7 @@ public class TransObject {
         result = 31 * result + (isExclusivePublic != null ? isExclusivePublic.hashCode() : 0);
         result = 31 * result + (minInvestPartsCount != null ? minInvestPartsCount.hashCode() : 0);
         result = 31 * result + (exclusiveCode != null ? exclusiveCode.hashCode() : 0);
-        result = 31 * result + (lCAmount != null ? lCAmount.hashCode() : 0);
+        result = 31 * result + (lcAmount != null ? lcAmount.hashCode() : 0);
         result = 31 * result + (iCount != null ? iCount.hashCode() : 0);
         result = 31 * result + (iAmount != null ? iAmount.hashCode() : 0);
         result = 31 * result + (realProgress != null ? realProgress.hashCode() : 0);
@@ -579,7 +579,7 @@ public class TransObject {
         sb.append(", isExclusivePublic='").append(isExclusivePublic).append('\'');
         sb.append(", minInvestPartsCount='").append(minInvestPartsCount).append('\'');
         sb.append(", exclusiveCode='").append(exclusiveCode).append('\'');
-        sb.append(", lCAmount='").append(lCAmount).append('\'');
+        sb.append(", lcAmount='").append(lcAmount).append('\'');
         sb.append(", iCount='").append(iCount).append('\'');
         sb.append(", iAmount='").append(iAmount).append('\'');
         sb.append(", realProgress='").append(realProgress).append('\'');
