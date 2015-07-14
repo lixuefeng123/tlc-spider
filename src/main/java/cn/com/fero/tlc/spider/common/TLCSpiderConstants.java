@@ -13,6 +13,10 @@ public final class TLCSpiderConstants {
     public static final String SPIDER_CONST_FORMAT_DATA = "yyyyMMdd";
     public static final String SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
     public static final String SPIDER_CONST_FULL_PROGRESS = "1";
+    public static final String SPIDER_CONST_COLON = ":";
+    public static final String SPIDER_CONST_HTTP_PROXY_SET = "http.proxySet";
+    public static final String SPIDER_CONST_HTTP_PROXY_HOST = "http.proxyHost";
+    public static final String SPIDER_CONST_HTTP_PROXY_PORT = "http.proxyPort";
     public static final String SPIDER_PARAM_STATUS_NAME = "status";
     public static final String SPIDER_PARAM_SID = "sid";
     public static final String SPIDER_PARAM_TOKEN = "token";
