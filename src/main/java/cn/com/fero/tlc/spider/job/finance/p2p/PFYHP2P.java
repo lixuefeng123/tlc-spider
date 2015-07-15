@@ -1,8 +1,8 @@
-package cn.com.fero.tlc.spider.quartz.job.p2p;
+package cn.com.fero.tlc.spider.job.finance.p2p;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
-import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
+import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.PFYH;
@@ -18,7 +18,7 @@ import java.util.Map;
  * Created by gizmo on 15/6/17.
  */
 //浦发银行轻松理财抓取
-public class PFYHJob extends TLCSpiderJob {
+public class PFYHP2P extends TLCSpiderJob {
     //detail: https://ebank.spdb.com.cn/fmall/#/P2BBuyInput/15070800000261
 
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.pfyh.url.list");

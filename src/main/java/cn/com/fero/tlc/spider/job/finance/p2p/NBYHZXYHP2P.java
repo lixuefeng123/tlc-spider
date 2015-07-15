@@ -1,13 +1,13 @@
-package cn.com.fero.tlc.spider.quartz.job.p2p;
+package cn.com.fero.tlc.spider.job.finance.p2p;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
-import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
-import cn.com.fero.tlc.spider.util.TLCSpiderDateFormatUtil;
+import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
-import cn.com.fero.tlc.spider.vo.RDNSYHERJZ;
+import cn.com.fero.tlc.spider.vo.NBYHZXYH;
 import cn.com.fero.tlc.spider.vo.TransObject;
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,14 +18,14 @@ import java.util.Map;
 /**
  * Created by gizmo on 15/6/17.
  */
-//尧都农商银行E融九州抓取
-public class RDNSYHERJZJob extends TLCSpiderJob {
-    //detail: https://e.ydnsh.com/home/detail?FinancingId=15b43001-555c-4dda-845c-31b62879fbe7
+//宁波银行投融资平台抓取
+public class NBYHZXYHP2P extends TLCSpiderJob {
+    //detail: https://u.zxyh.nbcb.com.cn/home/detail?FinancingId=6f15a3a0-4a8c-42db-9e39-aaaaf1548e8c
 
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.rdnsyherjz.url.list");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.rdnsyherjz.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.rdnsyherjz.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.rdnsyherjz.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.nbyhzxyh.url.list");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.nbyhzxyh.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.nbyhzxyh.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.nbyhzxyh.title");
     private static final String PAGE_NAME = "PageIndex";
     private static final String PAGE_SIZE = "10";
 
@@ -67,10 +67,10 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
         String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "Data");
-        List<RDNSYHERJZ> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "ResultList", RDNSYHERJZ.class, "YMInterest");
+        List<NBYHZXYH> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "ResultList", NBYHZXYH.class);
 
         List<TransObject> transObjectList = new ArrayList();
-        for (RDNSYHERJZ product : productList) {
+        for (NBYHZXYH product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }
@@ -78,38 +78,35 @@ public class RDNSYHERJZJob extends TLCSpiderJob {
         return transObjectList;
     }
 
-    private TransObject convertToTransObject(RDNSYHERJZ product) {
+    private TransObject convertToTransObject(NBYHZXYH product) {
         TransObject transObject = new TransObject();
         transObject.setFinancingId(product.getFinancingId());
         transObject.setProjectCode(product.getProjectCode());
         transObject.setProjectName(product.getProjectName());
-        transObject.setBindUserId(product.getBindUserId());
-        transObject.setBindUserName(product.getBindUserName());
-        transObject.setBindCompanyId(product.getBindCompanyId());
-        transObject.setBindCompanyName(product.getBindCompanyName());
         transObject.setAmount(product.getAmount());
-        transObject.setPartsCount(product.getPartsCount());
-        transObject.setBankInterest(product.getBankInterest());
+        transObject.setPartsCount(product.getMinInvestPartsCount());
         transObject.setInvestmentInterest(product.getInvestmentInterest());
         transObject.setDuration(product.getDuration());
-        transObject.setRepayType(product.getRepayType());
-        transObject.setValueBegin(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getValueBegin()));
-        transObject.setRepayBegin(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getRepayBegin()));
-        transObject.setProjectBeginTime(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getProjectBeginTime()));
-        transObject.setReadyBeginTime(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getReadyBeginTime()));
+        transObject.setValueBegin(convertDate(product.getValueBegin()));
+        transObject.setProjectBeginTime(convertDate(product.getProjectBeginTime()));
+        transObject.setReadyBeginTime(convertDate(product.getReadyBeginTime()));
         transObject.setProjectStatus(product.getProjectStatus());
-        transObject.setJmBeginTime(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getjMBeginTime()));
-        transObject.setCreateTime(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getCreateTime()));
-        transObject.setIsShow(product.getIsShow());
+        transObject.setJmBeginTime(convertDate(product.getjMBeginTime()));
+        transObject.setCreateTime(convertDate(product.getCreateTime()));
         transObject.setProjectType(product.getProjectType());
         transObject.setIsExclusivePublic(product.getIsExclusivePublic());
         transObject.setMinInvestPartsCount(product.getMinInvestPartsCount());
-        transObject.setExclusiveCode(product.getExclusiveCode());
-        transObject.setRealProgress(product.getRealProgress());
         transObject.setProgress(product.getProgress());
+        transObject.setRealProgress(product.getProgress());
         transObject.setFinanceApplyStatus(product.getFinanceApplyStatus());
         transObject.setHotStatus(product.getHotStatus());
-        //TODO 未处理属性 YMInterest: 0.5
+        //TODO 未处理属性 ProgressForOrder: 0.99 RemainPartsCount: 3 UnrealJMBeginTime: "/Date(1435736774353)/"
         return transObject;
+    }
+
+    private String convertDate(String originalDate) {
+        originalDate = originalDate.split("\\(")[1].split("\\)")[0];
+        Long originalDateNum = Long.valueOf(originalDate);
+        return DateFormatUtils.format(originalDateNum, TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME);
     }
 }

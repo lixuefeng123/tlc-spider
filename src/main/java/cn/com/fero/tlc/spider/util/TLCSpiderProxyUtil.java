@@ -14,7 +14,7 @@ import java.util.*;
  * Created by wanghongmeng on 2015/6/24.
  */
 public final class TLCSpiderProxyUtil {
-    private static final File ipFile = new File("src/main/resources/ip.list");
+    private static final File ipFile = new File("src/main/resources/impl.list");
     private static final String urlPrefix = TLCSpiderPropertiesUtil.getResource("tlc.spider.proxy.url");
     private static final Set<String> usefulIp = new HashSet();
     private static final Set<String> uselessIp = new HashSet();
@@ -92,7 +92,7 @@ public final class TLCSpiderProxyUtil {
         System.setProperty(TLCSpiderConstants.SPIDER_CONST_HTTP_PROXY_SET, "true");
         System.setProperty(TLCSpiderConstants.SPIDER_CONST_HTTP_PROXY_HOST, ip);
         System.setProperty(TLCSpiderConstants.SPIDER_CONST_HTTP_PROXY_PORT, port);
-//        String response = TLCSpiderRequest.get(TLCSpiderPropertiesUtil.getResource("tlc.spider.ip.url"));
+//        String response = TLCSpiderRequest.get(TLCSpiderPropertiesUtil.getResource("tlc.spider.impl.url"));
 //            if(response.contains()) {
 //        }
     }

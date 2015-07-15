@@ -1,9 +1,9 @@
-package cn.com.fero.tlc.spider.quartz.job.p2p;
+package cn.com.fero.tlc.spider.job.finance.p2p;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
-import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
+import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderSplitUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
@@ -20,7 +20,7 @@ import java.util.Map;
  * Created by gizmo on 15/6/17.
  */
 //陆金所投资频道抓取
-public class LJSTZJob extends TLCSpiderJob {
+public class LJSTZP2P extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.url.list");
     private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.url.detail");
     private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.sid");

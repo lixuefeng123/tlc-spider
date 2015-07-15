@@ -36,12 +36,14 @@ public class TLCSpiderRequest {
             CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpGet httpGet = new HttpGet(url);
 
+            RequestConfig.Builder builder = RequestConfig.custom();
+            builder.setConnectTimeout(TLCSpiderConstants.SPIDER_CONST_HTTP_TIMEOUT);
+
             if(isUsingProxy()) {
-                HttpHost proxy = getHost();
-                RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
-                httpGet.setConfig(config);
+                builder.setProxy(getHost());
             }
 
+            httpGet.setConfig(builder.build());
             CloseableHttpResponse response = httpClient.execute(httpGet);
             return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.SPIDER_CONST_CHARACTER_ENCODING);
         } catch (Exception e) {
@@ -64,12 +66,14 @@ public class TLCSpiderRequest {
             }
             httpPost.setEntity(new UrlEncodedFormEntity(paramList, CharsetUtils.get(TLCSpiderConstants.SPIDER_CONST_CHARACTER_ENCODING)));
 
+            RequestConfig.Builder builder = RequestConfig.custom();
+            builder.setConnectTimeout(TLCSpiderConstants.SPIDER_CONST_HTTP_TIMEOUT);
+
             if(isUsingProxy()) {
-                HttpHost proxy = getHost();
-                RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
-                httpPost.setConfig(config);
+                builder.setProxy(getHost());
             }
 
+            httpPost.setConfig(builder.build());
             CloseableHttpResponse response = httpClient.execute(httpPost);
             return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.SPIDER_CONST_CHARACTER_ENCODING);
         } catch (Exception e) {

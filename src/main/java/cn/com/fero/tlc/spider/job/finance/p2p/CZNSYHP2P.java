@@ -1,9 +1,9 @@
-package cn.com.fero.tlc.spider.quartz.job.p2p;
+package cn.com.fero.tlc.spider.job.finance.p2p;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
-import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
+import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.CZNSYH;
@@ -21,7 +21,7 @@ import java.util.Map;
  * Created by gizmo on 15/6/17.
  */
 //长子农商银行长青融E贷抓取
-public class CZNSYHJob extends TLCSpiderJob {
+public class CZNSYHP2P extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.url.list");
     private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.url.detail");
     private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.sid");

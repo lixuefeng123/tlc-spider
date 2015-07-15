@@ -1,6 +1,9 @@
-package cn.com.fero.tlc.spider.quartz;
+package cn.com.fero.tlc.spider.schedule.impl;
 
 import cn.com.fero.tlc.spider.exception.TLCSpiderSchedulerException;
+import cn.com.fero.tlc.spider.job.TLCSpiderJob;
+import cn.com.fero.tlc.spider.schedule.TLCSpiderScheduler;
+import cn.com.fero.tlc.spider.util.TLCSpiderLoggerUtil;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Required;
 
@@ -9,31 +12,29 @@ import java.util.List;
 /**
  * Created by gizmo on 15/6/17.
  */
-public class TLCSpiderScheduler {
-    private SchedulerFactory schedulerFactory;
+public class TLCSpiderP2PScheduler extends TLCSpiderScheduler {
     private Scheduler scheduler;
     private List<TLCSpiderJob> jobList;
-
-    @Required
-    public void setSchedulerFactory(SchedulerFactory schedulerFactory) {
-        this.schedulerFactory = schedulerFactory;
-    }
 
     @Required
     public void setJobList(List<TLCSpiderJob> jobList) {
         this.jobList = jobList;
     }
 
+    @Override
     public void init() {
         try {
+            TLCSpiderLoggerUtil.getLogger().info("初始化p2p");
             this.scheduler = schedulerFactory.getScheduler();
         } catch (SchedulerException e) {
             throw new TLCSpiderSchedulerException(e);
         }
     }
 
+    @Override
     public void loadJobs() {
         try {
+            TLCSpiderLoggerUtil.getLogger().info("加载p2p");
             if (null == scheduler) {
                 init();
             }
@@ -71,8 +72,10 @@ public class TLCSpiderScheduler {
         }
     }
 
+    @Override
     public void start() {
         try {
+            TLCSpiderLoggerUtil.getLogger().info("启动p2p，开始执行抓取");
             if (!scheduler.isStarted()) {
                 scheduler.start();
             }
@@ -81,8 +84,10 @@ public class TLCSpiderScheduler {
         }
     }
 
+    @Override
     public void shutdown() {
         try {
+            TLCSpiderLoggerUtil.getLogger().info("关闭p2p");
             if (!scheduler.isShutdown()) {
                 scheduler.shutdown(true);
             }

@@ -1,8 +1,8 @@
-package cn.com.fero.tlc.spider.quartz.job.p2p;
+package cn.com.fero.tlc.spider.job.finance.p2p;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
-import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
+import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderDateFormatUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
@@ -20,7 +20,7 @@ import java.util.Map;
  * Created by gizmo on 15/6/17.
  */
 //广东南粤银行南粤E+抓取
-public class NYYHNYEJob extends TLCSpiderJob {
+public class NYYHNYEP2P extends TLCSpiderJob {
     //detail: https://one.gdnybank.com/pages/er_product_detail.html
 
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.nyyhnye.url.list");

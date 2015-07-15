@@ -16,7 +16,7 @@ import java.util.HashMap;
 /**
  * Created by gizmo on 15/6/19.
  */
-public class TLCSpiderProxyTest {
+public class TLCSpiderProxyJobTest {
 
     @Test
     public void testInit() {
@@ -26,10 +26,10 @@ public class TLCSpiderProxyTest {
     @Test
     public void testUpdateProxy() throws IOException {
 //        System.setProperty("http.proxySet", "true");
-        System.setProperty(TLCSpiderConstants.SPIDER_CONST_HTTP_PROXY_HOST, "218.92.227.165");
-        System.setProperty(TLCSpiderConstants.SPIDER_CONST_HTTP_PROXY_PORT, "23293");
+        System.setProperty(TLCSpiderConstants.SPIDER_CONST_HTTP_PROXY_HOST, "106.115.236.96");
+        System.setProperty(TLCSpiderConstants.SPIDER_CONST_HTTP_PROXY_PORT, "8888");
 //        TLCSpiderProxyUtil.loadIpToMemory();
-//        TLCSpiderProxyUtil.setProxy();
+//        TLCSpiderProxyUtil.updateProxy();
         String response = TLCSpiderRequest.get("http://1111.ip138.com/ic.asp");
         System.out.println(response);
 

@@ -1,6 +1,9 @@
 package cn.com.fero.tlc.spider.start;
 
-import cn.com.fero.tlc.spider.quartz.TLCSpiderScheduler;
+import cn.com.fero.tlc.spider.job.system.proxy.TLCSpiderProxyJob;
+import cn.com.fero.tlc.spider.schedule.TLCSpiderScheduler;
+import cn.com.fero.tlc.spider.schedule.impl.TLCSpiderP2PScheduler;
+import cn.com.fero.tlc.spider.schedule.impl.TLCSpiderProxyScheduler;
 import cn.com.fero.tlc.spider.util.TLCSpiderLoggerUtil;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.beans.BeansException;
@@ -13,24 +16,37 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public final class TCLSpiderStarter {
 
     public static void main(String[] args) throws InterruptedException {
-        TLCSpiderScheduler tlcSpiderScheduler = null;
+        TLCSpiderScheduler proxyScheduler = null;
+        TLCSpiderScheduler p2pScheduler = null;
         try {
             TLCSpiderLoggerUtil.getLogger().info("加载spring配置文件");
             ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath*: spring-*.xml");
-
-            TLCSpiderLoggerUtil.getLogger().info("获取钛理财scheduler");
-            tlcSpiderScheduler = (TLCSpiderScheduler) applicationContext.getBean("tlcSpiderScheduler");
-
-            TLCSpiderLoggerUtil.getLogger().info("加载钛理财jobs");
-            tlcSpiderScheduler.loadJobs();
-
-            TLCSpiderLoggerUtil.getLogger().info("开始钛理财抓取");
-            tlcSpiderScheduler.start();
+//            proxyScheduler = initProxyScheduler(proxyScheduler, applicationContext);
+            p2pScheduler = initP2PScheduler(p2pScheduler, applicationContext);
         } catch (BeansException e) {
             TLCSpiderLoggerUtil.getLogger().error(ExceptionUtils.getFullStackTrace(e));
-            if (null != tlcSpiderScheduler) {
-                tlcSpiderScheduler.shutdown();
+            if (null != proxyScheduler) {
+                proxyScheduler.shutdown();
+            }
+            if (null != p2pScheduler) {
+                p2pScheduler.shutdown();
             }
         }
+    }
+
+    private static TLCSpiderScheduler initProxyScheduler(TLCSpiderScheduler proxyScheduler, ApplicationContext applicationContext) {
+        proxyScheduler = (TLCSpiderProxyScheduler) applicationContext.getBean("tlcSpiderProxyScheduler");
+        proxyScheduler.init();
+        proxyScheduler.loadJobs();
+        proxyScheduler.start();
+        return proxyScheduler;
+    }
+
+    private static TLCSpiderScheduler initP2PScheduler(TLCSpiderScheduler p2pScheduler, ApplicationContext applicationContext) {
+        p2pScheduler = (TLCSpiderP2PScheduler) applicationContext.getBean("tlcSpiderP2PScheduler");
+        p2pScheduler.init();
+        p2pScheduler.loadJobs();
+        p2pScheduler.start();
+        return p2pScheduler;
     }
 }

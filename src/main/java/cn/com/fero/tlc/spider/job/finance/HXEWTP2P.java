@@ -1,9 +1,9 @@
-package cn.com.fero.tlc.spider.quartz.job;
+package cn.com.fero.tlc.spider.job.finance;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
-import cn.com.fero.tlc.spider.quartz.TLCSpiderJob;
+import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderLoggerUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderSplitUtil;
@@ -23,7 +23,7 @@ import java.util.Map;
  * Created by gizmo on 15/6/17.
  */
 //华夏银行E网通抓取
-public class HXEWTJob extends TLCSpiderJob {
+public class HXEWTP2P extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = "https://efinance.cmbchinaucs.com/Handler/ActionPageV4.aspx";
     private static final String URL_PRODUCT_DETAIL = "http://hxewt.com";
     private static final String SID = "1";

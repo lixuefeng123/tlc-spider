@@ -12,4 +12,9 @@
     <context:component-scan base-package="cn.com.fero.tlc.spider"/>
     <context:property-placeholder location="classpath*:tlc-spider.properties"/>
 
+    <bean id="schedulerFactory" class="org.quartz.impl.StdSchedulerFactory" />
+    <bean id="tlcSpiderScheduler" class="cn.com.fero.tlc.spider.schedule.TLCSpiderScheduler" abstract="true">
+        <property name="schedulerFactory" ref="schedulerFactory" />
+    </bean>
+
 </beans>

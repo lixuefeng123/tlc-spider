@@ -1,7 +1,8 @@
-package cn.com.fero.tlc.spider.quartz;
+package cn.com.fero.tlc.spider.job;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
+import cn.com.fero.tlc.spider.job.finance.TLCSpiderP2PExecutor;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderLoggerUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
@@ -18,7 +19,7 @@ import java.util.*;
  */
 @DisallowConcurrentExecution
 @PersistJobDataAfterExecution
-public abstract class TLCSpiderJob implements Job, TLCSpiderJobExecutor {
+public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
     private String jobName;
     private String jobGroupName;
     private String triggerName;
