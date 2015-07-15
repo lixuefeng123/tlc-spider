@@ -1,6 +1,6 @@
 package cn.com.fero.tlc.spider.schedule;
 
-import org.quartz.*;
+import org.quartz.SchedulerFactory;
 import org.springframework.beans.factory.annotation.Required;
 
 /**

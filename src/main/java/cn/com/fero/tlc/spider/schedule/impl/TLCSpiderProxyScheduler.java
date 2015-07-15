@@ -1,6 +1,5 @@
 package cn.com.fero.tlc.spider.schedule.impl;
 
-import cn.com.fero.tlc.spider.exception.TLCSpiderSchedulerException;
 import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.schedule.TLCSpiderScheduler;
 import cn.com.fero.tlc.spider.util.TLCSpiderLoggerUtil;

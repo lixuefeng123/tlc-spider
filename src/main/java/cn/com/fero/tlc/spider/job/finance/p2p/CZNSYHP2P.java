@@ -96,7 +96,7 @@ public class CZNSYHP2P extends TLCSpiderJob {
         } else {
             transObject.setRepayType(TLCSpiderConstants.REPAY_TYPE.MONTHLY_INTEREST.toString());
         }
-        if(StringUtils.isNotEmpty(product.getLoanDate())) {
+        if (StringUtils.isNotEmpty(product.getLoanDate())) {
             transObject.setValueBegin(DateFormatUtils.format(Long.valueOf(product.getLoanDate()), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
         }
 

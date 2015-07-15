@@ -7,8 +7,13 @@ import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import org.apache.commons.lang.math.RandomUtils;
 import org.htmlcleaner.TagNode;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
 
 /**
  * Created by wanghongmeng on 2015/6/24.
@@ -30,7 +35,7 @@ public final class TLCSpiderProxyUtil {
             TLCSpiderLoggerUtil.getLogger().info("抓取代理ip，总页数:" + totalPage);
 
             int totalPageNum = Integer.parseInt(totalPage);
-            for(int page = 1; page <= totalPageNum; page++) {
+            for (int page = 1; page <= totalPageNum; page++) {
                 TLCSpiderLoggerUtil.getLogger().info("开始抓取代理ip第" + page + "页");
                 List<TagNode> ipNodeList = getIpNode(urlPrefix, page);
                 writeToFile(ipNodeList, writer);
@@ -43,7 +48,7 @@ public final class TLCSpiderProxyUtil {
     }
 
     private static void writeToFile(List<TagNode> ipNodeList, FileWriter writer) throws IOException {
-        for(TagNode ipNode : ipNodeList) {
+        for (TagNode ipNode : ipNodeList) {
             String ip = TLCSpiderHTMLParser.parseText(ipNode, "td[1]");
             String port = TLCSpiderHTMLParser.parseText(ipNode, "td[2]");
             String ipStr = ip + TLCSpiderConstants.SPIDER_CONST_COLON + port + System.getProperty("line.separator");
@@ -69,9 +74,9 @@ public final class TLCSpiderProxyUtil {
     public static void loadIpToMemory() {
         try {
             Scanner scanner = new Scanner(ipFile);
-            while(scanner.hasNext()) {
+            while (scanner.hasNext()) {
                 String ip = scanner.nextLine();
-                if(!uselessIp.contains(ip)) {
+                if (!uselessIp.contains(ip)) {
                     usefulIp.add(scanner.nextLine());
                 }
             }

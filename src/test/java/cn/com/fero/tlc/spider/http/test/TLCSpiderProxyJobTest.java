@@ -5,13 +5,7 @@ import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.util.TLCSpiderProxyUtil;
 import org.junit.Test;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.*;
-import java.util.Collections;
-import java.util.HashMap;
 
 /**
  * Created by gizmo on 15/6/19.
@@ -26,8 +20,8 @@ public class TLCSpiderProxyJobTest {
     @Test
     public void testUpdateProxy() throws IOException {
 //        System.setProperty("http.proxySet", "true");
-        System.setProperty(TLCSpiderConstants.SPIDER_CONST_HTTP_PROXY_HOST, "106.115.236.96");
-        System.setProperty(TLCSpiderConstants.SPIDER_CONST_HTTP_PROXY_PORT, "8888");
+        System.setProperty(TLCSpiderConstants.SPIDER_CONST_HTTP_PROXY_HOST, "36.99.1.121");
+        System.setProperty(TLCSpiderConstants.SPIDER_CONST_HTTP_PROXY_PORT, "9797");
 //        TLCSpiderProxyUtil.loadIpToMemory();
 //        TLCSpiderProxyUtil.updateProxy();
         String response = TLCSpiderRequest.get("http://1111.ip138.com/ic.asp");

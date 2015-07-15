@@ -4,14 +4,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="tlcSpiderProxyScheduler" class="cn.com.fero.tlc.spider.schedule.impl.TLCSpiderProxyScheduler" parent="tlcSpiderScheduler">
+    <bean id="tlcSpiderProxyScheduler" class="cn.com.fero.tlc.spider.schedule.impl.TLCSpiderProxyScheduler"
+          parent="tlcSpiderScheduler">
         <property name="proxyJob">
             <bean class="cn.com.fero.tlc.spider.job.system.proxy.TLCSpiderProxyJob">
                 <property name="jobName" value="proxyJob"/>
                 <property name="jobGroupName" value="proxy"/>
                 <property name="triggerName" value="proxyTrigger"/>
                 <property name="triggerGroupName" value="proxy"/>
-                <property name="cronExpression" value="0 */20 * * * ? *"/>
+                <property name="cronExpression" value="30 * * * * ? *"/>
             </bean>
         </property>
     </bean>

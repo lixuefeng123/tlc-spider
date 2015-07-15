@@ -1,6 +1,5 @@
 package cn.com.fero.tlc.spider.start;
 
-import cn.com.fero.tlc.spider.job.system.proxy.TLCSpiderProxyJob;
 import cn.com.fero.tlc.spider.schedule.TLCSpiderScheduler;
 import cn.com.fero.tlc.spider.schedule.impl.TLCSpiderP2PScheduler;
 import cn.com.fero.tlc.spider.schedule.impl.TLCSpiderProxyScheduler;
@@ -21,7 +20,8 @@ public final class TCLSpiderStarter {
         try {
             TLCSpiderLoggerUtil.getLogger().info("加载spring配置文件");
             ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath*: spring-*.xml");
-//            proxyScheduler = initProxyScheduler(proxyScheduler, applicationContext);
+
+            proxyScheduler = initProxyScheduler(proxyScheduler, applicationContext);
             p2pScheduler = initP2PScheduler(p2pScheduler, applicationContext);
         } catch (BeansException e) {
             TLCSpiderLoggerUtil.getLogger().error(ExceptionUtils.getFullStackTrace(e));

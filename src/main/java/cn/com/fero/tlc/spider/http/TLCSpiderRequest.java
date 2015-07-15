@@ -18,7 +18,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.CharsetUtils;
 import org.apache.http.util.EntityUtils;
 
-import java.net.*;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +39,7 @@ public class TLCSpiderRequest {
             RequestConfig.Builder builder = RequestConfig.custom();
             builder.setConnectTimeout(TLCSpiderConstants.SPIDER_CONST_HTTP_TIMEOUT);
 
-            if(isUsingProxy()) {
+            if (isUsingProxy()) {
                 builder.setProxy(getHost());
             }
 
@@ -69,7 +69,7 @@ public class TLCSpiderRequest {
             RequestConfig.Builder builder = RequestConfig.custom();
             builder.setConnectTimeout(TLCSpiderConstants.SPIDER_CONST_HTTP_TIMEOUT);
 
-            if(isUsingProxy()) {
+            if (isUsingProxy()) {
                 builder.setProxy(getHost());
             }
 
@@ -84,7 +84,7 @@ public class TLCSpiderRequest {
     private static boolean isUsingProxy() {
         String ip = System.getProperty(TLCSpiderConstants.SPIDER_CONST_HTTP_PROXY_HOST);
         String port = System.getProperty(TLCSpiderConstants.SPIDER_CONST_HTTP_PROXY_PORT);
-        if(StringUtils.isEmpty(ip) || StringUtils.isEmpty(port)) {
+        if (StringUtils.isEmpty(ip) || StringUtils.isEmpty(port)) {
             return false;
         }
 

@@ -4,7 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="tlcSpiderP2PScheduler" class="cn.com.fero.tlc.spider.schedule.impl.TLCSpiderP2PScheduler" parent="tlcSpiderScheduler">
+    <bean id="tlcSpiderP2PScheduler" class="cn.com.fero.tlc.spider.schedule.impl.TLCSpiderP2PScheduler"
+          parent="tlcSpiderScheduler">
         <property name="jobList">
             <list>
                 <bean class="cn.com.fero.tlc.spider.job.finance.p2p.NYYHNYEP2P">

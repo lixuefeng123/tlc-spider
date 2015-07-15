@@ -174,19 +174,19 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <!--<resources>-->
-            <!--<resource>-->
-                <!--<directory>src/main/java</directory>-->
-                <!--<includes>-->
-                    <!--<include>**/*.xml</include>-->
-                <!--</includes>-->
-            <!--</resource>-->
-            <!--<resource>-->
-                <!--<directory>src/main/resources</directory>-->
-                <!--<excludes>-->
-                    <!--<exclude>**/*.*</exclude>-->
-                <!--</excludes>-->
-                <!--<filtering>true</filtering>-->
-            <!--</resource>-->
+        <!--<resource>-->
+        <!--<directory>src/main/java</directory>-->
+        <!--<includes>-->
+        <!--<include>**/*.xml</include>-->
+        <!--</includes>-->
+        <!--</resource>-->
+        <!--<resource>-->
+        <!--<directory>src/main/resources</directory>-->
+        <!--<excludes>-->
+        <!--<exclude>**/*.*</exclude>-->
+        <!--</excludes>-->
+        <!--<filtering>true</filtering>-->
+        <!--</resource>-->
         <!--</resources>-->
         <plugins>
             <plugin>
@@ -257,7 +257,8 @@
                         <configuration>
                             <target>
                                 <move todir="${project.basedir}">
-                                    <fileset dir="${project.build.directory}" includes="${project.build.finalName}.tar.gz"/>
+                                    <fileset dir="${project.build.directory}"
+                                             includes="${project.build.finalName}.tar.gz"/>
                                 </move>
                             </target>
                         </configuration>
