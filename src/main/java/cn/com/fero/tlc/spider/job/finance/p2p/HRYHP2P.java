@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * Created by gizmo on 15/6/17.
  */
-//青岛银行财富E屋抓取
+//华润银行资产交易平台抓取
 public class HRYHP2P extends TLCSpiderJob {
     //detail: https://e.qdccb.com/home/detail?FinancingId=85433605-1ad3-4243-bb4e-836f8310cf62
 
