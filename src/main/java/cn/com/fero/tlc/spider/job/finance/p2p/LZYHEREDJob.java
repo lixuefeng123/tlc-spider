@@ -19,7 +19,7 @@ import java.util.Map;
  * Created by gizmo on 15/6/17.
  */
 //兰州银行E融E贷抓取
-public class LZYHEREDP2P extends TLCSpiderJob {
+public class LZYHEREDJob extends TLCSpiderJob {
 
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzyhered.url.list");
     private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzyhered.url.detail");
@@ -55,14 +55,14 @@ public class LZYHEREDP2P extends TLCSpiderJob {
 
     @Override
     public int getTotalPage(Map<String, String> param) {
-        String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
         String totalPage = TLCSpiderHTMLParser.parseText(countContent, "//div[@class='main_m_line1']//a[@class='inv_b_div1a'][last()]");
         return Integer.parseInt(totalPage);
     }
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
-        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='main_l_main']/div[@class='main_m_line']");
 
         List<TransObject> transObjectList = new ArrayList();
@@ -101,7 +101,7 @@ public class LZYHEREDP2P extends TLCSpiderJob {
         if (detailLink.contains("viewProject")) {
             financingId = detailLink.split("'")[1];
             projectCode = financingId;
-            String detailContent = TLCSpiderRequest.get(URL_PRODUCT_DETAIL + financingId);
+            String detailContent = TLCSpiderRequest.get(URL_PRODUCT_DETAIL + financingId, true);
 
             minInvestPartsCount = "1";
             String partsAmountStr = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='middle_bg']//div[@class='invest_l_bottom']//span[@class='tzdw']");

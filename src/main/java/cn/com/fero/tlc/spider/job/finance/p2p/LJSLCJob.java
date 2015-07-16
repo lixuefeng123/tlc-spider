@@ -18,7 +18,7 @@ import java.util.Map;
  * Created by gizmo on 15/6/17.
  */
 //陆金所投资频道抓取
-public class LJSLCP2P extends TLCSpiderJob {
+public class LJSLCJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjlc.url.list");
     private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjlc.sid");
     private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjlc.token");
@@ -60,7 +60,7 @@ public class LJSLCP2P extends TLCSpiderJob {
     @Override
     public int getTotalPage(Map<String, String> param) {
         String paramStr = convertToParamStr(param);
-        String pageContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr);
+        String pageContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr, true);
         String totalPage = TLCSpiderHTMLParser.parseAttribute(pageContent, "//a[@class='btns btn_page btn_small last']", "data-val");
         return Integer.parseInt(totalPage);
     }
@@ -68,7 +68,7 @@ public class LJSLCP2P extends TLCSpiderJob {
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String paramStr = convertToParamStr(param);
-        String productContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr);
+        String productContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr, true);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='main-wide-wrap']//ul[@class='main-list']/li");
 
         List<TransObject> transObjectList = new ArrayList();

@@ -25,18 +25,21 @@ public class TLCSpiderXCNNIpFetcher extends TLCSpiderIpFetcher {
             TLCSpiderLoggerUtil.getLogger().info("开始抓取西刺国内高匿代理");
             List<String> ipList = new ArrayList();
 
-            String content = TLCSpiderRequest.get(urlPrefix);
+            String content = TLCSpiderRequest.get(urlPrefix, false);
             List<TagNode> ipNodeList = TLCSpiderHTMLParser.parseNode(content, "//table[@id='ip_list']/tbody/tr");
 
             for (TagNode ipNode : ipNodeList) {
-                String ip = TLCSpiderHTMLParser.parseText(ipNode, "td[3]");
-                String port = TLCSpiderHTMLParser.parseText(ipNode, "td[4]");
-                if (StringUtils.isEmpty(ip) || StringUtils.isEmpty(port)) {
-                    continue;
-                }
+                String type = TLCSpiderHTMLParser.parseText(ipNode, "td[7]");
+                if(StringUtils.containsIgnoreCase(type, TLCSpiderConstants.SPIDER_CONST_HTTPS)) {
+                    String ip = TLCSpiderHTMLParser.parseText(ipNode, "td[3]");
+                    String port = TLCSpiderHTMLParser.parseText(ipNode, "td[4]");
+                    if (StringUtils.isEmpty(ip) || StringUtils.isEmpty(port)) {
+                        continue;
+                    }
 
-                String ipStr = ip + TLCSpiderConstants.SPIDER_CONST_COLON + port;
-                ipList.add(ipStr);
+                    String ipStr = ip + TLCSpiderConstants.SPIDER_CONST_COLON + port;
+                    ipList.add(ipStr);
+                }
             }
 
             return ipList;

@@ -19,7 +19,7 @@ import java.util.Map;
  * Created by gizmo on 15/6/17.
  */
 //宁波银行投融资平台抓取
-public class NBYHZXYHP2P extends TLCSpiderJob {
+public class NBYHZXYHJob extends TLCSpiderJob {
     //detail: https://u.zxyh.nbcb.com.cn/home/detail?FinancingId=6f15a3a0-4a8c-42db-9e39-aaaaf1548e8c
 
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.nbyhzxyh.url.list");
@@ -55,7 +55,7 @@ public class NBYHZXYHP2P extends TLCSpiderJob {
 
     @Override
     public int getTotalPage(Map<String, String> param) {
-        String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
         String countStr = TLCSpiderJsonUtil.getString(countContent, "Data");
         String totalCount = TLCSpiderJsonUtil.getString(countStr, "TotalCount");
         int pageSize = Integer.parseInt(PAGE_SIZE);
@@ -65,7 +65,7 @@ public class NBYHZXYHP2P extends TLCSpiderJob {
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
-        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
         String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "Data");
         List<NBYHZXYH> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "ResultList", NBYHZXYH.class);
 

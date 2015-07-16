@@ -20,7 +20,7 @@ import java.util.Map;
  * Created by gizmo on 15/6/17.
  */
 //广东南粤银行南粤E+抓取
-public class NYYHNYEP2P extends TLCSpiderJob {
+public class NYYHNYEJob extends TLCSpiderJob {
     //detail: https://one.gdnybank.com/pages/er_product_detail.html
 
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.nyyhnye.url.list");
@@ -52,14 +52,14 @@ public class NYYHNYEP2P extends TLCSpiderJob {
 
     @Override
     public int getTotalPage(Map<String, String> param) {
-        String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
         String totalPage = TLCSpiderJsonUtil.getString(countContent, "count");
         return Integer.parseInt(totalPage);
     }
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
-        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
         List<NYYHNYE> productList = TLCSpiderJsonUtil.json2Array(productContent, "projList", NYYHNYE.class);
 
         List<TransObject> transObjectList = new ArrayList();

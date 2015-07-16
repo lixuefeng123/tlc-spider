@@ -20,7 +20,7 @@ import java.util.Map;
  * Created by gizmo on 15/6/17.
  */
 //民生银行民生易贷抓取
-public class MSYHMSYDP2P extends TLCSpiderJob {
+public class MSYHMSYDJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.url.list");
     private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.url.detail");
     private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.sid");
@@ -51,7 +51,7 @@ public class MSYHMSYDP2P extends TLCSpiderJob {
 
     @Override
     public int getTotalPage(Map<String, String> param) {
-        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
 //        String totalPage = TLCSpiderHTMLParser.parseText(pageContent, "//div[@class='u-content']//div[@class='bottom-page']//a[last()-1]");
         List<TagNode> pageNodeList = TLCSpiderHTMLParser.parseNode(pageContent, "//div[@class='u-content']//div[@class='bottom-page']//a");
         int pageNodeLength = pageNodeList.size();
@@ -61,7 +61,7 @@ public class MSYHMSYDP2P extends TLCSpiderJob {
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
-        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@id='content-gray']//ul[@class='c-list']/li");
 
         List<TransObject> transObjectList = new ArrayList();
@@ -102,7 +102,7 @@ public class MSYHMSYDP2P extends TLCSpiderJob {
         transObject.setRealProgress(progress);
 
         String detailLink = URL_PRODUCT_DETAIL + id;
-        String detailContent = TLCSpiderRequest.get(detailLink);
+        String detailContent = TLCSpiderRequest.get(detailLink, true);
         String minInvestUnit = TLCSpiderHTMLParser.parseText(detailContent, "//strong[@id='loan_minInvestUnit']");
         minInvestUnit = minInvestUnit.replace(",", "");
         if (StringUtils.isNotEmpty(minInvestUnit)) {

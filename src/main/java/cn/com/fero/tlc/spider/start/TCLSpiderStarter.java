@@ -14,15 +14,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public final class TCLSpiderStarter {
 
+    private static ApplicationContext applicationContext;
+    private static TLCSpiderScheduler proxyScheduler;
+    private static TLCSpiderScheduler p2pScheduler;
+
+
     public static void main(String[] args) throws InterruptedException {
-        TLCSpiderScheduler proxyScheduler = null;
-        TLCSpiderScheduler p2pScheduler = null;
         try {
             TLCSpiderLoggerUtil.getLogger().info("加载spring配置文件");
-            ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath*: spring-*.xml");
+            applicationContext = new ClassPathXmlApplicationContext("classpath*: spring-*.xml");
 
-            proxyScheduler = initProxyScheduler(proxyScheduler, applicationContext);
-            p2pScheduler = initP2PScheduler(p2pScheduler, applicationContext);
+            proxyScheduler = initProxyScheduler();
+            p2pScheduler = initP2PScheduler();
         } catch (BeansException e) {
             TLCSpiderLoggerUtil.getLogger().error(ExceptionUtils.getFullStackTrace(e));
             if (null != proxyScheduler) {
@@ -34,16 +37,16 @@ public final class TCLSpiderStarter {
         }
     }
 
-    private static TLCSpiderScheduler initProxyScheduler(TLCSpiderScheduler proxyScheduler, ApplicationContext applicationContext) {
-        proxyScheduler = (TLCSpiderProxyScheduler) applicationContext.getBean("tlcSpiderProxyScheduler");
+    private static TLCSpiderScheduler initProxyScheduler() {
+        proxyScheduler = (TLCSpiderScheduler) applicationContext.getBean("tlcSpiderProxyScheduler");
         proxyScheduler.init();
         proxyScheduler.loadJobs();
         proxyScheduler.start();
         return proxyScheduler;
     }
 
-    private static TLCSpiderScheduler initP2PScheduler(TLCSpiderScheduler p2pScheduler, ApplicationContext applicationContext) {
-        p2pScheduler = (TLCSpiderP2PScheduler) applicationContext.getBean("tlcSpiderP2PScheduler");
+    private static TLCSpiderScheduler initP2PScheduler() {
+        p2pScheduler = (TLCSpiderScheduler) applicationContext.getBean("tlcSpiderP2PScheduler");
         p2pScheduler.init();
         p2pScheduler.loadJobs();
         p2pScheduler.start();

@@ -53,7 +53,7 @@ public class HXEWTP2P extends TLCSpiderJob {
 
     @Override
     public int getTotalPage(Map<String, String> param) {
-        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
         String pageStr = TLCSpiderJsonUtil.getString(pageContent, "DicData");
         String totalPage = TLCSpiderJsonUtil.getString(pageStr, "TotalPage");
         return Integer.parseInt(totalPage);
@@ -61,7 +61,7 @@ public class HXEWTP2P extends TLCSpiderJob {
 
     @Override
     public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) {
-        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param);
+        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param, true);
         String status = TLCSpiderJsonUtil.getString(result, "state");
         if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
             throw new IllegalStateException(result);
@@ -77,7 +77,7 @@ public class HXEWTP2P extends TLCSpiderJob {
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
-        String listContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String listContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
         String listStr = TLCSpiderJsonUtil.getString(listContent, "DicData");
         List<ZHXQYEJ> zhxqyejList = TLCSpiderJsonUtil.json2Array(listStr, "NormalList", ZHXQYEJ.class);
 
@@ -140,7 +140,7 @@ public class HXEWTP2P extends TLCSpiderJob {
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
         TLCSpiderLoggerUtil.getLogger().info("开始抓取华夏银行E网通");
-        String productContent = TLCSpiderRequest.get(URL_PRODUCT_LIST);
+        String productContent = TLCSpiderRequest.get(URL_PRODUCT_LIST, true);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='list_con']");
         List<TransObject> transObjectList = new ArrayList();
 
@@ -159,7 +159,7 @@ public class HXEWTP2P extends TLCSpiderJob {
 //            String financingId = detailLink.split("/")[2].split(".")[0];
             String projectCode = financingId;
 
-            String detailContent = TLCSpiderRequest.get(URL_PRODUCT_DETAIL + detailLink);
+            String detailContent = TLCSpiderRequest.get(URL_PRODUCT_DETAIL + detailLink, true);
             String amount = TLCSpiderHTMLParser.parseText(detailContent, "//table[1]//tr[1]/td[1]").split(" ")[1];
             String type1 = TLCSpiderHTMLParser.parseText(detailContent, "//table[1]//tr[5]/td[2]/p[1]/span[1]");
             String type2 = TLCSpiderHTMLParser.parseText(detailContent, "//table[1]//tr[5]/td[2]/p[1]/span[2]");

@@ -20,7 +20,7 @@ import java.util.Map;
  * Created by gizmo on 15/6/17.
  */
 //民生银行民生转赚抓取
-public class MSYHMSZZP2P extends TLCSpiderJob {
+public class MSYHMSZZJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmszz.url.list");
     private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmszz.url.detail");
     private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmszz.sid");
@@ -48,7 +48,7 @@ public class MSYHMSZZP2P extends TLCSpiderJob {
 
     @Override
     public int getTotalPage(Map<String, String> param) {
-        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
 //        String totalPage = TLCSpiderHTMLParser.parseText(pageContent, "//div[@class='container']//div[@class='mod-page']/a[last()-1]");
         List<TagNode> pageNodeList = TLCSpiderHTMLParser.parseNode(pageContent, "//div[@class='container']//div[@class='mod-page']/a");
         int pageNodeLength = pageNodeList.size();
@@ -58,7 +58,7 @@ public class MSYHMSZZP2P extends TLCSpiderJob {
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
-        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='container']//div[@class='assets-inner']/ul/li");
 
         List<TransObject> transObjectList = new ArrayList();
@@ -78,7 +78,7 @@ public class MSYHMSZZP2P extends TLCSpiderJob {
         transObject.setProjectName(TLCSpiderHTMLParser.parseText(product, "//div[@class='product-item']//h1[@class='product-title']//a"));
 
         String detailLink = URL_PRODUCT_DETAIL + id;
-        String detailContent = TLCSpiderRequest.get(detailLink);
+        String detailContent = TLCSpiderRequest.get(detailLink, true);
         transObject.setInvestmentInterest(TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='lxybody']//li[1]//div[@class='num1']//i"));
         transObject.setDuration(TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='lxybody']//li[2]//div[@class='num2']//i"));
 

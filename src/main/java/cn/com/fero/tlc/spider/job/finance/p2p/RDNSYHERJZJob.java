@@ -19,7 +19,7 @@ import java.util.Map;
  * Created by gizmo on 15/6/17.
  */
 //尧都农商银行E融九州抓取
-public class RDNSYHERJZP2P extends TLCSpiderJob {
+public class RDNSYHERJZJob extends TLCSpiderJob {
     //detail: https://e.ydnsh.com/home/detail?FinancingId=15b43001-555c-4dda-845c-31b62879fbe7
 
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.rdnsyherjz.url.list");
@@ -55,7 +55,7 @@ public class RDNSYHERJZP2P extends TLCSpiderJob {
 
     @Override
     public int getTotalPage(Map<String, String> param) {
-        String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
         String countStr = TLCSpiderJsonUtil.getString(countContent, "Data");
         String totalCount = TLCSpiderJsonUtil.getString(countStr, "TotalCount");
         int pageSize = Integer.parseInt(PAGE_SIZE);
@@ -65,7 +65,7 @@ public class RDNSYHERJZP2P extends TLCSpiderJob {
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
-        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
         String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "Data");
         List<RDNSYHERJZ> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "ResultList", RDNSYHERJZ.class, "YMInterest");
 

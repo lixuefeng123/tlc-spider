@@ -27,7 +27,7 @@ public class BSYHFinanceJob extends TLCSpiderJob {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         TLCSpiderLoggerUtil.getLogger().info("开始抓取包商银行小马金融");
 
-        String productContent = TLCSpiderRequest.get(URL_PRODUCT_LIST);
+        String productContent = TLCSpiderRequest.get(URL_PRODUCT_LIST, true);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='wrap2 wrap3 clear']//table[@class='pil_table']/tbody/tr");
         List<TransObject> transObjectList = new ArrayList();
 
@@ -54,7 +54,7 @@ public class BSYHFinanceJob extends TLCSpiderJob {
             String financingId = detailLink.split("=")[2];
             String projectCode = financingId;
 
-            String detailContent = TLCSpiderRequest.get(detailLink);
+            String detailContent = TLCSpiderRequest.get(detailLink, true);
 
             int minAmount = 1;
             String minInvestPartsCountStr = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='pi_tl_middle clear']//li[@class='eq2']//span[@id='pi_date_left']").split("\\.")[0];

@@ -3,10 +3,11 @@ package cn.com.fero.tlc.spider.job.finance.p2p;
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.job.TLCSpiderJob;
+import cn.com.fero.tlc.spider.util.TLCSpiderDateFormatUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
+import cn.com.fero.tlc.spider.vo.HRYH;
 import cn.com.fero.tlc.spider.vo.TransObject;
-import cn.com.fero.tlc.spider.vo.ZHXQYEJ;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,14 +18,14 @@ import java.util.Map;
 /**
  * Created by gizmo on 15/6/17.
  */
-//招商银行小企业E家抓取
-public class ZHXQYEJP2P extends TLCSpiderJob {
-    //detail: https://ba.cmbchinaucs.com/FinanDet.aspx?FinancingId=c5af372b-cc4d-4d1d-9002-be58734ae996
+//华润银行资产交易平台抓取
+public class HRYHJob extends TLCSpiderJob {
+    //detail: https://e.qdccb.com/home/detail?FinancingId=85433605-1ad3-4243-bb4e-836f8310cf62
 
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.zhxqyej.url.list");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.zhxqyej.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.zhxqyej.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.zhxqyej.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.hryh.url.list");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.hryh.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.hryh.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.hryh.title");
     private static final String PAGE_NAME = "PageIndex";
     private static final String PAGE_SIZE = "10";
 
@@ -44,27 +45,31 @@ public class ZHXQYEJP2P extends TLCSpiderJob {
         Map<String, String> param = new HashMap();
         param.put(PAGE_NAME, TLCSpiderConstants.SPIDER_PARAM_PAGE_ONE);
         param.put("PageSize", PAGE_SIZE);
-        param.put("TargetAction", "GetProjectList_Index");
-        param.put("Sort", "normal");
+        param.put("targetAction", "CmbFinancingSearch");
+        param.put("Interest", "");
+        param.put("Duration", "");
+        param.put("ProjectStatus", "");
         return param;
     }
 
     @Override
     public int getTotalPage(Map<String, String> param) {
-        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String pageStr = TLCSpiderJsonUtil.getString(pageContent, "DicData");
-        String totalPage = TLCSpiderJsonUtil.getString(pageStr, "TotalPage");
-        return Integer.parseInt(totalPage);
+        String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
+        String dataStr = TLCSpiderJsonUtil.getString(countContent, "Data");
+        String totalCountStr = TLCSpiderJsonUtil.getString(dataStr, "TotalCount");
+        int pageSize = Integer.parseInt(PAGE_SIZE);
+        int totalPage = Integer.parseInt(totalCountStr) % pageSize == 0 ? Integer.parseInt(totalCountStr) / pageSize : (Integer.parseInt(totalCountStr) / pageSize + 1);
+        return totalPage;
     }
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
-        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
-        String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "DicData");
-        List<ZHXQYEJ> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "NormalList", ZHXQYEJ.class);
+        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
+        String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "Data");
+        List<HRYH> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "ResultList", HRYH.class);
 
         List<TransObject> transObjectList = new ArrayList();
-        for (ZHXQYEJ product : productList) {
+        for (HRYH product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }
@@ -72,7 +77,7 @@ public class ZHXQYEJP2P extends TLCSpiderJob {
         return transObjectList;
     }
 
-    private TransObject convertToTransObject(ZHXQYEJ product) {
+    private TransObject convertToTransObject(HRYH product) {
         TransObject transObject = new TransObject();
         transObject.setFinancingId(product.getFinancingId());
         transObject.setProjectCode(product.getProjectCode());
@@ -87,20 +92,20 @@ public class ZHXQYEJP2P extends TLCSpiderJob {
         transObject.setInvestmentInterest(product.getInvestmentInterest());
         transObject.setDuration(product.getDuration());
         transObject.setRepayType(product.getRepayType());
-        transObject.setValueBegin(product.getValueBegin());
-        transObject.setRepayBegin(product.getRepayBegin());
+        transObject.setValueBegin(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getValueBegin()));
+        transObject.setRepayBegin(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getRepayBegin()));
         transObject.setRepaySourceType(product.getRepaySourceType());
-        transObject.setProjectBeginTime(product.getProjectBeginTime());
-        transObject.setReadyBeginTime(product.getReadyBeginTime());
+        transObject.setProjectBeginTime(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getProjectBeginTime()));
+        transObject.setReadyBeginTime(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getReadyBeginTime()));
         transObject.setProjectStatus(product.getProjectStatus());
         transObject.setCreditLevel(product.getCreditLevel());
         transObject.setCreateUserId(product.getCreateUserId());
         transObject.setCreateCompanyId(product.getCreateCompanyId());
-        transObject.setJmBeginTime(product.getjMBeginTime());
+        transObject.setJmBeginTime(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getjMBeginTime()));
         transObject.setAreaCode(product.getAreaCode());
-        transObject.setCreateTime(product.getCreateTime());
+        transObject.setCreateTime(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getCreateTime()));
         transObject.setUpdateUserId(product.getUpdateUserId());
-        transObject.setUpdateTime(product.getUpdateTime());
+        transObject.setUpdateTime(TLCSpiderDateFormatUtil.formatDateTime("MM/dd/yyyy HH:mm:ss", product.getUpdateTime()));
         transObject.setCreateUserName(product.getCreateUserName());
         transObject.setCreateCompanyName(product.getCreateCompanyName());
         transObject.setIsShow(product.getIsShow());
@@ -115,7 +120,9 @@ public class ZHXQYEJP2P extends TLCSpiderJob {
         transObject.setProgress(product.getProgress());
         transObject.setFinanceApplyStatus(product.getFinanceApplyStatus());
         transObject.setHotStatus(product.getHotStatus());
-        transObject.setDbType(product.getDbType());
+        transObject.setContent(product.getContent());
+        transObject.setTitle(product.getTitle());
+        transObject.setIsLimitCount(product.getIsLimitCount());
         return transObject;
     }
 }

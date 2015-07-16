@@ -18,7 +18,7 @@ import java.util.Map;
  * Created by gizmo on 15/6/17.
  */
 //浦发银行轻松理财抓取
-public class PFYHP2P extends TLCSpiderJob {
+public class PFYHJob extends TLCSpiderJob {
     //detail: https://ebank.spdb.com.cn/fmall/#/P2BBuyInput/15070800000261
 
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.pfyh.url.list");
@@ -53,7 +53,7 @@ public class PFYHP2P extends TLCSpiderJob {
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
-        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
         List<PFYH> productList = TLCSpiderJsonUtil.json2Array(productContent, "LoopResult", PFYH.class);
 
         List<TransObject> transObjectList = new ArrayList();

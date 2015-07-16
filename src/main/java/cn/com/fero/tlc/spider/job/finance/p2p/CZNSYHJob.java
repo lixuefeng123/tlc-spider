@@ -21,7 +21,7 @@ import java.util.Map;
  * Created by gizmo on 15/6/17.
  */
 //长子农商银行长青融E贷抓取
-public class CZNSYHP2P extends TLCSpiderJob {
+public class CZNSYHJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.url.list");
     private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.url.detail");
     private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.sid");
@@ -54,7 +54,7 @@ public class CZNSYHP2P extends TLCSpiderJob {
     @Override
     public int getTotalPage(Map<String, String> param) {
         String paramStr = convertToParamStr(param);
-        String pageContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr);
+        String pageContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr, true);
         String dataStr = TLCSpiderJsonUtil.getString(pageContent, "data");
         String paginationStr = TLCSpiderJsonUtil.getString(dataStr, "pagination");
         String totalCount = TLCSpiderJsonUtil.getString(paginationStr, "count");
@@ -66,7 +66,7 @@ public class CZNSYHP2P extends TLCSpiderJob {
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String paramStr = convertToParamStr(param);
-        String productContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr);
+        String productContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr, true);
         String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "data");
         List<CZNSYH> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "data", CZNSYH.class);
 
@@ -101,7 +101,7 @@ public class CZNSYHP2P extends TLCSpiderJob {
         }
 
         String detailLink = URL_PRODUCT_DETAIL + product.getId();
-        String detailContent = TLCSpiderRequest.get(detailLink);
+        String detailContent = TLCSpiderRequest.get(detailLink, true);
         String repayBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='wrap']//ul[@class='cons']/li[@class='item border-b-1'][3]/span[@class='w300'][2]");
         repayBegin = repayBegin.split("：")[1].trim();
         transObject.setRepayBegin(repayBegin);

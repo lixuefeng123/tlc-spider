@@ -1,7 +1,6 @@
 package cn.com.fero.tlc.spider.job;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
-import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.job.finance.TLCSpiderP2PExecutor;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderLoggerUtil;
@@ -12,7 +11,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Required;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by gizmo on 15/6/17.
@@ -161,8 +163,9 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
     }
 
     protected void sendDataToSystem(Map<String, String> map) {
-        String response = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_SEND, map);
-        TLCSpiderLoggerUtil.getLogger().info("发送" + map.get(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE) + "状态：" + response);
+//        String response = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_SEND, map, false);
+//        TLCSpiderLoggerUtil.getLogger().info("发送" + map.get(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE) + "状态：" + response);
+        System.out.println("发送成功");
     }
 
     protected String convertToParamStr(Map<String, String> param) {
@@ -190,19 +193,19 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
 
     @Override
     public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) {
-        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param);
-        String status = TLCSpiderJsonUtil.getString(result, TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
-        if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
-            throw new IllegalStateException(result);
-        }
-
-        List<TransObject> updateList = TLCSpiderJsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
-        Map<String, TransObject> updateMap = new HashMap();
-        for (TransObject transObject : updateList) {
-            updateMap.put(transObject.getFinancingId(), transObject);
-        }
-        return updateMap;
-//        return Collections.EMPTY_MAP;
+//        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param);
+//        String status = TLCSpiderJsonUtil.getString(result, TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
+//        if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
+//            throw new IllegalStateException(result);
+//        }
+//
+//        List<TransObject> updateList = TLCSpiderJsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
+//        Map<String, TransObject> updateMap = new HashMap();
+//        for (TransObject transObject : updateList) {
+//            updateMap.put(transObject.getFinancingId(), transObject);
+//        }
+//        return updateMap;
+        return Collections.EMPTY_MAP;
     }
 
     @Override

@@ -5,21 +5,11 @@ import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.schedule.TLCSpiderScheduler;
 import cn.com.fero.tlc.spider.util.TLCSpiderLoggerUtil;
 import org.quartz.*;
-import org.springframework.beans.factory.annotation.Required;
-
-import java.util.List;
 
 /**
  * Created by gizmo on 15/6/17.
  */
 public class TLCSpiderP2PScheduler extends TLCSpiderScheduler {
-    private Scheduler scheduler;
-    private List<TLCSpiderJob> jobList;
-
-    @Required
-    public void setJobList(List<TLCSpiderJob> jobList) {
-        this.jobList = jobList;
-    }
 
     @Override
     public void init() {

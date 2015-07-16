@@ -2,9 +2,11 @@ package cn.com.fero.tlc.spider.http;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.exception.TLCSpiderRequestException;
+import cn.com.fero.tlc.spider.job.system.proxy.TLCSpiderValidateProxyJob;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
@@ -18,6 +20,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.CharsetUtils;
 import org.apache.http.util.EntityUtils;
 
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +30,7 @@ import java.util.Map;
  * Created by gizmo on 15/6/18.
  */
 public class TLCSpiderRequest {
-    public static String get(String url) {
+    public static String get(String url, boolean useProxy) {
         if (StringUtils.isEmpty(url)) {
             throw new IllegalArgumentException();
         }
@@ -39,7 +42,7 @@ public class TLCSpiderRequest {
             RequestConfig.Builder builder = RequestConfig.custom();
             builder.setConnectTimeout(TLCSpiderConstants.SPIDER_CONST_HTTP_TIMEOUT);
 
-            if (isUsingProxy()) {
+            if (useProxy && isValidateProxy()) {
                 builder.setProxy(getHost());
             }
 
@@ -51,7 +54,7 @@ public class TLCSpiderRequest {
         }
     }
 
-    public static String post(String url, Map<String, String> param) {
+    public static String post(String url, Map<String, String> param, boolean useProxy) {
         if (StringUtils.isEmpty(url) || MapUtils.isEmpty(param)) {
             throw new IllegalArgumentException();
         }
@@ -69,7 +72,7 @@ public class TLCSpiderRequest {
             RequestConfig.Builder builder = RequestConfig.custom();
             builder.setConnectTimeout(TLCSpiderConstants.SPIDER_CONST_HTTP_TIMEOUT);
 
-            if (isUsingProxy()) {
+            if (useProxy && isValidateProxy()) {
                 builder.setProxy(getHost());
             }
 
@@ -81,14 +84,19 @@ public class TLCSpiderRequest {
         }
     }
 
-    private static boolean isUsingProxy() {
+
+    private static boolean isValidateProxy() {
         String ip = System.getProperty(TLCSpiderConstants.SPIDER_CONST_HTTP_PROXY_HOST);
         String port = System.getProperty(TLCSpiderConstants.SPIDER_CONST_HTTP_PROXY_PORT);
-        if (StringUtils.isEmpty(ip) || StringUtils.isEmpty(port)) {
+        if(StringUtils.isEmpty(ip) || StringUtils.isEmpty(port)) {
             return false;
         }
 
-        return NumberUtils.isNumber(port);
+        if(BooleanUtils.isFalse(NumberUtils.isNumber(port))) {
+            return false;
+        }
+
+        return true;
     }
 
     private static HttpHost getHost() throws UnknownHostException {

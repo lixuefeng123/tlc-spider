@@ -22,13 +22,13 @@ public class TLCSpiderKDLIpFetcher extends TLCSpiderIpFetcher {
 
     private static List<TagNode> getIpNode(String urlPrefix, int page) {
         String url = urlPrefix + page;
-        String content = TLCSpiderRequest.get(url);
+        String content = TLCSpiderRequest.get(url, false);
         return TLCSpiderHTMLParser.parseNode(content, "//table[@class='table table-bordered table-striped']/tbody/tr");
     }
 
     private static String getTotalPage(String urlPrefix) {
         String url = urlPrefix + 1;
-        String content = TLCSpiderRequest.get(url);
+        String content = TLCSpiderRequest.get(url, false);
         List<TagNode> pageNodeList = TLCSpiderHTMLParser.parseNode(content, "//div[@id='listnav']/ul/li");
         int length = pageNodeList.size();
         return pageNodeList.get(length - 2).getText().toString();
@@ -39,11 +39,11 @@ public class TLCSpiderKDLIpFetcher extends TLCSpiderIpFetcher {
         List<String> ipList = new ArrayList();
         try {
             String totalPage = getTotalPage(urlPrefix);
-            TLCSpiderLoggerUtil.getLogger().info("抓取快代理ip，总页数:" + totalPage);
+            TLCSpiderLoggerUtil.getLogger().info("抓取快代理，总页数:" + totalPage);
 
             int totalPageNum = Integer.parseInt(totalPage);
             for (int page = 1; page <= totalPageNum; page++) {
-                TLCSpiderLoggerUtil.getLogger().info("开始抓取快代理ip第" + page + "页");
+                TLCSpiderLoggerUtil.getLogger().info("开始抓取快代理第" + page + "页");
                 List<TagNode> ipNodeList = getIpNode(urlPrefix, page);
                 addToIpList(ipNodeList, ipList);
             }
@@ -52,20 +52,23 @@ public class TLCSpiderKDLIpFetcher extends TLCSpiderIpFetcher {
         } catch (Exception e) {
             throw new TLCSpiderUtilException(e);
         } finally {
-            TLCSpiderLoggerUtil.getLogger().info("抓取快代理ip结束");
+            TLCSpiderLoggerUtil.getLogger().info("抓取快代理结束");
         }
     }
 
     private void addToIpList(List<TagNode> ipNodeList, List<String> ipList) throws IOException {
         for (TagNode ipNode : ipNodeList) {
-            String ip = TLCSpiderHTMLParser.parseText(ipNode, "td[1]");
-            String port = TLCSpiderHTMLParser.parseText(ipNode, "td[2]");
-            if (StringUtils.isEmpty(ip) || StringUtils.isEmpty(port)) {
-                continue;
-            }
+            String type = TLCSpiderHTMLParser.parseText(ipNode, "td[4]");
+            if(StringUtils.containsIgnoreCase(type, TLCSpiderConstants.SPIDER_CONST_HTTPS)) {
+                String ip = TLCSpiderHTMLParser.parseText(ipNode, "td[1]");
+                String port = TLCSpiderHTMLParser.parseText(ipNode, "td[2]");
+                if (StringUtils.isEmpty(ip) || StringUtils.isEmpty(port)) {
+                    continue;
+                }
 
-            String ipStr = ip + TLCSpiderConstants.SPIDER_CONST_COLON + port;
-            ipList.add(ipStr);
+                String ipStr = ip + TLCSpiderConstants.SPIDER_CONST_COLON + port;
+                ipList.add(ipStr);
+            }
         }
     }
 }

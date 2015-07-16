@@ -37,7 +37,7 @@ public class BSYHBankJob extends TLCSpiderJob {
         param.put("sortByXM", "none");
         param.put("remainTimeXM", "1");
 
-        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param);
+        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='wrap2 wrap3 clear']//table[@class='pil_table']/tbody/tr");
         List<TransObject> transObjectList = new ArrayList();
 
@@ -53,7 +53,7 @@ public class BSYHBankJob extends TLCSpiderJob {
             String financingId = detailLink.split("=")[1];
             String projectCode = financingId;
 
-            String detailContent = TLCSpiderRequest.get(URL_PRODUCT_DETAIL + detailLink);
+            String detailContent = TLCSpiderRequest.get(URL_PRODUCT_DETAIL + detailLink, true);
             String repayType = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='pi_top_right_refund']//p[@class='pi_refund_text_right']/em");
             if (repayType.contains("到期") && (repayType.contains("本") || repayType.contains("息"))) {
                 repayType = TLCSpiderConstants.REPAY_TYPE.TOTAL.toString();
