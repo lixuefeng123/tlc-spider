@@ -6,6 +6,8 @@ import cn.com.fero.tlc.spider.util.TLCSpiderProxyUtil;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * Created by gizmo on 15/6/19.
@@ -40,4 +42,9 @@ public class TLCSpiderProxyJobTest {
 //        }
     }
 
+    @Test
+    public void testGetIp() throws UnknownHostException {
+        InetAddress addr = InetAddress.getLocalHost();
+        System.out.println(addr.getHostAddress());
+    }
 }

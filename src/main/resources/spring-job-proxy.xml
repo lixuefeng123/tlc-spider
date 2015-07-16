@@ -12,7 +12,7 @@
                 <property name="jobGroupName" value="proxy"/>
                 <property name="triggerName" value="proxyTrigger"/>
                 <property name="triggerGroupName" value="proxy"/>
-                <property name="cronExpression" value="30 * * * * ? *"/>
+                <property name="cronExpression" value="0 5/20 * * * ? *"/>
             </bean>
         </property>
     </bean>

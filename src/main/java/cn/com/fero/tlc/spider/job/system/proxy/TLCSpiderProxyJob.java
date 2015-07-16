@@ -4,6 +4,7 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.exception.TLCSpiderProxyException;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.job.TLCSpiderJob;
+import cn.com.fero.tlc.spider.job.system.proxy.impl.TLCSpiderDL5566IpFetcher;
 import cn.com.fero.tlc.spider.job.system.proxy.impl.TLCSpiderKDLIpFetcher;
 import cn.com.fero.tlc.spider.job.system.proxy.impl.TLCSpiderXCNNIpFetcher;
 import cn.com.fero.tlc.spider.job.system.proxy.impl.TLCSpiderXCNTIpFetcher;
@@ -34,7 +35,8 @@ public class TLCSpiderProxyJob extends TLCSpiderJob {
     private static final TLCSpiderIpFetcher[] fetchers = new TLCSpiderIpFetcher[]{
             new TLCSpiderKDLIpFetcher(),
             new TLCSpiderXCNNIpFetcher(),
-            new TLCSpiderXCNTIpFetcher()
+            new TLCSpiderXCNTIpFetcher(),
+            new TLCSpiderDL5566IpFetcher()
     };
     private static final ExecutorService THREAD_POOL = Executors.newFixedThreadPool(TLCSpiderConstants.SPIDER_CONST_THREAD_SIZE);
     private static final Set<String> usefulIp = Collections.synchronizedSet(new HashSet());
