@@ -1,4 +1,4 @@
-package cn.com.fero.tlc.spider.job.finance.p2p;
+package cn.com.fero.tlc.spider.job.p2p;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
@@ -6,7 +6,7 @@ import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderDateFormatUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
-import cn.com.fero.tlc.spider.vo.QDYHCFEW;
+import cn.com.fero.tlc.spider.vo.HRYH;
 import cn.com.fero.tlc.spider.vo.TransObject;
 
 import java.util.ArrayList;
@@ -18,16 +18,16 @@ import java.util.Map;
 /**
  * Created by gizmo on 15/6/17.
  */
-//青岛银行财富E屋抓取
-public class QDYHCFEWJob extends TLCSpiderJob {
+//华润银行资产交易平台抓取
+public class HRYHJob extends TLCSpiderJob {
     //detail: https://e.qdccb.com/home/detail?FinancingId=85433605-1ad3-4243-bb4e-836f8310cf62
 
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.qdyhcfew.url.list");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.qdyhcfew.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.qdyhcfew.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.qdyhcfew.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.hryh.url.list");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.hryh.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.hryh.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.hryh.title");
     private static final String PAGE_NAME = "PageIndex";
-    private static final String PAGE_SIZE = "6";
+    private static final String PAGE_SIZE = "10";
 
     @Override
     public Map<String, String> constructSystemParam() {
@@ -49,7 +49,6 @@ public class QDYHCFEWJob extends TLCSpiderJob {
         param.put("Interest", "");
         param.put("Duration", "");
         param.put("ProjectStatus", "");
-        param.put("ProjectAmount", "");
         return param;
     }
 
@@ -67,10 +66,10 @@ public class QDYHCFEWJob extends TLCSpiderJob {
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
         String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "Data");
-        List<QDYHCFEW> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "ResultList", QDYHCFEW.class);
+        List<HRYH> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "ResultList", HRYH.class);
 
         List<TransObject> transObjectList = new ArrayList();
-        for (QDYHCFEW product : productList) {
+        for (HRYH product : productList) {
             TransObject transObject = convertToTransObject(product);
             transObjectList.add(transObject);
         }
@@ -78,7 +77,7 @@ public class QDYHCFEWJob extends TLCSpiderJob {
         return transObjectList;
     }
 
-    private TransObject convertToTransObject(QDYHCFEW product) {
+    private TransObject convertToTransObject(HRYH product) {
         TransObject transObject = new TransObject();
         transObject.setFinancingId(product.getFinancingId());
         transObject.setProjectCode(product.getProjectCode());
@@ -121,10 +120,9 @@ public class QDYHCFEWJob extends TLCSpiderJob {
         transObject.setProgress(product.getProgress());
         transObject.setFinanceApplyStatus(product.getFinanceApplyStatus());
         transObject.setHotStatus(product.getHotStatus());
-        transObject.setContent(product.getcONTENT());
+        transObject.setContent(product.getContent());
         transObject.setTitle(product.getTitle());
-        //TODO 未处理属性 AgreementType: 2 F_Financing_InitId: "B5BFDBCB-AEA6-4437-A48B-C5DA2E3BACAA" IsVIP: false
-        //               RemainPartsCount: 0 SettlementType: 0 ToInvestmentTime: "12/16/2015 00:00:00" YMInterest: 0.2
+        transObject.setIsLimitCount(product.getIsLimitCount());
         return transObject;
     }
 }

@@ -18,8 +18,12 @@ public final class TLCSpiderConstants {
     public static final String SPIDER_CONST_HTTP_PROXY_HOST = "http.proxyHost";
     public static final String SPIDER_CONST_HTTP_PROXY_PORT = "http.proxyPort";
     public static final String SPIDER_CONST_HTTPS = "HTTPS";
+    public static final String SPIDER_CONST_RESPONSE_STATUS_CODE = "statusCode";
+    public static final String SPIDER_CONST_RESPONSE_CONTENT = "content";
+    public static final int SPIDER_CONST_RESPONSE_STATUS_SUCCESS = 200;
     public static final int SPIDER_CONST_HTTP_TIMEOUT = 10000;
     public static final int SPIDER_CONST_THREAD_SIZE = 5;
+    public static volatile boolean SPIDER_CONST_PROXY_STATUS = false;
     public static final String SPIDER_PARAM_STATUS_NAME = "status";
     public static final String SPIDER_PARAM_SID = "sid";
     public static final String SPIDER_PARAM_TOKEN = "token";

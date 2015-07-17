@@ -1,4 +1,4 @@
-package cn.com.fero.tlc.spider.job.finance.p2p;
+package cn.com.fero.tlc.spider.job.p2p;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;

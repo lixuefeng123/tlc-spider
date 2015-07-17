@@ -1,7 +1,6 @@
 package cn.com.fero.tlc.spider.job;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
-import cn.com.fero.tlc.spider.job.finance.TLCSpiderP2PExecutor;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderLoggerUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;

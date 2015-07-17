@@ -1,4 +1,4 @@
-package cn.com.fero.tlc.spider.job.finance;
+package cn.com.fero.tlc.spider.job;
 
 import cn.com.fero.tlc.spider.vo.TransObject;
 
