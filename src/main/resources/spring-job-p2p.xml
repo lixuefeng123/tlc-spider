@@ -86,6 +86,27 @@
                     <property name="triggerGroupName" value="bankTrigger"/>
                     <property name="cronExpression" value="0 */30 * * * ? *"/>
                 </bean>
+                <bean class="cn.com.fero.tlc.spider.job.p2p.LJSPJJob">
+                    <property name="jobName" value="ljspjJob"/>
+                    <property name="jobGroupName" value="bank"/>
+                    <property name="triggerName" value="ljspjTrigger"/>
+                    <property name="triggerGroupName" value="bankTrigger"/>
+                    <property name="cronExpression" value="0 */30 * * * ? *"/>
+                </bean>
+                <bean class="cn.com.fero.tlc.spider.job.p2p.LJSXBJob">
+                    <property name="jobName" value="ljsxbJob"/>
+                    <property name="jobGroupName" value="bank"/>
+                    <property name="triggerName" value="ljsxbTrigger"/>
+                    <property name="triggerGroupName" value="bankTrigger"/>
+                    <property name="cronExpression" value="0 */30 * * * ? *"/>
+                </bean>
+                <bean class="cn.com.fero.tlc.spider.job.p2p.LJSBXTJob">
+                    <property name="jobName" value="ljsbxtJob"/>
+                    <property name="jobGroupName" value="bank"/>
+                    <property name="triggerName" value="ljsbxtTrigger"/>
+                    <property name="triggerGroupName" value="bankTrigger"/>
+                    <property name="cronExpression" value="0 */30 * * * ? *"/>
+                </bean>
                 <!--<bean id="pfyhJob" class="cn.com.fero.tlc.spider.jobb.p2p.PFYHJob">-->
                 <!--<property name="jobName" value="pfyhJob"/>-->
                 <!--<property name="jobGroupName" value="bank"/>-->
@@ -131,5 +152,4 @@
             </list>
         </property>
     </bean>
-
 </beans>
