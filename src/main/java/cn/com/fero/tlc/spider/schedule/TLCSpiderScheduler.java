@@ -43,7 +43,7 @@ public class TLCSpiderScheduler {
 
     public void loadJobs() {
         try {
-            TLCSpiderLoggerUtil.getLogger().info("加载{}" , schedulerName);
+            TLCSpiderLoggerUtil.getLogger().info("加载{}", schedulerName);
             if (null == scheduler) {
                 init();
             }

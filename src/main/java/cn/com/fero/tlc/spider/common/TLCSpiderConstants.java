@@ -23,7 +23,6 @@ public final class TLCSpiderConstants {
     public static final int SPIDER_CONST_RESPONSE_STATUS_SUCCESS = 200;
     public static final int SPIDER_CONST_HTTP_TIMEOUT = 10000;
     public static final int SPIDER_CONST_THREAD_SIZE = 5;
-    public static volatile boolean SPIDER_CONST_PROXY_STATUS = false;
     public static final String SPIDER_PARAM_STATUS_NAME = "status";
     public static final String SPIDER_PARAM_SID = "sid";
     public static final String SPIDER_PARAM_TOKEN = "token";
@@ -38,6 +37,7 @@ public final class TLCSpiderConstants {
     public static final int SPIDER_PAGE_SIZE_SEND = 100;
     public static final String SPIDER_URL_SEND = TLCSpiderPropertiesUtil.getResource("tlc.spider.interactive.url.send");
     public static final String SPIDER_URL_GET = TLCSpiderPropertiesUtil.getResource("tlc.spider.interactive.url.get");
+    public static volatile boolean SPIDER_CONST_PROXY_STATUS = false;
 
     private TLCSpiderConstants() {
         throw new UnsupportedOperationException();

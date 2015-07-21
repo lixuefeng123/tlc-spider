@@ -18,7 +18,7 @@ import java.util.Map;
  * Created by shaolichao on 2015/7/20.
  */
 //陆金所投资频道稳盈-鑫保抓取
-public class LJSXBJob extends TLCSpiderJob{
+public class LJSXBJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjxb.url.list");
     private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjxb.url.detail");
     private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjxb.sid");
@@ -114,7 +114,7 @@ public class LJSXBJob extends TLCSpiderJob{
         transObject.setInvestmentInterest(investmentInterest);
 
         String progress = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='progress-wrap clearfix']/span[@class='progressTxt']");
-        progress = progress.replaceAll("%","");
+        progress = progress.replaceAll("%", "");
         if (progress.equals("100")) {
             transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
             transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);

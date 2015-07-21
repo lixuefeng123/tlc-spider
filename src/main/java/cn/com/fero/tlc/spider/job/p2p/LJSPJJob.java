@@ -104,7 +104,7 @@ public class LJSPJJob extends TLCSpiderJob {
         transObject.setInvestmentInterest(investmentInterest);
 
         String progress = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='progress-wrap clearfix']/span[@class='progressTxt']");
-        progress = progress.replaceAll("%","");
+        progress = progress.replaceAll("%", "");
         if (progress.equals("100")) {
             transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
             transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
