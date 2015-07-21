@@ -78,7 +78,7 @@ public class LZYHEREDJob extends TLCSpiderJob {
         String projectName = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='m_l_title']/span");
         String amount = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left2'][2]");
         amount = TLCSpiderSplitUtil.splitNumberChinese(amount, 1);
-        amount += "00000";
+        amount += "0000";
 
         String investmentInterest = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left3']/font");
         investmentInterest = investmentInterest.replaceAll("%", "");

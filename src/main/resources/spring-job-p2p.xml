@@ -86,48 +86,6 @@
                     <property name="triggerGroupName" value="bankTrigger"/>
                     <property name="cronExpression" value="0 */30 * * * ? *"/>
                 </bean>
-                <!--<bean id="pfyhJob" class="cn.com.fero.tlc.spider.jobb.p2p.PFYHJob">-->
-                <!--<property name="jobName" value="pfyhJob"/>-->
-                <!--<property name="jobGroupName" value="bank"/>-->
-                <!--<property name="triggerName" value="pfyhTrigger"/>-->
-                <!--<property name="triggerGroupName" value="bankTrigger"/>-->
-                <!--<property name="cronExpression" value="0 0 * * * ? *"/>-->
-                <!--</bean>-->
-                <!--<bean id="ljslcJob" class="cn.com.fero.tlc.spider.jobb.p2p.LJSLCJob">-->
-                <!--<property name="jobName" value="qdyhcfewJob"/>-->
-                <!--<property name="jobGroupName" value="bank"/>-->
-                <!--<property name="triggerName" value="qdyhcfewTrigger"/>-->
-                <!--<property name="triggerGroupName" value="bankTrigger"/>-->
-                <!--<property name="cronExpression" value="0 0 * * * ? *"/>-->
-                <!--</bean>-->
-                <!--<bean id="pfyhJob" class="cn.com.fero.tlc.spider.jobb.p2p.PFYHJob">-->
-                <!--<property name="jobName" value="qdyhcfewJob"/>-->
-                <!--<property name="jobGroupName" value="bank"/>-->
-                <!--<property name="triggerName" value="qdyhcfewTrigger"/>-->
-                <!--<property name="triggerGroupName" value="bankTrigger"/>-->
-                <!--<property name="cronExpression" value="0 0 * * * ? *"/>-->
-                <!--</bean>-->
-                <!--<bean id="hxewtJob" class="cn.com.fero.tlc.spider.jobb.HXEWTJob">-->
-                <!--<property name="jobName" value="hxewtJob"/>-->
-                <!--<property name="jobGroupName" value="bank"/>-->
-                <!--<property name="triggerName" value="hxewtTrigger"/>-->
-                <!--<property name="triggerGroupName" value="bankTrigger"/>-->
-                <!--<property name="cronExpression" value="0/20 * * * * ?"/>-->
-                <!--</bean>-->
-                <!--<bean id="bsyhBankJob" class="cn.com.fero.tlc.spider.jobb.BSYHBankJob">-->
-                <!--<property name="jobName" value="bsyhBankJob"/>-->
-                <!--<property name="jobGroupName" value="bank"/>-->
-                <!--<property name="triggerName" value="bsyhBankTrigger"/>-->
-                <!--<property name="triggerGroupName" value="bankTrigger"/>-->
-                <!--<property name="cronExpression" value="0 0 * * * ? *"/>-->
-                <!--</bean>-->
-                <!--<bean id="bsyhFinanceJob" class="cn.com.fero.tlc.spider.jobb.BSYHFinanceJob">-->
-                <!--<property name="jobName" value="bsyhFinanceJob"/>-->
-                <!--<property name="jobGroupName" value="bank"/>-->
-                <!--<property name="triggerName" value="bsyhFinanceTrigger"/>-->
-                <!--<property name="triggerGroupName" value="bankTrigger"/>-->
-                <!--<property name="cronExpression" value="0 0 * * * ? *"/>-->
-                <!--</bean>-->
             </list>
         </property>
     </bean>
