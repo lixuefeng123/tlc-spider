@@ -50,6 +50,7 @@ public class TransObject {
     private String title;
     private String content;
     private String isLimitCount;
+    private String progressFinishTime;
 
     public int getId() {
         return id;
@@ -419,6 +420,14 @@ public class TransObject {
         this.isLimitCount = isLimitCount;
     }
 
+    public String getProgressFinishTime() {
+        return progressFinishTime;
+    }
+
+    public void setProgressFinishTime(String progressFinishTime) {
+        this.progressFinishTime = progressFinishTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -468,6 +477,8 @@ public class TransObject {
             return false;
         if (partsCount != null ? !partsCount.equals(that.partsCount) : that.partsCount != null) return false;
         if (progress != null ? !progress.equals(that.progress) : that.progress != null) return false;
+        if (progressFinishTime != null ? !progressFinishTime.equals(that.progressFinishTime) : that.progressFinishTime != null)
+            return false;
         if (projectBeginTime != null ? !projectBeginTime.equals(that.projectBeginTime) : that.projectBeginTime != null)
             return false;
         if (projectCode != null ? !projectCode.equals(that.projectCode) : that.projectCode != null) return false;
@@ -538,6 +549,7 @@ public class TransObject {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (isLimitCount != null ? isLimitCount.hashCode() : 0);
+        result = 31 * result + (progressFinishTime != null ? progressFinishTime.hashCode() : 0);
         return result;
     }
 
@@ -590,6 +602,7 @@ public class TransObject {
         sb.append(", title='").append(title).append('\'');
         sb.append(", content='").append(content).append('\'');
         sb.append(", isLimitCount='").append(isLimitCount).append('\'');
+        sb.append(", progressFinishTime='").append(progressFinishTime).append('\'');
         sb.append('}');
         return sb.toString();
     }
