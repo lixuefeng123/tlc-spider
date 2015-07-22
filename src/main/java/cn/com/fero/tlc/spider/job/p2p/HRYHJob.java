@@ -54,7 +54,7 @@ public class HRYHJob extends TLCSpiderJob {
 
     @Override
     public int getTotalPage(Map<String, String> param) {
-        String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
+        String countContent = TLCSpiderRequest.postViaProxy(URL_PRODUCT_LIST, param, TLCSpiderRequest.ProxyType.HTTP);
         String dataStr = TLCSpiderJsonUtil.getString(countContent, "Data");
         String totalCountStr = TLCSpiderJsonUtil.getString(dataStr, "TotalCount");
         int pageSize = Integer.parseInt(PAGE_SIZE);
@@ -64,7 +64,7 @@ public class HRYHJob extends TLCSpiderJob {
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
-        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
+        String productContent = TLCSpiderRequest.postViaProxy(URL_PRODUCT_LIST, param, TLCSpiderRequest.ProxyType.HTTP);
         String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "Data");
         List<HRYH> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "ResultList", HRYH.class);
 

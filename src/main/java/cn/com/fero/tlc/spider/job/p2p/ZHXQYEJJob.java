@@ -51,7 +51,7 @@ public class ZHXQYEJJob extends TLCSpiderJob {
 
     @Override
     public int getTotalPage(Map<String, String> param) {
-        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
+        String pageContent = TLCSpiderRequest.postViaProxy(URL_PRODUCT_LIST, param, TLCSpiderRequest.ProxyType.HTTPS);
         String pageStr = TLCSpiderJsonUtil.getString(pageContent, "DicData");
         String totalPage = TLCSpiderJsonUtil.getString(pageStr, "TotalPage");
         return Integer.parseInt(totalPage);
@@ -59,7 +59,7 @@ public class ZHXQYEJJob extends TLCSpiderJob {
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
-        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
+        String productContent = TLCSpiderRequest.postViaProxy(URL_PRODUCT_LIST, param, TLCSpiderRequest.ProxyType.HTTPS);
         String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "DicData");
         List<ZHXQYEJ> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "NormalList", ZHXQYEJ.class);
 

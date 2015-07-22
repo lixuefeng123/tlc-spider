@@ -55,14 +55,14 @@ public class LZYHEREDJob extends TLCSpiderJob {
 
     @Override
     public int getTotalPage(Map<String, String> param) {
-        String countContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
+        String countContent = TLCSpiderRequest.postViaProxy(URL_PRODUCT_LIST, param, TLCSpiderRequest.ProxyType.HTTPS);
         String totalPage = TLCSpiderHTMLParser.parseText(countContent, "//div[@class='main_m_line1']//a[@class='inv_b_div1a'][last()]");
         return Integer.parseInt(totalPage);
     }
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
-        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
+        String productContent = TLCSpiderRequest.postViaProxy(URL_PRODUCT_LIST, param, TLCSpiderRequest.ProxyType.HTTPS);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='main_l_main']/div[@class='main_m_line']");
 
         List<TransObject> transObjectList = new ArrayList();
@@ -101,7 +101,7 @@ public class LZYHEREDJob extends TLCSpiderJob {
         if (detailLink.contains("viewProject")) {
             financingId = detailLink.split("'")[1];
             projectCode = financingId;
-            String detailContent = TLCSpiderRequest.get(URL_PRODUCT_DETAIL + financingId, true);
+            String detailContent = TLCSpiderRequest.getViaProxy(URL_PRODUCT_DETAIL + financingId, TLCSpiderRequest.ProxyType.HTTPS);
 
             minInvestPartsCount = "1";
             String partsAmountStr = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='middle_bg']//div[@class='invest_l_bottom']//span[@class='tzdw']");

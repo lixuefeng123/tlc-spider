@@ -51,7 +51,7 @@ public class MSYHMSYDJob extends TLCSpiderJob {
 
     @Override
     public int getTotalPage(Map<String, String> param) {
-        String pageContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
+        String pageContent = TLCSpiderRequest.postViaProxy(URL_PRODUCT_LIST, param, TLCSpiderRequest.ProxyType.HTTP);
 //        String totalPage = TLCSpiderHTMLParser.parseText(pageContent, "//div[@class='u-content']//div[@class='bottom-page']//a[last()-1]");
         List<TagNode> pageNodeList = TLCSpiderHTMLParser.parseNode(pageContent, "//div[@class='u-content']//div[@class='bottom-page']//a");
         int pageNodeLength = pageNodeList.size();
@@ -61,7 +61,7 @@ public class MSYHMSYDJob extends TLCSpiderJob {
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
-        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
+        String productContent = TLCSpiderRequest.postViaProxy(URL_PRODUCT_LIST, param, TLCSpiderRequest.ProxyType.HTTP);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@id='content-gray']//ul[@class='c-list']/li");
 
         List<TransObject> transObjectList = new ArrayList();
@@ -102,7 +102,7 @@ public class MSYHMSYDJob extends TLCSpiderJob {
         transObject.setRealProgress(progress);
 
         String detailLink = URL_PRODUCT_DETAIL + id;
-        String detailContent = TLCSpiderRequest.get(detailLink, true);
+        String detailContent = TLCSpiderRequest.getViaProxy(detailLink, TLCSpiderRequest.ProxyType.HTTPS);
         String minInvestUnit = TLCSpiderHTMLParser.parseText(detailContent, "//strong[@id='loan_minInvestUnit']");
         minInvestUnit = minInvestUnit.replace(",", "");
         if (StringUtils.isNotEmpty(minInvestUnit)) {

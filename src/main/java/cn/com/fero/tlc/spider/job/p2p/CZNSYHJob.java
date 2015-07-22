@@ -54,7 +54,7 @@ public class CZNSYHJob extends TLCSpiderJob {
     @Override
     public int getTotalPage(Map<String, String> param) {
         String paramStr = convertToParamStr(param);
-        String pageContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr, true);
+        String pageContent = TLCSpiderRequest.getViaProxy(URL_PRODUCT_LIST + paramStr, TLCSpiderRequest.ProxyType.HTTPS);
         String dataStr = TLCSpiderJsonUtil.getString(pageContent, "data");
         String paginationStr = TLCSpiderJsonUtil.getString(dataStr, "pagination");
         String totalCount = TLCSpiderJsonUtil.getString(paginationStr, "count");
@@ -66,7 +66,7 @@ public class CZNSYHJob extends TLCSpiderJob {
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String paramStr = convertToParamStr(param);
-        String productContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr, true);
+        String productContent = TLCSpiderRequest.getViaProxy(URL_PRODUCT_LIST + paramStr, TLCSpiderRequest.ProxyType.HTTPS);
         String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "data");
         List<CZNSYH> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "data", CZNSYH.class);
 
@@ -101,7 +101,7 @@ public class CZNSYHJob extends TLCSpiderJob {
         }
 
         String detailLink = URL_PRODUCT_DETAIL + product.getId();
-        String detailContent = TLCSpiderRequest.get(detailLink, true);
+        String detailContent = TLCSpiderRequest.getViaProxy(detailLink, TLCSpiderRequest.ProxyType.HTTPS);
         String repayBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='wrap']//ul[@class='cons']/li[@class='item border-b-1'][3]/span[@class='w300'][2]");
         repayBegin = repayBegin.split("：")[1].trim();
         transObject.setRepayBegin(repayBegin);

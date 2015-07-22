@@ -60,7 +60,7 @@ public class LJSPJJob extends TLCSpiderJob {
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String paramStr = convertToParamStr(param);
-        String productContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr, true);
+        String productContent = TLCSpiderRequest.getViaProxy(URL_PRODUCT_LIST + paramStr, TLCSpiderRequest.ProxyType.HTTP);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='main-wide-wrap']//ul[@class='main-list']/li");
 
         List<TransObject> transObjectList = new ArrayList();
@@ -93,7 +93,7 @@ public class LJSPJJob extends TLCSpiderJob {
         transObject.setDuration(duration);
 
         String detailLink = URL_PRODUCT_DETAIL + href;
-        String detailContent = TLCSpiderRequest.get(detailLink, true);
+        String detailContent = TLCSpiderRequest.getViaProxy(detailLink, TLCSpiderRequest.ProxyType.HTTP);
 
         String amount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//ul[@class='clearfix detail-info-list']//li[1]/p[2]/strong");
         amount = amount.split(" ")[0].replaceAll(",", "").split("\\.")[0];

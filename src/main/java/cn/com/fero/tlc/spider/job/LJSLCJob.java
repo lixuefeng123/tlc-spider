@@ -1,9 +1,8 @@
-package cn.com.fero.tlc.spider.job.p2p;
+package cn.com.fero.tlc.spider.job;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
-import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.htmlcleaner.TagNode;
@@ -60,7 +59,7 @@ public class LJSLCJob extends TLCSpiderJob {
     @Override
     public int getTotalPage(Map<String, String> param) {
         String paramStr = convertToParamStr(param);
-        String pageContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr, true);
+        String pageContent = TLCSpiderRequest.getViaProxy(URL_PRODUCT_LIST + paramStr, TLCSpiderRequest.ProxyType.HTTP);
         String totalPage = TLCSpiderHTMLParser.parseAttribute(pageContent, "//a[@class='btns btn_page btn_small last']", "data-val");
         return Integer.parseInt(totalPage);
     }
@@ -68,7 +67,7 @@ public class LJSLCJob extends TLCSpiderJob {
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String paramStr = convertToParamStr(param);
-        String productContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr, true);
+        String productContent = TLCSpiderRequest.getViaProxy(URL_PRODUCT_LIST + paramStr, TLCSpiderRequest.ProxyType.HTTP);
         List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='main-wide-wrap']//ul[@class='main-list']/li");
 
         List<TransObject> transObjectList = new ArrayList();

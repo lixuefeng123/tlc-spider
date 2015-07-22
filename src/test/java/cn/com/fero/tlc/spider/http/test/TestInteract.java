@@ -19,7 +19,7 @@ public class TestInteract {
         Map<String, String> map = new HashMap();
         map.put("sid", "1");
         map.put("token", "m88l48Mguil4+F9ilbodCID5MFnHl30cQmzVJ7FeAmOV");
-        Object obj = TLCSpiderRequest.post("http://192.168.2.19:3005/spiderapi/p2p/updatelist", map, false);
+        Object obj = TLCSpiderRequest.post("http://192.168.2.19:3005/spiderapi/p2p/updatelist", map);
         System.out.println(obj);
     }
 

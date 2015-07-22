@@ -1,8 +1,7 @@
-package cn.com.fero.tlc.spider.job.p2p;
+package cn.com.fero.tlc.spider.job;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
-import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.PFYH;
@@ -53,7 +52,7 @@ public class PFYHJob extends TLCSpiderJob {
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
-        String productContent = TLCSpiderRequest.post(URL_PRODUCT_LIST, param, true);
+        String productContent = TLCSpiderRequest.postViaProxy(URL_PRODUCT_LIST, param, TLCSpiderRequest.ProxyType.HTTPS);
         List<PFYH> productList = TLCSpiderJsonUtil.json2Array(productContent, "LoopResult", PFYH.class);
 
         List<TransObject> transObjectList = new ArrayList();

@@ -1,0 +1,45 @@
+package cn.com.fero.tlc.spider.util;
+
+import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
+import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
+import cn.com.fero.tlc.spider.vo.RequestProxy;
+import org.apache.commons.lang.exception.ExceptionUtils;
+
+/**
+ * Created by gizmo on 15/6/19.
+ */
+public final class TLCSpiderProxyUtil {
+    private static final String PROXY_URL_HTTP = TLCSpiderPropertiesUtil.getResource("tlc.spider.proxy.url.http");
+    private static final String PROXY_URL_HTTPS = TLCSpiderPropertiesUtil.getResource("tlc.spider.proxy.url.https");
+
+    private TLCSpiderProxyUtil() {
+        throw new UnsupportedClassVersionError();
+    }
+
+    public static RequestProxy getHttpProxy() {
+        return getProxy(PROXY_URL_HTTP);
+    }
+
+    public static RequestProxy getHttpsProxy() {
+        return getProxy(PROXY_URL_HTTPS);
+    }
+
+    private static RequestProxy getProxy(String url) {
+        RequestProxy requestProxy = null;
+        try {
+            String response = TLCSpiderRequest.get(url);
+            String status = TLCSpiderJsonUtil.getString(response, "status");
+            int statusCode = Integer.parseInt(status);
+            if (statusCode != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
+                return requestProxy;
+            }
+
+            String proxyStr = TLCSpiderJsonUtil.getString(response, "proxy");
+            requestProxy = (RequestProxy) TLCSpiderJsonUtil.json2Object(proxyStr, RequestProxy.class);
+            return requestProxy;
+        } catch (NumberFormatException e) {
+            TLCSpiderLoggerUtil.getLogger().error(ExceptionUtils.getFullStackTrace(e));
+            return requestProxy;
+        }
+    }
+}
