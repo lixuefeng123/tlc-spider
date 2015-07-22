@@ -114,24 +114,25 @@ public class TLCSpiderRequest {
     }
 
     private static RequestConfig constructProxyConfig(ProxyType proxyType) {
-        RequestProxy requestProxy = null;
-        switch (proxyType) {
-            case HTTP:
-                requestProxy = TLCSpiderProxyUtil.getHttpProxy();
-                break;
-            case HTTPS:
-                requestProxy = TLCSpiderProxyUtil.getHttpsProxy();
-                break;
-        }
-        if (null == requestProxy) {
-            TLCSpiderLoggerUtil.getLogger().info("无可用{}代理", proxyType.toString());
-            return constructHttpConfig();
-        }
-
-        RequestConfig.Builder builder = RequestConfig.custom();
-        builder.setConnectTimeout(TLCSpiderConstants.SPIDER_CONST_HTTP_TIMEOUT);
-        builder.setProxy(new HttpHost(requestProxy.getIp(), requestProxy.getPort()));
-        return builder.build();
+//        RequestProxy requestProxy = null;
+//        switch (proxyType) {
+//            case HTTP:
+//                requestProxy = TLCSpiderProxyUtil.getHttpProxy();
+//                break;
+//            case HTTPS:
+//                requestProxy = TLCSpiderProxyUtil.getHttpsProxy();
+//                break;
+//        }
+//        if (null == requestProxy) {
+//            TLCSpiderLoggerUtil.getLogger().info("无可用{}代理", proxyType.toString());
+//            return constructHttpConfig();
+//        }
+//
+//        RequestConfig.Builder builder = RequestConfig.custom();
+//        builder.setConnectTimeout(TLCSpiderConstants.SPIDER_CONST_HTTP_TIMEOUT);
+//        builder.setProxy(new HttpHost(requestProxy.getIp(), requestProxy.getPort()));
+//        return builder.build();
+        return constructHttpConfig();
     }
 
     private static RequestConfig constructHttpConfig() {

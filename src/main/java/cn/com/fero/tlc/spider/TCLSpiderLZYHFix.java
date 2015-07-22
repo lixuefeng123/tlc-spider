@@ -39,7 +39,7 @@ public final class TCLSpiderLZYHFix {
             fixJson = fixJson.replaceAll(":", "=>");
             fixJson = fixJson.replaceAll(",\"", ", \"");
             Statement stl = con.createStatement();
-            stl.execute("update p2p_spider_data set finance_date = " + fixJson + " where id = " + id);
+            stl.execute("update p2p_spider_data set finance_data = '" + fixJson + "' where id = " + id);
         }
         rs.close();
         st.close();
