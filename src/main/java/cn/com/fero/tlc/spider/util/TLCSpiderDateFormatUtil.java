@@ -43,7 +43,6 @@ public final class TLCSpiderDateFormatUtil {
         }
     }
 
-
     public static String formatDate(String dateStr, String format) {
         try {
             Date date = new Date(dateStr);

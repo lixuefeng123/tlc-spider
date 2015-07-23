@@ -4,16 +4,17 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.job.TLCSpiderJob;
+import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderSplitUtil;
+import cn.com.fero.tlc.spider.vo.LJSAE;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.htmlcleaner.TagNode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -62,10 +63,10 @@ public class LJSAEJob extends TLCSpiderJob {
 
     @Override
     public int getTotalPage(Map<String, String> param) {
-        String paramStr = convertToParamStr(param);
-        String pageContent = TLCSpiderRequest.getViaProxy(URL_PRODUCT_LIST + paramStr, TLCSpiderRequest.ProxyType.HTTP);
-        String totalPage = TLCSpiderHTMLParser.parseAttribute(pageContent, "//a[@class='btns btn_page btn_small last']", "data-val");
-        return Integer.parseInt(totalPage);
+//        String paramStr = convertToParamStr(param);
+//        String pageContent = TLCSpiderRequest.getViaProxy(URL_PRODUCT_LIST + paramStr, TLCSpiderRequest.ProxyType.HTTP);
+//        String totalPage = TLCSpiderHTMLParser.parseAttribute(pageContent, "//a[@class='btns btn_page btn_small last']", "data-val");
+        return 1;
     }
 
     @Override
@@ -76,8 +77,16 @@ public class LJSAEJob extends TLCSpiderJob {
 
         List<TransObject> transObjectList = new ArrayList();
         for (TagNode product : productList) {
-            TransObject transObject = convertToTransObject(product);
-            transObjectList.add(transObject);
+            String expand = TLCSpiderHTMLParser.parseText(product, "//p[@class='product-count']");
+            if(StringUtils.isEmpty(expand)) {
+                TransObject transObject = convertToTransObject(product);
+                transObjectList.add(transObject);
+            } else {
+                String href = TLCSpiderHTMLParser.parseAttribute(product, "//dt[@class='product-name']/a", "href");
+                String productId = href.split("=")[1];
+                LJSAESubJob subJob = new LJSAESubJob(productId);
+                transObjectList.addAll(subJob.execute());
+            }
         }
 
         return transObjectList;
@@ -113,7 +122,7 @@ public class LJSAEJob extends TLCSpiderJob {
         }
         transObject.setRepayType(repayType);
 
-        String progress = TLCSpiderHTMLParser.parseText(product, "//div[@class='product-status product-status-raise']//span[@class='progress-txt']");
+        String progress = TLCSpiderHTMLParser.parseText(product, "//span[@class='progress-txt']");
         progress = progress.replaceAll("%", "");
         if (progress.equals("100")) {
             transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
@@ -148,5 +157,90 @@ public class LJSAEJob extends TLCSpiderJob {
         transObject.setProjectBeginTime(publishTime);
         transObject.setReadyBeginTime(publishTime);
         return transObject;
+    }
+
+    private class LJSAESubJob {
+        private final String URL_PRODUCT_SUB_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.url.sublist");
+        private final String PAGE_NAME = "pageNo";
+        private String productId;
+
+        public LJSAESubJob(String productId) {
+            this.productId = productId;
+        }
+
+        public List<TransObject> execute() {
+            List<TransObject> transObjectList = new ArrayList();
+            Map<String, String> spiderParam = constructSpiderParam();
+            int totalPage = getTotalPage(spiderParam);
+
+            for(int a = 1; a <= totalPage; a++) {
+                spiderParam.put(PAGE_NAME, String.valueOf(a));
+                transObjectList.addAll(getSpiderDataList(spiderParam));
+            }
+
+            return transObjectList;
+        }
+
+        private Map<String, String> constructSpiderParam() {
+            Map<String, String> param = new HashMap();
+            param.put(PAGE_NAME, "1");
+            param.put("isNewUserPage", "false");
+            param.put("_", String.valueOf(System.currentTimeMillis()));
+            param.put("productId", productId);
+            return param;
+        }
+
+        private int getTotalPage(Map<String, String> param) {
+            String paramStr = convertToParamStr(param);
+            String pageContent = TLCSpiderRequest.getViaProxy(URL_PRODUCT_SUB_LIST + paramStr, TLCSpiderRequest.ProxyType.HTTP);
+            String totalPage = TLCSpiderJsonUtil.getString(pageContent, "totalPage");
+            return Integer.parseInt(totalPage);
+        }
+
+        private List<TransObject> getSpiderDataList(Map<String, String> param) {
+            String paramStr = convertToParamStr(param);
+            String productContent = TLCSpiderRequest.getViaProxy(URL_PRODUCT_SUB_LIST + paramStr, TLCSpiderRequest.ProxyType.HTTP);
+            List<LJSAE> productList = TLCSpiderJsonUtil.json2Array(productContent, "data", LJSAE.class, "investRewardInfo");
+
+            List<TransObject> transObjectList = new ArrayList();
+            for (LJSAE product : productList) {
+                TransObject transObject = convertToTransObject(product);
+                transObjectList.add(transObject);
+            }
+
+            return transObjectList;
+        }
+
+        private TransObject convertToTransObject(LJSAE product) {
+            TransObject transObject = new TransObject();
+            transObject.setFinancingId(product.getProductId());
+            transObject.setProjectCode(product.getCode());
+            transObject.setProjectName(product.getProductNameDisplay() + " " + product.getCode());
+            transObject.setAmount(product.getPrice());
+            transObject.setPartsCount(String.valueOf(Integer.parseInt(product.getPrice()) / Integer.parseInt(product.getMinInvestAmount())));
+            transObject.setInvestmentInterest(String.valueOf(Double.parseDouble(product.getInterestRateDisplay()) * 100));
+            if(product.getInvestPeriodDisplay().contains("月")) {
+                transObject.setDuration(String.valueOf(Integer.parseInt(product.getInvestPeriod()) * 30));
+            } else {
+                transObject.setDuration(product.getInvestPeriod());
+            }
+            if(product.getCollectionMode().equals("1")) {
+                transObject.setRepayType("2");
+            } else {
+                transObject.setRepayType("0");
+            }
+
+            transObject.setValueBegin(DateFormatUtils.format(DateUtils.addDays(new Date(), 1), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
+            transObject.setRepayBegin(DateFormatUtils.format(DateUtils.addYears(new Date(), 3), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
+            transObject.setRepaySourceType(product.getSourceType());
+            transObject.setProjectBeginTime(product.getPublishAtCompleteTime());
+            transObject.setReadyBeginTime(product.getPublishAtCompleteTime());
+            transObject.setProjectStatus(product.getProductStatus());
+            transObject.setUpdateTime(product.getUpdateAt());
+            transObject.setProjectType(product.getProductType());
+            transObject.setRealProgress(product.getProgress());
+            transObject.setProgress(product.getProgress());
+            return transObject;
+        }
     }
 }

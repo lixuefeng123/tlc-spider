@@ -113,18 +113,21 @@ public class LJSBXTJob extends TLCSpiderJob {
         investmentInterest = investmentInterest.replaceAll("%", "");
         transObject.setInvestmentInterest(investmentInterest);
 
-        String progress = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='progress-wrap clearfix']/span[@class='progressTxt']");
-        progress = progress.replaceAll("%", "");
-        if (progress.equals("100")) {
+        if(projectStatus.equals("已结束")){
             transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
             transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
-        } else if (!progress.equals("")) {
-            double progressNum = Double.parseDouble(progress) / 100;
-            transObject.setProgress(String.valueOf(progressNum));
-            transObject.setRealProgress(String.valueOf(progressNum));
-        } else {
-            transObject.setProgress(String.valueOf(progress));
-            transObject.setRealProgress(String.valueOf(progress));
+        }
+        else {
+            String progress = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='progress-wrap clearfix']/span[@class='progressTxt']");
+            progress = progress.replaceAll("%", "");
+            if (progress.equals("100")) {
+                transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
+                transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
+            } else if (!progress.equals("")) {
+                double progressNum = Double.parseDouble(progress) / 100;
+                transObject.setProgress(String.valueOf(progressNum));
+                transObject.setRealProgress(String.valueOf(progressNum));
+            }
         }
 
         String valueBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//li[@class='last-col']//strong");

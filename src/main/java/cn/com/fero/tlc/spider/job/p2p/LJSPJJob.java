@@ -75,11 +75,11 @@ public class LJSPJJob extends TLCSpiderJob {
 
     private TransObject convertToTransObject(TagNode product) {
         TransObject transObject = new TransObject();
-        String href = TLCSpiderHTMLParser.parseAttribute(product, "//dl[@class='product-info is-2col']//dt[@class='product-name']/a[1]", "href");
+        String href = TLCSpiderHTMLParser.parseAttribute(product, "//dt[@class='product-name']/a[1]", "href");
         String financingId = href.split("=")[1];
         transObject.setFinancingId(financingId);
 
-        String projectName = TLCSpiderHTMLParser.parseText(product, "//dl[@class='product-info is-2col']//dt[@class='product-name']/a[1]");
+        String projectName = TLCSpiderHTMLParser.parseText(product, "//dt[@class='product-name']/a[1]");
         String projectCode = projectName.split(" ")[1];
         transObject.setProjectName(projectName);
         transObject.setProjectCode(projectCode);
