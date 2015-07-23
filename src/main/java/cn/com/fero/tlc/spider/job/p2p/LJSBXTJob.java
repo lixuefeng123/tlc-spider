@@ -59,13 +59,14 @@ public class LJSBXTJob extends TLCSpiderJob {
         return param;
     }
 
-//    @Override
-//    public int getTotalPage(Map<String, String> param) {
+    @Override
+    public int getTotalPage(Map<String, String> param) {
 //        String paramStr = convertToParamStr(param);
 //        String pageContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr, true);
-////        String totalPage = TLCSpiderHTMLParser.parseAttribute(pageContent, "//a[@class='btns btn_page btn_small last']", "data-val");
-//        return Integer.parseInt("1");
-//    }
+//        String totalPage = TLCSpiderHTMLParser.parseAttribute(pageContent, "//a[@class='btns btn_page btn_small last']", "data-val");
+        String totalPage = TOTAL_PAGE;
+        return Integer.parseInt(totalPage);
+    }
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
@@ -85,7 +86,7 @@ public class LJSBXTJob extends TLCSpiderJob {
     private TransObject convertToTransObject(TagNode product) {
         TransObject transObject = new TransObject();
         String href = TLCSpiderHTMLParser.parseAttribute(product, "//dl[@class='product-info is-2col']//dt[@class='product-name']/a[1]", "href");
-        String financingId = href.split("&")[0].split("=")[1];
+        String financingId = href.split("=")[1];
         transObject.setFinancingId(financingId);
 
         String projectName = TLCSpiderHTMLParser.parseText(product, "//dl[@class='product-info is-2col']//dt[@class='product-name']/a[1]");
@@ -112,10 +113,19 @@ public class LJSBXTJob extends TLCSpiderJob {
         investmentInterest = investmentInterest.replaceAll("%", "");
         transObject.setInvestmentInterest(investmentInterest);
 
-        String progress = ("100");
-        if (progress == "100") {
+        String progress = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='progress-wrap clearfix']/span[@class='progressTxt']");
+        progress = progress.replaceAll("%", "");
+        if (progress.equals("100")) {
             transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
             transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
+        } else if(!progress.equals("")){
+            double progressNum = Double.parseDouble(progress) / 100;
+            transObject.setProgress(String.valueOf(progressNum));
+            transObject.setRealProgress(String.valueOf(progressNum));
+        }
+        else {
+            transObject.setProgress(String.valueOf(progress));
+            transObject.setRealProgress(String.valueOf(progress));
         }
 
         String valueBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//li[@class='last-col']//strong");

@@ -49,13 +49,14 @@ public class LJSPJJob extends TLCSpiderJob {
         return param;
     }
 
-//    @Override
-//    public int getTotalPage(Map<String, String> param) {
+    @Override
+    public int getTotalPage(Map<String, String> param) {
 //        String paramStr = convertToParamStr(param);
 //        String pageContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr, true);
-////        String totalPage = TLCSpiderHTMLParser.parseAttribute(pageContent, "//a[@class='btns btn_page btn_small last']", "data-val");
-//        return Integer.parseInt("1");
-//    }
+//        String totalPage = TLCSpiderHTMLParser.parseAttribute(pageContent, "//a[@class='btns btn_page btn_small last']", "data-val");
+        String totalPage = TOTAL_PAGE;
+        return Integer.parseInt(totalPage);
+    }
 
     @Override
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
@@ -75,7 +76,7 @@ public class LJSPJJob extends TLCSpiderJob {
     private TransObject convertToTransObject(TagNode product) {
         TransObject transObject = new TransObject();
         String href = TLCSpiderHTMLParser.parseAttribute(product, "//dl[@class='product-info is-2col']//dt[@class='product-name']/a[1]", "href");
-        String financingId = href.split("&")[0].split("=")[1];
+        String financingId = href.split("=")[1];
         transObject.setFinancingId(financingId);
 
         String projectName = TLCSpiderHTMLParser.parseText(product, "//dl[@class='product-info is-2col']//dt[@class='product-name']/a[1]");
@@ -91,6 +92,9 @@ public class LJSPJJob extends TLCSpiderJob {
             duration = TLCSpiderSplitUtil.splitNumberChinese(duration, 1);
         }
         transObject.setDuration(duration);
+
+        String projectStatus = TLCSpiderHTMLParser.parseText(product, "//div[@class='product-status product-status-preview']//a[@class='list-btn is-grey']");
+        transObject.setProjectStatus(projectStatus);
 
         String detailLink = URL_PRODUCT_DETAIL + href;
         String detailContent = TLCSpiderRequest.getViaProxy(detailLink, TLCSpiderRequest.ProxyType.HTTP);
@@ -108,10 +112,14 @@ public class LJSPJJob extends TLCSpiderJob {
         if (progress.equals("100")) {
             transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
             transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
-        } else {
+        } else if(!progress.equals("")){
             double progressNum = Double.parseDouble(progress) / 100;
             transObject.setProgress(String.valueOf(progressNum));
             transObject.setRealProgress(String.valueOf(progressNum));
+        }
+        else {
+            transObject.setProgress(String.valueOf(progress));
+            transObject.setRealProgress(String.valueOf(progress));
         }
 
         String repayType = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='other-detail-info clearfix']//span[@class='tips-title']");
@@ -131,10 +139,6 @@ public class LJSPJJob extends TLCSpiderJob {
         publishTime = publishTime.split("：", 2)[1];
         transObject.setProjectBeginTime(publishTime);
         transObject.setReadyBeginTime(publishTime);
-
-        String proStatus = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='done-info']").trim();
-        String projectStatus = proStatus.split(";")[1].trim();
-        transObject.setProjectStatus(projectStatus);
 
         return transObject;
     }
