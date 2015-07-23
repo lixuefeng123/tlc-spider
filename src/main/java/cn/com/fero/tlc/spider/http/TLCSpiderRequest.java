@@ -43,7 +43,6 @@ public class TLCSpiderRequest {
             return executeGetRequest(url, config);
         } catch (Exception e) {
             TLCSpiderLoggerUtil.getLogger().error("使用{}发生异常，去除代理重新请求", proxyType.toString());
-            TLCSpiderLoggerUtil.getLogger().error(ExceptionUtils.getFullStackTrace(e));
             return get(url);
         }
     }
@@ -71,7 +70,6 @@ public class TLCSpiderRequest {
             return executePostRequest(url, param, config);
         } catch (Exception e) {
             TLCSpiderLoggerUtil.getLogger().error("使用{}发生异常，去除代理重新请求", proxyType.toString());
-            TLCSpiderLoggerUtil.getLogger().error(ExceptionUtils.getFullStackTrace(e));
             return post(url, param);
         }
     }
@@ -90,19 +88,19 @@ public class TLCSpiderRequest {
     }
 
     private static String executeGetRequest(String url, RequestConfig config) throws IOException {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpClient httpClient = HttpClients.custom().setDefaultRequestConfig(config).build();
         HttpGet httpGet = new HttpGet(url);
-        return executeRequest(httpClient, httpGet, config);
+        return executeRequest(httpClient, httpGet);
     }
 
     private static String executePostRequest(String url, Map<String, String> param, RequestConfig config) throws IOException {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpClient httpClient = HttpClients.custom().setDefaultRequestConfig(config).build();
         HttpPost httpPost = new HttpPost(url);
 
         HttpEntity entity = constructPostEntity(param);
         httpPost.setEntity(entity);
 
-        return executeRequest(httpClient, httpPost, config);
+        return executeRequest(httpClient, httpPost);
     }
 
     private static HttpEntity constructPostEntity(Map<String, String> param) throws UnsupportedEncodingException {
@@ -130,6 +128,8 @@ public class TLCSpiderRequest {
 
         RequestConfig.Builder builder = RequestConfig.custom();
         builder.setConnectTimeout(TLCSpiderConstants.SPIDER_CONST_HTTP_TIMEOUT);
+        builder.setConnectionRequestTimeout(TLCSpiderConstants.SPIDER_CONST_HTTP_TIMEOUT);
+        builder.setSocketTimeout(TLCSpiderConstants.SPIDER_CONST_HTTP_TIMEOUT);
         builder.setProxy(new HttpHost(requestProxy.getIp(), requestProxy.getPort()));
         return builder.build();
     }
@@ -137,11 +137,12 @@ public class TLCSpiderRequest {
     private static RequestConfig constructHttpConfig() {
         RequestConfig.Builder builder = RequestConfig.custom();
         builder.setConnectTimeout(TLCSpiderConstants.SPIDER_CONST_HTTP_TIMEOUT);
+        builder.setConnectionRequestTimeout(TLCSpiderConstants.SPIDER_CONST_HTTP_TIMEOUT);
+        builder.setSocketTimeout(TLCSpiderConstants.SPIDER_CONST_HTTP_TIMEOUT);
         return builder.build();
     }
 
-    private static String executeRequest(CloseableHttpClient httpClient, HttpRequestBase request, RequestConfig config) throws IOException {
-        request.setConfig(config);
+    private static String executeRequest(CloseableHttpClient httpClient, HttpRequestBase request) throws IOException {
         CloseableHttpResponse response = httpClient.execute(request);
         return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.SPIDER_CONST_CHARACTER_ENCODING);
     }

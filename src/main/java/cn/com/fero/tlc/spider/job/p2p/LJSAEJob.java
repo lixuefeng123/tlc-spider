@@ -19,8 +19,8 @@ import java.util.Map;
 /**
  * Created by gizmo on 15/6/17.
  */
-//陆金所投资频道抓取
-public class LJSTZJob extends TLCSpiderJob {
+//陆金所投资频道稳盈-安e通抓取
+public class LJSAEJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.url.list");
     private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.url.detail");
     private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.sid");

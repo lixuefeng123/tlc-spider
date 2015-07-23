@@ -75,7 +75,7 @@ public class NYYHNYEJob extends TLCSpiderJob {
 
     private TransObject convertToTransObject(NYYHNYE product) {
         TransObject transObject = new TransObject();
-        transObject.setFinancingId(product.getProdCode());
+        transObject.setFinancingId(product.getProjCode());
         transObject.setProjectCode(product.getProjCode());
         transObject.setProjectName(product.getProjName());
         transObject.setAmount(product.getProductSize());
