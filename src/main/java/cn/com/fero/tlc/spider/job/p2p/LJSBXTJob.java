@@ -118,12 +118,11 @@ public class LJSBXTJob extends TLCSpiderJob {
         if (progress.equals("100")) {
             transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
             transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
-        } else if(!progress.equals("")){
+        } else if (!progress.equals("")) {
             double progressNum = Double.parseDouble(progress) / 100;
             transObject.setProgress(String.valueOf(progressNum));
             transObject.setRealProgress(String.valueOf(progressNum));
-        }
-        else {
+        } else {
             transObject.setProgress(String.valueOf(progress));
             transObject.setRealProgress(String.valueOf(progress));
         }

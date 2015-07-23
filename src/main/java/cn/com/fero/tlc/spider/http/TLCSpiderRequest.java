@@ -6,7 +6,6 @@ import cn.com.fero.tlc.spider.util.TLCSpiderLoggerUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderProxyUtil;
 import cn.com.fero.tlc.spider.vo.RequestProxy;
 import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
