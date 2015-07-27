@@ -25,7 +25,6 @@ public class LJSXBJob extends TLCSpiderJob {
     private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjxb.token");
     private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjxb.title");
     private static final String PAGE_NAME = "currentPage";
-    private static final String TOTAL_PAGE = "1";
 
     @Override
     public Map<String, String> constructSystemParam() {
@@ -64,8 +63,7 @@ public class LJSXBJob extends TLCSpiderJob {
 //        String paramStr = convertToParamStr(param);
 //        String pageContent = TLCSpiderRequest.get(URL_PRODUCT_LIST + paramStr, true);
 //        String totalPage = TLCSpiderHTMLParser.parseAttribute(pageContent, "//a[@class='btns btn_page btn_small last']", "data-val");
-        String totalPage = TOTAL_PAGE;
-        return Integer.parseInt(totalPage);
+        return Integer.valueOf(TLCSpiderConstants.SPIDER_PARAM_PAGE_ONE);
     }
 
     @Override

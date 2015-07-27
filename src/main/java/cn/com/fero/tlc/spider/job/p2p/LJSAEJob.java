@@ -66,7 +66,7 @@ public class LJSAEJob extends TLCSpiderJob {
 //        String paramStr = convertToParamStr(param);
 //        String pageContent = TLCSpiderRequest.getViaProxy(URL_PRODUCT_LIST + paramStr, TLCSpiderRequest.ProxyType.HTTP);
 //        String totalPage = TLCSpiderHTMLParser.parseAttribute(pageContent, "//a[@class='btns btn_page btn_small last']", "data-val");
-        return 1;
+        return Integer.valueOf(TLCSpiderConstants.SPIDER_PARAM_PAGE_ONE);
     }
 
     @Override
