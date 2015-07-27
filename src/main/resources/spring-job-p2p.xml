@@ -9,104 +9,104 @@
         <property name="schedulerName" value="p2p调度器"/>
         <property name="jobList">
             <list>
-                <bean class="cn.com.fero.tlc.spider.job.p2p.NYYHNYEJob">
-                    <property name="jobName" value="nyyhnyeJob"/>
-                    <property name="jobGroupName" value="p2p"/>
-                    <property name="triggerName" value="nyyhnyeTrigger"/>
-                    <property name="triggerGroupName" value="p2pTrigger"/>
-                    <property name="cronExpression" value="0 0 * * * ? *"/>
-                </bean>
-                <bean class="cn.com.fero.tlc.spider.job.p2p.ZHXQYEJJob">
-                    <property name="jobName" value="zhxqyejJob"/>
-                    <property name="jobGroupName" value="p2p"/>
-                    <property name="triggerName" value="zhxqyejTrigger"/>
-                    <property name="triggerGroupName" value="p2pTrigger"/>
-                    <property name="cronExpression" value="0 0 * * * ? *"/>
-                </bean>
-                <bean class="cn.com.fero.tlc.spider.job.p2p.LZYHEREDJob">
-                    <property name="jobName" value="lzyheredJob"/>
-                    <property name="jobGroupName" value="p2p"/>
-                    <property name="triggerName" value="lzyheredTrigger"/>
-                    <property name="triggerGroupName" value="p2pTrigger"/>
-                    <property name="cronExpression" value="0 0 * * * ? *"/>
-                </bean>
-                <bean class="cn.com.fero.tlc.spider.job.p2p.RDNSYHERJZJob">
-                    <property name="jobName" value="rdnsyherjzJob"/>
-                    <property name="jobGroupName" value="p2p"/>
-                    <property name="triggerName" value="rdnsyherjzTrigger"/>
-                    <property name="triggerGroupName" value="p2pTrigger"/>
-                    <property name="cronExpression" value="0 0 * * * ? *"/>
-                </bean>
-                <bean class="cn.com.fero.tlc.spider.job.p2p.NBYHZXYHJob">
-                    <property name="jobName" value="nbyhzxyhJob"/>
-                    <property name="jobGroupName" value="p2p"/>
-                    <property name="triggerName" value="nbyhzxyhTrigger"/>
-                    <property name="triggerGroupName" value="p2pTrigger"/>
-                    <property name="cronExpression" value="0 0 * * * ? *"/>
-                </bean>
-                <bean class="cn.com.fero.tlc.spider.job.p2p.CZNSYHJob">
-                    <property name="jobName" value="cznsyhJob"/>
-                    <property name="jobGroupName" value="p2p"/>
-                    <property name="triggerName" value="cznsyhTrigger"/>
-                    <property name="triggerGroupName" value="p2pTrigger"/>
-                    <property name="cronExpression" value="0 0 * * * ? *"/>
-                </bean>
-                <bean class="cn.com.fero.tlc.spider.job.p2p.QDYHCFEWJob">
-                    <property name="jobName" value="qdyhcfewJob"/>
-                    <property name="jobGroupName" value="p2p"/>
-                    <property name="triggerName" value="qdyhcfewTrigger"/>
-                    <property name="triggerGroupName" value="p2pTrigger"/>
-                    <property name="cronExpression" value="0 0 * * * ? *"/>
-                </bean>
-                <bean class="cn.com.fero.tlc.spider.job.p2p.HRYHJob">
-                    <property name="jobName" value="hryhJob"/>
-                    <property name="jobGroupName" value="p2p"/>
-                    <property name="triggerName" value="hryhTrigger"/>
-                    <property name="triggerGroupName" value="p2pTrigger"/>
-                    <property name="cronExpression" value="0 0 * * * ? *"/>
-                </bean>
-                <bean class="cn.com.fero.tlc.spider.job.p2p.MSYHMSYDJob">
-                    <property name="jobName" value="msyhmsydJob"/>
-                    <property name="jobGroupName" value="p2p"/>
-                    <property name="triggerName" value="msyhmsydTrigger"/>
-                    <property name="triggerGroupName" value="p2pTrigger"/>
-                    <property name="cronExpression" value="0 0 * * * ? *"/>
-                </bean>
-                <bean class="cn.com.fero.tlc.spider.job.p2p.MSYHMSZZJob">
-                    <property name="jobName" value="msyhmszzJob"/>
-                    <property name="jobGroupName" value="p2p"/>
-                    <property name="triggerName" value="msyhmszzTrigger"/>
-                    <property name="triggerGroupName" value="p2pTrigger"/>
-                    <property name="cronExpression" value="0 0 * * * ? *"/>
-                </bean>
+                <!--<bean class="cn.com.fero.tlc.spider.job.p2p.NYYHNYEJob">-->
+                    <!--<property name="jobName" value="nyyhnyeJob"/>-->
+                    <!--<property name="jobGroupName" value="p2p"/>-->
+                    <!--<property name="triggerName" value="nyyhnyeTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="p2pTrigger"/>-->
+                    <!--<property name="cronExpression" value="0 0 * * * ? *"/>-->
+                <!--</bean>-->
+                <!--<bean class="cn.com.fero.tlc.spider.job.p2p.ZHXQYEJJob">-->
+                    <!--<property name="jobName" value="zhxqyejJob"/>-->
+                    <!--<property name="jobGroupName" value="p2p"/>-->
+                    <!--<property name="triggerName" value="zhxqyejTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="p2pTrigger"/>-->
+                    <!--<property name="cronExpression" value="0 0 * * * ? *"/>-->
+                <!--</bean>-->
+                <!--<bean class="cn.com.fero.tlc.spider.job.p2p.LZYHEREDJob">-->
+                    <!--<property name="jobName" value="lzyheredJob"/>-->
+                    <!--<property name="jobGroupName" value="p2p"/>-->
+                    <!--<property name="triggerName" value="lzyheredTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="p2pTrigger"/>-->
+                    <!--<property name="cronExpression" value="0 0 * * * ? *"/>-->
+                <!--</bean>-->
+                <!--<bean class="cn.com.fero.tlc.spider.job.p2p.RDNSYHERJZJob">-->
+                    <!--<property name="jobName" value="rdnsyherjzJob"/>-->
+                    <!--<property name="jobGroupName" value="p2p"/>-->
+                    <!--<property name="triggerName" value="rdnsyherjzTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="p2pTrigger"/>-->
+                    <!--<property name="cronExpression" value="0 0 * * * ? *"/>-->
+                <!--</bean>-->
+                <!--<bean class="cn.com.fero.tlc.spider.job.p2p.NBYHZXYHJob">-->
+                    <!--<property name="jobName" value="nbyhzxyhJob"/>-->
+                    <!--<property name="jobGroupName" value="p2p"/>-->
+                    <!--<property name="triggerName" value="nbyhzxyhTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="p2pTrigger"/>-->
+                    <!--<property name="cronExpression" value="0 0 * * * ? *"/>-->
+                <!--</bean>-->
+                <!--<bean class="cn.com.fero.tlc.spider.job.p2p.CZNSYHJob">-->
+                    <!--<property name="jobName" value="cznsyhJob"/>-->
+                    <!--<property name="jobGroupName" value="p2p"/>-->
+                    <!--<property name="triggerName" value="cznsyhTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="p2pTrigger"/>-->
+                    <!--<property name="cronExpression" value="0 0 * * * ? *"/>-->
+                <!--</bean>-->
+                <!--<bean class="cn.com.fero.tlc.spider.job.p2p.QDYHCFEWJob">-->
+                    <!--<property name="jobName" value="qdyhcfewJob"/>-->
+                    <!--<property name="jobGroupName" value="p2p"/>-->
+                    <!--<property name="triggerName" value="qdyhcfewTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="p2pTrigger"/>-->
+                    <!--<property name="cronExpression" value="0 0 * * * ? *"/>-->
+                <!--</bean>-->
+                <!--<bean class="cn.com.fero.tlc.spider.job.p2p.HRYHJob">-->
+                    <!--<property name="jobName" value="hryhJob"/>-->
+                    <!--<property name="jobGroupName" value="p2p"/>-->
+                    <!--<property name="triggerName" value="hryhTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="p2pTrigger"/>-->
+                    <!--<property name="cronExpression" value="0 0 * * * ? *"/>-->
+                <!--</bean>-->
+                <!--<bean class="cn.com.fero.tlc.spider.job.p2p.MSYHMSYDJob">-->
+                    <!--<property name="jobName" value="msyhmsydJob"/>-->
+                    <!--<property name="jobGroupName" value="p2p"/>-->
+                    <!--<property name="triggerName" value="msyhmsydTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="p2pTrigger"/>-->
+                    <!--<property name="cronExpression" value="0 0 * * * ? *"/>-->
+                <!--</bean>-->
+                <!--<bean class="cn.com.fero.tlc.spider.job.p2p.MSYHMSZZJob">-->
+                    <!--<property name="jobName" value="msyhmszzJob"/>-->
+                    <!--<property name="jobGroupName" value="p2p"/>-->
+                    <!--<property name="triggerName" value="msyhmszzTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="p2pTrigger"/>-->
+                    <!--<property name="cronExpression" value="0 0 * * * ? *"/>-->
+                <!--</bean>-->
                 <bean class="cn.com.fero.tlc.spider.job.p2p.LJSAEJob">
                     <property name="jobName" value="ljsaeJob"/>
                     <property name="jobGroupName" value="p2p"/>
                     <property name="triggerName" value="ljsaeTrigger"/>
                     <property name="triggerGroupName" value="p2pTrigger"/>
-                    <property name="cronExpression" value="0 */30 * * * ? *"/>
+                    <property name="cronExpression" value="0/10 * * * * ? *"/>
                 </bean>
-                <bean class="cn.com.fero.tlc.spider.job.p2p.LJSPJJob">
-                    <property name="jobName" value="ljspjJob"/>
-                    <property name="jobGroupName" value="p2p"/>
-                    <property name="triggerName" value="ljspjTrigger"/>
-                    <property name="triggerGroupName" value="p2pTrigger"/>
-                    <property name="cronExpression" value="0 */30 * * * ? *"/>
-                </bean>
-                <bean class="cn.com.fero.tlc.spider.job.p2p.LJSXBJob">
-                    <property name="jobName" value="ljsxbJob"/>
-                    <property name="jobGroupName" value="p2p"/>
-                    <property name="triggerName" value="ljsxbTrigger"/>
-                    <property name="triggerGroupName" value="p2pTrigger"/>
-                    <property name="cronExpression" value="0 */30 * * * ? *"/>
-                </bean>
-                <bean class="cn.com.fero.tlc.spider.job.p2p.LJSBXTJob">
-                    <property name="jobName" value="ljsbxtJob"/>
-                    <property name="jobGroupName" value="p2p"/>
-                    <property name="triggerName" value="ljsbxtTrigger"/>
-                    <property name="triggerGroupName" value="p2pTrigger"/>
-                    <property name="cronExpression" value="0 */30 * * * ? *"/>
-                </bean>
+                <!--<bean class="cn.com.fero.tlc.spider.job.p2p.LJSPJJob">-->
+                    <!--<property name="jobName" value="ljspjJob"/>-->
+                    <!--<property name="jobGroupName" value="p2p"/>-->
+                    <!--<property name="triggerName" value="ljspjTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="p2pTrigger"/>-->
+                    <!--<property name="cronExpression" value="0 */30 * * * ? *"/>-->
+                <!--</bean>-->
+                <!--<bean class="cn.com.fero.tlc.spider.job.p2p.LJSXBJob">-->
+                    <!--<property name="jobName" value="ljsxbJob"/>-->
+                    <!--<property name="jobGroupName" value="p2p"/>-->
+                    <!--<property name="triggerName" value="ljsxbTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="p2pTrigger"/>-->
+                    <!--<property name="cronExpression" value="0 */30 * * * ? *"/>-->
+                <!--</bean>-->
+                <!--<bean class="cn.com.fero.tlc.spider.job.p2p.LJSBXTJob">-->
+                    <!--<property name="jobName" value="ljsbxtJob"/>-->
+                    <!--<property name="jobGroupName" value="p2p"/>-->
+                    <!--<property name="triggerName" value="ljsbxtTrigger"/>-->
+                    <!--<property name="triggerGroupName" value="p2pTrigger"/>-->
+                    <!--<property name="cronExpression" value="0 */30 * * * ? *"/>-->
+                <!--</bean>-->
             </list>
         </property>
     </bean>

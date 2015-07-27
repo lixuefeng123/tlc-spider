@@ -12,7 +12,7 @@ public class QDYHCFEW {
     private String bindCompanyName;
     private String bindUserId;
     private String bindUserName;
-    private String cONTENT;
+    private String content;
     private String createCompanyId;
     private String createCompanyName;
     private String createTime;
@@ -119,12 +119,12 @@ public class QDYHCFEW {
         this.bindUserName = bindUserName;
     }
 
-    public String getcONTENT() {
-        return cONTENT;
+    public String getContent() {
+        return content;
     }
 
-    public void setcONTENT(String cONTENT) {
-        this.cONTENT = cONTENT;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getCreateCompanyId() {
@@ -475,7 +475,7 @@ public class QDYHCFEW {
         if (bindUserId != null ? !bindUserId.equals(qdyhcfew.bindUserId) : qdyhcfew.bindUserId != null) return false;
         if (bindUserName != null ? !bindUserName.equals(qdyhcfew.bindUserName) : qdyhcfew.bindUserName != null)
             return false;
-        if (cONTENT != null ? !cONTENT.equals(qdyhcfew.cONTENT) : qdyhcfew.cONTENT != null) return false;
+        if (content != null ? !content.equals(qdyhcfew.content) : qdyhcfew.content != null) return false;
         if (createCompanyId != null ? !createCompanyId.equals(qdyhcfew.createCompanyId) : qdyhcfew.createCompanyId != null)
             return false;
         if (createCompanyName != null ? !createCompanyName.equals(qdyhcfew.createCompanyName) : qdyhcfew.createCompanyName != null)
@@ -556,7 +556,7 @@ public class QDYHCFEW {
         result = 31 * result + (bindCompanyName != null ? bindCompanyName.hashCode() : 0);
         result = 31 * result + (bindUserId != null ? bindUserId.hashCode() : 0);
         result = 31 * result + (bindUserName != null ? bindUserName.hashCode() : 0);
-        result = 31 * result + (cONTENT != null ? cONTENT.hashCode() : 0);
+        result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (createCompanyId != null ? createCompanyId.hashCode() : 0);
         result = 31 * result + (createCompanyName != null ? createCompanyName.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
@@ -612,7 +612,7 @@ public class QDYHCFEW {
         sb.append(", bindCompanyName='").append(bindCompanyName).append('\'');
         sb.append(", bindUserId='").append(bindUserId).append('\'');
         sb.append(", bindUserName='").append(bindUserName).append('\'');
-        sb.append(", cONTENT='").append(cONTENT).append('\'');
+        sb.append(", content='").append(content).append('\'');
         sb.append(", createCompanyId='").append(createCompanyId).append('\'');
         sb.append(", createCompanyName='").append(createCompanyName).append('\'');
         sb.append(", createTime='").append(createTime).append('\'');

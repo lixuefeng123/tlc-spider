@@ -121,7 +121,7 @@ public class QDYHCFEWJob extends TLCSpiderJob {
         transObject.setProgress(product.getProgress());
         transObject.setFinanceApplyStatus(product.getFinanceApplyStatus());
         transObject.setHotStatus(product.getHotStatus());
-        transObject.setContent(product.getcONTENT());
+        transObject.setContent(product.getContent());
         transObject.setTitle(product.getTitle());
         //TODO 未处理属性 AgreementType: 2 F_Financing_InitId: "B5BFDBCB-AEA6-4437-A48B-C5DA2E3BACAA" IsVIP: false
         //               RemainPartsCount: 0 SettlementType: 0 ToInvestmentTime: "12/16/2015 00:00:00" YMInterest: 0.2
