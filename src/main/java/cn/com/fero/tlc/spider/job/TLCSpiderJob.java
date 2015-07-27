@@ -106,12 +106,6 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
                 for (TransObject transObject : resultList) {
                     if (StringUtils.equalsIgnoreCase(transObject.getProgress(), TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
                         isContinue = false;
-                        for (Map.Entry<String, TransObject> entry : updateMap.entrySet()) {
-                            TransObject to = entry.getValue();
-                            to.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
-                            to.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
-                            transObjectList.add(to);
-                        }
                         break;
                     } else {
                         if (updateMap.containsKey(transObject.getFinancingId())) {
@@ -127,6 +121,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
                 }
             }
 
+            setUpdateToFullProgress(transObjectList, updateMap);
             if (transObjectList.size() > 0) {
                 sendDataToSystem(transObjectList, jobTitle);
             }
@@ -138,6 +133,15 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
             sendDataToSystem(map);
         } finally {
             TLCSpiderLoggerUtil.getLogger().info("抓取" + jobTitle + "结束");
+        }
+    }
+
+    private void setUpdateToFullProgress(List<TransObject> transObjectList, Map<String, TransObject> updateMap) {
+        for (Map.Entry<String, TransObject> entry : updateMap.entrySet()) {
+            TransObject to = entry.getValue();
+            to.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
+            to.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
+            transObjectList.add(to);
         }
     }
 
