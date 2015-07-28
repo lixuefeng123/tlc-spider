@@ -83,11 +83,11 @@ public class LJSXBJob extends TLCSpiderJob {
 
     private TransObject convertToTransObject(TagNode product) {
         TransObject transObject = new TransObject();
-        String href = TLCSpiderHTMLParser.parseAttribute(product, "//dl[@class='product-info is-2col']//dt[@class='product-name']/a[1]", "href");
+        String href = TLCSpiderHTMLParser.parseAttribute(product, "//dt[@class='product-name']/a[1]", "href");
         String financingId = href.split("=")[1];
         transObject.setFinancingId(financingId);
 
-        String projectName = TLCSpiderHTMLParser.parseText(product, "//dl[@class='product-info is-2col']//dt[@class='product-name']/a[1]");
+        String projectName = TLCSpiderHTMLParser.parseText(product, "//dt[@class='product-name']/a[1]");
         String projectCode = projectName.split(" ")[1];
         transObject.setProjectName(projectName);
         transObject.setProjectCode(projectCode);
@@ -133,7 +133,7 @@ public class LJSXBJob extends TLCSpiderJob {
         transObject.setValueBegin(valueBegin);
 
         String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//p[@class='product-published-date']");
-        publishTime = publishTime.split("：", 2)[1];
+        publishTime = publishTime.split("：")[1];
         transObject.setProjectBeginTime(publishTime);
         transObject.setReadyBeginTime(publishTime);
 

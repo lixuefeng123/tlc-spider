@@ -133,7 +133,7 @@ public class LJSPJJob extends TLCSpiderJob {
         transObject.setValueBegin(valueBegin);
 
         String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//p[@class='product-published-date']");
-        publishTime = publishTime.split("：", 2)[1];
+        publishTime = publishTime.split("：")[1];
         transObject.setProjectBeginTime(publishTime);
         transObject.setReadyBeginTime(publishTime);
 
