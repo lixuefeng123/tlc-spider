@@ -25,6 +25,7 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,14 @@ public class TLCSpiderRequest {
 
         try {
             RequestConfig config = constructProxyConfig(proxyType);
-            return executeGetRequest(url, config);
+            Map<String, Object> responseMap = executeGetRequest(url, config);
+
+            int status = (int) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
+            if(status != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
+                throw new TLCSpiderRequestException("not response 200 via proxy");
+            }
+
+            return (String) responseMap.get(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT);
         } catch (Exception e) {
             TLCSpiderLoggerUtil.getLogger().error("使用{}发生异常，去除代理重新请求", proxyType.toString());
             return get(url);
@@ -53,7 +61,8 @@ public class TLCSpiderRequest {
 
         try {
             RequestConfig config = constructHttpConfig();
-            return executeGetRequest(url, config);
+            Map<String, Object> responseMap = executeGetRequest(url, config);
+            return (String) responseMap.get(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT);
         } catch (Exception e) {
             throw new TLCSpiderRequestException(e);
         }
@@ -66,7 +75,14 @@ public class TLCSpiderRequest {
 
         try {
             RequestConfig config = constructProxyConfig(proxyType);
-            return executePostRequest(url, param, config);
+            Map<String, Object> responseMap =  executePostRequest(url, param, config);
+
+            int status = (int) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
+            if(status != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
+                throw new TLCSpiderRequestException("not response 200 via proxy");
+            }
+
+            return (String) responseMap.get(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT);
         } catch (Exception e) {
             TLCSpiderLoggerUtil.getLogger().error("使用{}发生异常，去除代理重新请求", proxyType.toString());
             return post(url, param);
@@ -80,19 +96,20 @@ public class TLCSpiderRequest {
 
         try {
             RequestConfig config = constructHttpConfig();
-            return executePostRequest(url, param, config);
+            Map<String, Object> responseMap = executePostRequest(url, param, config);
+            return (String) responseMap.get(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT);
         } catch (Exception e) {
             throw new TLCSpiderRequestException(e);
         }
     }
 
-    private static String executeGetRequest(String url, RequestConfig config) throws IOException {
+    private static Map<String, Object> executeGetRequest(String url, RequestConfig config) throws IOException {
         CloseableHttpClient httpClient = HttpClients.custom().setDefaultRequestConfig(config).build();
         HttpGet httpGet = new HttpGet(url);
         return executeRequest(httpClient, httpGet);
     }
 
-    private static String executePostRequest(String url, Map<String, String> param, RequestConfig config) throws IOException {
+    private static Map<String, Object> executePostRequest(String url, Map<String, String> param, RequestConfig config) throws IOException {
         CloseableHttpClient httpClient = HttpClients.custom().setDefaultRequestConfig(config).build();
         HttpPost httpPost = new HttpPost(url);
 
@@ -141,9 +158,14 @@ public class TLCSpiderRequest {
         return builder.build();
     }
 
-    private static String executeRequest(CloseableHttpClient httpClient, HttpRequestBase request) throws IOException {
+    private static Map<String, Object> executeRequest(CloseableHttpClient httpClient, HttpRequestBase request) throws IOException {
+        Map<String, Object> responseMap = new HashMap();
+
         CloseableHttpResponse response = httpClient.execute(request);
-        return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.SPIDER_CONST_CHARACTER_ENCODING);
+        responseMap.put(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME, response.getStatusLine().getStatusCode());
+        responseMap.put(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT, EntityUtils.toString(response.getEntity(), TLCSpiderConstants.SPIDER_CONST_CHARACTER_ENCODING));
+
+        return responseMap;
     }
 
     public enum ProxyType {HTTP, HTTPS}
