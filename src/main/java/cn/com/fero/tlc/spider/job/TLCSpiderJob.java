@@ -8,6 +8,8 @@ import cn.com.fero.tlc.spider.vo.TransObject;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Required;
 
@@ -158,9 +160,24 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
     protected void sendDataToSystem(List<TransObject> transObjectList, String jobTitle) {
         TLCSpiderLoggerUtil.getLogger().info("发送" + jobTitle + "数据, size = " + transObjectList.size());
         Map<String, String> map = constructSystemParam();
+        checkBeginAndFinishDate(transObjectList);
         map.put(TLCSpiderConstants.SPIDER_PARAM_DATA, TLCSpiderJsonUtil.array2Json(transObjectList));
         sendDataToSystem(map);
         transObjectList.clear();
+    }
+
+    private void checkBeginAndFinishDate(List<TransObject> transObjectList) {
+        for(TransObject transObject : transObjectList) {
+            if(StringUtils.isEmpty(transObject.getProjectBeginTime())) {
+                transObject.setProjectBeginTime(DateFormatUtils.format(new Date(), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE));
+            }
+
+            if(transObject.getProgress().equals(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
+                if(StringUtils.isEmpty(transObject.getProgressFinishTime())) {
+                    transObject.setProgressFinishTime(DateFormatUtils.format(new Date(), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE));
+                }
+            }
+        }
     }
 
     protected void sendDataToSystem(Map<String, String> map) {

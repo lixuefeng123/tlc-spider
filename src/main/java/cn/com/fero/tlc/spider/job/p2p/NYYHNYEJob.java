@@ -101,17 +101,17 @@ public class NYYHNYEJob extends TLCSpiderJob {
         if (StringUtils.isNotEmpty(product.getPubStaDate()) && StringUtils.isNotEmpty(product.getPubStaTime())) {
             transObject.setProjectBeginTime(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATE_TIME, product.getPubStaDate(), product.getPubStaTime()));
         } else if (StringUtils.isNotEmpty(product.getPubStaDate())) {
-            transObject.setProjectBeginTime(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATA, product.getPubStaDate()));
+            transObject.setProjectBeginTime(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATE, product.getPubStaDate()));
         }
         if (StringUtils.isNotEmpty(product.getSellStaDate()) && StringUtils.isNotEmpty(product.getSellStaTime())) {
             transObject.setValueBegin(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATE_TIME, product.getSellStaDate(), product.getSellStaTime()));
         } else if (StringUtils.isNotEmpty(product.getPubStaDate())) {
-            transObject.setValueBegin(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATA, product.getSellStaDate()));
+            transObject.setValueBegin(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATE, product.getSellStaDate()));
         }
         if (StringUtils.isNotEmpty(product.getSellEndDate()) && StringUtils.isNotEmpty(product.getSellEndTime())) {
             transObject.setRepayBegin(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATE_TIME, product.getSellEndDate(), product.getSellEndTime()));
         } else if (StringUtils.isNotEmpty(product.getSellEndDate())) {
-            transObject.setRepayBegin(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATA, product.getSellEndDate()));
+            transObject.setRepayBegin(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATE, product.getSellEndDate()));
         }
         if (product.getInvestFlag().equals("1")) {
             transObject.setRepayType(TLCSpiderConstants.REPAY_TYPE.TOTAL.toString());

@@ -10,8 +10,9 @@ public final class TLCSpiderConstants {
     public static final String SPIDER_CONST_CONTENT_TYPE_JSON = "text/json";
     public static final String SPIDER_CONST_JOB_TITLE = "jobTitle";
     public static final String SPIDER_CONST_FORMAT_DATE_TIME = "yyyyMMddHHmmss";
-    public static final String SPIDER_CONST_FORMAT_DATA = "yyyyMMdd";
+    public static final String SPIDER_CONST_FORMAT_DATE = "yyyyMMdd";
     public static final String SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
+    public static final String SPIDER_CONST_FORMAT_DISPLAY_DATE = "yyyy-MM-dd";
     public static final String SPIDER_CONST_FULL_PROGRESS = "1";
     public static final String SPIDER_CONST_COLON = ":";
     public static final String SPIDER_CONST_HTTP_PROXY_SET = "http.proxySet";
