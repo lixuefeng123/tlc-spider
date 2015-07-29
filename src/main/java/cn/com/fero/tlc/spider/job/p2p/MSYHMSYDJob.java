@@ -111,7 +111,15 @@ public class MSYHMSYDJob extends TLCSpiderJob {
         String minInvestUnit = TLCSpiderHTMLParser.parseText(detailContent, "//strong[@id='loan_minInvestUnit']");
         minInvestUnit = minInvestUnit.replace(",", "");
         if (StringUtils.isNotEmpty(minInvestUnit)) {
-            int partsCount = Integer.parseInt(amount) / Integer.parseInt(minInvestUnit);
+            int amountNum = Integer.parseInt(amount);
+            int minInvestUnitNum = Integer.parseInt(minInvestUnit);
+
+            int partsCount;
+            if(amountNum % minInvestUnitNum == 0) {
+                partsCount = amountNum / minInvestUnitNum;
+            } else {
+                partsCount = amountNum / minInvestUnitNum + 1;
+            }
             transObject.setPartsCount(String.valueOf(partsCount));
         }
 

@@ -88,7 +88,7 @@ public class QDYHCFEWJob extends TLCSpiderJob {
         transObject.setBindCompanyId(product.getBindCompanyId());
         transObject.setBindCompanyName(product.getBindCompanyName());
         transObject.setAmount(product.getAmount());
-        transObject.setPartsCount(product.getMinInvestPartsCount());
+        transObject.setPartsCount(product.getPartsCount());
         transObject.setBankInterest(product.getBankInterest());
         transObject.setInvestmentInterest(product.getInvestmentInterest());
         transObject.setDuration(product.getDuration());

@@ -84,7 +84,7 @@ public class NBYHZXYHJob extends TLCSpiderJob {
         transObject.setProjectCode(product.getProjectCode());
         transObject.setProjectName(product.getProjectName());
         transObject.setAmount(product.getAmount());
-        transObject.setPartsCount(product.getMinInvestPartsCount());
+        transObject.setPartsCount(product.getPartsCount());
         transObject.setInvestmentInterest(product.getInvestmentInterest());
         transObject.setDuration(product.getDuration());
         transObject.setValueBegin(convertDate(product.getValueBegin()));

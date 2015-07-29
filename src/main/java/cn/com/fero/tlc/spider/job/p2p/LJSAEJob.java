@@ -148,7 +148,15 @@ public class LJSAEJob extends TLCSpiderJob {
         String increaseAmount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='raise-status-wrap']//div[@class='markUpInfo']//p[@class='mark-up-info']/span[2]");
         if (StringUtils.isNotEmpty(increaseAmount)) {
             increaseAmount = increaseAmount.split("：")[1].split("\\.")[0].replaceAll(",", "");
-            int partsCount = Integer.parseInt(amount) / Integer.parseInt(increaseAmount);
+            int amoutNum = Integer.parseInt(amount);
+            int increaseAmountNum = Integer.parseInt(increaseAmount);
+
+            int partsCount;
+            if(amoutNum % increaseAmountNum == 0) {
+                partsCount = amoutNum / increaseAmountNum;
+            } else {
+                partsCount = amoutNum / increaseAmountNum + 1;
+            }
             transObject.setPartsCount(String.valueOf(partsCount));
         }
 

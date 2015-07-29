@@ -27,6 +27,7 @@ public class LZYHEREDJob extends TLCSpiderJob {
     private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzyhered.token");
     private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzyhered.title");
     private static final String PAGE_NAME = "pn";
+    private static final String MIN_INVEST_PARTS_COUNT = "1";
 
     @Override
     public Map<String, String> constructSystemParam() {
@@ -84,6 +85,8 @@ public class LZYHEREDJob extends TLCSpiderJob {
         investmentInterest = investmentInterest.replaceAll("%", "");
         String duration = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left1']");
         duration = TLCSpiderSplitUtil.splitNumberChinese(duration, 1);
+        String minInvestAmount = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left2']");
+        minInvestAmount = TLCSpiderSplitUtil.splitNumberChinese(minInvestAmount, 1);
         String realProgress = TLCSpiderHTMLParser.parseText(product, "//div[@class='svgDemo']/script");
 
         realProgress = realProgress.replaceAll("\\n", "").replaceAll("\t", "").replaceAll(" ", "");
@@ -96,17 +99,17 @@ public class LZYHEREDJob extends TLCSpiderJob {
         String projectCode = null;
         String valueBegin = null;
         String repayBegin = null;
-        String minInvestPartsCount = null;
-        String partsCount = null;
+//        String minInvestPartsCount = null;
+//        String partsCount = null;
         if (detailLink.contains("viewProject")) {
             financingId = detailLink.split("'")[1];
             projectCode = financingId;
             String detailContent = TLCSpiderRequest.getViaProxy(URL_PRODUCT_DETAIL + financingId, TLCSpiderRequest.ProxyType.HTTPS);
 
-            minInvestPartsCount = "1";
-            String partsAmountStr = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='middle_bg']//div[@class='invest_l_bottom']//span[@class='tzdw']");
-            int partsAmount = Integer.parseInt(partsAmountStr);
-            partsCount = String.valueOf(Integer.parseInt(amount) / partsAmount);
+//            minInvestPartsCount = "1";
+//            String partsAmountStr = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='middle_bg']//div[@class='invest_l_bottom']//span[@class='tzdw']");
+//            int partsAmount = Integer.parseInt(partsAmountStr);
+//            partsCount = String.valueOf(Integer.parseInt(amount) / partsAmount);
 
             projectBeginTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='invest_l_top1']/div[@class='l_t_tfont_date']/span[@class='date2_span']");
             projectBeginTime = projectBeginTime.split(":", 2)[1].trim();
@@ -127,8 +130,17 @@ public class LZYHEREDJob extends TLCSpiderJob {
         transObject.setProjectCode(projectCode);
         transObject.setValueBegin(valueBegin);
         transObject.setRepayBegin(repayBegin);
-        transObject.setMinInvestPartsCount(minInvestPartsCount);
-        transObject.setPartsCount(partsCount);
+        transObject.setMinInvestPartsCount(MIN_INVEST_PARTS_COUNT);
+
+        int amountNum = Integer.parseInt(amount);
+        int minInvestAmountNum = Integer.parseInt(minInvestAmount);
+        int partsCount;
+        if(amountNum % minInvestAmountNum == 0) {
+            partsCount = amountNum / minInvestAmountNum;
+        } else {
+            partsCount = amountNum / minInvestAmountNum + 1;
+        }
+        transObject.setPartsCount(String.valueOf(partsCount));
 
         return transObject;
     }

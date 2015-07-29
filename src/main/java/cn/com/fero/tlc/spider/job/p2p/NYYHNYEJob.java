@@ -88,7 +88,16 @@ public class NYYHNYEJob extends TLCSpiderJob {
             transObject.setProgress("0" + product.getBuyPercent());
             transObject.setRealProgress("0" + product.getBuyPercent());
         }
-        transObject.setPartsCount(String.valueOf(Integer.parseInt(product.getProductSize()) / Integer.parseInt(product.getSingleSum())));
+
+        int amountNum = Integer.parseInt(product.getProductSize());
+        int minInvestUnitNum = Integer.parseInt(product.getSingleSum());
+        int partsCount;
+        if(amountNum % minInvestUnitNum == 0) {
+            partsCount = amountNum / minInvestUnitNum;
+        } else {
+            partsCount = amountNum / minInvestUnitNum + 1;
+        }
+        transObject.setPartsCount(String.valueOf(partsCount));
         if (StringUtils.isNotEmpty(product.getPubStaDate()) && StringUtils.isNotEmpty(product.getPubStaTime())) {
             transObject.setProjectBeginTime(TLCSpiderDateFormatUtil.formatDateTime(TLCSpiderConstants.SPIDER_CONST_FORMAT_DATE_TIME, product.getPubStaDate(), product.getPubStaTime()));
         } else if (StringUtils.isNotEmpty(product.getPubStaDate())) {

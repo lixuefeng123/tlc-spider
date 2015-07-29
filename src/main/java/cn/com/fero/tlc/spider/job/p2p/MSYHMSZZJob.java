@@ -106,7 +106,16 @@ public class MSYHMSZZJob extends TLCSpiderJob {
         String parts = investArray[0].replaceAll("'", "").trim();
         String base = investArray[1].replaceAll("'", "").split("\\.")[0].trim();
         if (StringUtils.isNotEmpty(minInvestUnit)) {
-            int partsCount = Integer.parseInt(amount) / (Integer.parseInt(parts) * Integer.parseInt(base));
+            int amountNum = Integer.parseInt(amount);
+            int minInvestUnitNum = (Integer.parseInt(parts) * Integer.parseInt(base));
+
+            int partsCount;
+            if(amountNum % minInvestUnitNum == 0) {
+                partsCount = amountNum / minInvestUnitNum;
+            } else {
+                partsCount = amountNum / minInvestUnitNum + 1;
+            }
+
             transObject.setPartsCount(String.valueOf(partsCount));
         }
 
