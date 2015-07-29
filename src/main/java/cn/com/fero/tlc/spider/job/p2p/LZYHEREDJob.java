@@ -9,10 +9,7 @@ import cn.com.fero.tlc.spider.util.TLCSpiderSplitUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.htmlcleaner.TagNode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -76,7 +73,16 @@ public class LZYHEREDJob extends TLCSpiderJob {
     }
 
     private TransObject convertToTransObject(TagNode product) {
+        TransObject transObject = new TransObject();
+
         String projectName = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='m_l_title']/span");
+        String[] nameArray = projectName.split("【", 2);
+        if(nameArray.length > 1) {
+            String projectCode = nameArray[1].replaceAll("】", "");
+            transObject.setFinancingId(projectCode);
+            transObject.setProjectCode(projectCode);
+        }
+
         String amount = TLCSpiderHTMLParser.parseText(product, "//div[@class='m_l_left']/div[@class='title_second']/div[@class='left2'][2]");
         amount = TLCSpiderSplitUtil.splitNumberChinese(amount, 1);
         amount += "0000";
@@ -95,21 +101,11 @@ public class LZYHEREDJob extends TLCSpiderJob {
         String detailLink = TLCSpiderHTMLParser.parseAttribute(product, "//a[@class='m_l_right right_unok']", "onclick");
 
         String projectBeginTime = null;
-        String financingId = null;
-        String projectCode = null;
         String valueBegin = null;
         String repayBegin = null;
-//        String minInvestPartsCount = null;
-//        String partsCount = null;
         if (detailLink.contains("viewProject")) {
-            financingId = detailLink.split("'")[1];
-            projectCode = financingId;
-            String detailContent = TLCSpiderRequest.getViaProxy(URL_PRODUCT_DETAIL + financingId, TLCSpiderRequest.ProxyType.HTTPS);
-
-//            minInvestPartsCount = "1";
-//            String partsAmountStr = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='middle_bg']//div[@class='invest_l_bottom']//span[@class='tzdw']");
-//            int partsAmount = Integer.parseInt(partsAmountStr);
-//            partsCount = String.valueOf(Integer.parseInt(amount) / partsAmount);
+            String uuid  = detailLink.split("'")[1];
+            String detailContent = TLCSpiderRequest.getViaProxy(URL_PRODUCT_DETAIL + uuid, TLCSpiderRequest.ProxyType.HTTPS);
 
             projectBeginTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='invest_l_top1']/div[@class='l_t_tfont_date']/span[@class='date2_span']");
             projectBeginTime = projectBeginTime.split(":", 2)[1].trim();
@@ -118,7 +114,6 @@ public class LZYHEREDJob extends TLCSpiderJob {
             valueBegin = valueBegin.split(":")[2].trim();
         }
 
-        TransObject transObject = new TransObject();
         transObject.setProjectName(projectName);
         transObject.setProjectBeginTime(projectBeginTime);
         transObject.setAmount(amount);
@@ -126,8 +121,6 @@ public class LZYHEREDJob extends TLCSpiderJob {
         transObject.setDuration(duration);
         transObject.setRealProgress(realProgress);
         transObject.setProgress(progress);
-        transObject.setFinancingId(financingId);
-        transObject.setProjectCode(projectCode);
         transObject.setValueBegin(valueBegin);
         transObject.setRepayBegin(repayBegin);
         transObject.setMinInvestPartsCount(MIN_INVEST_PARTS_COUNT);

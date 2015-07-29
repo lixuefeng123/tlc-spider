@@ -32,15 +32,15 @@ public final class TCLSpiderFixServer {
         String sql = "select * from p2p_spider_data where spider_id = 6";
         ResultSet rs = st.executeQuery(sql);
         while (rs.next()) {
-            int id = rs.getInt(1);
+//            int id = rs.getInt(1);
             String json = rs.getString(3);
             System.out.println(json);
-            json = json.replaceAll("=>", ":");
-            TransObject transObject = (TransObject) TLCSpiderJsonUtil.json2Object(json, TransObject.class);
-            String fixJson = TLCSpiderJsonUtil.object2Json(transObject);
-            fixJson = fixJson.replaceAll(":", "=>");
-            fixJson = fixJson.replaceAll(",\"", ", \"");
-            System.out.println(fixJson);
+//            json = json.replaceAll("=>", ":");
+//            TransObject transObject = (TransObject) TLCSpiderJsonUtil.json2Object(json, TransObject.class);
+//            String fixJson = TLCSpiderJsonUtil.object2Json(transObject);
+//            fixJson = fixJson.replaceAll(":", "=>");
+//            fixJson = fixJson.replaceAll(",\"", ", \"");
+//            System.out.println(fixJson);
 //            Statement stl = con.createStatement();
 //            stl.execute("update p2p_spider_data set finance_data = '" + fixJson + "' where id = " + id);
         }
