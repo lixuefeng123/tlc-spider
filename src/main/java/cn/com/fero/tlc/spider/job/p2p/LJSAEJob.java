@@ -10,6 +10,7 @@ import cn.com.fero.tlc.spider.util.TLCSpiderSplitUtil;
 import cn.com.fero.tlc.spider.vo.LJSAE;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.htmlcleaner.TagNode;
@@ -124,7 +125,7 @@ public class LJSAEJob extends TLCSpiderJob {
 
         String progress = TLCSpiderHTMLParser.parseText(product, "//span[@class='progress-txt']");
         progress = progress.replaceAll("%", "");
-        if (progress.equals("100")) {
+        if(!NumberUtils.isNumber(progress) || progress.equals("100")) {
             transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
             transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
         } else {
