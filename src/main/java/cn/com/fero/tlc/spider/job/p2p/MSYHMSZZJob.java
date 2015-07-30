@@ -138,7 +138,6 @@ public class MSYHMSZZJob extends TLCSpiderJob {
         String repayBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='lxybody']//div[@class='item-plan flt']//ul[@class='stepbox']//li[@class='step1-2']//div[@class='stepText'][2]");
         transObject.setRepayBegin(TLCSpiderDateFormatUtil.formatDate(repayBegin, TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
 
-        System.out.println(transObject);
         return transObject;
     }
 }

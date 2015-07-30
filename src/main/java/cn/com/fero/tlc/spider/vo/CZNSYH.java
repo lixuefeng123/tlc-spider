@@ -31,6 +31,7 @@ public class CZNSYH {
     private String percent;
     private String realStatus;
     private String interestDay;
+    private String vip;
     private ProjectFinancle projectFinancle;
 
     public String getId() {
@@ -249,6 +250,14 @@ public class CZNSYH {
         this.interestDay = interestDay;
     }
 
+    public String getVip() {
+        return vip;
+    }
+
+    public void setVip(String vip) {
+        this.vip = vip;
+    }
+
     public ProjectFinancle getProjectFinancle() {
         return projectFinancle;
     }
@@ -300,6 +309,7 @@ public class CZNSYH {
             return false;
         if (typeId != null ? !typeId.equals(cznsyh.typeId) : cznsyh.typeId != null) return false;
         if (updateTime != null ? !updateTime.equals(cznsyh.updateTime) : cznsyh.updateTime != null) return false;
+        if (vip != null ? !vip.equals(cznsyh.vip) : cznsyh.vip != null) return false;
         if (yieldDays != null ? !yieldDays.equals(cznsyh.yieldDays) : cznsyh.yieldDays != null) return false;
         if (yieldRate != null ? !yieldRate.equals(cznsyh.yieldRate) : cznsyh.yieldRate != null) return false;
 
@@ -335,6 +345,7 @@ public class CZNSYH {
         result = 31 * result + (percent != null ? percent.hashCode() : 0);
         result = 31 * result + (realStatus != null ? realStatus.hashCode() : 0);
         result = 31 * result + (interestDay != null ? interestDay.hashCode() : 0);
+        result = 31 * result + (vip != null ? vip.hashCode() : 0);
         result = 31 * result + (projectFinancle != null ? projectFinancle.hashCode() : 0);
         return result;
     }
@@ -369,6 +380,7 @@ public class CZNSYH {
         sb.append(", percent='").append(percent).append('\'');
         sb.append(", realStatus='").append(realStatus).append('\'');
         sb.append(", interestDay='").append(interestDay).append('\'');
+        sb.append(", vip='").append(vip).append('\'');
         sb.append(", projectFinancle=").append(projectFinancle);
         sb.append('}');
         return sb.toString();
