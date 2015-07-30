@@ -133,11 +133,11 @@ public class LJSPJJob extends TLCSpiderJob {
         String valueBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//li[@class='last-col']//strong");
         transObject.setValueBegin(valueBegin);
 
-        String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//p[@class='product-published-date']");
-        if (StringUtils.isNotEmpty(publishTime)) {
-            publishTime = publishTime.split("：")[1];
-            transObject.setProjectBeginTime(publishTime);
-        }
+//        String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//p[@class='product-published-date']");
+//        if (StringUtils.isNotEmpty(publishTime)) {
+//            publishTime = publishTime.split("：")[1];
+//            transObject.setProjectBeginTime(publishTime);
+//        }
 
         return transObject;
     }
