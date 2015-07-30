@@ -9,9 +9,6 @@ import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.Tag;
 import cn.com.fero.tlc.spider.vo.TransObject;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import net.sf.json.JSONArray;
-import net.sf.json.util.JSONUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.TagNode;
@@ -158,7 +155,7 @@ public class MSYHMSYDJob extends TLCSpiderJob {
         String titleContent = TLCSpiderRequest.postViaProxy(URL_PRODUCT_TITLE, titleParam, TLCSpiderRequest.ProxyType.HTTP);
         List<Tag> tagList = TLCSpiderJsonUtil.json2Array(titleContent, "promotions", Tag.class);
 
-        if(CollectionUtils.isEmpty(tagList)) {
+        if (CollectionUtils.isEmpty(tagList)) {
             return StringUtils.EMPTY;
         }
 

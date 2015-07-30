@@ -114,6 +114,13 @@
                     <property name="triggerGroupName" value="p2pTrigger"/>
                     <property name="cronExpression" value="0 * * * * ? *"/>
                 </bean>
+                <bean class="cn.com.fero.tlc.spider.job.p2p.HXEWTJob">
+                    <property name="jobName" value="hxewtJob"/>
+                    <property name="jobGroupName" value="p2p"/>
+                    <property name="triggerName" value="hxewtTrigger"/>
+                    <property name="triggerGroupName" value="p2pTrigger"/>
+                    <property name="cronExpression" value="0 * * * * ? *"/>
+                </bean>
             </list>
         </property>
     </bean>

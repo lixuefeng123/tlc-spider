@@ -42,11 +42,11 @@ public class TLCSpiderProxyTest {
 //            for (Map.Entry<String, String> entry : param.entrySet()) {
 //                paramList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
 //            }
-//            httpPost.setEntity(new UrlEncodedFormEntity(paramList, CharsetUtils.get(TLCSpiderConstants.SPIDER_CONST_CHARACTER_ENCODING)));
+//            httpPost.setEntity(new UrlEncodedFormEntity(paramList, CharsetUtils.get(TLCSpiderConstants.SPIDER_CONST_ENCODING)));
 //
 ////            httpPost.setConfig(config);
 //            CloseableHttpResponse response = httpClient.execute(httpPost);
-//            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.SPIDER_CONST_CHARACTER_ENCODING);
+//            return EntityUtils.toString(response.getEntity(), TLCSpiderConstants.SPIDER_CONST_ENCODING);
 //        } catch (Exception e) {
 //            TLCSpiderLoggerUtil.getLogger().error("使用{}发生异常，去除代理重新请求", proxyType.toString());
 //            return null;

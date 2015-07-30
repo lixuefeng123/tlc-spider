@@ -124,7 +124,7 @@ public class TLCSpiderRequest {
         for (Map.Entry<String, String> entry : param.entrySet()) {
             paramList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
         }
-        return new UrlEncodedFormEntity(paramList, CharsetUtils.get(TLCSpiderConstants.SPIDER_CONST_CHARACTER_ENCODING));
+        return new UrlEncodedFormEntity(paramList, CharsetUtils.get(TLCSpiderConstants.SPIDER_CONST_ENCODING));
     }
 
     private static RequestConfig constructProxyConfig(ProxyType proxyType) {
@@ -163,7 +163,7 @@ public class TLCSpiderRequest {
 
         CloseableHttpResponse response = httpClient.execute(request);
         responseMap.put(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME, response.getStatusLine().getStatusCode());
-        responseMap.put(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT, EntityUtils.toString(response.getEntity(), TLCSpiderConstants.SPIDER_CONST_CHARACTER_ENCODING));
+        responseMap.put(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT, EntityUtils.toString(response.getEntity(), TLCSpiderConstants.SPIDER_CONST_ENCODING));
 
         return responseMap;
     }
