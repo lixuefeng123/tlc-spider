@@ -99,11 +99,8 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
                 } else {
                     spiderParam.put(pageName, page.toString());
                 }
-                List<TransObject> resultList = getSpiderDataList(spiderParam);
-                if (CollectionUtils.isEmpty(resultList)) {
-                    break;
-                }
 
+                List<TransObject> resultList = getSpiderDataList(spiderParam);
                 for (TransObject transObject : resultList) {
                     if (StringUtils.equalsIgnoreCase(transObject.getProgress(), TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
                         isContinue = false;
@@ -123,9 +120,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
             }
 
             setUpdateToFullProgress(transObjectList, updateMap);
-            if (transObjectList.size() > 0) {
-                sendDataToSystem(transObjectList, jobTitle);
-            }
+            sendDataToSystem(transObjectList, jobTitle);
         } catch (Exception e) {
             TLCSpiderLoggerUtil.getLogger().error("发生异常：" + ExceptionUtils.getFullStackTrace(e));
             Map<String, String> map = constructSystemParam();
