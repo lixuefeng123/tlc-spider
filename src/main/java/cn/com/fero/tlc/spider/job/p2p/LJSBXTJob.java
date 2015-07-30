@@ -7,6 +7,7 @@ import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderSplitUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
+import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.TagNode;
 
 import java.util.ArrayList;
@@ -132,9 +133,10 @@ public class LJSBXTJob extends TLCSpiderJob {
         transObject.setValueBegin(valueBegin);
 
         String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//p[@class='product-published-date']");
-        publishTime = publishTime.split("：")[1];
-        transObject.setProjectBeginTime(publishTime);
-        transObject.setReadyBeginTime(publishTime);
+        if(StringUtils.isNotEmpty(publishTime)) {
+            publishTime = publishTime.split("：")[1];
+            transObject.setProjectBeginTime(publishTime);
+        }
 
         String amount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='invest-amount']//strong[@class='orange-word']");
         amount = amount.split(" ")[0].replaceAll(",", "").split("\\.")[0];

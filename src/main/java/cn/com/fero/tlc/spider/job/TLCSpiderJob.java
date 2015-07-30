@@ -172,7 +172,9 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
                 transObject.setProjectBeginTime(DateFormatUtils.format(new Date(), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE));
             }
 
-            if(transObject.getProgress().equals(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
+            if(StringUtils.isEmpty(transObject.getProgress())) {
+                transObject.setProgress("0");
+            } else if(transObject.getProgress().equals(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
                 if(StringUtils.isEmpty(transObject.getProgressFinishTime())) {
                     transObject.setProgressFinishTime(DateFormatUtils.format(new Date(), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE));
                 }
