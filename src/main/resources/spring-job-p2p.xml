@@ -107,6 +107,13 @@
                     <property name="triggerGroupName" value="p2pTrigger"/>
                     <property name="cronExpression" value="0 * * * * ? *"/>
                 </bean>
+                <bean class="cn.com.fero.tlc.spider.job.p2p.LJSXKZQJob">
+                    <property name="jobName" value="ljsxkzqJob"/>
+                    <property name="jobGroupName" value="p2p"/>
+                    <property name="triggerName" value="ljsxkzqTrigger"/>
+                    <property name="triggerGroupName" value="p2pTrigger"/>
+                    <property name="cronExpression" value="0 * * * * ? *"/>
+                </bean>
             </list>
         </property>
     </bean>
