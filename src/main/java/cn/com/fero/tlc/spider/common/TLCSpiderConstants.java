@@ -24,6 +24,7 @@ public final class TLCSpiderConstants {
     public static final int SPIDER_CONST_RESPONSE_STATUS_SUCCESS = 200;
     public static final int SPIDER_CONST_HTTP_TIMEOUT = 20000;
     public static final String SPIDER_CONST_VALUE_BEGIN = "T（成交日）+1天";
+    public static final String SPIDER_CONST_JSON_EMPTY_ARRAY = "[]";
     public static final String SPIDER_PARAM_STATUS_NAME = "status";
     public static final String SPIDER_PARAM_SID = "sid";
     public static final String SPIDER_PARAM_TOKEN = "token";

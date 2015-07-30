@@ -5,8 +5,14 @@ import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderDateFormatUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
+import cn.com.fero.tlc.spider.vo.Tag;
 import cn.com.fero.tlc.spider.vo.TransObject;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import net.sf.json.JSONArray;
+import net.sf.json.util.JSONUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.TagNode;
 
@@ -23,6 +29,7 @@ import java.util.Map;
 public class MSYHMSYDJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.url.list");
     private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.url.detail");
+    private static final String URL_PRODUCT_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.url.title");
     private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.sid");
     private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.token");
     private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.title");
@@ -86,6 +93,8 @@ public class MSYHMSYDJob extends TLCSpiderJob {
         transObject.setFinancingId(id);
         transObject.setProjectCode(id);
         transObject.setProjectName(projectName);
+        transObject.setTag(getTag(id));
+
         transObject.setInvestmentInterest(TLCSpiderHTMLParser.parseText(product, "//ul/li[2]/strong/span").replaceAll("%", ""));
 
         String amount = TLCSpiderHTMLParser.parseText(product, "//ul/li[3]/span/script");
@@ -139,5 +148,21 @@ public class MSYHMSYDJob extends TLCSpiderJob {
         transObject.setRepayBegin(TLCSpiderDateFormatUtil.formatDate(repayBegin, TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
 
         return transObject;
+    }
+
+    private String getTag(String id) {
+        Map<String, String> titleParam = new HashMap();
+        titleParam.put("loanId", id);
+        titleParam.put("purpose", "1");
+
+        String titleContent = TLCSpiderRequest.postViaProxy(URL_PRODUCT_TITLE, titleParam, TLCSpiderRequest.ProxyType.HTTP);
+        List<Tag> tagList = TLCSpiderJsonUtil.json2Array(titleContent, "promotions", Tag.class);
+
+        if(CollectionUtils.isEmpty(tagList)) {
+            return StringUtils.EMPTY;
+        }
+
+        Tag tag = tagList.get(0);
+        return tag.getName();
     }
 }

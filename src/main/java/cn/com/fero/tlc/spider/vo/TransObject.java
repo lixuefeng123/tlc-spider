@@ -51,6 +51,7 @@ public class TransObject {
     private String content;
     private String isLimitCount;
     private String progressFinishTime;
+    private String tag;
 
     public int getId() {
         return id;
@@ -428,6 +429,14 @@ public class TransObject {
         this.progressFinishTime = progressFinishTime;
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -493,6 +502,7 @@ public class TransObject {
         if (repaySourceType != null ? !repaySourceType.equals(that.repaySourceType) : that.repaySourceType != null)
             return false;
         if (repayType != null ? !repayType.equals(that.repayType) : that.repayType != null) return false;
+        if (tag != null ? !tag.equals(that.tag) : that.tag != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null) return false;
         if (updateUserId != null ? !updateUserId.equals(that.updateUserId) : that.updateUserId != null) return false;
@@ -550,6 +560,7 @@ public class TransObject {
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (isLimitCount != null ? isLimitCount.hashCode() : 0);
         result = 31 * result + (progressFinishTime != null ? progressFinishTime.hashCode() : 0);
+        result = 31 * result + (tag != null ? tag.hashCode() : 0);
         return result;
     }
 
@@ -603,6 +614,7 @@ public class TransObject {
         sb.append(", content='").append(content).append('\'');
         sb.append(", isLimitCount='").append(isLimitCount).append('\'');
         sb.append(", progressFinishTime='").append(progressFinishTime).append('\'');
+        sb.append(", tag='").append(tag).append('\'');
         sb.append('}');
         return sb.toString();
     }
