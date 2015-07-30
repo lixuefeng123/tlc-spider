@@ -92,7 +92,7 @@ public class NYYHNYEJob extends TLCSpiderJob {
         int amountNum = Integer.parseInt(product.getProductSize());
         int minInvestUnitNum = Integer.parseInt(product.getSingleSum());
         int partsCount;
-        if(amountNum % minInvestUnitNum == 0) {
+        if (amountNum % minInvestUnitNum == 0) {
             partsCount = amountNum / minInvestUnitNum;
         } else {
             partsCount = amountNum / minInvestUnitNum + 1;

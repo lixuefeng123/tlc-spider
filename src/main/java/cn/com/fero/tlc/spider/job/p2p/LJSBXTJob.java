@@ -112,11 +112,10 @@ public class LJSBXTJob extends TLCSpiderJob {
         investmentInterest = investmentInterest.replaceAll("%", "");
         transObject.setInvestmentInterest(investmentInterest);
 
-        if(projectStatus.equals("已结束")){
+        if (projectStatus.equals("已结束")) {
             transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
             transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
-        }
-        else {
+        } else {
             String progress = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='progress-wrap clearfix']/span[@class='progressTxt']");
             progress = progress.replaceAll("%", "");
             if (progress.equals("100")) {
@@ -133,7 +132,7 @@ public class LJSBXTJob extends TLCSpiderJob {
         transObject.setValueBegin(valueBegin);
 
         String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//p[@class='product-published-date']");
-        if(StringUtils.isNotEmpty(publishTime)) {
+        if (StringUtils.isNotEmpty(publishTime)) {
             publishTime = publishTime.split("：")[1];
             transObject.setProjectBeginTime(publishTime);
         }

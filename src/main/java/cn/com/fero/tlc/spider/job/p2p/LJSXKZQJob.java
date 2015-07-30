@@ -7,14 +7,16 @@ import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderSplitUtil;
-import cn.com.fero.tlc.spider.vo.LJSXKZQ;
+import cn.com.fero.tlc.spider.vo.LJSAE;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateFormatUtils;
-import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.htmlcleaner.TagNode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by shaolichao on 2015/7/28.
@@ -64,10 +66,10 @@ public class LJSXKZQJob extends TLCSpiderJob {
         String productContents = TLCSpiderRequest.getViaProxy(URL_PRODUCT_LIST + paramStr, TLCSpiderRequest.ProxyType.HTTP);
         List<TagNode> productLists = TLCSpiderHTMLParser.parseNode(productContents, "//div[@class='main-body']/ul[@class='main-list']/li[@class='more']/a");
         List<TransObject> transObjectList = new ArrayList();
-        for(TagNode products : productLists) {
+        for (TagNode products : productLists) {
             String link = TLCSpiderHTMLParser.parseAttribute(products, "href");
             if (!link.equals("#") && !link.equals("")) {
-                String productContent = TLCSpiderRequest.getViaProxy(link+"?"+ paramStr, TLCSpiderRequest.ProxyType.HTTP);
+                String productContent = TLCSpiderRequest.getViaProxy(link + "?" + paramStr, TLCSpiderRequest.ProxyType.HTTP);
                 List<TagNode> productList = TLCSpiderHTMLParser.parseNode(productContent, "//div[@class='main-wide-wrap']//ul[@class='main-list']/li");
                 for (TagNode product : productList) {
                     String expand = TLCSpiderHTMLParser.parseText(product, "//p[@class='product-count']");
@@ -104,7 +106,7 @@ public class LJSXKZQJob extends TLCSpiderJob {
         String detailContent = TLCSpiderRequest.getViaProxy(detailLink, TLCSpiderRequest.ProxyType.HTTP);
 
         String newInvestor = TLCSpiderHTMLParser.parseAttribute(detailContent, "//i[@class='iconV2 new-user-icon icon-tips']", "class");
-        if(!newInvestor.equals("")) {
+        if (StringUtils.isNotEmpty(newInvestor)) {
 
             String amount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//ul[@class='clearfix detail-info-list']//li[1]/p[2]/strong");
             amount = amount.split(" ")[0].replaceAll(",", "").split("\\.")[0];
@@ -116,16 +118,13 @@ public class LJSXKZQJob extends TLCSpiderJob {
 
             String progress = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='progress-wrap clearfix']/span[@class='progressTxt']");
             progress = progress.replaceAll("%", "");
-            if (progress.equals("100")) {
+            if (!NumberUtils.isNumber(progress) || progress.equals("100")) {
                 transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
                 transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
-            } else if (!progress.equals("")) {
+            } else {
                 double progressNum = Double.parseDouble(progress) / 100;
                 transObject.setProgress(String.valueOf(progressNum));
                 transObject.setRealProgress(String.valueOf(progressNum));
-            } else {
-                transObject.setProgress(String.valueOf(progress));
-                transObject.setRealProgress(String.valueOf(progress));
             }
 
             String duration = TLCSpiderHTMLParser.parseText(detailContent, "//ul[@class='clearfix detail-info-list']/li[3]/p[2]/strong").trim();
@@ -147,15 +146,13 @@ public class LJSXKZQJob extends TLCSpiderJob {
             }
             transObject.setRepayType(repayType);
 
-            String valueBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//li[@class='last-col']//strong");
-            transObject.setValueBegin(valueBegin);
+            transObject.setValueBegin(TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//li[@class='last-col']//strong"));
 
             String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//p[@class='product-published-date']");
             publishTime = publishTime.split("：")[1];
             transObject.setProjectBeginTime(publishTime);
             transObject.setReadyBeginTime(publishTime);
         }
-        System.out.println(transObject);
         return transObject;
     }
 
@@ -173,7 +170,7 @@ public class LJSXKZQJob extends TLCSpiderJob {
             Map<String, String> spiderParam = constructSpiderParam();
             int totalPage = getTotalPage(spiderParam);
 
-            for(int a = 1; a <= totalPage; a++) {
+            for (int a = 1; a <= totalPage; a++) {
                 spiderParam.put(PAGE_NAME, String.valueOf(a));
                 transObjectList.addAll(getSpiderDataList(spiderParam));
             }
@@ -200,10 +197,10 @@ public class LJSXKZQJob extends TLCSpiderJob {
         private List<TransObject> getSpiderDataList(Map<String, String> param) {
             String paramStr = convertToParamStr(param);
             String productContent = TLCSpiderRequest.getViaProxy(URL_PRODUCT_SUB_LIST + paramStr, TLCSpiderRequest.ProxyType.HTTP);
-            List<LJSXKZQ> productList = TLCSpiderJsonUtil.json2Array(productContent, "data", LJSXKZQ.class, "investRewardInfo");
+            List<LJSAE> productList = TLCSpiderJsonUtil.json2Array(productContent, "data", LJSAE.class, "investRewardInfo");
 
             List<TransObject> transObjectList = new ArrayList();
-            for (LJSXKZQ product : productList) {
+            for (LJSAE product : productList) {
                 TransObject transObject = convertToTransObject(product);
                 transObjectList.add(transObject);
             }
@@ -211,7 +208,7 @@ public class LJSXKZQJob extends TLCSpiderJob {
             return transObjectList;
         }
 
-        private TransObject convertToTransObject(LJSXKZQ product) {
+        private TransObject convertToTransObject(LJSAE product) {
             TransObject transObject = new TransObject();
             transObject.setFinancingId(product.getProductId());
             transObject.setProjectCode(product.getCode());
@@ -219,19 +216,18 @@ public class LJSXKZQJob extends TLCSpiderJob {
             transObject.setAmount(product.getPrice());
             transObject.setPartsCount(String.valueOf(Integer.parseInt(product.getPrice()) / Integer.parseInt(product.getMinInvestAmount())));
             transObject.setInvestmentInterest(String.valueOf(Double.parseDouble(product.getInterestRateDisplay()) * 100));
-            if(product.getInvestPeriodDisplay().contains("月")) {
+            if (product.getInvestPeriodDisplay().contains("月")) {
                 transObject.setDuration(String.valueOf(Integer.parseInt(product.getInvestPeriod()) * 30));
             } else {
                 transObject.setDuration(product.getInvestPeriod());
             }
-            if(product.getCollectionMode().equals("1")) {
+            if (product.getCollectionMode().equals("1")) {
                 transObject.setRepayType("2");
             } else {
                 transObject.setRepayType("0");
             }
 
-            transObject.setValueBegin(DateFormatUtils.format(DateUtils.addDays(new Date(), 1), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
-            transObject.setRepayBegin(DateFormatUtils.format(DateUtils.addYears(new Date(), 3), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
+            transObject.setValueBegin(TLCSpiderConstants.SPIDER_CONST_VALUE_BEGIN);
             transObject.setRepaySourceType(product.getSourceType());
             transObject.setProjectBeginTime(product.getPublishAtCompleteTime());
             transObject.setReadyBeginTime(product.getPublishAtCompleteTime());

@@ -53,7 +53,7 @@ public class MSYHMSZZJob extends TLCSpiderJob {
         List<TagNode> pageNodeList = TLCSpiderHTMLParser.parseNode(pageContent, "//div[@class='container']//div[@class='mod-page']/a");
         int pageNodeLength = pageNodeList.size();
         String totalPage;
-        if(pageNodeLength <= 2) {
+        if (pageNodeLength <= 2) {
             totalPage = TLCSpiderConstants.SPIDER_PARAM_PAGE_ONE;
         } else {
             totalPage = pageNodeList.get(pageNodeLength - 2).getText().toString().trim();
@@ -110,7 +110,7 @@ public class MSYHMSZZJob extends TLCSpiderJob {
             int minInvestUnitNum = (Integer.parseInt(parts) * Integer.parseInt(base));
 
             int partsCount;
-            if(amountNum % minInvestUnitNum == 0) {
+            if (amountNum % minInvestUnitNum == 0) {
                 partsCount = amountNum / minInvestUnitNum;
             } else {
                 partsCount = amountNum / minInvestUnitNum + 1;

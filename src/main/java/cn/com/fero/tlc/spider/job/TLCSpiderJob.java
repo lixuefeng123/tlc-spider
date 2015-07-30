@@ -9,7 +9,6 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Required;
 
@@ -167,15 +166,15 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
     }
 
     private void checkBeginAndFinishDate(List<TransObject> transObjectList) {
-        for(TransObject transObject : transObjectList) {
-            if(StringUtils.isEmpty(transObject.getProjectBeginTime())) {
+        for (TransObject transObject : transObjectList) {
+            if (StringUtils.isEmpty(transObject.getProjectBeginTime())) {
                 transObject.setProjectBeginTime(DateFormatUtils.format(new Date(), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE));
             }
 
-            if(StringUtils.isEmpty(transObject.getProgress())) {
+            if (StringUtils.isEmpty(transObject.getProgress())) {
                 transObject.setProgress("0");
-            } else if(transObject.getProgress().equals(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
-                if(StringUtils.isEmpty(transObject.getProgressFinishTime())) {
+            } else if (transObject.getProgress().equals(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS)) {
+                if (StringUtils.isEmpty(transObject.getProgressFinishTime())) {
                     transObject.setProgressFinishTime(DateFormatUtils.format(new Date(), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE));
                 }
             }

@@ -11,11 +11,12 @@ import cn.com.fero.tlc.spider.vo.LJSAE;
 import cn.com.fero.tlc.spider.vo.TransObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.htmlcleaner.TagNode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -79,7 +80,7 @@ public class LJSAEJob extends TLCSpiderJob {
         List<TransObject> transObjectList = new ArrayList();
         for (TagNode product : productList) {
             String expand = TLCSpiderHTMLParser.parseText(product, "//p[@class='product-count']");
-            if(StringUtils.isEmpty(expand)) {
+            if (StringUtils.isEmpty(expand)) {
                 TransObject transObject = convertToTransObject(product);
                 transObjectList.add(transObject);
             } else {
@@ -125,7 +126,7 @@ public class LJSAEJob extends TLCSpiderJob {
 
         String progress = TLCSpiderHTMLParser.parseText(product, "//span[@class='progress-txt']");
         progress = progress.replaceAll("%", "");
-        if(!NumberUtils.isNumber(progress) || progress.equals("100")) {
+        if (!NumberUtils.isNumber(progress) || progress.equals("100")) {
             transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
             transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
         } else {
@@ -153,13 +154,15 @@ public class LJSAEJob extends TLCSpiderJob {
             int increaseAmountNum = Integer.parseInt(increaseAmount);
 
             int partsCount;
-            if(amoutNum % increaseAmountNum == 0) {
+            if (amoutNum % increaseAmountNum == 0) {
                 partsCount = amoutNum / increaseAmountNum;
             } else {
                 partsCount = amoutNum / increaseAmountNum + 1;
             }
             transObject.setPartsCount(String.valueOf(partsCount));
         }
+
+        transObject.setValueBegin(TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//li[@class='last-col']//strong"));
 
         String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//p[@class='product-published-date']");
         publishTime = publishTime.split("：", 2)[1];
@@ -182,7 +185,7 @@ public class LJSAEJob extends TLCSpiderJob {
             Map<String, String> spiderParam = constructSpiderParam();
             int totalPage = getTotalPage(spiderParam);
 
-            for(int a = 1; a <= totalPage; a++) {
+            for (int a = 1; a <= totalPage; a++) {
                 spiderParam.put(PAGE_NAME, String.valueOf(a));
                 transObjectList.addAll(getSpiderDataList(spiderParam));
             }
@@ -228,19 +231,18 @@ public class LJSAEJob extends TLCSpiderJob {
             transObject.setAmount(product.getPrice());
             transObject.setPartsCount(String.valueOf(Integer.parseInt(product.getPrice()) / Integer.parseInt(product.getMinInvestAmount())));
             transObject.setInvestmentInterest(String.valueOf(Double.parseDouble(product.getInterestRateDisplay()) * 100));
-            if(product.getInvestPeriodDisplay().contains("月")) {
+            if (product.getInvestPeriodDisplay().contains("月")) {
                 transObject.setDuration(String.valueOf(Integer.parseInt(product.getInvestPeriod()) * 30));
             } else {
                 transObject.setDuration(product.getInvestPeriod());
             }
-            if(product.getCollectionMode().equals("1")) {
+            if (product.getCollectionMode().equals("1")) {
                 transObject.setRepayType("2");
             } else {
                 transObject.setRepayType("0");
             }
 
-            transObject.setValueBegin(DateFormatUtils.format(DateUtils.addDays(new Date(), 1), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
-            transObject.setRepayBegin(DateFormatUtils.format(DateUtils.addYears(new Date(), 3), TLCSpiderConstants.SPIDER_CONST_FORMAT_DISPLAY_DATE_TIME));
+            transObject.setValueBegin(TLCSpiderConstants.SPIDER_CONST_VALUE_BEGIN);
             transObject.setRepaySourceType(product.getSourceType());
             transObject.setProjectBeginTime(product.getPublishAtCompleteTime());
             transObject.setReadyBeginTime(product.getPublishAtCompleteTime());

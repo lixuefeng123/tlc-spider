@@ -1,8 +1,6 @@
 package cn.com.fero.tlc.spider;
 
 import cn.com.fero.tlc.spider.schedule.TLCSpiderScheduler;
-import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
-import cn.com.fero.tlc.spider.vo.TransObject;
 import org.springframework.context.ApplicationContext;
 
 import java.sql.*;
@@ -29,7 +27,7 @@ public final class TCLSpiderFixServer {
         Connection con = DriverManager.getConnection(url, "postgres", "3084dce76f8c14b618b4762f1b7495a9");
         Statement st = con.createStatement();
         st.setFetchSize(1000);
-        String sql = "select * from p2p_spider_data where spider_id = 6";
+        String sql = "select * from p2p_spider_data where spider_id = 10";
         ResultSet rs = st.executeQuery(sql);
         while (rs.next()) {
 //            int id = rs.getInt(1);

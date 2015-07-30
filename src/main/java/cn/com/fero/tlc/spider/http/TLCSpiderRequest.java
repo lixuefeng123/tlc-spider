@@ -43,7 +43,7 @@ public class TLCSpiderRequest {
             Map<String, Object> responseMap = executeGetRequest(url, config);
 
             int status = (int) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
-            if(status != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
+            if (status != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
                 throw new TLCSpiderRequestException("not response 200 via proxy");
             }
 
@@ -75,10 +75,10 @@ public class TLCSpiderRequest {
 
         try {
             RequestConfig config = constructProxyConfig(proxyType);
-            Map<String, Object> responseMap =  executePostRequest(url, param, config);
+            Map<String, Object> responseMap = executePostRequest(url, param, config);
 
             int status = (int) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
-            if(status != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
+            if (status != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
                 throw new TLCSpiderRequestException("not response 200 via proxy");
             }
 
