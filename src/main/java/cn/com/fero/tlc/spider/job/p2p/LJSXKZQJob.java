@@ -29,6 +29,7 @@ public class LJSXKZQJob extends TLCSpiderJob {
     private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjxkzq.title");
     private static final String PAGE_NAME = "currentPage";
     private static final String PAGE_SIZE = "5";
+    private static final String TAG_NAME = "新客";
 
     @Override
     public Map<String, String> constructSystemParam() {
@@ -152,6 +153,7 @@ public class LJSXKZQJob extends TLCSpiderJob {
             publishTime = publishTime.split("：")[1];
             transObject.setProjectBeginTime(publishTime);
             transObject.setReadyBeginTime(publishTime);
+            transObject.setTag(TAG_NAME);
         }
         return transObject;
     }
@@ -236,7 +238,7 @@ public class LJSXKZQJob extends TLCSpiderJob {
             transObject.setProjectType(product.getProductType());
             transObject.setRealProgress(product.getProgress());
             transObject.setProgress(product.getProgress());
-            System.out.println(transObject);
+            transObject.setTag(TAG_NAME);
             return transObject;
         }
     }
