@@ -43,3 +43,5 @@ dbType
 title
 content
 isLimitCount 最小投资份数
+progressFinishTime 完成融资时间
+tag  项目介绍
