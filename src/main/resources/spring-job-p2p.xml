@@ -6,7 +6,7 @@
 
     <bean id="tlcSpiderP2PScheduler" class="cn.com.fero.tlc.spider.schedule.TLCSpiderScheduler">
         <property name="schedulerFactory" ref="schedulerFactory"/>
-        <property name="schedulerName" value="p2p调度器"/>
+        <property name="schedulerName" value="p2p抓取调度器"/>
         <property name="jobList">
             <list>
                 <bean class="cn.com.fero.tlc.spider.job.p2p.NYYHNYEJob">

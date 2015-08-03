@@ -7,7 +7,6 @@ import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderSplitUtil;
 import cn.com.fero.tlc.spider.vo.TransObject;
-import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.TagNode;
 
 import java.util.ArrayList;
@@ -20,11 +19,11 @@ import java.util.Map;
  */
 //陆金所投资频道安盈-票据抓取
 public class LJSPJJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjpj.url.list");
-    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjpj.url.detail");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjpj.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjpj.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjpj.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjpj.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjpj.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjpj.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjpj.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjpj.title");
     private static final String PAGE_NAME = "currentPage";
     private static final String PAGE_SIZE = "5";
 

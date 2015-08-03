@@ -22,10 +22,10 @@ import java.util.Map;
 public class HRYHJob extends TLCSpiderJob {
     //detail: https://e.qdccb.com/home/detail?FinancingId=85433605-1ad3-4243-bb4e-836f8310cf62
 
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.hryh.url.list");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.hryh.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.hryh.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.hryh.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.hryh.url.list");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.hryh.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.hryh.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.hryh.title");
     private static final String PAGE_NAME = "PageIndex";
     private static final String PAGE_SIZE = "10";
 

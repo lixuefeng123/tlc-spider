@@ -21,11 +21,11 @@ import java.util.Map;
  */
 //华夏银行E网通抓取
 public class HXEWTJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.hxewt.url.list");
-    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.hxewt.url.detail");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.hxewt.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.hxewt.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.hxewt.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.hxewt.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.hxewt.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.hxewt.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.hxewt.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.hxewt.title");
     private static final String PAGE_NAME = "page";
 
     @Override

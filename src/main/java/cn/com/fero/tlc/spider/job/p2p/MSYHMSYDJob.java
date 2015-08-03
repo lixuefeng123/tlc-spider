@@ -24,12 +24,12 @@ import java.util.Map;
  */
 //民生银行民生易贷抓取
 public class MSYHMSYDJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.url.list");
-    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.url.detail");
-    private static final String URL_PRODUCT_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.url.title");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmsyd.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.msyhmsyd.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.msyhmsyd.url.detail");
+    private static final String URL_PRODUCT_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.msyhmsyd.url.title");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.msyhmsyd.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.msyhmsyd.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.msyhmsyd.title");
     private static final String PAGE_NAME = "page";
 
     @Override

@@ -22,11 +22,11 @@ import java.util.Map;
  * Created by shaolichao on 2015/7/28.
  */
 public class LJSXKZQJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjxkzq.url.list");
-    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjxkzq.url.detail");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjxkzq.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjxkzq.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjxkzq.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjxkzq.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjxkzq.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjxkzq.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjxkzq.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjxkzq.title");
     private static final String PAGE_NAME = "currentPage";
     private static final String PAGE_SIZE = "5";
     private static final String TAG_NAME = "新客";
@@ -159,7 +159,7 @@ public class LJSXKZQJob extends TLCSpiderJob {
     }
 
     private class LJSXKZQSubJob {
-        private final String URL_PRODUCT_SUB_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjxkzq.url.sublist");
+        private final String URL_PRODUCT_SUB_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjxkzq.url.sublist");
         private final String PAGE_NAME = "pageNo";
         private String productId;
 

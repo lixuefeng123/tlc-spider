@@ -23,10 +23,10 @@ import java.util.Map;
 public class NYYHNYEJob extends TLCSpiderJob {
     //detail: https://one.gdnybank.com/pages/er_product_detail.html
 
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.nyyhnye.url.list");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.nyyhnye.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.nyyhnye.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.nyyhnye.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.nyyhnye.url.list");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.nyyhnye.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.nyyhnye.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.nyyhnye.title");
     private static final String PAGE_NAME = "page";
     private static final String PAGE_SIZE = "8";
 

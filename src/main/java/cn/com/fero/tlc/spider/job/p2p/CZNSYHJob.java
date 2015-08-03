@@ -22,11 +22,11 @@ import java.util.Map;
  */
 //长子农商银行长青融E贷抓取
 public class CZNSYHJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.url.list");
-    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.url.detail");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.cznsyh.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.cznsyh.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.cznsyh.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.cznsyh.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.cznsyh.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.cznsyh.title");
     private static final String PAGE_NAME = "index";
     private static final String PAGE_SIZE = "5";
 

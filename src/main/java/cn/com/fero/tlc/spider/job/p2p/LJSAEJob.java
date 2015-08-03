@@ -24,11 +24,11 @@ import java.util.Map;
  */
 //陆金所投资频道稳盈-安e通抓取
 public class LJSAEJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.url.list");
-    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.url.detail");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjtz.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjtz.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjtz.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjtz.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjtz.title");
     private static final String PAGE_NAME = "currentPage";
 
     @Override
@@ -172,7 +172,7 @@ public class LJSAEJob extends TLCSpiderJob {
     }
 
     private class LJSAESubJob {
-        private final String URL_PRODUCT_SUB_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzjtz.url.sublist");
+        private final String URL_PRODUCT_SUB_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjtz.url.sublist");
         private final String PAGE_NAME = "pageNo";
         private String productId;
 

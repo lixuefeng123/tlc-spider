@@ -201,7 +201,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
 
     @Override
     public int getTotalPage(Map<String, String> param) {
-        return Integer.MAX_VALUE;
+        return Integer.parseInt(TLCSpiderConstants.SPIDER_PARAM_PAGE_ONE);
     }
 
     @Override

@@ -21,11 +21,11 @@ import java.util.Map;
 //兰州银行E融E贷抓取
 public class LZYHEREDJob extends TLCSpiderJob {
 
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzyhered.url.list");
-    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzyhered.url.detail");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzyhered.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzyhered.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.lzyhered.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzyhered.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzyhered.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzyhered.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzyhered.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzyhered.title");
     private static final String PAGE_NAME = "pn";
     private static final String MIN_INVEST_PARTS_COUNT = "1";
 

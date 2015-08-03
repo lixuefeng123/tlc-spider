@@ -10,6 +10,6 @@ public class TLCSpiderPropertiesUtilTest {
 
     @Test
     public void testExtract() {
-        System.out.println(TLCSpiderPropertiesUtil.getResource("tlc.spider.zhxqyej.title"));
+        System.out.println(TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.zhxqyej.title"));
     }
 }

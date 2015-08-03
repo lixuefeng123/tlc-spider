@@ -21,11 +21,11 @@ import java.util.Map;
  */
 //民生银行民生转赚抓取
 public class MSYHMSZZJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmszz.url.list");
-    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmszz.url.detail");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmszz.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmszz.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.msyhmszz.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.msyhmszz.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.msyhmszz.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.msyhmszz.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.msyhmszz.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.msyhmszz.title");
     private static final String PAGE_NAME = "page";
 
     @Override

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="tlcSpiderArticleScheduler" class="cn.com.fero.tlc.spider.schedule.TLCSpiderScheduler">
+        <property name="schedulerFactory" ref="schedulerFactory"/>
+        <property name="schedulerName" value="文章抓取调度器"/>
+        <property name="jobList">
+            <list>
+                <bean class="cn.com.fero.tlc.spider.job.article.ArticleJob">
+                    <property name="jobName" value="articleJob"/>
+                    <property name="jobGroupName" value="article"/>
+                    <property name="triggerName" value="articleTrigger"/>
+                    <property name="triggerGroupName" value="articleTrigger"/>
+                    <property name="cronExpression" value="0/10 * * * * ? *"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+</beans>

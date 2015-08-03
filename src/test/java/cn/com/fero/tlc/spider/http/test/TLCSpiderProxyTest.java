@@ -7,6 +7,8 @@ import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderProxyUtil;
 import cn.com.fero.tlc.spider.vo.RequestProxy;
 import org.junit.Test;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -68,7 +70,7 @@ public class TLCSpiderProxyTest {
 
     @Test
     public void testHttpsProxy() {
-        String url = TLCSpiderPropertiesUtil.getResource("tlc.spider.rdnsyherjz.url.list");
+        String url = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.rdnsyherjz.url.list");
 
         Map<String, String> param = new HashMap();
         param.put("PageIndex", TLCSpiderConstants.SPIDER_PARAM_PAGE_ONE);
@@ -84,5 +86,28 @@ public class TLCSpiderProxyTest {
         String countStr = TLCSpiderJsonUtil.getString(countContent, "Data");
         String totalCount = TLCSpiderJsonUtil.getString(countStr, "TotalCount");
         System.out.println(totalCount);
+    }
+
+    @Test
+    public void testGetUpdateArticle() {
+        String updateUrl = "http://tailicaiop.fero.com.cn/spiderapi/article/post";
+        String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.sid");
+        String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.token");
+
+        Map<String, String> param = new HashMap();
+        param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
+        param.put(TLCSpiderConstants.SPIDER_PARAM_TOKEN, TOKEN);
+
+        String response = TLCSpiderRequest.post(updateUrl, param);
+        System.out.println(response);
+    }
+
+    @Test
+    public void testGetArticle() {
+        String url = "http://weixin.sogou.com/gzhjs?cb=sogou.weixin.gzhcb&openid=oIWsFtzcuQtoMO739-mwrqoaWPi4&eqs=pLsqoWtgfIG6osjbygAtCud8xqO5CwnfW%2FMb%2F1qtjEICoi1ZVmfZcmuCOexPe1wuwFIBJ&ekv=7";
+        Map<String, String> head = new HashMap();
+        head.put("Cookie", "CXID=C2D908DCA2484D12F57C0A1D143A7B66; SUID=97017D7B142D900A55B5C349000477E0; SUV=1507271026258805; ABTEST=0|1438588933|v1; SNUID=C9EE0F0001071D6194556AA302CBA565; ad=Iyllllllll2qHt2JlllllVQ@JAZlllllWT1xOZllll9llllllCxlw@@@@@@@@@@@; IPLOC=CN1100");
+        String articleContent = TLCSpiderRequest.getViaProxy(url, TLCSpiderRequest.ProxyType.HTTP, head);
+        System.out.println(articleContent);
     }
 }

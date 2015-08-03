@@ -29,8 +29,8 @@ public final class TLCSpiderConstants {
     public static final String SPIDER_PARAM_STATUS_SUCCESS_CODE = "200";
     public static final String SPIDER_PARAM_STATUS_FAIL_CODE = "500";
     public static final int SPIDER_PAGE_SIZE_SEND = 100;
-    public static final String SPIDER_URL_SEND = TLCSpiderPropertiesUtil.getResource("tlc.spider.interactive.url.send");
-    public static final String SPIDER_URL_GET = TLCSpiderPropertiesUtil.getResource("tlc.spider.interactive.url.get");
+    public static final String SPIDER_URL_SEND = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.interactive.url.send");
+    public static final String SPIDER_URL_GET = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.interactive.url.get");
 
     private TLCSpiderConstants() {
         throw new UnsupportedOperationException();

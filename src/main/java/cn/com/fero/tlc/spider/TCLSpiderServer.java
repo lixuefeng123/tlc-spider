@@ -11,29 +11,32 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * Created by wanghongmeng on 2015/6/16.
  */
 public final class TCLSpiderServer {
-
     private static ApplicationContext applicationContext;
-    private static TLCSpiderScheduler p2pScheduler;
-
 
     public static void main(String[] args) throws InterruptedException {
+        TLCSpiderScheduler p2pScheduler = null;
+        TLCSpiderScheduler articleScheduler = null;
         try {
             TLCSpiderLoggerUtil.getLogger().info("加载spring配置文件");
             applicationContext = new ClassPathXmlApplicationContext("classpath*: spring-*.xml");
-            p2pScheduler = initP2PScheduler();
+//            p2pScheduler = initScheduler("tlcSpiderP2PScheduler");
+            articleScheduler = initScheduler("tlcSpiderArticleScheduler");
         } catch (BeansException e) {
             TLCSpiderLoggerUtil.getLogger().error(ExceptionUtils.getFullStackTrace(e));
             if (null != p2pScheduler) {
                 p2pScheduler.shutdown();
             }
+            if (null != articleScheduler) {
+                articleScheduler.shutdown();
+            }
         }
     }
 
-    private static TLCSpiderScheduler initP2PScheduler() {
-        p2pScheduler = (TLCSpiderScheduler) applicationContext.getBean("tlcSpiderP2PScheduler");
-        p2pScheduler.init();
-        p2pScheduler.loadJobs();
-        p2pScheduler.start();
-        return p2pScheduler;
+    private static TLCSpiderScheduler initScheduler(String scheduleName) {
+        TLCSpiderScheduler scheduler = (TLCSpiderScheduler) applicationContext.getBean(scheduleName);
+        scheduler.init();
+        scheduler.loadJobs();
+        scheduler.start();
+        return scheduler;
     }
 }

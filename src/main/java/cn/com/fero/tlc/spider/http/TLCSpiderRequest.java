@@ -7,6 +7,7 @@ import cn.com.fero.tlc.spider.util.TLCSpiderProxyUtil;
 import cn.com.fero.tlc.spider.vo.RequestProxy;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
@@ -24,15 +25,33 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by gizmo on 15/6/18.
  */
 public class TLCSpiderRequest {
+    public static String getViaProxy(String url, ProxyType proxyType, Map<String, String> header) {
+        if (StringUtils.isEmpty(url)) {
+            throw new IllegalArgumentException();
+        }
+
+        try {
+            RequestConfig config = constructProxyConfig(proxyType);
+            Map<String, Object> responseMap = executeGetRequest(url, config, header);
+
+            int status = (int) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
+            if (status != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
+                throw new TLCSpiderRequestException("not response 200 via proxy");
+            }
+
+            return (String) responseMap.get(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT);
+        } catch (Exception e) {
+            TLCSpiderLoggerUtil.getLogger().error("使用{}发生异常，去除代理重新请求", proxyType.toString());
+            return get(url);
+        }
+    }
+
     public static String getViaProxy(String url, ProxyType proxyType) {
         if (StringUtils.isEmpty(url)) {
             throw new IllegalArgumentException();
@@ -40,7 +59,7 @@ public class TLCSpiderRequest {
 
         try {
             RequestConfig config = constructProxyConfig(proxyType);
-            Map<String, Object> responseMap = executeGetRequest(url, config);
+            Map<String, Object> responseMap = executeGetRequest(url, config, Collections.EMPTY_MAP);
 
             int status = (int) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
             if (status != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
@@ -61,10 +80,45 @@ public class TLCSpiderRequest {
 
         try {
             RequestConfig config = constructHttpConfig();
-            Map<String, Object> responseMap = executeGetRequest(url, config);
+            Map<String, Object> responseMap = executeGetRequest(url, config, Collections.EMPTY_MAP);
             return (String) responseMap.get(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT);
         } catch (Exception e) {
             throw new TLCSpiderRequestException(e);
+        }
+    }
+
+    public static String get(String url, Map<String, String> header) {
+        if (StringUtils.isEmpty(url)) {
+            throw new IllegalArgumentException();
+        }
+
+        try {
+            RequestConfig config = constructHttpConfig();
+            Map<String, Object> responseMap = executeGetRequest(url, config, header);
+            return (String) responseMap.get(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT);
+        } catch (Exception e) {
+            throw new TLCSpiderRequestException(e);
+        }
+    }
+
+    public static String postViaProxy(String url, Map<String, String> param, ProxyType proxyType, Map<String, String> header) {
+        if (StringUtils.isEmpty(url) || MapUtils.isEmpty(param)) {
+            throw new IllegalArgumentException();
+        }
+
+        try {
+            RequestConfig config = constructProxyConfig(proxyType);
+            Map<String, Object> responseMap = executePostRequest(url, param, config, header);
+
+            int status = (int) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
+            if (status != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
+                throw new TLCSpiderRequestException("not response 200 via proxy");
+            }
+
+            return (String) responseMap.get(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT);
+        } catch (Exception e) {
+            TLCSpiderLoggerUtil.getLogger().error("使用{}发生异常，去除代理重新请求", proxyType.toString());
+            return post(url, param, header);
         }
     }
 
@@ -75,7 +129,7 @@ public class TLCSpiderRequest {
 
         try {
             RequestConfig config = constructProxyConfig(proxyType);
-            Map<String, Object> responseMap = executePostRequest(url, param, config);
+            Map<String, Object> responseMap = executePostRequest(url, param, config, Collections.EMPTY_MAP);
 
             int status = (int) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
             if (status != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
@@ -89,6 +143,20 @@ public class TLCSpiderRequest {
         }
     }
 
+    public static String post(String url, Map<String, String> param, Map<String, String> header) {
+        if (StringUtils.isEmpty(url) || MapUtils.isEmpty(param)) {
+            throw new IllegalArgumentException();
+        }
+
+        try {
+            RequestConfig config = constructHttpConfig();
+            Map<String, Object> responseMap = executePostRequest(url, param, config, header);
+            return (String) responseMap.get(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT);
+        } catch (Exception e) {
+            throw new TLCSpiderRequestException(e);
+        }
+    }
+
     public static String post(String url, Map<String, String> param) {
         if (StringUtils.isEmpty(url) || MapUtils.isEmpty(param)) {
             throw new IllegalArgumentException();
@@ -96,27 +164,27 @@ public class TLCSpiderRequest {
 
         try {
             RequestConfig config = constructHttpConfig();
-            Map<String, Object> responseMap = executePostRequest(url, param, config);
+            Map<String, Object> responseMap = executePostRequest(url, param, config, Collections.EMPTY_MAP);
             return (String) responseMap.get(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT);
         } catch (Exception e) {
             throw new TLCSpiderRequestException(e);
         }
     }
 
-    private static Map<String, Object> executeGetRequest(String url, RequestConfig config) throws IOException {
+    private static Map<String, Object> executeGetRequest(String url, RequestConfig config, Map<String, String> header) throws IOException {
         CloseableHttpClient httpClient = HttpClients.custom().setDefaultRequestConfig(config).build();
         HttpGet httpGet = new HttpGet(url);
-        return executeRequest(httpClient, httpGet);
+        return executeRequest(httpClient, httpGet, header);
     }
 
-    private static Map<String, Object> executePostRequest(String url, Map<String, String> param, RequestConfig config) throws IOException {
+    private static Map<String, Object> executePostRequest(String url, Map<String, String> param, RequestConfig config, Map<String, String> header) throws IOException {
         CloseableHttpClient httpClient = HttpClients.custom().setDefaultRequestConfig(config).build();
         HttpPost httpPost = new HttpPost(url);
 
         HttpEntity entity = constructPostEntity(param);
         httpPost.setEntity(entity);
 
-        return executeRequest(httpClient, httpPost);
+        return executeRequest(httpClient, httpPost, header);
     }
 
     private static HttpEntity constructPostEntity(Map<String, String> param) throws UnsupportedEncodingException {
@@ -158,8 +226,12 @@ public class TLCSpiderRequest {
         return builder.build();
     }
 
-    private static Map<String, Object> executeRequest(CloseableHttpClient httpClient, HttpRequestBase request) throws IOException {
+    private static Map<String, Object> executeRequest(CloseableHttpClient httpClient, HttpRequestBase request, Map<String, String> header) throws IOException {
         Map<String, Object> responseMap = new HashMap();
+
+        for(Map.Entry<String, String> entry : header.entrySet()) {
+            request.setHeader(entry.getKey(), entry.getValue());
+        }
 
         CloseableHttpResponse response = httpClient.execute(request);
         responseMap.put(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME, response.getStatusLine().getStatusCode());
