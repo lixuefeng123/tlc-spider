@@ -5,10 +5,8 @@ import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderProxyUtil;
-import cn.com.fero.tlc.spider.vo.RequestProxy;
+import cn.com.fero.tlc.spider.vo.p2p.RequestProxy;
 import org.junit.Test;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -90,7 +88,7 @@ public class TLCSpiderProxyTest {
 
     @Test
     public void testGetUpdateArticle() {
-        String updateUrl = "http://tailicaiop.fero.com.cn/spiderapi/article/post";
+        String updateUrl = "http://tailicaiop.fero.com.cn/spiderapi/article/source";
         String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.sid");
         String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.token");
 

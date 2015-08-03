@@ -3,7 +3,10 @@ package cn.com.fero.tlc.spider.job.article;
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.job.TLCSpiderJob;
+import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderLoggerUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
+import cn.com.fero.tlc.spider.vo.article.ArticleSource;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -16,6 +19,7 @@ import java.util.Map;
  */
 //文章抓取
 public class ArticleJob extends TLCSpiderJob{
+    private static final String URL_ARTICLE_SOURCE = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.url");
     private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.sid");
     private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.token");
     private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.title");
@@ -25,22 +29,44 @@ public class ArticleJob extends TLCSpiderJob{
         }
     };
 
-    public Map<String, String> constructSystemParam() {
+    public Map<String, String> constructGetParam() {
         Map<String, String> param = new HashMap();
         param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
         param.put(TLCSpiderConstants.SPIDER_PARAM_TOKEN, TOKEN);
         return param;
     }
 
+    public Map<String, String> constructSendParam() {
+        Map<String, String> param = new HashMap();
+        param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
+        param.put(TLCSpiderConstants.SPIDER_PARAM_TOKEN, TOKEN);
+        param.put("article_source_id", "");
+        param.put(TLCSpiderConstants.SPIDER_PARAM_DATA, "");
+        return param;
+    }
+
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        String updateUrl = "http://localhost:3005/spiderapi/article/post?sid=5&token=%3dM8Amx29CyeP8b2Ne9KC0dJOUFQ5O%3dMQG0gnTV9%2b0tf8";
-        Map<String, String> param = constructSystemParam();
-        String response = TLCSpiderRequest.post(updateUrl, param);
-        System.out.println(response);
+        Map<String, String> getParam = constructGetParam();
+        String sourceContent = TLCSpiderRequest.post(URL_ARTICLE_SOURCE, getParam);
+        String sourceData = TLCSpiderJsonUtil.getString(sourceContent, "data");
+        ArticleSource articleSource = (ArticleSource) TLCSpiderJsonUtil.json2Object(sourceData, ArticleSource.class);
 
-        String url = "http://weixin.sogou.com/gzhjs?cb=sogou.weixin.gzhcb&openid=oIWsFtzcuQtoMO739-mwrqoaWPi4&eqs=pLsqoWtgfIG6osjbygAtCud8xqO5CwnfW%2FMb%2F1qtjEICoi1ZVmfZcmuCOexPe1wuwFIBJ&ekv=7";
-        String articleContent = TLCSpiderRequest.getViaProxy(url, TLCSpiderRequest.ProxyType.HTTP, HEAD);
-        System.out.println(articleContent);
+        String artileUrl = articleSource.getUrl();
+        String fetchContent = TLCSpiderRequest.getViaProxy(artileUrl, TLCSpiderRequest.ProxyType.HTTP);
+        if(!fetchContent.contains("totalPages")) {
+            TLCSpiderLoggerUtil.getLogger().info("使用代理抓取文章异常，去除代理重新请求");
+            fetchContent = TLCSpiderRequest.get(artileUrl);
+        }
+
+        if(fetchContent.contains("totalPages")) {
+            String fetchData = fetchContent.substring(fetchContent.indexOf("{"), fetchContent.lastIndexOf("}") + 1);
+            String totalPages = TLCSpiderJsonUtil.getString(fetchData, "totalPages");
+            String items = TLCSpiderJsonUtil.getString(fetchData, "items");
+
+
+        } else {
+            TLCSpiderLoggerUtil.getLogger().info("返回内容错误，抓取文章结束");
+        }
     }
 }

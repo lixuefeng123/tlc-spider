@@ -6,7 +6,7 @@ import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderSplitUtil;
-import cn.com.fero.tlc.spider.vo.TransObject;
+import cn.com.fero.tlc.spider.vo.p2p.TransObject;
 import org.apache.commons.lang.math.NumberUtils;
 import org.htmlcleaner.TagNode;
 

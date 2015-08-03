@@ -2,7 +2,7 @@ package cn.com.fero.tlc.spider.util;
 
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
-import cn.com.fero.tlc.spider.vo.RequestProxy;
+import cn.com.fero.tlc.spider.vo.p2p.RequestProxy;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 /**

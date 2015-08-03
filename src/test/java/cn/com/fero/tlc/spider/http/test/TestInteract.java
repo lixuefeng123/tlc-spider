@@ -3,7 +3,7 @@ package cn.com.fero.tlc.spider.http.test;
 import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
-import cn.com.fero.tlc.spider.vo.TransObject;
+import cn.com.fero.tlc.spider.vo.p2p.TransObject;
 import org.junit.Test;
 
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package cn.com.fero.tlc.spider.vo;
+package cn.com.fero.tlc.spider.vo.p2p;
 
 /**
  * Created by wanghongmeng on 2015/7/30.

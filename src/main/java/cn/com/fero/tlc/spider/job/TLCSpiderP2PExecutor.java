@@ -1,6 +1,6 @@
 package cn.com.fero.tlc.spider.job;
 
-import cn.com.fero.tlc.spider.vo.TransObject;
+import cn.com.fero.tlc.spider.vo.p2p.TransObject;
 
 import java.util.List;
 import java.util.Map;

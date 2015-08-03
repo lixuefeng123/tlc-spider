@@ -5,8 +5,8 @@ import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
-import cn.com.fero.tlc.spider.vo.PFYH;
-import cn.com.fero.tlc.spider.vo.TransObject;
+import cn.com.fero.tlc.spider.vo.p2p.PFYH;
+import cn.com.fero.tlc.spider.vo.p2p.TransObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
