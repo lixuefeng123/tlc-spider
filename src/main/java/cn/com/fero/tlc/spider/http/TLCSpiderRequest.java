@@ -46,7 +46,7 @@ public class TLCSpiderRequest {
 
             return (String) responseMap.get(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT);
         } catch (Exception e) {
-            TLCSpiderLoggerUtil.getLogger().error("使用{}发生异常，去除代理重新请求", proxyType.toString());
+            TLCSpiderLoggerUtil.getLogger().error("使用{}代理发生异常，去除代理重新请求", proxyType.toString());
             return get(url);
         }
     }
@@ -67,7 +67,7 @@ public class TLCSpiderRequest {
 
             return (String) responseMap.get(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT);
         } catch (Exception e) {
-            TLCSpiderLoggerUtil.getLogger().error("使用{}发生异常，去除代理重新请求", proxyType.toString());
+            TLCSpiderLoggerUtil.getLogger().error("使用{}代理发生异常，去除代理重新请求", proxyType.toString());
             return get(url);
         }
     }
@@ -116,7 +116,7 @@ public class TLCSpiderRequest {
 
             return (String) responseMap.get(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT);
         } catch (Exception e) {
-            TLCSpiderLoggerUtil.getLogger().error("使用{}发生异常，去除代理重新请求", proxyType.toString());
+            TLCSpiderLoggerUtil.getLogger().error("使用{}代理发生异常，去除代理重新请求", proxyType.toString());
             return post(url, param, header);
         }
     }
@@ -137,7 +137,7 @@ public class TLCSpiderRequest {
 
             return (String) responseMap.get(TLCSpiderConstants.SPIDER_CONST_RESPONSE_CONTENT);
         } catch (Exception e) {
-            TLCSpiderLoggerUtil.getLogger().error("使用{}发生异常，去除代理重新请求", proxyType.toString());
+            TLCSpiderLoggerUtil.getLogger().error("使用{}代理发生异常，去除代理重新请求", proxyType.toString());
             return post(url, param);
         }
     }

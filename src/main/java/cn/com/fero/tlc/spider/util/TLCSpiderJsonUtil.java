@@ -1,5 +1,6 @@
 package cn.com.fero.tlc.spider.util;
 
+import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -10,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by wanghongmeng on 2015/6/24.
@@ -105,6 +107,21 @@ public final class TLCSpiderJsonUtil {
         while (iterator.hasNext()) {
             Object obj = iterator.next();
             objectList.add(json2Object(obj.toString(), clazz));
+        }
+
+        return objectList;
+    }
+    public static List json2Array(String jsonStr) {
+        if (StringUtils.isEmpty(jsonStr)) {
+            throw new IllegalArgumentException();
+        }
+
+        List objectList = new ArrayList();
+        JSONArray jsonArray = JSONArray.fromObject(jsonStr);
+
+        ListIterator jsonIterator = jsonArray.listIterator();
+        while(jsonIterator.hasNext()) {
+            objectList.add(jsonIterator.next());
         }
 
         return objectList;

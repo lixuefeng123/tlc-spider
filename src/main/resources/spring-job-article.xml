@@ -14,7 +14,7 @@
                     <property name="jobGroupName" value="article"/>
                     <property name="triggerName" value="articleTrigger"/>
                     <property name="triggerGroupName" value="articleTrigger"/>
-                    <property name="cronExpression" value="0/10 * * * * ? *"/>
+                    <property name="cronExpression" value="0/5 * * * * ? *"/>
                 </bean>
             </list>
         </property>
