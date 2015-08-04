@@ -82,7 +82,7 @@ public class ArticleJob extends TLCSpiderJob {
             Map<String, String> sendParam = constructSystemSendParam("抓取" + name + "文章", article_source_id, articleFetchList);
             sendDataToSystem(SPIDER_URL_ARTICLE_SEND, sendParam);
         } catch (Exception e) {
-            TLCSpiderLoggerUtil.getLogger().error("获取文章源发生异常：" + ExceptionUtils.getFullStackTrace(e));
+            TLCSpiderLoggerUtil.getLogger().error("抓取文章发生异常：" + ExceptionUtils.getFullStackTrace(e));
             Map<String, String> map = constructErrorParam("抓取文章" + name + "异常:" + ExceptionUtils.getFullStackTrace(e));
             sendDataToSystem(SPIDER_URL_ARTICLE_SEND, map);
         }
@@ -111,7 +111,7 @@ public class ArticleJob extends TLCSpiderJob {
     private List<ArticleFetch> getArticleList(String url, String article_source_id) {
         String fetchContent = TLCSpiderRequest.getViaProxy(url, TLCSpiderRequest.ProxyType.HTTP);
 
-        if (fetchContent.contains("sogou.weixin.gzhcb")) {
+        if (fetchContent.contains("totalPages")) {
             String fetchData = formatFetchContent(fetchContent);
             List<String> itemList = getItemList(fetchData);
             return convertToArticleFetch(article_source_id, itemList);
