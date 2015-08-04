@@ -59,7 +59,6 @@ public class ArticleJob extends TLCSpiderJob{
             fetchList.addAll(getArticleList(fetchUrl, article_source_id));
         }
 
-
         TLCSpiderLoggerUtil.getLogger().info("发送抓取{}数据，总条数{}", articleSource.getName(), fetchList.size());
         sendDataToSystem(article_source_id, fetchList);
     }
