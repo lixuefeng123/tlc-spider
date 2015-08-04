@@ -9,6 +9,7 @@ import cn.com.fero.tlc.spider.util.TLCSpiderLoggerUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.article.ArticleFetch;
 import cn.com.fero.tlc.spider.vo.article.ArticleSource;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -44,25 +45,42 @@ public class ArticleJob extends TLCSpiderJob{
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        TLCSpiderLoggerUtil.getLogger().info("获取抓取文章源");
-        ArticleSource articleSource = getArticleSource();
-        String name = articleSource.getName();
-        String article_source_id = articleSource.getId();
-        String artileUrl = articleSource.getUrl();
-        TLCSpiderLoggerUtil.getLogger().info("取得文章源，id={}, name={}, url={}", new String[]{article_source_id, name, artileUrl});
-
-        TLCSpiderLoggerUtil.getLogger().info("获取{}文章总页数", name);
-        int totalPage = getTotalPage(artileUrl);
-
-        List<ArticleFetch> fetchList = new ArrayList();
-        for(int a = 1; a <= totalPage; a++) {
-            TLCSpiderLoggerUtil.getLogger().info("抓取{}第{}页", name, a);
-            String fetchUrl = artileUrl + "&page=" + a;
-            fetchList.addAll(getArticleList(fetchUrl, article_source_id));
+        String name = null;
+        String article_source_id = null;
+        String artileUrl = null;
+        try {
+            TLCSpiderLoggerUtil.getLogger().info("获取抓取文章源");
+            ArticleSource articleSource = getArticleSource();
+            name = articleSource.getName();
+            article_source_id = articleSource.getId();
+            artileUrl = articleSource.getUrl();
+            TLCSpiderLoggerUtil.getLogger().info("取得文章源，id={}, name={}, url={}", new String[]{article_source_id, name, artileUrl});
+        } catch (Exception e) {
+            TLCSpiderLoggerUtil.getLogger().error("获取文章源发生异常：" + ExceptionUtils.getFullStackTrace(e));
+            Map<String, String> map = constructErrorParam("获取文章源" + name + "异常:" + ExceptionUtils.getFullStackTrace(e));
+            sendDataToSystem(map);
         }
 
-        TLCSpiderLoggerUtil.getLogger().info("发送抓取{}数据，总条数{}", name, fetchList.size());
-        sendDataToSystem(article_source_id, fetchList);
+        try {
+            TLCSpiderLoggerUtil.getLogger().info("获取{}文章总页数", name);
+            int totalPage = getTotalPage(artileUrl);
+            TLCSpiderLoggerUtil.getLogger().info("取得{}文章总页数: {}", totalPage);
+
+            List<ArticleFetch> fetchList = new ArrayList();
+            for(int a = 1; a <= totalPage; a++) {
+                TLCSpiderLoggerUtil.getLogger().info("抓取{}第{}页", name, a);
+                String fetchUrl = artileUrl + "&page=" + a;
+                fetchList.addAll(getArticleList(fetchUrl, article_source_id));
+            }
+
+            TLCSpiderLoggerUtil.getLogger().info("发送抓取{}数据，总条数{}", name, fetchList.size());
+            Map<String, String> sendParam = constructSendParam(article_source_id, fetchList);
+            sendDataToSystem(sendParam);
+        } catch (Exception e) {
+            TLCSpiderLoggerUtil.getLogger().error("获取文章源发生异常：" + ExceptionUtils.getFullStackTrace(e));
+            Map<String, String> map = constructErrorParam("抓取文章" + name + "异常:" + ExceptionUtils.getFullStackTrace(e));
+            sendDataToSystem(map);
+        }
     }
 
     private ArticleSource getArticleSource() {
@@ -126,9 +144,15 @@ public class ArticleJob extends TLCSpiderJob{
         return articleFetchList;
     }
 
-    protected void sendDataToSystem(String article_source_id, List<ArticleFetch> fetchList) {
-        Map<String, String> sendParam = constructSendParam(article_source_id, fetchList);
-        String response = TLCSpiderRequest.post(URL_ARTICLE_POST, sendParam);
+    protected void sendDataToSystem(Map<String, String> param) {
+        String response = TLCSpiderRequest.post(URL_ARTICLE_POST, param);
         TLCSpiderLoggerUtil.getLogger().info("发送" + JOB_TITLE + "状态：" + response);
+    }
+
+    private Map<String, String> constructErrorParam(String errorMessage) {
+        Map<String, String> map = constructSystemParam();
+        map.put(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME, TLCSpiderConstants.SPIDER_PARAM_STATUS_FAIL_CODE);
+        map.put(TLCSpiderConstants.SPIDER_PARAM_MESSAGE, errorMessage);
+        return map;
     }
 }
