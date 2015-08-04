@@ -8,10 +8,7 @@ import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.p2p.TransObject;
 import cn.com.fero.tlc.spider.vo.p2p.ZHXQYEJ;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -61,7 +58,12 @@ public class ZHXQYEJJob extends TLCSpiderJob {
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String productContent = TLCSpiderRequest.postViaProxy(URL_PRODUCT_LIST, param, TLCSpiderRequest.ProxyType.HTTPS);
         String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "DicData");
-        List<ZHXQYEJ> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "NormalList", ZHXQYEJ.class);
+        List<ZHXQYEJ> productList;
+        try {
+            productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "NormalList", ZHXQYEJ.class);
+        } catch (Exception e) {
+            return Collections.EMPTY_LIST;
+        }
 
         List<TransObject> transObjectList = new ArrayList();
         for (ZHXQYEJ product : productList) {
