@@ -32,7 +32,7 @@ public class ArticleJob extends TLCSpiderJob {
         return param;
     }
 
-    public Map<String, String> constructSystemSendParam(String message, String article_source_id, List<ArticleFetch> fetchList) {
+    public Map<String, String> constructSystemSendParam(String article_source_id, String message, List<ArticleFetch> fetchList) {
         Map<String, String> param = new HashMap();
         param.put(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE, message);
         param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
@@ -93,10 +93,10 @@ public class ArticleJob extends TLCSpiderJob {
 
             TLCSpiderLoggerUtil.getLogger().info("抓取{}文章", name);
             Map<String, String> head = constructHeadParam();
-            List<ArticleFetch> articleFetchList = getArticleList(artileUrl, article_source_id, head);
+            List<ArticleFetch> articleFetchList = getArticleList(artileUrl, head, article_source_id);
 
             TLCSpiderLoggerUtil.getLogger().info("发送抓取{}数据，总条数{}", name, articleFetchList.size());
-            Map<String, String> sendParam = constructSystemSendParam(name, article_source_id, articleFetchList);
+            Map<String, String> sendParam = constructSystemSendParam(article_source_id, name, articleFetchList);
             sendDataToSystem(SPIDER_URL_ARTICLE_SEND, sendParam);
         } catch (Exception e) {
             TLCSpiderLoggerUtil.getLogger().error("抓取文章发生异常：" + ExceptionUtils.getFullStackTrace(e));
@@ -113,7 +113,7 @@ public class ArticleJob extends TLCSpiderJob {
     }
 
     private int getTotalPage(String artileUrl) {
-        String articleContent = TLCSpiderRequest.getViaProxy(artileUrl, TLCSpiderRequest.ProxyType.HTTP);
+        String articleContent = TLCSpiderRequest.get(artileUrl);
 
         if (articleContent.contains("totalPages")) {
             String fetchData = formatFetchContent(articleContent);
@@ -125,8 +125,8 @@ public class ArticleJob extends TLCSpiderJob {
         }
     }
 
-    private List<ArticleFetch> getArticleList(String url, String article_source_id, Map<String, String> head) {
-        String fetchContent = TLCSpiderRequest.getViaProxy(url, TLCSpiderRequest.ProxyType.HTTP, head);
+    private List<ArticleFetch> getArticleList(String url, Map<String, String> head, String article_source_id) {
+        String fetchContent = TLCSpiderRequest.get(url, head);
 
         if (fetchContent.contains("totalPages")) {
             String fetchData = formatFetchContent(fetchContent);
