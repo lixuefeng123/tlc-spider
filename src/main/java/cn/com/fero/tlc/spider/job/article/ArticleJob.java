@@ -34,13 +34,29 @@ public class ArticleJob extends TLCSpiderJob {
 
     public Map<String, String> constructSystemSendParam(String message, String article_source_id, List<ArticleFetch> fetchList) {
         Map<String, String> param = new HashMap();
-        param.put(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE, JOB_TITLE);
+        param.put(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE, message);
         param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
         param.put(TLCSpiderConstants.SPIDER_PARAM_TOKEN, TOKEN);
         param.put(TLCSpiderConstants.SPIDER_PARAM_MESSAGE, message);
         param.put(TLCSpiderConstants.SPIDER_PARAM_DATA, TLCSpiderJsonUtil.array2Json(fetchList));
         param.put("article_source_id", article_source_id);
         return param;
+    }
+
+    public Map<String, String> constructHeadParam() {
+        Map<String, String> head = new HashMap();
+        head.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+        head.put("Accept", "Encoding:gzip, deflate, sdch");
+        head.put("Accept", "Language:zh-CN,zh;q=0.8,en;q=0.6,ja;q=0.4,zh-TW;q=0.2");
+        head.put("Cache", "Control:max-age=0");
+        head.put("Connection", "keep-alive");
+        head.put("Cookie", "CXID=C2D908DCA2484D12F57C0A1D143A7B66; SUID=97017D7B142D900A55B5C349000477E0; SUV=1507271026258805; ABTEST=0|1438588933|v1; IPLOC=CN1100; PHPSESSID=4s6nupk12o403lnkjuoavn95o3; SUIR=C9EE0F0001071D6194556AA302CBA565; SNUID=B4215C5B20253D5C44D9C3B02100A25C; ad=@kllllllll2qHt2JlllllVglZP1lllllWT1xOZllllYlllllxVxlw@@@@@@@@@@@");
+        head.put("DNT", "1");
+        head.put("Host", "weixin.sogou.com");
+        head.put("Referer", "http://tailicaiop.fero.com.cn/article_source_articles");
+        head.put("Upgrade", "Insecure-Requests:1");
+        head.put("User", "Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.125 Safari/537.36");
+        return head;
     }
 
     @Override
@@ -76,7 +92,8 @@ public class ArticleJob extends TLCSpiderJob {
 //            TLCSpiderLoggerUtil.getLogger().info("取得{}文章总页数: {}", name, totalPage);
 
             TLCSpiderLoggerUtil.getLogger().info("抓取{}文章", name);
-            List<ArticleFetch> articleFetchList = getArticleList(artileUrl, article_source_id);
+            Map<String, String> head = constructHeadParam();
+            List<ArticleFetch> articleFetchList = getArticleList(artileUrl, article_source_id, head);
 
             TLCSpiderLoggerUtil.getLogger().info("发送抓取{}数据，总条数{}", name, articleFetchList.size());
             Map<String, String> sendParam = constructSystemSendParam(name, article_source_id, articleFetchList);
@@ -108,8 +125,8 @@ public class ArticleJob extends TLCSpiderJob {
         }
     }
 
-    private List<ArticleFetch> getArticleList(String url, String article_source_id) {
-        String fetchContent = TLCSpiderRequest.getViaProxy(url, TLCSpiderRequest.ProxyType.HTTP);
+    private List<ArticleFetch> getArticleList(String url, String article_source_id, Map<String, String> head) {
+        String fetchContent = TLCSpiderRequest.getViaProxy(url, TLCSpiderRequest.ProxyType.HTTP, head);
 
         if (fetchContent.contains("totalPages")) {
             String fetchData = formatFetchContent(fetchContent);
