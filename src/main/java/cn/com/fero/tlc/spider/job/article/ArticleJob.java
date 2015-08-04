@@ -62,19 +62,24 @@ public class ArticleJob extends TLCSpiderJob {
         }
 
         try {
-            TLCSpiderLoggerUtil.getLogger().info("获取{}文章总页数", name);
-            int totalPage = getTotalPage(artileUrl);
-            TLCSpiderLoggerUtil.getLogger().info("取得{}文章总页数: {}", name, totalPage);
+//            TLCSpiderLoggerUtil.getLogger().info("获取{}文章总页数", name);
+//            int totalPage = getTotalPage(artileUrl);
+//            TLCSpiderLoggerUtil.getLogger().info("取得{}文章总页数: {}", name, totalPage);
+//
+//            List<ArticleFetch> fetchList = new ArrayList();
+//            for (int a = 1; a <= totalPage; a++) {
+//                TLCSpiderLoggerUtil.getLogger().info("抓取{}第{}页", name, a);
+//                String fetchUrl = artileUrl + "&page=" + a;
+//                fetchList.addAll(getArticleList(fetchUrl, article_source_id));
+//            }
+//            int totalPage = getTotalPage(artileUrl);
+//            TLCSpiderLoggerUtil.getLogger().info("取得{}文章总页数: {}", name, totalPage);
 
-            List<ArticleFetch> fetchList = new ArrayList();
-            for (int a = 1; a <= totalPage; a++) {
-                TLCSpiderLoggerUtil.getLogger().info("抓取{}第{}页", name, a);
-                String fetchUrl = artileUrl + "&page=" + a;
-                fetchList.addAll(getArticleList(fetchUrl, article_source_id));
-            }
+            TLCSpiderLoggerUtil.getLogger().info("抓取{}文章", name);
+            List<ArticleFetch> articleFetchList = getArticleList(artileUrl, article_source_id);
 
-            TLCSpiderLoggerUtil.getLogger().info("发送抓取{}数据，总条数{}", name, fetchList.size());
-            Map<String, String> sendParam = constructSystemSendParam("抓取" + name + "文章", article_source_id, fetchList);
+            TLCSpiderLoggerUtil.getLogger().info("发送抓取{}数据，总条数{}", name, articleFetchList.size());
+            Map<String, String> sendParam = constructSystemSendParam("抓取" + name + "文章", article_source_id, articleFetchList);
             sendDataToSystem(SPIDER_URL_ARTICLE_SEND, sendParam);
         } catch (Exception e) {
             TLCSpiderLoggerUtil.getLogger().error("获取文章源发生异常：" + ExceptionUtils.getFullStackTrace(e));
