@@ -9,9 +9,9 @@ import java.util.Map;
  * Created by wanghongmeng on 2015/7/6.
  */
 public interface TLCSpiderP2PExecutor {
-    public abstract Map<String, String> constructSystemParam();
+    public abstract Map<String, String> constructSystemInteractiveParam();
 
-    public abstract Map<String, String> constructSpiderParam();
+    public abstract Map<String, String> constructSpiderFetchParam();
 
     public abstract int getTotalPage(Map<String, String> param);
 

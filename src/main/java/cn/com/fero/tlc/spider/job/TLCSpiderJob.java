@@ -4,6 +4,7 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderLoggerUtil;
+import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.p2p.TransObject;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -20,6 +21,11 @@ import java.util.*;
 @DisallowConcurrentExecution
 @PersistJobDataAfterExecution
 public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
+    protected static final String SPIDER_URL_P2P_GET = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.url.get");
+    protected static final String SPIDER_URL_P2P_SEND = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.url.send");
+    protected static final String SPIDER_URL_ARTICLE_GET = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.url.get");
+    protected static final String SPIDER_URL_ARTICLE_SEND = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.url.send");
+
     private String jobName;
     private String jobGroupName;
     private String triggerName;
@@ -74,7 +80,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         List<TransObject> transObjectList = new ArrayList();
-        Map<String, String> systemParam = constructSystemParam();
+        Map<String, String> systemParam = constructSystemInteractiveParam();
         String jobTitle = systemParam.get(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE);
         String pageName = systemParam.get(TLCSpiderConstants.SPIDER_PARAM_PAGE_NAME);
         try {
@@ -82,7 +88,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
             TLCSpiderLoggerUtil.getLogger().info(jobTitle + "更新条数 = " + updateMap.size());
 
             TLCSpiderLoggerUtil.getLogger().info("开始抓取" + jobTitle + "总页数");
-            Map<String, String> spiderParam = constructSpiderParam();
+            Map<String, String> spiderParam = constructSpiderFetchParam();
             int totalPage = getTotalPage(spiderParam);
             TLCSpiderLoggerUtil.getLogger().info(jobTitle + "总页数数 = " + totalPage);
 
@@ -123,10 +129,8 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
             sendDataToSystem(transObjectList, jobTitle);
         } catch (Exception e) {
             TLCSpiderLoggerUtil.getLogger().error("发生异常：" + ExceptionUtils.getFullStackTrace(e));
-            Map<String, String> map = constructSystemParam();
-            map.put(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME, TLCSpiderConstants.SPIDER_PARAM_STATUS_FAIL_CODE);
-            map.put(TLCSpiderConstants.SPIDER_PARAM_MESSAGE, ExceptionUtils.getFullStackTrace(e));
-            sendDataToSystem(map);
+            Map<String, String> map = constructErrorParam(ExceptionUtils.getFullStackTrace(e));
+            sendDataToSystem(SPIDER_URL_P2P_SEND, map);
         } finally {
             TLCSpiderLoggerUtil.getLogger().info("抓取" + jobTitle + "结束");
         }
@@ -153,10 +157,10 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
 
     protected void sendDataToSystem(List<TransObject> transObjectList, String jobTitle) {
         TLCSpiderLoggerUtil.getLogger().info("发送" + jobTitle + "数据, size = " + transObjectList.size());
-        Map<String, String> map = constructSystemParam();
+        Map<String, String> map = constructSystemInteractiveParam();
         checkBeginAndFinishDate(transObjectList);
         map.put(TLCSpiderConstants.SPIDER_PARAM_DATA, TLCSpiderJsonUtil.array2Json(transObjectList));
-        sendDataToSystem(map);
+        sendDataToSystem(SPIDER_URL_P2P_SEND, map);
         transObjectList.clear();
     }
 
@@ -176,8 +180,8 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
         }
     }
 
-    protected void sendDataToSystem(Map<String, String> map) {
-        String response = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_SEND, map);
+    protected void sendDataToSystem(String url, Map<String, String> map) {
+        String response = TLCSpiderRequest.post(url, map);
         TLCSpiderLoggerUtil.getLogger().info("发送" + map.get(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE) + "状态：" + response);
     }
 
@@ -189,13 +193,20 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
         return paramBuilder.substring(0, paramBuilder.length() - 1);
     }
 
+    protected Map<String, String> constructErrorParam(String errorMessage) {
+        Map<String, String> map = constructSystemInteractiveParam();
+        map.put(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME, TLCSpiderConstants.SPIDER_PARAM_STATUS_FAIL_CODE);
+        map.put(TLCSpiderConstants.SPIDER_PARAM_MESSAGE, errorMessage);
+        return map;
+    }
+
     @Override
-    public Map<String, String> constructSystemParam() {
+    public Map<String, String> constructSystemInteractiveParam() {
         return Collections.EMPTY_MAP;
     }
 
     @Override
-    public Map<String, String> constructSpiderParam() {
+    public Map<String, String> constructSpiderFetchParam() {
         return Collections.EMPTY_MAP;
     }
 
@@ -206,7 +217,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
 
     @Override
     public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) {
-        String result = TLCSpiderRequest.post(TLCSpiderConstants.SPIDER_URL_GET, param);
+        String result = TLCSpiderRequest.post(SPIDER_URL_P2P_GET, param);
         String status = TLCSpiderJsonUtil.getString(result, TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
         if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
             throw new IllegalStateException(result);

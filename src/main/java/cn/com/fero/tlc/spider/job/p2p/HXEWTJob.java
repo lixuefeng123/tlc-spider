@@ -29,7 +29,7 @@ public class HXEWTJob extends TLCSpiderJob {
     private static final String PAGE_NAME = "page";
 
     @Override
-    public Map<String, String> constructSystemParam() {
+    public Map<String, String> constructSystemInteractiveParam() {
         Map<String, String> param = new HashMap();
         param.put(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME, TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE);
         param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
@@ -40,7 +40,7 @@ public class HXEWTJob extends TLCSpiderJob {
     }
 
     @Override
-    public Map<String, String> constructSpiderParam() {
+    public Map<String, String> constructSpiderFetchParam() {
         Map<String, String> param = new HashMap();
         param.put(PAGE_NAME, TLCSpiderConstants.SPIDER_PARAM_PAGE_ONE);
         return param;
