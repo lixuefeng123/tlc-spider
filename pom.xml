@@ -41,8 +41,8 @@
     </profiles>
 
     <properties>
-        <properties.project.build.sourceEncoding>UTF-8</properties.project.build.sourceEncoding>
-        <properties.version.jdk>1.7</properties.version.jdk>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.7</java.version>
         <properties.version.spring>4.0.5.RELEASE</properties.version.spring>
         <properties.version.junit>4.9</properties.version.junit>
         <properties.version.slf4j-api>1.6.1</properties.version.slf4j-api>
@@ -190,18 +190,15 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${properties.version.plugin.compile}</version>
                 <configuration>
-                    <source>${properties.version.jdk}</source>
-                    <target>${properties.version.jdk}</target>
-                    <encoding>${properties.project.build.sourceEncoding}</encoding>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <!--<encoding>${properties.project.build.sourceEncoding}</encoding>-->
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>${property.version.plugin.resources}</version>
-                <configuration>
-                    <encoding>${properties.project.build.sourceEncoding}</encoding>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -227,7 +224,6 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>${properties.version.plugin.assembly}</version>
                 <configuration>
-                    <encoding>${properties.project.build.sourceEncoding}</encoding>
                     <appendAssemblyId>false</appendAssemblyId>
                     <descriptors>
                         <descriptor>/src/main/assembly/assembly.xml</descriptor>
@@ -253,8 +249,7 @@
                         <configuration>
                             <target>
                                 <move todir="${project.basedir}">
-                                    <fileset dir="${project.build.directory}"
-                                             includes="${project.build.finalName}.tar.gz"/>
+                                    <fileset dir="${project.build.directory}" includes="${project.build.finalName}.tar.gz"/>
                                 </move>
                             </target>
                         </configuration>
