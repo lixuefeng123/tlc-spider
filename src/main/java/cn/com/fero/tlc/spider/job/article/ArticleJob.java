@@ -74,7 +74,7 @@ public class ArticleJob extends TLCSpiderJob {
             }
 
             TLCSpiderLoggerUtil.getLogger().info("发送抓取{}数据，总条数{}", name, fetchList.size());
-            Map<String, String> sendParam = constructSystemSendParam("抓取[" + name + "]数据", article_source_id, fetchList);
+            Map<String, String> sendParam = constructSystemSendParam("抓取" + name + "文章", article_source_id, fetchList);
             sendDataToSystem(SPIDER_URL_ARTICLE_SEND, sendParam);
         } catch (Exception e) {
             TLCSpiderLoggerUtil.getLogger().error("获取文章源发生异常：" + ExceptionUtils.getFullStackTrace(e));
