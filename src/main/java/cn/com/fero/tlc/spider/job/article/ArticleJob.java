@@ -21,6 +21,7 @@ import java.util.*;
 //文章抓取
 public class ArticleJob extends TLCSpiderJob{
     private static final String URL_ARTICLE_SOURCE = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.url");
+    private static final String URL_ARTICLE_POST = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.post.url");
     private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.sid");
     private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.token");
     private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.title");
@@ -51,7 +52,8 @@ public class ArticleJob extends TLCSpiderJob{
         List<ArticleFetch> fetchList = new ArrayList();
 
         int totalPage = getTotalPage(artileUrl);
-        for(int a = 1; a <= totalPage; a++) {
+//        for(int a = 1; a <= totalPage; a++) {
+        for(int a = 1; a <= 1; a++) {
             TLCSpiderLoggerUtil.getLogger().info("抓取{}第{}页", articleSource.getName(), a);
             String fetchUrl = artileUrl + "&page=" + a;
             fetchList.addAll(getArticleList(fetchUrl, article_source_id));
@@ -120,5 +122,10 @@ public class ArticleJob extends TLCSpiderJob{
         }
 
         return articleFetchList;
+    }
+
+    protected void sendDataToSystem(Map<String, String> map) {
+        String response = TLCSpiderRequest.post(URL_ARTICLE_POST, map);
+        TLCSpiderLoggerUtil.getLogger().info("发送" + map.get(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE) + "状态：" + response);
     }
 }
