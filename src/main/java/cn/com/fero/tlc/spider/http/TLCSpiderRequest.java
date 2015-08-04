@@ -39,7 +39,7 @@ public class TLCSpiderRequest {
             RequestConfig config = constructProxyConfig(proxyType);
             Map<String, Object> responseMap = executeGetRequest(url, config, header);
 
-            int status = (int) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
+            int status = (Integer) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
             if (status != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
                 throw new TLCSpiderRequestException("not response 200 via proxy");
             }
@@ -60,7 +60,7 @@ public class TLCSpiderRequest {
             RequestConfig config = constructProxyConfig(proxyType);
             Map<String, Object> responseMap = executeGetRequest(url, config, Collections.EMPTY_MAP);
 
-            int status = (int) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
+            int status = (Integer) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
             if (status != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
                 throw new TLCSpiderRequestException("not response 200 via proxy");
             }
@@ -109,7 +109,7 @@ public class TLCSpiderRequest {
             RequestConfig config = constructProxyConfig(proxyType);
             Map<String, Object> responseMap = executePostRequest(url, param, config, header);
 
-            int status = (int) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
+            int status = (Integer) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
             if (status != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
                 throw new TLCSpiderRequestException("not response 200 via proxy");
             }
@@ -130,7 +130,7 @@ public class TLCSpiderRequest {
             RequestConfig config = constructProxyConfig(proxyType);
             Map<String, Object> responseMap = executePostRequest(url, param, config, Collections.EMPTY_MAP);
 
-            int status = (int) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
+            int status = (Integer) responseMap.get(TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
             if (status != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
                 throw new TLCSpiderRequestException("not response 200 via proxy");
             }

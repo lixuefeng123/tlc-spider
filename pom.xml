@@ -41,8 +41,8 @@
     </profiles>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.7</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <properties.version.spring>4.0.5.RELEASE</properties.version.spring>
         <properties.version.junit>4.9</properties.version.junit>
         <properties.version.slf4j-api>1.6.1</properties.version.slf4j-api>
@@ -189,11 +189,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${properties.version.plugin.compile}</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <!--<encoding>${properties.project.build.sourceEncoding}</encoding>-->
-                </configuration>
+                <!--<configuration>-->
+                    <!--<source>${java.version}</source>-->
+                    <!--<target>${java.version}</target>-->
+                    <!--&lt;!&ndash;<encoding>${properties.project.build.sourceEncoding}</encoding>&ndash;&gt;-->
+                <!--</configuration>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
