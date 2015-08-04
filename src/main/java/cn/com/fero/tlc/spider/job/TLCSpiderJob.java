@@ -181,8 +181,8 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
     }
 
     protected void sendDataToSystem(String url, Map<String, String> map) {
-        String response = TLCSpiderRequest.post(url, map);
-        TLCSpiderLoggerUtil.getLogger().info("发送" + map.get(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE) + "状态：" + response);
+//        String response = TLCSpiderRequest.post(url, map);
+//        TLCSpiderLoggerUtil.getLogger().info("发送" + map.get(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE) + "状态：" + response);
     }
 
     protected String convertToParamStr(Map<String, String> param) {
@@ -217,19 +217,19 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
 
     @Override
     public Map<String, TransObject> getUpdateDataMap(Map<String, String> param) {
-        String result = TLCSpiderRequest.post(SPIDER_URL_P2P_GET, param);
-        String status = TLCSpiderJsonUtil.getString(result, TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
-        if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
-            throw new IllegalStateException(result);
-        }
-
-        List<TransObject> updateList = TLCSpiderJsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
-        Map<String, TransObject> updateMap = new HashMap();
-        for (TransObject transObject : updateList) {
-            updateMap.put(transObject.getFinancingId(), transObject);
-        }
-        return updateMap;
-//        return Collections.EMPTY_MAP;
+//        String result = TLCSpiderRequest.post(SPIDER_URL_P2P_GET, param);
+//        String status = TLCSpiderJsonUtil.getString(result, TLCSpiderConstants.SPIDER_PARAM_STATUS_NAME);
+//        if (!TLCSpiderConstants.SPIDER_PARAM_STATUS_SUCCESS_CODE.equals(status)) {
+//            throw new IllegalStateException(result);
+//        }
+//
+//        List<TransObject> updateList = TLCSpiderJsonUtil.json2Array(result, TLCSpiderConstants.SPIDER_PARAM_DATA, TransObject.class);
+//        Map<String, TransObject> updateMap = new HashMap();
+//        for (TransObject transObject : updateList) {
+//            updateMap.put(transObject.getFinancingId(), transObject);
+//        }
+//        return updateMap;
+        return Collections.EMPTY_MAP;
     }
 
     @Override
