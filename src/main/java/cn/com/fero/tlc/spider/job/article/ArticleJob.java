@@ -37,7 +37,6 @@ public class ArticleJob extends TLCSpiderJob{
         Map<String, String> param = new HashMap();
         param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
         param.put(TLCSpiderConstants.SPIDER_PARAM_TOKEN, TOKEN);
-        param.put(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE, JOB_TITLE);
         param.put(TLCSpiderConstants.SPIDER_PARAM_DATA, TLCSpiderJsonUtil.array2Json(fetchList));
         param.put("article_source_id", article_source_id);
         return param;
@@ -45,22 +44,24 @@ public class ArticleJob extends TLCSpiderJob{
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
+        TLCSpiderLoggerUtil.getLogger().info("获取抓取文章源");
         ArticleSource articleSource = getArticleSource();
         String article_source_id = articleSource.getId();
         String artileUrl = articleSource.getUrl();
 
-        List<ArticleFetch> fetchList = new ArrayList();
-
+        TLCSpiderLoggerUtil.getLogger().info("获取文章总页数");
         int totalPage = getTotalPage(artileUrl);
-//        for(int a = 1; a <= totalPage; a++) {
-        for(int a = 1; a <= 1; a++) {
+
+        List<ArticleFetch> fetchList = new ArrayList();
+        for(int a = 1; a <= totalPage; a++) {
             TLCSpiderLoggerUtil.getLogger().info("抓取{}第{}页", articleSource.getName(), a);
             String fetchUrl = artileUrl + "&page=" + a;
             fetchList.addAll(getArticleList(fetchUrl, article_source_id));
         }
 
-        Map<String, String> sendParam = constructSendParam(article_source_id, fetchList);
-        sendDataToSystem(sendParam);
+
+        TLCSpiderLoggerUtil.getLogger().info("发送抓取{}数据，总条数{}", articleSource.getName(), fetchList.size());
+        sendDataToSystem(article_source_id, fetchList);
     }
 
     private ArticleSource getArticleSource() {
@@ -124,8 +125,9 @@ public class ArticleJob extends TLCSpiderJob{
         return articleFetchList;
     }
 
-    protected void sendDataToSystem(Map<String, String> map) {
-        String response = TLCSpiderRequest.post(URL_ARTICLE_POST, map);
-        TLCSpiderLoggerUtil.getLogger().info("发送" + map.get(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE) + "状态：" + response);
+    protected void sendDataToSystem(String article_source_id, List<ArticleFetch> fetchList) {
+        Map<String, String> sendParam = constructSendParam(article_source_id, fetchList);
+        String response = TLCSpiderRequest.post(URL_ARTICLE_POST, sendParam);
+        TLCSpiderLoggerUtil.getLogger().info("发送" + JOB_TITLE + "状态：" + response);
     }
 }
