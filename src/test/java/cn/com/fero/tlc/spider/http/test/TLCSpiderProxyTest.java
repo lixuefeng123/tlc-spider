@@ -8,8 +8,12 @@ import cn.com.fero.tlc.spider.util.TLCSpiderProxyUtil;
 import cn.com.fero.tlc.spider.vo.p2p.RequestProxy;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by gizmo on 15/6/19.
@@ -101,11 +105,39 @@ public class TLCSpiderProxyTest {
     }
 
     @Test
-    public void testGetArticle() {
+    public void testGetArticle() throws InterruptedException {
         String url = "http://weixin.sogou.com/gzhjs?cb=sogou.weixin.gzhcb&openid=oIWsFtzcuQtoMO739-mwrqoaWPi4&eqs=pLsqoWtgfIG6osjbygAtCud8xqO5CwnfW%2FMb%2F1qtjEICoi1ZVmfZcmuCOexPe1wuwFIBJ&ekv=7";
         Map<String, String> head = new HashMap();
         head.put("Cookie", "CXID=C2D908DCA2484D12F57C0A1D143A7B66; SUID=97017D7B142D900A55B5C349000477E0; SUV=1507271026258805; ABTEST=0|1438588933|v1; SNUID=C9EE0F0001071D6194556AA302CBA565; ad=Iyllllllll2qHt2JlllllVQ@JAZlllllWT1xOZllll9llllllCxlw@@@@@@@@@@@; IPLOC=CN1100");
         String articleContent = TLCSpiderRequest.getViaProxy(url, TLCSpiderRequest.ProxyType.HTTP, head);
         System.out.println(articleContent);
+    }
+
+    @Test
+    public void testPorxy() throws InterruptedException {
+        final AtomicInteger count = new AtomicInteger(0);
+        for(int a = 0; a < 100; a++) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    TLCSpiderRequest.getViaProxy("http://119.29.62.227:9999", TLCSpiderRequest.ProxyType.HTTP);
+                }
+            }).start();
+        }
+
+        Thread.sleep(Long.MAX_VALUE);
+    }
+
+    @Test
+    public void testSocket() {
+        try {
+            ServerSocket serverSocket = new ServerSocket(9999);
+            while(true) {
+                Socket socket = serverSocket.accept();
+                System.out.println(socket.getInetAddress().getHostAddress());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
