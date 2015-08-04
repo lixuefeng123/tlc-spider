@@ -1,6 +1,5 @@
 package cn.com.fero.tlc.spider.util;
 
-import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -111,6 +110,7 @@ public final class TLCSpiderJsonUtil {
 
         return objectList;
     }
+
     public static List json2Array(String jsonStr) {
         if (StringUtils.isEmpty(jsonStr)) {
             throw new IllegalArgumentException();
@@ -120,7 +120,7 @@ public final class TLCSpiderJsonUtil {
         JSONArray jsonArray = JSONArray.fromObject(jsonStr);
 
         ListIterator jsonIterator = jsonArray.listIterator();
-        while(jsonIterator.hasNext()) {
+        while (jsonIterator.hasNext()) {
             objectList.add(jsonIterator.next());
         }
 

@@ -1,7 +1,5 @@
 package cn.com.fero.tlc.spider.common;
 
-import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
-
 /**
  * Created by wanghongmeng on 2015/6/24.
  */

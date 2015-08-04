@@ -1,7 +1,10 @@
 package cn.com.fero.tlc.spider.http.test;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Created by wanghongmeng on 2015/8/3.

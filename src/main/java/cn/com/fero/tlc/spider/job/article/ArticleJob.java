@@ -20,7 +20,7 @@ import java.util.*;
  * Created by gizmo on 15/6/17.
  */
 //文章抓取
-public class ArticleJob extends TLCSpiderJob{
+public class ArticleJob extends TLCSpiderJob {
     private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.sid");
     private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.token");
     private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.title");
@@ -67,7 +67,7 @@ public class ArticleJob extends TLCSpiderJob{
             TLCSpiderLoggerUtil.getLogger().info("取得{}文章总页数: {}", name, totalPage);
 
             List<ArticleFetch> fetchList = new ArrayList();
-            for(int a = 1; a <= totalPage; a++) {
+            for (int a = 1; a <= totalPage; a++) {
                 TLCSpiderLoggerUtil.getLogger().info("抓取{}第{}页", name, a);
                 String fetchUrl = artileUrl + "&page=" + a;
                 fetchList.addAll(getArticleList(fetchUrl, article_source_id));
@@ -93,7 +93,7 @@ public class ArticleJob extends TLCSpiderJob{
     private int getTotalPage(String artileUrl) {
         String articleContent = TLCSpiderRequest.getViaProxy(artileUrl, TLCSpiderRequest.ProxyType.HTTP);
 
-        if(articleContent.contains("totalPages")) {
+        if (articleContent.contains("totalPages")) {
             String fetchData = formatFetchContent(articleContent);
             String totalPage = TLCSpiderJsonUtil.getString(fetchData, "totalPages");
             return Integer.parseInt(totalPage);
@@ -106,7 +106,7 @@ public class ArticleJob extends TLCSpiderJob{
     private List<ArticleFetch> getArticleList(String url, String article_source_id) {
         String fetchContent = TLCSpiderRequest.getViaProxy(url, TLCSpiderRequest.ProxyType.HTTP);
 
-        if(fetchContent.contains("totalPages")) {
+        if (fetchContent.contains("totalPages")) {
             String fetchData = formatFetchContent(fetchContent);
             List<String> itemList = getItemList(fetchData);
             return convertToArticleFetch(article_source_id, itemList);
@@ -130,7 +130,7 @@ public class ArticleJob extends TLCSpiderJob{
     private List<ArticleFetch> convertToArticleFetch(String article_source_id, List<String> itemList) {
         List<ArticleFetch> articleFetchList = new ArrayList();
 
-        for(String item : itemList) {
+        for (String item : itemList) {
             ArticleFetch articleFetch = new ArticleFetch();
             articleFetch.setArticle_source_id(article_source_id);
             articleFetch.setTitle(TLCSpiderHTMLParser.parseText(item, "//title"));

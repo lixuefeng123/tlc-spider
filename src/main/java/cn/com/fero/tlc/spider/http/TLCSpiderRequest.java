@@ -228,7 +228,7 @@ public class TLCSpiderRequest {
     private static Map<String, Object> executeRequest(CloseableHttpClient httpClient, HttpRequestBase request, Map<String, String> header) throws IOException {
         Map<String, Object> responseMap = new HashMap();
 
-        for(Map.Entry<String, String> entry : header.entrySet()) {
+        for (Map.Entry<String, String> entry : header.entrySet()) {
             request.setHeader(entry.getKey(), entry.getValue());
         }
 
