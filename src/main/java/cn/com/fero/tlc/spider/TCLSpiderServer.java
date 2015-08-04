@@ -19,7 +19,7 @@ public final class TCLSpiderServer {
         try {
             TLCSpiderLoggerUtil.getLogger().info("加载spring配置文件");
             applicationContext = new ClassPathXmlApplicationContext("classpath*: spring-*.xml");
-//            p2pScheduler = initScheduler("tlcSpiderP2PScheduler");
+            p2pScheduler = initScheduler("tlcSpiderP2PScheduler");
             articleScheduler = initScheduler("tlcSpiderArticleScheduler");
         } catch (BeansException e) {
             TLCSpiderLoggerUtil.getLogger().error(ExceptionUtils.getFullStackTrace(e));
