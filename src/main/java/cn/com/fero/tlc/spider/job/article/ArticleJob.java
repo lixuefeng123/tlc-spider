@@ -46,20 +46,22 @@ public class ArticleJob extends TLCSpiderJob{
     public void execute(JobExecutionContext context) throws JobExecutionException {
         TLCSpiderLoggerUtil.getLogger().info("获取抓取文章源");
         ArticleSource articleSource = getArticleSource();
+        String name = articleSource.getName();
         String article_source_id = articleSource.getId();
         String artileUrl = articleSource.getUrl();
+        TLCSpiderLoggerUtil.getLogger().info("取得文章源，id={}, name={}, url={}", new String[]{article_source_id, name, artileUrl});
 
-        TLCSpiderLoggerUtil.getLogger().info("获取文章总页数");
+        TLCSpiderLoggerUtil.getLogger().info("获取{}文章总页数", name);
         int totalPage = getTotalPage(artileUrl);
 
         List<ArticleFetch> fetchList = new ArrayList();
         for(int a = 1; a <= totalPage; a++) {
-            TLCSpiderLoggerUtil.getLogger().info("抓取{}第{}页", articleSource.getName(), a);
+            TLCSpiderLoggerUtil.getLogger().info("抓取{}第{}页", name, a);
             String fetchUrl = artileUrl + "&page=" + a;
             fetchList.addAll(getArticleList(fetchUrl, article_source_id));
         }
 
-        TLCSpiderLoggerUtil.getLogger().info("发送抓取{}数据，总条数{}", articleSource.getName(), fetchList.size());
+        TLCSpiderLoggerUtil.getLogger().info("发送抓取{}数据，总条数{}", name, fetchList.size());
         sendDataToSystem(article_source_id, fetchList);
     }
 
