@@ -23,6 +23,7 @@ public class ArticleJob extends TLCSpiderJob{
     private static final String URL_ARTICLE_SOURCE = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.url");
     private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.sid");
     private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.title");
 
     public Map<String, String> constructGetParam() {
         Map<String, String> param = new HashMap();
@@ -31,12 +32,13 @@ public class ArticleJob extends TLCSpiderJob{
         return param;
     }
 
-    public Map<String, String> constructSendParam() {
+    public Map<String, String> constructSendParam(String article_source_id, List<ArticleFetch> fetchList) {
         Map<String, String> param = new HashMap();
         param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
         param.put(TLCSpiderConstants.SPIDER_PARAM_TOKEN, TOKEN);
-        param.put(TLCSpiderConstants.SPIDER_PARAM_DATA, "");
-        param.put("article_source_id", "");
+        param.put(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE, JOB_TITLE);
+        param.put(TLCSpiderConstants.SPIDER_PARAM_DATA, TLCSpiderJsonUtil.array2Json(fetchList));
+        param.put("article_source_id", article_source_id);
         return param;
     }
 
@@ -55,9 +57,8 @@ public class ArticleJob extends TLCSpiderJob{
             fetchList.addAll(getArticleList(fetchUrl, article_source_id));
         }
 
-        for(ArticleFetch articleFetch : fetchList) {
-            System.out.println(articleFetch);
-        }
+        Map<String, String> sendParam = constructSendParam(article_source_id, fetchList);
+        sendDataToSystem(sendParam);
     }
 
     private ArticleSource getArticleSource() {
