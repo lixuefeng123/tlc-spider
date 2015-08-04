@@ -111,7 +111,7 @@ public class ArticleJob extends TLCSpiderJob {
     private List<ArticleFetch> getArticleList(String url, String article_source_id) {
         String fetchContent = TLCSpiderRequest.getViaProxy(url, TLCSpiderRequest.ProxyType.HTTP);
 
-        if (fetchContent.contains("totalPages")) {
+        if (fetchContent.contains("sogou.weixin.gzhcb")) {
             String fetchData = formatFetchContent(fetchContent);
             List<String> itemList = getItemList(fetchData);
             return convertToArticleFetch(article_source_id, itemList);
