@@ -164,10 +164,13 @@ public class LJSAEJob extends TLCSpiderJob {
 
         transObject.setValueBegin(TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//li[@class='last-col']//strong"));
 
-        String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//p[@class='product-published-date']");
-        publishTime = publishTime.split("：", 2)[1];
-        transObject.setProjectBeginTime(publishTime);
-        transObject.setReadyBeginTime(publishTime);
+        String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//p[@class='product-published-date']");
+        if(StringUtils.isNotEmpty(publishTime)) {
+            publishTime = publishTime.split("：", 2)[1];
+            transObject.setProjectBeginTime(publishTime);
+            transObject.setReadyBeginTime(publishTime);
+        }
+
         return transObject;
     }
 
