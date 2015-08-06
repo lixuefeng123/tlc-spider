@@ -96,9 +96,13 @@ public class LJSXKZQJob extends TLCSpiderJob {
         transObject.setFinancingId(financingId);
 
         String projectName = TLCSpiderHTMLParser.parseText(product, "//dt[@class='product-name']/a[1]");
-        String projectCode = projectName.split(" ")[1];
         transObject.setProjectName(projectName);
-        transObject.setProjectCode(projectCode);
+        if(projectName.contains(" ")) {
+            String projectCode = projectName.split(" ")[1];
+            transObject.setProjectCode(projectCode);
+        } else {
+            transObject.setProjectCode(financingId);
+        }
 
         String projectStatus = TLCSpiderHTMLParser.parseText(product, "//div[@class='product-status product-status-preview']//a[@class='list-btn is-grey']");
         transObject.setProjectStatus(projectStatus);
