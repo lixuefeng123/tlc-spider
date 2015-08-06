@@ -6,7 +6,10 @@ import cn.com.fero.tlc.spider.job.TLCSpiderJob;
 import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.vo.p2p.TransObject;
-import cn.com.fero.tlc.spider.vo.p2p.ZHXQYEJ;
+import cn.com.fero.tlc.spider.vo.p2p.ZHEFP;
+import cn.com.fero.tlc.spider.vo.p2p.ZHNORMAL;
+import net.sf.ezmorph.bean.MorphDynaBean;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.*;
 
@@ -58,23 +61,29 @@ public class ZHXQYEJJob extends TLCSpiderJob {
     public List<TransObject> getSpiderDataList(Map<String, String> param) {
         String productContent = TLCSpiderRequest.postViaProxy(URL_PRODUCT_LIST, param, TLCSpiderRequest.ProxyType.HTTPS);
         String productJsonStr = TLCSpiderJsonUtil.getString(productContent, "DicData");
-        List<ZHXQYEJ> productList;
-        try {
-            productList = TLCSpiderJsonUtil.json2Array(productJsonStr, "NormalList", ZHXQYEJ.class);
-        } catch (Exception e) {
-            return Collections.EMPTY_LIST;
-        }
 
         List<TransObject> transObjectList = new ArrayList();
-        for (ZHXQYEJ product : productList) {
-            TransObject transObject = convertToTransObject(product);
-            transObjectList.add(transObject);
+        String efp = "EFPList";
+        String normal = "NormalList";
+
+        if(productJsonStr.contains(efp)) {
+//            List<ZHEFP> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, efp, ZHEFP.class);
+//            for (ZHEFP product : productList) {
+//                TransObject transObject = convertToTransObject(product);
+//                transObjectList.add(transObject);
+//            }
+        } else if(productJsonStr.contains(normal)){
+            List<ZHNORMAL> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, normal, ZHNORMAL.class);
+            for (ZHNORMAL product : productList) {
+                TransObject transObject = convertToTransObject(product);
+                transObjectList.add(transObject);
+            }
         }
 
         return transObjectList;
     }
 
-    private TransObject convertToTransObject(ZHXQYEJ product) {
+    private TransObject convertToTransObject(ZHNORMAL product) {
         TransObject transObject = new TransObject();
         transObject.setFinancingId(product.getFinancingId());
         transObject.setProjectCode(product.getProjectCode());
@@ -118,6 +127,45 @@ public class ZHXQYEJJob extends TLCSpiderJob {
         transObject.setFinanceApplyStatus(product.getFinanceApplyStatus());
         transObject.setHotStatus(product.getHotStatus());
         transObject.setDbType(product.getDbType());
+        return transObject;
+    }
+
+    private TransObject convertToTransObject(ZHEFP product) {
+        TransObject transObject = new TransObject();
+        transObject.setFinancingId(product.getProjectId());
+        transObject.setProjectCode(product.getProjectCode());
+        transObject.setProjectName(product.getProjectName());
+
+        Double amount = Double.parseDouble(product.getProjectAmount());
+        transObject.setAmount(String.valueOf(amount.intValue()));
+
+        if(CollectionUtils.isNotEmpty(product.getOrderCfgList())) {
+            MorphDynaBean dynaBean = (MorphDynaBean)product.getOrderCfgList().get(0);
+
+            Double remainAmount = Double.parseDouble(dynaBean.get("RemaindAmount").toString());
+            int remainAmountNum = remainAmount.intValue();
+            Double remainPartsCount = Double.parseDouble(dynaBean.get("RemainPartsCount").toString());
+            int remainPartsCountNum = remainPartsCount.intValue();
+            if(remainPartsCountNum > 0) {
+                int minInvestAmount = remainAmountNum / remainPartsCountNum;
+                int partsCount = Integer.parseInt(transObject.getAmount()) / minInvestAmount;
+                transObject.setPartsCount(String.valueOf(partsCount));
+            }
+
+
+            transObject.setInvestmentInterest(dynaBean.get("InterestRate").toString());
+            transObject.setValueBegin(dynaBean.get("ValueBegin").toString());
+            transObject.setRepayBegin(dynaBean.get("RepayBegin").toString());
+            transObject.setDuration(dynaBean.get("Duration").toString());
+        }
+
+        transObject.setProjectBeginTime(product.getBeginTime());
+        transObject.setReadyBeginTime(product.getBeginTime());
+        transObject.setProjectStatus(product.getInStatus());
+        transObject.setProjectType(product.getProjectCategory());
+        transObject.setIsExclusivePublic(product.getIsExclusive());
+        transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
+        transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
         return transObject;
     }
 }

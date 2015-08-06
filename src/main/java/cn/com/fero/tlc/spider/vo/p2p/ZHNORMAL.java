@@ -3,7 +3,7 @@ package cn.com.fero.tlc.spider.vo.p2p;
 /**
  * Created by wanghongmeng on 2015/6/25.
  */
-public class ZHXQYEJ {
+public class ZHNORMAL {
     private String financingId;
     private String projectCode;
     private String projectName;
@@ -424,75 +424,75 @@ public class ZHXQYEJ {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ZHXQYEJ zhxqyej = (ZHXQYEJ) o;
+        ZHNORMAL ZHNORMAL = (ZHNORMAL) o;
 
-        if (amount != null ? !amount.equals(zhxqyej.amount) : zhxqyej.amount != null) return false;
-        if (areaCode != null ? !areaCode.equals(zhxqyej.areaCode) : zhxqyej.areaCode != null) return false;
-        if (bankInterest != null ? !bankInterest.equals(zhxqyej.bankInterest) : zhxqyej.bankInterest != null)
+        if (amount != null ? !amount.equals(ZHNORMAL.amount) : ZHNORMAL.amount != null) return false;
+        if (areaCode != null ? !areaCode.equals(ZHNORMAL.areaCode) : ZHNORMAL.areaCode != null) return false;
+        if (bankInterest != null ? !bankInterest.equals(ZHNORMAL.bankInterest) : ZHNORMAL.bankInterest != null)
             return false;
-        if (bindCompanyId != null ? !bindCompanyId.equals(zhxqyej.bindCompanyId) : zhxqyej.bindCompanyId != null)
+        if (bindCompanyId != null ? !bindCompanyId.equals(ZHNORMAL.bindCompanyId) : ZHNORMAL.bindCompanyId != null)
             return false;
-        if (bindCompanyName != null ? !bindCompanyName.equals(zhxqyej.bindCompanyName) : zhxqyej.bindCompanyName != null)
+        if (bindCompanyName != null ? !bindCompanyName.equals(ZHNORMAL.bindCompanyName) : ZHNORMAL.bindCompanyName != null)
             return false;
-        if (bindUserId != null ? !bindUserId.equals(zhxqyej.bindUserId) : zhxqyej.bindUserId != null) return false;
-        if (bindUserName != null ? !bindUserName.equals(zhxqyej.bindUserName) : zhxqyej.bindUserName != null)
+        if (bindUserId != null ? !bindUserId.equals(ZHNORMAL.bindUserId) : ZHNORMAL.bindUserId != null) return false;
+        if (bindUserName != null ? !bindUserName.equals(ZHNORMAL.bindUserName) : ZHNORMAL.bindUserName != null)
             return false;
-        if (createCompanyId != null ? !createCompanyId.equals(zhxqyej.createCompanyId) : zhxqyej.createCompanyId != null)
+        if (createCompanyId != null ? !createCompanyId.equals(ZHNORMAL.createCompanyId) : ZHNORMAL.createCompanyId != null)
             return false;
-        if (createCompanyName != null ? !createCompanyName.equals(zhxqyej.createCompanyName) : zhxqyej.createCompanyName != null)
+        if (createCompanyName != null ? !createCompanyName.equals(ZHNORMAL.createCompanyName) : ZHNORMAL.createCompanyName != null)
             return false;
-        if (createTime != null ? !createTime.equals(zhxqyej.createTime) : zhxqyej.createTime != null) return false;
-        if (createUserId != null ? !createUserId.equals(zhxqyej.createUserId) : zhxqyej.createUserId != null)
+        if (createTime != null ? !createTime.equals(ZHNORMAL.createTime) : ZHNORMAL.createTime != null) return false;
+        if (createUserId != null ? !createUserId.equals(ZHNORMAL.createUserId) : ZHNORMAL.createUserId != null)
             return false;
-        if (createUserName != null ? !createUserName.equals(zhxqyej.createUserName) : zhxqyej.createUserName != null)
+        if (createUserName != null ? !createUserName.equals(ZHNORMAL.createUserName) : ZHNORMAL.createUserName != null)
             return false;
-        if (creditLevel != null ? !creditLevel.equals(zhxqyej.creditLevel) : zhxqyej.creditLevel != null) return false;
-        if (dbType != null ? !dbType.equals(zhxqyej.dbType) : zhxqyej.dbType != null) return false;
-        if (displayType != null ? !displayType.equals(zhxqyej.displayType) : zhxqyej.displayType != null) return false;
-        if (duration != null ? !duration.equals(zhxqyej.duration) : zhxqyej.duration != null) return false;
-        if (exclusiveCode != null ? !exclusiveCode.equals(zhxqyej.exclusiveCode) : zhxqyej.exclusiveCode != null)
+        if (creditLevel != null ? !creditLevel.equals(ZHNORMAL.creditLevel) : ZHNORMAL.creditLevel != null) return false;
+        if (dbType != null ? !dbType.equals(ZHNORMAL.dbType) : ZHNORMAL.dbType != null) return false;
+        if (displayType != null ? !displayType.equals(ZHNORMAL.displayType) : ZHNORMAL.displayType != null) return false;
+        if (duration != null ? !duration.equals(ZHNORMAL.duration) : ZHNORMAL.duration != null) return false;
+        if (exclusiveCode != null ? !exclusiveCode.equals(ZHNORMAL.exclusiveCode) : ZHNORMAL.exclusiveCode != null)
             return false;
-        if (financeApplyStatus != null ? !financeApplyStatus.equals(zhxqyej.financeApplyStatus) : zhxqyej.financeApplyStatus != null)
+        if (financeApplyStatus != null ? !financeApplyStatus.equals(ZHNORMAL.financeApplyStatus) : ZHNORMAL.financeApplyStatus != null)
             return false;
-        if (financingId != null ? !financingId.equals(zhxqyej.financingId) : zhxqyej.financingId != null) return false;
-        if (hotStatus != null ? !hotStatus.equals(zhxqyej.hotStatus) : zhxqyej.hotStatus != null) return false;
-        if (iAmount != null ? !iAmount.equals(zhxqyej.iAmount) : zhxqyej.iAmount != null) return false;
-        if (iCount != null ? !iCount.equals(zhxqyej.iCount) : zhxqyej.iCount != null) return false;
-        if (investmentInterest != null ? !investmentInterest.equals(zhxqyej.investmentInterest) : zhxqyej.investmentInterest != null)
+        if (financingId != null ? !financingId.equals(ZHNORMAL.financingId) : ZHNORMAL.financingId != null) return false;
+        if (hotStatus != null ? !hotStatus.equals(ZHNORMAL.hotStatus) : ZHNORMAL.hotStatus != null) return false;
+        if (iAmount != null ? !iAmount.equals(ZHNORMAL.iAmount) : ZHNORMAL.iAmount != null) return false;
+        if (iCount != null ? !iCount.equals(ZHNORMAL.iCount) : ZHNORMAL.iCount != null) return false;
+        if (investmentInterest != null ? !investmentInterest.equals(ZHNORMAL.investmentInterest) : ZHNORMAL.investmentInterest != null)
             return false;
-        if (isExclusivePublic != null ? !isExclusivePublic.equals(zhxqyej.isExclusivePublic) : zhxqyej.isExclusivePublic != null)
+        if (isExclusivePublic != null ? !isExclusivePublic.equals(ZHNORMAL.isExclusivePublic) : ZHNORMAL.isExclusivePublic != null)
             return false;
-        if (isShow != null ? !isShow.equals(zhxqyej.isShow) : zhxqyej.isShow != null) return false;
-        if (jMBeginTime != null ? !jMBeginTime.equals(zhxqyej.jMBeginTime) : zhxqyej.jMBeginTime != null) return false;
-        if (lCAmount != null ? !lCAmount.equals(zhxqyej.lCAmount) : zhxqyej.lCAmount != null) return false;
-        if (minInvestPartsCount != null ? !minInvestPartsCount.equals(zhxqyej.minInvestPartsCount) : zhxqyej.minInvestPartsCount != null)
+        if (isShow != null ? !isShow.equals(ZHNORMAL.isShow) : ZHNORMAL.isShow != null) return false;
+        if (jMBeginTime != null ? !jMBeginTime.equals(ZHNORMAL.jMBeginTime) : ZHNORMAL.jMBeginTime != null) return false;
+        if (lCAmount != null ? !lCAmount.equals(ZHNORMAL.lCAmount) : ZHNORMAL.lCAmount != null) return false;
+        if (minInvestPartsCount != null ? !minInvestPartsCount.equals(ZHNORMAL.minInvestPartsCount) : ZHNORMAL.minInvestPartsCount != null)
             return false;
-        if (partsCount != null ? !partsCount.equals(zhxqyej.partsCount) : zhxqyej.partsCount != null) return false;
-        if (progress != null ? !progress.equals(zhxqyej.progress) : zhxqyej.progress != null) return false;
-        if (projectBeginTime != null ? !projectBeginTime.equals(zhxqyej.projectBeginTime) : zhxqyej.projectBeginTime != null)
+        if (partsCount != null ? !partsCount.equals(ZHNORMAL.partsCount) : ZHNORMAL.partsCount != null) return false;
+        if (progress != null ? !progress.equals(ZHNORMAL.progress) : ZHNORMAL.progress != null) return false;
+        if (projectBeginTime != null ? !projectBeginTime.equals(ZHNORMAL.projectBeginTime) : ZHNORMAL.projectBeginTime != null)
             return false;
-        if (projectCode != null ? !projectCode.equals(zhxqyej.projectCode) : zhxqyej.projectCode != null) return false;
-        if (projectName != null ? !projectName.equals(zhxqyej.projectName) : zhxqyej.projectName != null) return false;
-        if (projectPayType != null ? !projectPayType.equals(zhxqyej.projectPayType) : zhxqyej.projectPayType != null)
+        if (projectCode != null ? !projectCode.equals(ZHNORMAL.projectCode) : ZHNORMAL.projectCode != null) return false;
+        if (projectName != null ? !projectName.equals(ZHNORMAL.projectName) : ZHNORMAL.projectName != null) return false;
+        if (projectPayType != null ? !projectPayType.equals(ZHNORMAL.projectPayType) : ZHNORMAL.projectPayType != null)
             return false;
-        if (projectStatus != null ? !projectStatus.equals(zhxqyej.projectStatus) : zhxqyej.projectStatus != null)
+        if (projectStatus != null ? !projectStatus.equals(ZHNORMAL.projectStatus) : ZHNORMAL.projectStatus != null)
             return false;
-        if (projectType != null ? !projectType.equals(zhxqyej.projectType) : zhxqyej.projectType != null) return false;
-        if (readyBeginTime != null ? !readyBeginTime.equals(zhxqyej.readyBeginTime) : zhxqyej.readyBeginTime != null)
+        if (projectType != null ? !projectType.equals(ZHNORMAL.projectType) : ZHNORMAL.projectType != null) return false;
+        if (readyBeginTime != null ? !readyBeginTime.equals(ZHNORMAL.readyBeginTime) : ZHNORMAL.readyBeginTime != null)
             return false;
-        if (realProgress != null ? !realProgress.equals(zhxqyej.realProgress) : zhxqyej.realProgress != null)
+        if (realProgress != null ? !realProgress.equals(ZHNORMAL.realProgress) : ZHNORMAL.realProgress != null)
             return false;
-        if (remainAmount != null ? !remainAmount.equals(zhxqyej.remainAmount) : zhxqyej.remainAmount != null)
+        if (remainAmount != null ? !remainAmount.equals(ZHNORMAL.remainAmount) : ZHNORMAL.remainAmount != null)
             return false;
-        if (repayBegin != null ? !repayBegin.equals(zhxqyej.repayBegin) : zhxqyej.repayBegin != null) return false;
-        if (repaySourceType != null ? !repaySourceType.equals(zhxqyej.repaySourceType) : zhxqyej.repaySourceType != null)
+        if (repayBegin != null ? !repayBegin.equals(ZHNORMAL.repayBegin) : ZHNORMAL.repayBegin != null) return false;
+        if (repaySourceType != null ? !repaySourceType.equals(ZHNORMAL.repaySourceType) : ZHNORMAL.repaySourceType != null)
             return false;
-        if (repayType != null ? !repayType.equals(zhxqyej.repayType) : zhxqyej.repayType != null) return false;
-        if (salesType != null ? !salesType.equals(zhxqyej.salesType) : zhxqyej.salesType != null) return false;
-        if (updateTime != null ? !updateTime.equals(zhxqyej.updateTime) : zhxqyej.updateTime != null) return false;
-        if (updateUserId != null ? !updateUserId.equals(zhxqyej.updateUserId) : zhxqyej.updateUserId != null)
+        if (repayType != null ? !repayType.equals(ZHNORMAL.repayType) : ZHNORMAL.repayType != null) return false;
+        if (salesType != null ? !salesType.equals(ZHNORMAL.salesType) : ZHNORMAL.salesType != null) return false;
+        if (updateTime != null ? !updateTime.equals(ZHNORMAL.updateTime) : ZHNORMAL.updateTime != null) return false;
+        if (updateUserId != null ? !updateUserId.equals(ZHNORMAL.updateUserId) : ZHNORMAL.updateUserId != null)
             return false;
-        if (valueBegin != null ? !valueBegin.equals(zhxqyej.valueBegin) : zhxqyej.valueBegin != null) return false;
+        if (valueBegin != null ? !valueBegin.equals(ZHNORMAL.valueBegin) : ZHNORMAL.valueBegin != null) return false;
 
         return true;
     }
