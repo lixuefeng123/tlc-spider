@@ -21,6 +21,7 @@ import java.util.Map;
 /**
  * Created by shaolichao on 2015/7/28.
  */
+//陆金所新客专区抓取
 public class LJSXKZQJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjxkzq.url.list");
     private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjxkzq.url.detail");
