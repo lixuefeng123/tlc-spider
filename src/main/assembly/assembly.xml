@@ -17,20 +17,20 @@
 
     <fileSets>
         <fileSet>
-            <directory>${project.basedir}/src/main/resources</directory>
+            <directory>${project.basedir}/${properties.package.environment}</directory>
             <outputDirectory>/conf</outputDirectory>
             <useDefaultExcludes>false</useDefaultExcludes>
-            <excludes>
-                <exclude>**/logback.xml</exclude>
-                <exclude>**/tlc-spider.properties</exclude>
-            </excludes>
             <directoryMode>755</directoryMode>
             <fileMode>0644</fileMode>
         </fileSet>
         <fileSet>
-            <directory>${project.basedir}/${properties.package.environment}</directory>
+            <directory>${project.basedir}/src/main/resources</directory>
             <outputDirectory>/conf</outputDirectory>
             <useDefaultExcludes>false</useDefaultExcludes>
+            <!--<excludes>-->
+                <!--<exclude>**/logback.xml</exclude>-->
+                <!--<exclude>**/tlc-spider.properties</exclude>-->
+            <!--</excludes>-->
             <directoryMode>755</directoryMode>
             <fileMode>0644</fileMode>
         </fileSet>
