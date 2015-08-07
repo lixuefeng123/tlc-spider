@@ -17,7 +17,7 @@
 
     <fileSets>
         <fileSet>
-            <directory>/src/main/resources</directory>
+            <directory>${project.basedir}/src/main/resources</directory>
             <outputDirectory>/conf</outputDirectory>
             <useDefaultExcludes>false</useDefaultExcludes>
             <excludes>
@@ -28,14 +28,14 @@
             <fileMode>0644</fileMode>
         </fileSet>
         <fileSet>
-            <directory>${properties.package.environment}</directory>
+            <directory>${project.basedir}/${properties.package.environment}</directory>
             <outputDirectory>/conf</outputDirectory>
             <useDefaultExcludes>false</useDefaultExcludes>
             <directoryMode>755</directoryMode>
             <fileMode>0644</fileMode>
         </fileSet>
         <fileSet>
-            <directory>/src/main/bin/shell</directory>
+            <directory>${project.basedir}/src/main/bin/shell</directory>
             <outputDirectory>/bin</outputDirectory>
             <useDefaultExcludes>false</useDefaultExcludes>
             <directoryMode>755</directoryMode>
