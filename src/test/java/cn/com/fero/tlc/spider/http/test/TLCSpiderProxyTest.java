@@ -116,7 +116,7 @@ public class TLCSpiderProxyTest {
     @Test
     public void testPorxy() throws InterruptedException {
         final AtomicInteger count = new AtomicInteger(0);
-        for(int a = 0; a < 100; a++) {
+        for (int a = 0; a < 100; a++) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -132,7 +132,7 @@ public class TLCSpiderProxyTest {
     public void testSocket() {
         try {
             ServerSocket serverSocket = new ServerSocket(9999);
-            while(true) {
+            while (true) {
                 Socket socket = serverSocket.accept();
                 System.out.println(socket.getInetAddress().getHostAddress());
             }
@@ -169,7 +169,7 @@ public class TLCSpiderProxyTest {
                 "<!--zly-->\n" +
                 "\n" +
                 "//<!--d1751c83-39b3-4f4b-91f4-f95117cd0c9a--><!--1438689733243-->";
-        if(str.contains("sogou\\.weixin\\.gzhcb")) {
+        if (str.contains("sogou\\.weixin\\.gzhcb")) {
             System.out.println("ok");
         } else {
             System.out.println("wrong");

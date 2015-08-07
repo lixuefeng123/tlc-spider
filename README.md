@@ -3,7 +3,7 @@
 
 技术架构
 -----------------------------------
-### spring/quartz/httpcomponent/htmlcleaner/xpath/manve/git
+### spring/quartz/httpcomponent/htmlcleaner/xpath/maven/git
 
 ### 1.抓取
 设置quartz执行频率，启动该项目作为后台进程持续运行

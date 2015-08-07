@@ -98,7 +98,7 @@ public class LJSXKZQJob extends TLCSpiderJob {
 
         String projectName = TLCSpiderHTMLParser.parseText(product, "//dt[@class='product-name']/a[1]");
         transObject.setProjectName(projectName);
-        if(projectName.contains(" ")) {
+        if (projectName.contains(" ")) {
             String projectCode = projectName.split(" ")[1];
             transObject.setProjectCode(projectCode);
         } else {
@@ -155,7 +155,7 @@ public class LJSXKZQJob extends TLCSpiderJob {
             transObject.setValueBegin(TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//li[@class='last-col']//strong"));
 
             String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//p[@class='product-published-date']");
-            if(StringUtils.isNotEmpty(publishTime)) {
+            if (StringUtils.isNotEmpty(publishTime)) {
                 publishTime = publishTime.split("：")[1];
                 transObject.setProjectBeginTime(publishTime);
                 transObject.setReadyBeginTime(publishTime);

@@ -190,9 +190,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${properties.version.plugin.compile}</version>
                 <!--<configuration>-->
-                    <!--<source>${java.version}</source>-->
-                    <!--<target>${java.version}</target>-->
-                    <!--&lt;!&ndash;<encoding>${properties.project.build.sourceEncoding}</encoding>&ndash;&gt;-->
+                <!--<source>${java.version}</source>-->
+                <!--<target>${java.version}</target>-->
+                <!--&lt;!&ndash;<encoding>${properties.project.build.sourceEncoding}</encoding>&ndash;&gt;-->
                 <!--</configuration>-->
             </plugin>
             <plugin>
@@ -249,7 +249,8 @@
                         <configuration>
                             <target>
                                 <move todir="${project.basedir}">
-                                    <fileset dir="${project.build.directory}" includes="${project.build.finalName}.tar.gz"/>
+                                    <fileset dir="${project.build.directory}"
+                                             includes="${project.build.finalName}.tar.gz"/>
                                 </move>
                             </target>
                         </configuration>
