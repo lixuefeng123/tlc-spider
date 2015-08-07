@@ -19,8 +19,8 @@ public class TLCSpiderJsonUtilTest {
         List<ZHEFP> list = TLCSpiderJsonUtil.json2Array(dic, "EFPList", ZHEFP.class);
         for (ZHEFP zhefp : list) {
             List configList = zhefp.getOrderCfgList();
-            MorphDynaBean m = (MorphDynaBean)configList.get(0);
-            String s = (String)m.get("RemaindAmount");
+            MorphDynaBean m = (MorphDynaBean) configList.get(0);
+            String s = (String) m.get("RemaindAmount");
             System.out.println(s);
         }
     }

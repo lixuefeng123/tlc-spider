@@ -446,15 +446,18 @@ public class ZHNORMAL {
             return false;
         if (createUserName != null ? !createUserName.equals(ZHNORMAL.createUserName) : ZHNORMAL.createUserName != null)
             return false;
-        if (creditLevel != null ? !creditLevel.equals(ZHNORMAL.creditLevel) : ZHNORMAL.creditLevel != null) return false;
+        if (creditLevel != null ? !creditLevel.equals(ZHNORMAL.creditLevel) : ZHNORMAL.creditLevel != null)
+            return false;
         if (dbType != null ? !dbType.equals(ZHNORMAL.dbType) : ZHNORMAL.dbType != null) return false;
-        if (displayType != null ? !displayType.equals(ZHNORMAL.displayType) : ZHNORMAL.displayType != null) return false;
+        if (displayType != null ? !displayType.equals(ZHNORMAL.displayType) : ZHNORMAL.displayType != null)
+            return false;
         if (duration != null ? !duration.equals(ZHNORMAL.duration) : ZHNORMAL.duration != null) return false;
         if (exclusiveCode != null ? !exclusiveCode.equals(ZHNORMAL.exclusiveCode) : ZHNORMAL.exclusiveCode != null)
             return false;
         if (financeApplyStatus != null ? !financeApplyStatus.equals(ZHNORMAL.financeApplyStatus) : ZHNORMAL.financeApplyStatus != null)
             return false;
-        if (financingId != null ? !financingId.equals(ZHNORMAL.financingId) : ZHNORMAL.financingId != null) return false;
+        if (financingId != null ? !financingId.equals(ZHNORMAL.financingId) : ZHNORMAL.financingId != null)
+            return false;
         if (hotStatus != null ? !hotStatus.equals(ZHNORMAL.hotStatus) : ZHNORMAL.hotStatus != null) return false;
         if (iAmount != null ? !iAmount.equals(ZHNORMAL.iAmount) : ZHNORMAL.iAmount != null) return false;
         if (iCount != null ? !iCount.equals(ZHNORMAL.iCount) : ZHNORMAL.iCount != null) return false;
@@ -463,7 +466,8 @@ public class ZHNORMAL {
         if (isExclusivePublic != null ? !isExclusivePublic.equals(ZHNORMAL.isExclusivePublic) : ZHNORMAL.isExclusivePublic != null)
             return false;
         if (isShow != null ? !isShow.equals(ZHNORMAL.isShow) : ZHNORMAL.isShow != null) return false;
-        if (jMBeginTime != null ? !jMBeginTime.equals(ZHNORMAL.jMBeginTime) : ZHNORMAL.jMBeginTime != null) return false;
+        if (jMBeginTime != null ? !jMBeginTime.equals(ZHNORMAL.jMBeginTime) : ZHNORMAL.jMBeginTime != null)
+            return false;
         if (lCAmount != null ? !lCAmount.equals(ZHNORMAL.lCAmount) : ZHNORMAL.lCAmount != null) return false;
         if (minInvestPartsCount != null ? !minInvestPartsCount.equals(ZHNORMAL.minInvestPartsCount) : ZHNORMAL.minInvestPartsCount != null)
             return false;
@@ -471,13 +475,16 @@ public class ZHNORMAL {
         if (progress != null ? !progress.equals(ZHNORMAL.progress) : ZHNORMAL.progress != null) return false;
         if (projectBeginTime != null ? !projectBeginTime.equals(ZHNORMAL.projectBeginTime) : ZHNORMAL.projectBeginTime != null)
             return false;
-        if (projectCode != null ? !projectCode.equals(ZHNORMAL.projectCode) : ZHNORMAL.projectCode != null) return false;
-        if (projectName != null ? !projectName.equals(ZHNORMAL.projectName) : ZHNORMAL.projectName != null) return false;
+        if (projectCode != null ? !projectCode.equals(ZHNORMAL.projectCode) : ZHNORMAL.projectCode != null)
+            return false;
+        if (projectName != null ? !projectName.equals(ZHNORMAL.projectName) : ZHNORMAL.projectName != null)
+            return false;
         if (projectPayType != null ? !projectPayType.equals(ZHNORMAL.projectPayType) : ZHNORMAL.projectPayType != null)
             return false;
         if (projectStatus != null ? !projectStatus.equals(ZHNORMAL.projectStatus) : ZHNORMAL.projectStatus != null)
             return false;
-        if (projectType != null ? !projectType.equals(ZHNORMAL.projectType) : ZHNORMAL.projectType != null) return false;
+        if (projectType != null ? !projectType.equals(ZHNORMAL.projectType) : ZHNORMAL.projectType != null)
+            return false;
         if (readyBeginTime != null ? !readyBeginTime.equals(ZHNORMAL.readyBeginTime) : ZHNORMAL.readyBeginTime != null)
             return false;
         if (realProgress != null ? !realProgress.equals(ZHNORMAL.realProgress) : ZHNORMAL.realProgress != null)

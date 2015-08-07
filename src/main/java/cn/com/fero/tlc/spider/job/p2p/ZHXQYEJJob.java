@@ -11,7 +11,10 @@ import cn.com.fero.tlc.spider.vo.p2p.ZHNORMAL;
 import net.sf.ezmorph.bean.MorphDynaBean;
 import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -66,13 +69,13 @@ public class ZHXQYEJJob extends TLCSpiderJob {
         String efp = "EFPList";
         String normal = "NormalList";
 
-        if(productJsonStr.contains(efp)) {
+        if (productJsonStr.contains(efp)) {
 //            List<ZHEFP> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, efp, ZHEFP.class);
 //            for (ZHEFP product : productList) {
 //                TransObject transObject = convertToTransObject(product);
 //                transObjectList.add(transObject);
 //            }
-        } else if(productJsonStr.contains(normal)){
+        } else if (productJsonStr.contains(normal)) {
             List<ZHNORMAL> productList = TLCSpiderJsonUtil.json2Array(productJsonStr, normal, ZHNORMAL.class);
             for (ZHNORMAL product : productList) {
                 TransObject transObject = convertToTransObject(product);
@@ -139,14 +142,14 @@ public class ZHXQYEJJob extends TLCSpiderJob {
         Double amount = Double.parseDouble(product.getProjectAmount());
         transObject.setAmount(String.valueOf(amount.intValue()));
 
-        if(CollectionUtils.isNotEmpty(product.getOrderCfgList())) {
-            MorphDynaBean dynaBean = (MorphDynaBean)product.getOrderCfgList().get(0);
+        if (CollectionUtils.isNotEmpty(product.getOrderCfgList())) {
+            MorphDynaBean dynaBean = (MorphDynaBean) product.getOrderCfgList().get(0);
 
             Double remainAmount = Double.parseDouble(dynaBean.get("RemaindAmount").toString());
             int remainAmountNum = remainAmount.intValue();
             Double remainPartsCount = Double.parseDouble(dynaBean.get("RemainPartsCount").toString());
             int remainPartsCountNum = remainPartsCount.intValue();
-            if(remainPartsCountNum > 0) {
+            if (remainPartsCountNum > 0) {
                 int minInvestAmount = remainAmountNum / remainPartsCountNum;
                 int partsCount = Integer.parseInt(transObject.getAmount()) / minInvestAmount;
                 transObject.setPartsCount(String.valueOf(partsCount));
