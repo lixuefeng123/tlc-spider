@@ -31,10 +31,12 @@ public final class TLCSpiderProxyUtil {
             String status = TLCSpiderJsonUtil.getString(response, "status");
             int statusCode = Integer.parseInt(status);
             if (statusCode != TLCSpiderConstants.SPIDER_CONST_RESPONSE_STATUS_SUCCESS) {
+                TLCSpiderLoggerUtil.getLogger().info("获取代理返回状态{}, 无代理可用", statusCode);
                 return requestProxy;
             }
 
             String proxyStr = TLCSpiderJsonUtil.getString(response, "proxy");
+            TLCSpiderLoggerUtil.getLogger().info("取得代理{}", proxyStr);
             requestProxy = (RequestProxy) TLCSpiderJsonUtil.json2Object(proxyStr, RequestProxy.class);
             return requestProxy;
         } catch (NumberFormatException e) {
