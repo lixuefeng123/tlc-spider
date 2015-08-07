@@ -94,7 +94,7 @@ public class LJSXBJob extends TLCSpiderJob {
 
         transObject.setFinancingId(ljsxb.getProductId());
         transObject.setProjectCode(ljsxb.getProductId());
-        transObject.setProjectName(ljsxb.getDisplayName() + "" + ljsxb.getCode());
+        transObject.setProjectName(ljsxb.getDisplayName() + " " + ljsxb.getCode());
         transObject.setAmount(ljsxb.getPrincipal());
         transObject.setValueBegin(ljsxb.getValueDate());
         transObject.setProjectBeginTime(ljsxb.getPublishedAtDateTime());

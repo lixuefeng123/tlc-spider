@@ -4,10 +4,12 @@ import cn.com.fero.tlc.spider.common.TLCSpiderConstants;
 import cn.com.fero.tlc.spider.http.TLCSpiderHTMLParser;
 import cn.com.fero.tlc.spider.http.TLCSpiderRequest;
 import cn.com.fero.tlc.spider.job.TLCSpiderJob;
+import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderSplitUtil;
+import cn.com.fero.tlc.spider.vo.p2p.LJSPJ;
 import cn.com.fero.tlc.spider.vo.p2p.TransObject;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.htmlcleaner.TagNode;
 
 import java.util.ArrayList;
@@ -75,15 +77,25 @@ public class LJSPJJob extends TLCSpiderJob {
     private TransObject convertToTransObject(TagNode product) {
         TransObject transObject = new TransObject();
         String href = TLCSpiderHTMLParser.parseAttribute(product, "//dt[@class='product-name']/a[1]", "href");
-        String financingId = href.split("=")[1];
-        transObject.setFinancingId(financingId);
+        String id = href.split("=")[1];
 
-        String projectName = TLCSpiderHTMLParser.parseText(product, "//dt[@class='product-name']/a[1]");
-        String projectCode = projectName.split(" ")[1];
-        transObject.setProjectName(projectName);
-        transObject.setProjectCode(projectCode);
+        String detailLink = URL_PRODUCT_DETAIL + id + "/productDetail?_=" + System.currentTimeMillis();
+        String productContent = TLCSpiderRequest.getViaProxy(detailLink, TLCSpiderRequest.ProxyType.HTTP);
+        LJSPJ ljspj = (LJSPJ) TLCSpiderJsonUtil.json2Object(productContent, LJSPJ.class, "investRewardInfo");
 
-        String duration = TLCSpiderHTMLParser.parseText(product, "//ul[@class='clearfix']//li[@class='invest-period']/p").trim();
+        transObject.setFinancingId(ljspj.getProductId());
+        transObject.setProjectCode(ljspj.getProductId());
+        transObject.setProjectName(ljspj.getDisplayName() + " " + ljspj.getCode());
+        transObject.setValueBegin(ljspj.getValueDate());
+        transObject.setProjectBeginTime(ljspj.getPublishedAtDateTime());
+        transObject.setReadyBeginTime(ljspj.getPublishedAtDateTime());
+        transObject.setCreateTime(ljspj.getPublishedAtDateTime());
+
+        String amount = ljspj.getPrincipal();
+        amount = amount.split(" ")[0].replaceAll(",", "").split("\\.")[0];
+        transObject.setAmount(amount);
+
+        String duration = ljspj.getInvestPeriodDisplay();
         if (duration.contains("月")) {
             duration = TLCSpiderSplitUtil.splitNumberChinese(duration, 1);
             duration = String.valueOf(Integer.parseInt(duration) * 30);
@@ -92,35 +104,7 @@ public class LJSPJJob extends TLCSpiderJob {
         }
         transObject.setDuration(duration);
 
-        String projectStatus = TLCSpiderHTMLParser.parseText(product, "//div[@class='product-status product-status-preview']//a[@class='list-btn is-grey']");
-        transObject.setProjectStatus(projectStatus);
-
-        String detailLink = URL_PRODUCT_DETAIL + href;
-        String detailContent = TLCSpiderRequest.getViaProxy(detailLink, TLCSpiderRequest.ProxyType.HTTP);
-
-        String amount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//ul[@class='clearfix detail-info-list']//li[1]/p[2]/strong");
-        amount = amount.split(" ")[0].replaceAll(",", "").split("\\.")[0];
-        transObject.setAmount(amount);
-
-        String investmentInterest = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//ul[@class='clearfix detail-info-list']//li[2]/p[2]/strong");
-        investmentInterest = investmentInterest.replaceAll("%", "");
-        transObject.setInvestmentInterest(investmentInterest);
-
-        String progress = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='progress-wrap clearfix']/span[@class='progressTxt']");
-        progress = progress.replaceAll("%", "");
-        if (progress.equals("100")) {
-            transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
-            transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
-        } else if (!progress.equals("")) {
-            double progressNum = Double.parseDouble(progress) / 100;
-            transObject.setProgress(String.valueOf(progressNum));
-            transObject.setRealProgress(String.valueOf(progressNum));
-        } else {
-            transObject.setProgress(String.valueOf(progress));
-            transObject.setRealProgress(String.valueOf(progress));
-        }
-
-        String repayType = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='other-detail-info clearfix']//span[@class='tips-title']");
+        String repayType = ljspj.getCollectionModeDisplay();
         if (repayType.contains("一次") && repayType.contains("本") && repayType.contains("息")) {
             repayType = TLCSpiderConstants.REPAY_TYPE.TOTAL.toString();
         } else if (repayType.contains("月") && !repayType.contains("本")) {
@@ -130,13 +114,25 @@ public class LJSPJJob extends TLCSpiderJob {
         }
         transObject.setRepayType(repayType);
 
-        String valueBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//li[@class='last-col']//strong");
-        transObject.setValueBegin(valueBegin);
+        String progress = ljspj.getProgress();
+        if (!NumberUtils.isNumber(progress) || Float.valueOf(progress) == 1.0) {
+            progress = TLCSpiderConstants.SPIDER_PARAM_PAGE_ONE;
+        } else {
+            progress = String.format("%.2f", Double.parseDouble(progress));
+        }
+        transObject.setRealProgress(progress);
+        transObject.setProgress(progress);
 
-        String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//p[@class='product-published-date']");
-        if (StringUtils.isNotEmpty(publishTime)) {
-            publishTime = publishTime.split("：")[1];
-            transObject.setProjectBeginTime(publishTime);
+        if (ljspj.getMinInvestAmount() != null) {
+            int priceNum = Integer.parseInt(ljspj.getPrice());
+            int amountNum = Integer.parseInt(ljspj.getMinInvestAmount());
+
+            int partsCount = priceNum / amountNum;
+            if ((priceNum % amountNum) == 0) {
+                transObject.setPartsCount(String.valueOf(partsCount));
+            } else {
+                transObject.setPartsCount(String.valueOf(partsCount + 1));
+            }
         }
 
         return transObject;
