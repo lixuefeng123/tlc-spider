@@ -139,11 +139,11 @@ public class LJSAEJob extends TLCSpiderJob {
         String detailContent = TLCSpiderRequest.getViaProxy(detailLink, TLCSpiderRequest.ProxyType.HTTP);
 
 
-        String amount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//ul[@class='clearfix detail-info-list']//li[1]/p[2]/strong");
+        String amount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//ul[@class='clearfix detail-info-list']//li[1]/p[2]/strong");
         amount = amount.split(" ")[0].replaceAll(",", "").split("\\.")[0];
         transObject.setAmount(amount);
 
-        String investmentInterest = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//ul[@class='clearfix detail-info-list']//li[2]/p[2]/strong");
+        String investmentInterest = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//ul[@class='clearfix detail-info-list']//li[2]/p[2]/strong");
         investmentInterest = investmentInterest.replaceAll("%", "");
         transObject.setInvestmentInterest(investmentInterest);
 
@@ -162,7 +162,7 @@ public class LJSAEJob extends TLCSpiderJob {
             transObject.setPartsCount(String.valueOf(partsCount));
         }
 
-        transObject.setValueBegin(TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//li[@class='last-col']//strong"));
+        transObject.setValueBegin(TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//li[@class='last-col']//strong"));
 
         String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//p[@class='product-published-date']");
         if (StringUtils.isNotEmpty(publishTime)) {

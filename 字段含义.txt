@@ -20,8 +20,7 @@ projectStatus 项目状态
 creditLevel 信用等级
 createUserId 融资项目创建人ID
 createCompanyId 融资项目创建公司ID
-jmBeginTime
-areaCode
+areaCode 融资方所在片区
 createTime 创建时间
 updateUserId 更新用户ID
 updateTime 更新时间
@@ -31,17 +30,14 @@ isShow 是否显示
 projectType 项目类别
 isExclusivePublic
 minInvestPartsCount 最小投资份数
+realProgress 实际融资进度
+progress 融资进度
+financeApplyStatus
+progressFinishTime 完成融资时间
+tag 项目介绍
+jmBeginTime
 exclusiveCode
 lcAmount
 iCount
 iAmount
-realProgress 实际融资进度
-progress 融资进度
-financeApplyStatus
 hotStatus
-dbType
-title
-content
-isLimitCount 最小投资份数
-progressFinishTime 完成融资时间
-tag  项目介绍

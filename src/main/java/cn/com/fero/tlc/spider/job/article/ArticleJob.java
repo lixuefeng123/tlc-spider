@@ -127,6 +127,7 @@ public class ArticleJob extends TLCSpiderJob {
 
     private List<ArticleFetch> getArticleList(String url, Map<String, String> head, String article_source_id) {
         String fetchContent = TLCSpiderRequest.get(url, head);
+        TLCSpiderLoggerUtil.getLogger().info("抓取返回内容: {}", fetchContent);
 
         if (fetchContent.contains("totalPages")) {
             String fetchData = formatFetchContent(fetchContent);
