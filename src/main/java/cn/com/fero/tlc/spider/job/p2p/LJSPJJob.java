@@ -98,15 +98,15 @@ public class LJSPJJob extends TLCSpiderJob {
         String detailLink = URL_PRODUCT_DETAIL + href;
         String detailContent = TLCSpiderRequest.getViaProxy(detailLink, TLCSpiderRequest.ProxyType.HTTP);
 
-        String amount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//ul[@class='clearfix detail-info-list']//li[1]/p[2]/strong");
+        String amount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//ul[@class='clearfix detail-info-list']//li[1]/p[2]/strong");
         amount = amount.split(" ")[0].replaceAll(",", "").split("\\.")[0];
         transObject.setAmount(amount);
 
-        String investmentInterest = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//ul[@class='clearfix detail-info-list']//li[2]/p[2]/strong");
+        String investmentInterest = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//ul[@class='clearfix detail-info-list']//li[2]/p[2]/strong");
         investmentInterest = investmentInterest.replaceAll("%", "");
         transObject.setInvestmentInterest(investmentInterest);
 
-        String progress = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='progress-wrap clearfix']/span[@class='progressTxt']");
+        String progress = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='progress-wrap progress-box clearfix']/span[@class='progressTxt']");
         progress = progress.replaceAll("%", "");
         if (progress.equals("100")) {
             transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
@@ -120,7 +120,7 @@ public class LJSPJJob extends TLCSpiderJob {
             transObject.setRealProgress(String.valueOf(progress));
         }
 
-        String repayType = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='other-detail-info clearfix']//span[@class='tips-title']");
+        String repayType = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//div[@class='other-detail-info clearfix']//span[@class='tips-title']");
         if (repayType.contains("一次") && repayType.contains("本") && repayType.contains("息")) {
             repayType = TLCSpiderConstants.REPAY_TYPE.TOTAL.toString();
         } else if (repayType.contains("月") && !repayType.contains("本")) {
@@ -130,7 +130,7 @@ public class LJSPJJob extends TLCSpiderJob {
         }
         transObject.setRepayType(repayType);
 
-        String valueBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//li[@class='last-col']//strong");
+        String valueBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//li[@class='last-col']//strong");
         transObject.setValueBegin(valueBegin);
 
         String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//p[@class='product-published-date']");

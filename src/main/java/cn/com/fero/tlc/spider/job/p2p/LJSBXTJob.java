@@ -108,7 +108,7 @@ public class LJSBXTJob extends TLCSpiderJob {
         String detailLink = URL_PRODUCT_DETAIL + href;
         String detailContent = TLCSpiderRequest.getViaProxy(detailLink, TLCSpiderRequest.ProxyType.HTTP);
 
-        String investmentInterest = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//ul[@class='clearfix detail-info-list']//li[1]/p[2]/strong");
+        String investmentInterest = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//ul[@class='clearfix detail-info-list']//li[1]/p[2]/strong");
         investmentInterest = investmentInterest.replaceAll("%", "");
         transObject.setInvestmentInterest(investmentInterest);
 
@@ -116,7 +116,7 @@ public class LJSBXTJob extends TLCSpiderJob {
             transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
             transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
         } else {
-            String progress = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='progress-wrap clearfix']/span[@class='progressTxt']");
+            String progress = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//div[@class='progress-wrap clearfix']/span[@class='progressTxt']");
             progress = progress.replaceAll("%", "");
             if (progress.equals("100")) {
                 transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
@@ -128,7 +128,7 @@ public class LJSBXTJob extends TLCSpiderJob {
             }
         }
 
-        String valueBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//li[@class='last-col']//strong");
+        String valueBegin = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//li[@class='last-col']//strong");
         transObject.setValueBegin(valueBegin);
 
         String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//p[@class='product-published-date']");
@@ -137,11 +137,11 @@ public class LJSBXTJob extends TLCSpiderJob {
             transObject.setProjectBeginTime(publishTime);
         }
 
-        String amount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='invest-amount']//strong[@class='orange-word']");
+        String amount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//div[@class='invest-amount']//strong[@class='orange-word']");
         amount = amount.split(" ")[0].replaceAll(",", "").split("\\.")[0];
         transObject.setAmount(amount);
 
-        String repayType = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//table[@class='product-description']//span[@class='tips-title']");
+        String repayType = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//table[@class='product-description']//span[@class='tips-title']");
         if (repayType.contains("一次") && repayType.contains("本") && repayType.contains("息")) {
             repayType = TLCSpiderConstants.REPAY_TYPE.TOTAL.toString();
         } else if (repayType.contains("月") && !repayType.contains("本")) {

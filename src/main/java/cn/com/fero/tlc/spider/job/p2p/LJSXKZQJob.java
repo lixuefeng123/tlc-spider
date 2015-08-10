@@ -114,15 +114,15 @@ public class LJSXKZQJob extends TLCSpiderJob {
         String newInvestor = TLCSpiderHTMLParser.parseAttribute(detailContent, "//i[@class='iconV2 new-user-icon icon-tips']", "class");
         if (StringUtils.isNotEmpty(newInvestor)) {
 
-            String amount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//ul[@class='clearfix detail-info-list']//li[1]/p[2]/strong");
+            String amount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//ul[@class='clearfix detail-info-list']//li[1]/p[2]/strong");
             amount = amount.split(" ")[0].replaceAll(",", "").split("\\.")[0];
             transObject.setAmount(amount);
 
-            String investmentInterest = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//ul[@class='clearfix detail-info-list']//li[2]/p[2]/strong");
+            String investmentInterest = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//ul[@class='clearfix detail-info-list']//li[2]/p[2]/strong");
             investmentInterest = investmentInterest.replaceAll("%", "");
             transObject.setInvestmentInterest(investmentInterest);
 
-            String progress = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//div[@class='progress-wrap clearfix']/span[@class='progressTxt']");
+            String progress = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//div[@class='progress-wrap clearfix']/span[@class='progressTxt']");
             progress = progress.replaceAll("%", "");
             if (!NumberUtils.isNumber(progress) || progress.equals("100")) {
                 transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
@@ -152,7 +152,7 @@ public class LJSXKZQJob extends TLCSpiderJob {
             }
             transObject.setRepayType(repayType);
 
-            transObject.setValueBegin(TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wrap']//li[@class='last-col']//strong"));
+            transObject.setValueBegin(TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//li[@class='last-col']//strong"));
 
             String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//p[@class='product-published-date']");
             if (StringUtils.isNotEmpty(publishTime)) {

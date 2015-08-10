@@ -112,10 +112,7 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
                         isContinue = false;
                         break;
                     } else {
-                        if (updateMap.containsKey(transObject.getFinancingId())) {
-                            updateMap.remove(updateMap.get(transObject.getFinancingId()));
-                        }
-
+                        updateMap.remove(transObject.getFinancingId());
                         transObjectList.add(transObject);
                     }
                 }
