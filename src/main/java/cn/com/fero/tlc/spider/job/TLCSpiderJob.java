@@ -87,10 +87,6 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
             Map<String, TransObject> updateMap = getUpdateDataMap(systemParam);
             TLCSpiderLoggerUtil.getLogger().info(jobTitle + "更新条数 = " + updateMap.size());
 
-            for(Map.Entry entry : updateMap.entrySet()) {
-                System.out.println(entry.getValue());
-            }
-
             TLCSpiderLoggerUtil.getLogger().info("开始抓取" + jobTitle + "总页数");
             Map<String, String> spiderParam = constructSpiderFetchParam();
             int totalPage = getTotalPage(spiderParam);
@@ -160,10 +156,6 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
     }
 
     protected void sendDataToSystem(List<TransObject> transObjectList, String jobTitle) {
-        for (TransObject transObject : transObjectList) {
-            System.out.println(transObject);
-        }
-
         TLCSpiderLoggerUtil.getLogger().info("发送" + jobTitle + "数据, size = " + transObjectList.size());
         Map<String, String> map = constructSystemInteractiveParam();
         checkBeginAndFinishDate(transObjectList);
@@ -189,8 +181,8 @@ public abstract class TLCSpiderJob implements Job, TLCSpiderP2PExecutor {
     }
 
     protected void sendDataToSystem(String url, Map<String, String> map) {
-//        String response = TLCSpiderRequest.post(url, map);
-//        TLCSpiderLoggerUtil.getLogger().info("发送" + map.get(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE) + "状态：" + response);
+        String response = TLCSpiderRequest.post(url, map);
+        TLCSpiderLoggerUtil.getLogger().info("发送" + map.get(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE) + "状态：" + response);
     }
 
     protected String convertToParamStr(Map<String, String> param) {
