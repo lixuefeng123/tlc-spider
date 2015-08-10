@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+       
+       <bean id="tlcSpiderFundScheduler" class="cn.com.fero.tlc.spider.schedule.TLCSpiderScheduler">
+              <property name="schedulerFactory" ref="schedulerFactory"/>
+              <property name="schedulerName" value="基金抓取调度器"/>
+              <property name="jobList">
+                     <list>
+                            <bean class="cn.com.fero.tlc.spider.job.fund.FundJob">
+                                   <property name="jobName" value="fundJob"/>
+                                   <property name="jobGroupName" value="fund"/>
+                                   <property name="triggerName" value="fundTrigger"/>
+                                   <property name="triggerGroupName" value="fundTrigger"/>
+                                   <property name="cronExpression" value="0/3 * * * * ? *"/>
+                            </bean>
+                     </list>
+              </property>
+
+       </bean>
+</beans>

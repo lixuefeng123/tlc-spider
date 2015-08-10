@@ -16,11 +16,14 @@ public final class TCLSpiderServer {
     public static void main(String[] args) throws InterruptedException {
         TLCSpiderScheduler p2pScheduler = null;
         TLCSpiderScheduler articleScheduler = null;
+        TLCSpiderScheduler fundScheduler = null;
         try {
             TLCSpiderLoggerUtil.getLogger().info("加载spring配置文件");
             applicationContext = new ClassPathXmlApplicationContext("classpath*: spring-*.xml");
             p2pScheduler = initScheduler("tlcSpiderP2PScheduler");
             articleScheduler = initScheduler("tlcSpiderArticleScheduler");
+            fundScheduler = initScheduler("tlcSpiderFundScheduler");
+
         } catch (BeansException e) {
             TLCSpiderLoggerUtil.getLogger().error(ExceptionUtils.getFullStackTrace(e));
             if (null != p2pScheduler) {
@@ -28,6 +31,9 @@ public final class TCLSpiderServer {
             }
             if (null != articleScheduler) {
                 articleScheduler.shutdown();
+            }
+            if (null != fundScheduler) {
+                fundScheduler.shutdown();
             }
         }
     }
