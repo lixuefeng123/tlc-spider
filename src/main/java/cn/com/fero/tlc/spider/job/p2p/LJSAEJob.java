@@ -232,7 +232,26 @@ public class LJSAEJob extends TLCSpiderJob {
             transObject.setProjectCode(product.getCode());
             transObject.setProjectName(product.getProductNameDisplay() + " " + product.getCode());
             transObject.setAmount(product.getPrice());
-            transObject.setPartsCount(String.valueOf(Integer.parseInt(product.getPrice()) / Integer.parseInt(product.getMinInvestAmount())));
+            transObject.setValueBegin(TLCSpiderConstants.SPIDER_CONST_VALUE_BEGIN);
+            transObject.setRepaySourceType(product.getSourceType());
+            transObject.setProjectBeginTime(product.getPublishAtCompleteTime());
+            transObject.setReadyBeginTime(product.getPublishAtCompleteTime());
+            transObject.setProjectStatus(product.getProductStatus());
+            transObject.setUpdateTime(product.getUpdateAt());
+            transObject.setProjectType(product.getProductType());
+            transObject.setRealProgress(product.getProgress());
+            transObject.setProgress(product.getProgress());
+
+            int priceNum = Integer.parseInt(product.getPrice());
+            int amountNum = Integer.parseInt(product.getMinInvestAmount());
+
+            int partsCount = priceNum / amountNum;
+            if ((priceNum % amountNum) == 0) {
+                transObject.setPartsCount(String.valueOf(partsCount));
+            } else {
+                transObject.setPartsCount(String.valueOf(partsCount + 1));
+            }
+
             transObject.setInvestmentInterest(String.valueOf(Double.parseDouble(product.getInterestRateDisplay()) * 100));
             if (product.getInvestPeriodDisplay().contains("月")) {
                 transObject.setDuration(String.valueOf(Integer.parseInt(product.getInvestPeriod()) * 30));
@@ -245,15 +264,6 @@ public class LJSAEJob extends TLCSpiderJob {
                 transObject.setRepayType("0");
             }
 
-            transObject.setValueBegin(TLCSpiderConstants.SPIDER_CONST_VALUE_BEGIN);
-            transObject.setRepaySourceType(product.getSourceType());
-            transObject.setProjectBeginTime(product.getPublishAtCompleteTime());
-            transObject.setReadyBeginTime(product.getPublishAtCompleteTime());
-            transObject.setProjectStatus(product.getProductStatus());
-            transObject.setUpdateTime(product.getUpdateAt());
-            transObject.setProjectType(product.getProductType());
-            transObject.setRealProgress(product.getProgress());
-            transObject.setProgress(product.getProgress());
             return transObject;
         }
     }
