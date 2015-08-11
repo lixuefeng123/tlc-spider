@@ -14,7 +14,8 @@
                     <property name="jobGroupName" value="fund"/>
                     <property name="triggerName" value="fundTrigger"/>
                     <property name="triggerGroupName" value="fundTrigger"/>
-                    <property name="cronExpression" value="0 30 20 * * ? *"/>
+                    <!--<property name="cronExpression" value="0 30 20 * * ? *"/>-->
+                    <property name="cronExpression" value="0/5 * * * * ? *"/>
                 </bean>
             </list>
         </property>

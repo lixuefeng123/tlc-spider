@@ -28,6 +28,7 @@ public class FundJob extends TLCSpiderJob {
     private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.fund.url.list");
     private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.fund.sid");
     private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.fund.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.fund.title");
 
     public Map<String, String> constructSystemGetParam() {
         Map<String, String> param = new HashedMap();
@@ -38,6 +39,7 @@ public class FundJob extends TLCSpiderJob {
 
     public Map<String, String> constructSystemSendParam(List<FundFetch> fetchList) {
         Map<String, String> param = new HashMap();
+        param.put(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE, JOB_TITLE);
         param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
         param.put(TLCSpiderConstants.SPIDER_PARAM_TOKEN, TOKEN);
         param.put(TLCSpiderConstants.SPIDER_PARAM_DATA, TLCSpiderJsonUtil.array2Json(fetchList));
