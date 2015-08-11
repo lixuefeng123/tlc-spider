@@ -6,11 +6,15 @@ import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderProxyUtil;
 import cn.com.fero.tlc.spider.vo.p2p.RequestProxy;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -174,5 +178,14 @@ public class TLCSpiderProxyTest {
         } else {
             System.out.println("wrong");
         }
+    }
+
+    @Test
+    public void testGetFund() throws UnsupportedEncodingException {
+        String url = "http://192.168.0.68/spiderapi/fund/source.json?";
+        String param = "sid=19&token=o1mAyWZRPuwJlR4Q1Z4=uSUp1ZYiaLQ8RvY7fyxtdo1+";
+        param = URLEncoder.encode(param, "utf-8");
+        String resposne = TLCSpiderRequest.get(url + param);
+        System.out.println(resposne);
     }
 }
