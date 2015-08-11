@@ -95,8 +95,8 @@ public class FundJob extends TLCSpiderJob {
         for (TagNode fund : fundList) {
             String code = TLCSpiderHTMLParser.parseText(fund, "//td[4]");
             if (fetchCodeList.contains(code)) {
-                FundFetch fundObject = convertToFundFetch(fund);
-                fundObjectList.add(fundObject);
+                FundFetch fundFetch = convertToFundFetch(fund);
+                fundObjectList.add(fundFetch);
             }
         }
 

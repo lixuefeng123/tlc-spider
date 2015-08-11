@@ -154,16 +154,20 @@ public class ArticleJob extends TLCSpiderJob {
         List<ArticleFetch> articleFetchList = new ArrayList();
 
         for (String item : itemList) {
-            ArticleFetch articleFetch = new ArticleFetch();
-            articleFetch.setArticle_source_id(article_source_id);
-            articleFetch.setTitle(TLCSpiderHTMLParser.parseText(item, "//title"));
-            articleFetch.setUrl(TLCSpiderHTMLParser.parseText(item, "//url"));
-            articleFetch.setArticle_cd(TLCSpiderHTMLParser.parseText(item, "//display//docid"));
-            articleFetch.setPost_at(TLCSpiderHTMLParser.parseText(item, "//date"));
-
+            ArticleFetch articleFetch = convertToArticleFetch(article_source_id, item);
             articleFetchList.add(articleFetch);
         }
 
         return articleFetchList;
+    }
+
+    private ArticleFetch convertToArticleFetch(String article_source_id, String item) {
+        ArticleFetch articleFetch = new ArticleFetch();
+        articleFetch.setArticle_source_id(article_source_id);
+        articleFetch.setTitle(TLCSpiderHTMLParser.parseText(item, "//title"));
+        articleFetch.setUrl(TLCSpiderHTMLParser.parseText(item, "//url"));
+        articleFetch.setArticle_cd(TLCSpiderHTMLParser.parseText(item, "//display//docid"));
+        articleFetch.setPost_at(TLCSpiderHTMLParser.parseText(item, "//date"));
+        return articleFetch;
     }
 }
