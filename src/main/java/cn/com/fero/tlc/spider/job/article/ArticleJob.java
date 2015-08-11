@@ -21,9 +21,9 @@ import java.util.*;
  */
 //文章抓取
 public class ArticleJob extends TLCSpiderJob {
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.title");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.title");
 
     public Map<String, String> constructSystemGetParam() {
         Map<String, String> param = new HashMap();

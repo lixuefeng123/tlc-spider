@@ -6,7 +6,6 @@ import cn.com.fero.tlc.spider.util.TLCSpiderJsonUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderPropertiesUtil;
 import cn.com.fero.tlc.spider.util.TLCSpiderProxyUtil;
 import cn.com.fero.tlc.spider.vo.p2p.RequestProxy;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -14,7 +13,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -97,8 +95,8 @@ public class TLCSpiderProxyTest {
     @Test
     public void testGetUpdateArticle() {
         String updateUrl = "http://tailicaiop.fero.com.cn/spiderapi/article/source";
-        String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.sid");
-        String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.source.token");
+        String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.sid");
+        String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.article.token");
 
         Map<String, String> param = new HashMap();
         param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);

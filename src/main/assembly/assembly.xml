@@ -28,8 +28,8 @@
             <outputDirectory>/conf</outputDirectory>
             <useDefaultExcludes>false</useDefaultExcludes>
             <!--<excludes>-->
-                <!--<exclude>**/logback.xml</exclude>-->
-                <!--<exclude>**/tlc-spider.properties</exclude>-->
+            <!--<exclude>**/logback.xml</exclude>-->
+            <!--<exclude>**/tlc-spider.properties</exclude>-->
             <!--</excludes>-->
             <directoryMode>755</directoryMode>
             <fileMode>0644</fileMode>
