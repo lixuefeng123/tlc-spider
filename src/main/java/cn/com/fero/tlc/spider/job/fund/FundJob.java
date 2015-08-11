@@ -42,6 +42,7 @@ public class FundJob extends TLCSpiderJob {
         param.put(TLCSpiderConstants.SPIDER_CONST_JOB_TITLE, JOB_TITLE);
         param.put(TLCSpiderConstants.SPIDER_PARAM_SID, SID);
         param.put(TLCSpiderConstants.SPIDER_PARAM_TOKEN, TOKEN);
+        param.put(TLCSpiderConstants.SPIDER_PARAM_MESSAGE, JOB_TITLE);
         param.put(TLCSpiderConstants.SPIDER_PARAM_DATA, TLCSpiderJsonUtil.array2Json(fetchList));
         return param;
     }
@@ -105,21 +106,21 @@ public class FundJob extends TLCSpiderJob {
 
     private FundFetch convertToFundFetch(TagNode fund) {
         FundFetch fundFetch = new FundFetch();
-        fundFetch.setCode(TLCSpiderHTMLParser.parseText(fund, "//td[4]"));
-        fundFetch.setAbbreviation(TLCSpiderHTMLParser.parseText(fund, "//td[5]"));
-        fundFetch.setDate(TLCSpiderHTMLParser.parseText(fund, "//td[3]"));
-        fundFetch.setWanIncome(TLCSpiderHTMLParser.parseText(fund, "//td[6]"));
-        fundFetch.setSevenNianHua(TLCSpiderHTMLParser.parseText(fund, "//td[7]/span"));
-        fundFetch.setNearOneMonth(TLCSpiderHTMLParser.parseText(fund, "//td[9]/span"));
-        fundFetch.setNearOneWeek(TLCSpiderHTMLParser.parseText(fund, "//td[8]/span"));
-        fundFetch.setNearThreeMonth(TLCSpiderHTMLParser.parseText(fund, "//td[10]/span"));
-        fundFetch.setNearSixMonth(TLCSpiderHTMLParser.parseText(fund, "//td[11]/span"));
-        fundFetch.setNearOneYear(TLCSpiderHTMLParser.parseText(fund, "//td[12]/span"));
-        fundFetch.setNearTwoYear(TLCSpiderHTMLParser.parseText(fund, "//td[13]/span"));
-        fundFetch.setNearThreeYear(TLCSpiderHTMLParser.parseText(fund, "//td[14]/span"));
-        fundFetch.setThisYear(TLCSpiderHTMLParser.parseText(fund, "//td[15]/span"));
-        fundFetch.setEstablish(TLCSpiderHTMLParser.parseText(fund, "//td[16]/span"));
-        fundFetch.setEstablishDate(TLCSpiderHTMLParser.parseText(fund, "//td[17]"));
+        fundFetch.setPublishDate(TLCSpiderHTMLParser.parseText(fund, "//td[3]"));
+        fundFetch.setFundCode(TLCSpiderHTMLParser.parseText(fund, "//td[4]"));
+        fundFetch.setFundNick(TLCSpiderHTMLParser.parseText(fund, "//td[5]"));
+        fundFetch.setTenThousandInterest(TLCSpiderHTMLParser.parseText(fund, "//td[6]"));
+        fundFetch.setWeekInterest(TLCSpiderHTMLParser.parseText(fund, "//td[7]/span"));
+        fundFetch.setWeekEarning(TLCSpiderHTMLParser.parseText(fund, "//td[8]/span"));
+        fundFetch.setMonthEarning(TLCSpiderHTMLParser.parseText(fund, "//td[9]/span"));
+        fundFetch.setThreeMonthEarning(TLCSpiderHTMLParser.parseText(fund, "//td[10]/span"));
+        fundFetch.setHalfYearEarning(TLCSpiderHTMLParser.parseText(fund, "//td[11]/span"));
+        fundFetch.setYearEarning(TLCSpiderHTMLParser.parseText(fund, "//td[12]/span"));
+        fundFetch.setTwoYearEarning(TLCSpiderHTMLParser.parseText(fund, "//td[13]/span"));
+        fundFetch.setThreeYearEarning(TLCSpiderHTMLParser.parseText(fund, "//td[14]/span"));
+        fundFetch.setCurrentYearEarning(TLCSpiderHTMLParser.parseText(fund, "//td[15]/span"));
+        fundFetch.setCreatedEarning(TLCSpiderHTMLParser.parseText(fund, "//td[16]/span"));
+        fundFetch.setCreatedDate(TLCSpiderHTMLParser.parseText(fund, "//td[17]"));
         return fundFetch;
     }
 }

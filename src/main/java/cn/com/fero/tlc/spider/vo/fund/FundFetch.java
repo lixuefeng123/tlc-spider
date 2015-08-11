@@ -4,140 +4,140 @@ package cn.com.fero.tlc.spider.vo.fund;
  * Created by lixuefeng on 2015/8/10.
  */
 public class FundFetch {
-    private String date;
-    private String code;
-    private String abbreviation;
-    private String wanIncome;
-    private String sevenNianHua;
-    private String nearOneWeek;
-    private String nearOneMonth;
-    private String nearThreeMonth;
-    private String nearSixMonth;
-    private String nearOneYear;
-    private String nearTwoYear;
-    private String nearThreeYear;
-    private String thisYear;
-    private String establish;
-    private String establishDate;
+    private String publishDate;
+    private String fundCode;
+    private String fundNick;
+    private String tenThousandInterest;
+    private String weekInterest;
+    private String weekEarning;
+    private String monthEarning;
+    private String threeMonthEarning;
+    private String halfYearEarning;
+    private String yearEarning;
+    private String twoYearEarning;
+    private String threeYearEarning;
+    private String currentYearEarning;
+    private String createdEarning;
+    private String createdDate;
 
-    public String getDate() {
-        return date;
+    public String getPublishDate() {
+        return publishDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setPublishDate(String publishDate) {
+        this.publishDate = publishDate;
     }
 
-    public String getCode() {
-        return code;
+    public String getFundCode() {
+        return fundCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setFundCode(String fundCode) {
+        this.fundCode = fundCode;
     }
 
-    public String getAbbreviation() {
-        return abbreviation;
+    public String getFundNick() {
+        return fundNick;
     }
 
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
+    public void setFundNick(String fundNick) {
+        this.fundNick = fundNick;
     }
 
-    public String getWanIncome() {
-        return wanIncome;
+    public String getTenThousandInterest() {
+        return tenThousandInterest;
     }
 
-    public void setWanIncome(String wanIncome) {
-        this.wanIncome = wanIncome;
+    public void setTenThousandInterest(String tenThousandInterest) {
+        this.tenThousandInterest = tenThousandInterest;
     }
 
-    public String getSevenNianHua() {
-        return sevenNianHua;
+    public String getWeekInterest() {
+        return weekInterest;
     }
 
-    public void setSevenNianHua(String sevenNianHua) {
-        this.sevenNianHua = sevenNianHua;
+    public void setWeekInterest(String weekInterest) {
+        this.weekInterest = weekInterest;
     }
 
-    public String getNearOneWeek() {
-        return nearOneWeek;
+    public String getWeekEarning() {
+        return weekEarning;
     }
 
-    public void setNearOneWeek(String nearOneWeek) {
-        this.nearOneWeek = nearOneWeek;
+    public void setWeekEarning(String weekEarning) {
+        this.weekEarning = weekEarning;
     }
 
-    public String getNearOneMonth() {
-        return nearOneMonth;
+    public String getMonthEarning() {
+        return monthEarning;
     }
 
-    public void setNearOneMonth(String nearOneMonth) {
-        this.nearOneMonth = nearOneMonth;
+    public void setMonthEarning(String monthEarning) {
+        this.monthEarning = monthEarning;
     }
 
-    public String getNearThreeMonth() {
-        return nearThreeMonth;
+    public String getThreeMonthEarning() {
+        return threeMonthEarning;
     }
 
-    public void setNearThreeMonth(String nearThreeMonth) {
-        this.nearThreeMonth = nearThreeMonth;
+    public void setThreeMonthEarning(String threeMonthEarning) {
+        this.threeMonthEarning = threeMonthEarning;
     }
 
-    public String getNearSixMonth() {
-        return nearSixMonth;
+    public String getHalfYearEarning() {
+        return halfYearEarning;
     }
 
-    public void setNearSixMonth(String nearSixMonth) {
-        this.nearSixMonth = nearSixMonth;
+    public void setHalfYearEarning(String halfYearEarning) {
+        this.halfYearEarning = halfYearEarning;
     }
 
-    public String getNearOneYear() {
-        return nearOneYear;
+    public String getYearEarning() {
+        return yearEarning;
     }
 
-    public void setNearOneYear(String nearOneYear) {
-        this.nearOneYear = nearOneYear;
+    public void setYearEarning(String yearEarning) {
+        this.yearEarning = yearEarning;
     }
 
-    public String getNearTwoYear() {
-        return nearTwoYear;
+    public String getTwoYearEarning() {
+        return twoYearEarning;
     }
 
-    public void setNearTwoYear(String nearTwoYear) {
-        this.nearTwoYear = nearTwoYear;
+    public void setTwoYearEarning(String twoYearEarning) {
+        this.twoYearEarning = twoYearEarning;
     }
 
-    public String getNearThreeYear() {
-        return nearThreeYear;
+    public String getThreeYearEarning() {
+        return threeYearEarning;
     }
 
-    public void setNearThreeYear(String nearThreeYear) {
-        this.nearThreeYear = nearThreeYear;
+    public void setThreeYearEarning(String threeYearEarning) {
+        this.threeYearEarning = threeYearEarning;
     }
 
-    public String getThisYear() {
-        return thisYear;
+    public String getCurrentYearEarning() {
+        return currentYearEarning;
     }
 
-    public void setThisYear(String thisYear) {
-        this.thisYear = thisYear;
+    public void setCurrentYearEarning(String currentYearEarning) {
+        this.currentYearEarning = currentYearEarning;
     }
 
-    public String getEstablish() {
-        return establish;
+    public String getCreatedEarning() {
+        return createdEarning;
     }
 
-    public void setEstablish(String establish) {
-        this.establish = establish;
+    public void setCreatedEarning(String createdEarning) {
+        this.createdEarning = createdEarning;
     }
 
-    public String getEstablishDate() {
-        return establishDate;
+    public String getCreatedDate() {
+        return createdDate;
     }
 
-    public void setEstablishDate(String establishDate) {
-        this.establishDate = establishDate;
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Override
@@ -145,68 +145,78 @@ public class FundFetch {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        FundFetch that = (FundFetch) o;
+        FundFetch fundFetch = (FundFetch) o;
 
-        if (abbreviation != null ? !abbreviation.equals(that.abbreviation) : that.abbreviation != null) return false;
-        if (code != null ? !code.equals(that.code) : that.code != null) return false;
-        if (date != null ? !date.equals(that.date) : that.date != null) return false;
-        if (establish != null ? !establish.equals(that.establish) : that.establish != null) return false;
-        if (establishDate != null ? !establishDate.equals(that.establishDate) : that.establishDate != null)
+        if (createdDate != null ? !createdDate.equals(fundFetch.createdDate) : fundFetch.createdDate != null)
             return false;
-        if (nearOneMonth != null ? !nearOneMonth.equals(that.nearOneMonth) : that.nearOneMonth != null) return false;
-        if (nearOneWeek != null ? !nearOneWeek.equals(that.nearOneWeek) : that.nearOneWeek != null) return false;
-        if (nearOneYear != null ? !nearOneYear.equals(that.nearOneYear) : that.nearOneYear != null) return false;
-        if (nearSixMonth != null ? !nearSixMonth.equals(that.nearSixMonth) : that.nearSixMonth != null) return false;
-        if (nearThreeMonth != null ? !nearThreeMonth.equals(that.nearThreeMonth) : that.nearThreeMonth != null)
+        if (createdEarning != null ? !createdEarning.equals(fundFetch.createdEarning) : fundFetch.createdEarning != null)
             return false;
-        if (nearThreeYear != null ? !nearThreeYear.equals(that.nearThreeYear) : that.nearThreeYear != null)
+        if (currentYearEarning != null ? !currentYearEarning.equals(fundFetch.currentYearEarning) : fundFetch.currentYearEarning != null)
             return false;
-        if (nearTwoYear != null ? !nearTwoYear.equals(that.nearTwoYear) : that.nearTwoYear != null) return false;
-        if (sevenNianHua != null ? !sevenNianHua.equals(that.sevenNianHua) : that.sevenNianHua != null) return false;
-        if (thisYear != null ? !thisYear.equals(that.thisYear) : that.thisYear != null) return false;
-        if (wanIncome != null ? !wanIncome.equals(that.wanIncome) : that.wanIncome != null) return false;
+        if (fundCode != null ? !fundCode.equals(fundFetch.fundCode) : fundFetch.fundCode != null) return false;
+        if (fundNick != null ? !fundNick.equals(fundFetch.fundNick) : fundFetch.fundNick != null) return false;
+        if (halfYearEarning != null ? !halfYearEarning.equals(fundFetch.halfYearEarning) : fundFetch.halfYearEarning != null)
+            return false;
+        if (monthEarning != null ? !monthEarning.equals(fundFetch.monthEarning) : fundFetch.monthEarning != null)
+            return false;
+        if (publishDate != null ? !publishDate.equals(fundFetch.publishDate) : fundFetch.publishDate != null)
+            return false;
+        if (tenThousandInterest != null ? !tenThousandInterest.equals(fundFetch.tenThousandInterest) : fundFetch.tenThousandInterest != null)
+            return false;
+        if (threeMonthEarning != null ? !threeMonthEarning.equals(fundFetch.threeMonthEarning) : fundFetch.threeMonthEarning != null)
+            return false;
+        if (threeYearEarning != null ? !threeYearEarning.equals(fundFetch.threeYearEarning) : fundFetch.threeYearEarning != null)
+            return false;
+        if (twoYearEarning != null ? !twoYearEarning.equals(fundFetch.twoYearEarning) : fundFetch.twoYearEarning != null)
+            return false;
+        if (weekEarning != null ? !weekEarning.equals(fundFetch.weekEarning) : fundFetch.weekEarning != null)
+            return false;
+        if (weekInterest != null ? !weekInterest.equals(fundFetch.weekInterest) : fundFetch.weekInterest != null)
+            return false;
+        if (yearEarning != null ? !yearEarning.equals(fundFetch.yearEarning) : fundFetch.yearEarning != null)
+            return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = date != null ? date.hashCode() : 0;
-        result = 31 * result + (code != null ? code.hashCode() : 0);
-        result = 31 * result + (abbreviation != null ? abbreviation.hashCode() : 0);
-        result = 31 * result + (wanIncome != null ? wanIncome.hashCode() : 0);
-        result = 31 * result + (sevenNianHua != null ? sevenNianHua.hashCode() : 0);
-        result = 31 * result + (nearOneWeek != null ? nearOneWeek.hashCode() : 0);
-        result = 31 * result + (nearOneMonth != null ? nearOneMonth.hashCode() : 0);
-        result = 31 * result + (nearThreeMonth != null ? nearThreeMonth.hashCode() : 0);
-        result = 31 * result + (nearSixMonth != null ? nearSixMonth.hashCode() : 0);
-        result = 31 * result + (nearOneYear != null ? nearOneYear.hashCode() : 0);
-        result = 31 * result + (nearTwoYear != null ? nearTwoYear.hashCode() : 0);
-        result = 31 * result + (nearThreeYear != null ? nearThreeYear.hashCode() : 0);
-        result = 31 * result + (thisYear != null ? thisYear.hashCode() : 0);
-        result = 31 * result + (establish != null ? establish.hashCode() : 0);
-        result = 31 * result + (establishDate != null ? establishDate.hashCode() : 0);
+        int result = publishDate != null ? publishDate.hashCode() : 0;
+        result = 31 * result + (fundCode != null ? fundCode.hashCode() : 0);
+        result = 31 * result + (fundNick != null ? fundNick.hashCode() : 0);
+        result = 31 * result + (tenThousandInterest != null ? tenThousandInterest.hashCode() : 0);
+        result = 31 * result + (weekInterest != null ? weekInterest.hashCode() : 0);
+        result = 31 * result + (weekEarning != null ? weekEarning.hashCode() : 0);
+        result = 31 * result + (monthEarning != null ? monthEarning.hashCode() : 0);
+        result = 31 * result + (threeMonthEarning != null ? threeMonthEarning.hashCode() : 0);
+        result = 31 * result + (halfYearEarning != null ? halfYearEarning.hashCode() : 0);
+        result = 31 * result + (yearEarning != null ? yearEarning.hashCode() : 0);
+        result = 31 * result + (twoYearEarning != null ? twoYearEarning.hashCode() : 0);
+        result = 31 * result + (threeYearEarning != null ? threeYearEarning.hashCode() : 0);
+        result = 31 * result + (currentYearEarning != null ? currentYearEarning.hashCode() : 0);
+        result = 31 * result + (createdEarning != null ? createdEarning.hashCode() : 0);
+        result = 31 * result + (createdDate != null ? createdDate.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("FundSource{");
-        sb.append("date='").append(date).append('\'');
-        sb.append(", code='").append(code).append('\'');
-        sb.append(", abbreviation='").append(abbreviation).append('\'');
-        sb.append(", wanIncome='").append(wanIncome).append('\'');
-        sb.append(", sevenNianHua='").append(sevenNianHua).append('\'');
-        sb.append(", nearOneWeek='").append(nearOneWeek).append('\'');
-        sb.append(", nearOneMonth='").append(nearOneMonth).append('\'');
-        sb.append(", nearThreeMonth='").append(nearThreeMonth).append('\'');
-        sb.append(", nearSixMonth='").append(nearSixMonth).append('\'');
-        sb.append(", nearOneYear='").append(nearOneYear).append('\'');
-        sb.append(", nearTwoYear='").append(nearTwoYear).append('\'');
-        sb.append(", nearThreeYear='").append(nearThreeYear).append('\'');
-        sb.append(", thisYear='").append(thisYear).append('\'');
-        sb.append(", establish='").append(establish).append('\'');
-        sb.append(", establishDate='").append(establishDate).append('\'');
+        final StringBuilder sb = new StringBuilder("FundFetch{");
+        sb.append("publishDate='").append(publishDate).append('\'');
+        sb.append(", fundCode='").append(fundCode).append('\'');
+        sb.append(", fundNick='").append(fundNick).append('\'');
+        sb.append(", tenThousandInterest='").append(tenThousandInterest).append('\'');
+        sb.append(", weekInterest='").append(weekInterest).append('\'');
+        sb.append(", weekEarning='").append(weekEarning).append('\'');
+        sb.append(", monthEarning='").append(monthEarning).append('\'');
+        sb.append(", threeMonthEarning='").append(threeMonthEarning).append('\'');
+        sb.append(", halfYearEarning='").append(halfYearEarning).append('\'');
+        sb.append(", yearEarning='").append(yearEarning).append('\'');
+        sb.append(", twoYearEarning='").append(twoYearEarning).append('\'');
+        sb.append(", threeYearEarning='").append(threeYearEarning).append('\'');
+        sb.append(", currentYearEarning='").append(currentYearEarning).append('\'');
+        sb.append(", createdEarning='").append(createdEarning).append('\'');
+        sb.append(", createdDate='").append(createdDate).append('\'');
         sb.append('}');
         return sb.toString();
     }
