@@ -4,6 +4,21 @@ package cn.com.fero.tlc.spider.vo.p2p;
  * Created by wanghongmeng on 2015/7/23.
  */
 public class LJSAE {
+    private String lastUpdateTime;
+    private String buyerTransactionFee;
+    private String countDownSeconds;
+    private String doneCountDownSeconds;
+    private String increaseInvestAmount;
+    private String coinsValid;
+    private String coinsUseRatio;
+    private String reducePrice;
+    private String acceptanceBank;
+    private String minInterestRate;
+    private String canWithHold;
+    private String isDanbao;
+    private String remainingSeconds;
+    private String riskLevelDisplay;
+    private String riskLevel;
     private String displayName;
     private String publishedAtDateTime;
     private String remainingAmount;
@@ -53,6 +68,126 @@ public class LJSAE {
     private String maxInvestAmount;
     private String increasedInvestAmount;
     private String sameAnyiProductCounts;
+
+    public String getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public void setLastUpdateTime(String lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public String getBuyerTransactionFee() {
+        return buyerTransactionFee;
+    }
+
+    public void setBuyerTransactionFee(String buyerTransactionFee) {
+        this.buyerTransactionFee = buyerTransactionFee;
+    }
+
+    public String getCountDownSeconds() {
+        return countDownSeconds;
+    }
+
+    public void setCountDownSeconds(String countDownSeconds) {
+        this.countDownSeconds = countDownSeconds;
+    }
+
+    public String getDoneCountDownSeconds() {
+        return doneCountDownSeconds;
+    }
+
+    public void setDoneCountDownSeconds(String doneCountDownSeconds) {
+        this.doneCountDownSeconds = doneCountDownSeconds;
+    }
+
+    public String getIncreaseInvestAmount() {
+        return increaseInvestAmount;
+    }
+
+    public void setIncreaseInvestAmount(String increaseInvestAmount) {
+        this.increaseInvestAmount = increaseInvestAmount;
+    }
+
+    public String getCoinsValid() {
+        return coinsValid;
+    }
+
+    public void setCoinsValid(String coinsValid) {
+        this.coinsValid = coinsValid;
+    }
+
+    public String getCoinsUseRatio() {
+        return coinsUseRatio;
+    }
+
+    public void setCoinsUseRatio(String coinsUseRatio) {
+        this.coinsUseRatio = coinsUseRatio;
+    }
+
+    public String getReducePrice() {
+        return reducePrice;
+    }
+
+    public void setReducePrice(String reducePrice) {
+        this.reducePrice = reducePrice;
+    }
+
+    public String getAcceptanceBank() {
+        return acceptanceBank;
+    }
+
+    public void setAcceptanceBank(String acceptanceBank) {
+        this.acceptanceBank = acceptanceBank;
+    }
+
+    public String getMinInterestRate() {
+        return minInterestRate;
+    }
+
+    public void setMinInterestRate(String minInterestRate) {
+        this.minInterestRate = minInterestRate;
+    }
+
+    public String getCanWithHold() {
+        return canWithHold;
+    }
+
+    public void setCanWithHold(String canWithHold) {
+        this.canWithHold = canWithHold;
+    }
+
+    public String getIsDanbao() {
+        return isDanbao;
+    }
+
+    public void setIsDanbao(String isDanbao) {
+        this.isDanbao = isDanbao;
+    }
+
+    public String getRemainingSeconds() {
+        return remainingSeconds;
+    }
+
+    public void setRemainingSeconds(String remainingSeconds) {
+        this.remainingSeconds = remainingSeconds;
+    }
+
+    public String getRiskLevelDisplay() {
+        return riskLevelDisplay;
+    }
+
+    public void setRiskLevelDisplay(String riskLevelDisplay) {
+        this.riskLevelDisplay = riskLevelDisplay;
+    }
+
+    public String getRiskLevel() {
+        return riskLevel;
+    }
+
+    public void setRiskLevel(String riskLevel) {
+        this.riskLevel = riskLevel;
+    }
 
     public String getDisplayName() {
         return displayName;
@@ -453,17 +588,31 @@ public class LJSAE {
 
         LJSAE ljsae = (LJSAE) o;
 
+        if (acceptanceBank != null ? !acceptanceBank.equals(ljsae.acceptanceBank) : ljsae.acceptanceBank != null)
+            return false;
         if (adjustPrice != null ? !adjustPrice.equals(ljsae.adjustPrice) : ljsae.adjustPrice != null) return false;
+        if (buyerTransactionFee != null ? !buyerTransactionFee.equals(ljsae.buyerTransactionFee) : ljsae.buyerTransactionFee != null)
+            return false;
+        if (canWithHold != null ? !canWithHold.equals(ljsae.canWithHold) : ljsae.canWithHold != null) return false;
         if (code != null ? !code.equals(ljsae.code) : ljsae.code != null) return false;
+        if (coinsUseRatio != null ? !coinsUseRatio.equals(ljsae.coinsUseRatio) : ljsae.coinsUseRatio != null)
+            return false;
+        if (coinsValid != null ? !coinsValid.equals(ljsae.coinsValid) : ljsae.coinsValid != null) return false;
         if (collectionMode != null ? !collectionMode.equals(ljsae.collectionMode) : ljsae.collectionMode != null)
             return false;
         if (collectionModeDisplay != null ? !collectionModeDisplay.equals(ljsae.collectionModeDisplay) : ljsae.collectionModeDisplay != null)
             return false;
+        if (countDownSeconds != null ? !countDownSeconds.equals(ljsae.countDownSeconds) : ljsae.countDownSeconds != null)
+            return false;
         if (currentPrice != null ? !currentPrice.equals(ljsae.currentPrice) : ljsae.currentPrice != null) return false;
         if (displayName != null ? !displayName.equals(ljsae.displayName) : ljsae.displayName != null) return false;
+        if (doneCountDownSeconds != null ? !doneCountDownSeconds.equals(ljsae.doneCountDownSeconds) : ljsae.doneCountDownSeconds != null)
+            return false;
         if (feeDisplayFlag != null ? !feeDisplayFlag.equals(ljsae.feeDisplayFlag) : ljsae.feeDisplayFlag != null)
             return false;
         if (forceOrder != null ? !forceOrder.equals(ljsae.forceOrder) : ljsae.forceOrder != null) return false;
+        if (increaseInvestAmount != null ? !increaseInvestAmount.equals(ljsae.increaseInvestAmount) : ljsae.increaseInvestAmount != null)
+            return false;
         if (increasedInvestAmount != null ? !increasedInvestAmount.equals(ljsae.increasedInvestAmount) : ljsae.increasedInvestAmount != null)
             return false;
         if (interestRate != null ? !interestRate.equals(ljsae.interestRate) : ljsae.interestRate != null) return false;
@@ -476,15 +625,20 @@ public class LJSAE {
             return false;
         if (investPeriodUnitDisplay != null ? !investPeriodUnitDisplay.equals(ljsae.investPeriodUnitDisplay) : ljsae.investPeriodUnitDisplay != null)
             return false;
+        if (isDanbao != null ? !isDanbao.equals(ljsae.isDanbao) : ljsae.isDanbao != null) return false;
         if (isFirstProduct != null ? !isFirstProduct.equals(ljsae.isFirstProduct) : ljsae.isFirstProduct != null)
             return false;
         if (isForNewUser != null ? !isForNewUser.equals(ljsae.isForNewUser) : ljsae.isForNewUser != null) return false;
         if (isInSpecialGroup != null ? !isInSpecialGroup.equals(ljsae.isInSpecialGroup) : ljsae.isInSpecialGroup != null)
             return false;
         if (isVipGroup != null ? !isVipGroup.equals(ljsae.isVipGroup) : ljsae.isVipGroup != null) return false;
+        if (lastUpdateTime != null ? !lastUpdateTime.equals(ljsae.lastUpdateTime) : ljsae.lastUpdateTime != null)
+            return false;
         if (maxInvestAmount != null ? !maxInvestAmount.equals(ljsae.maxInvestAmount) : ljsae.maxInvestAmount != null)
             return false;
         if (mgmtFeeRate != null ? !mgmtFeeRate.equals(ljsae.mgmtFeeRate) : ljsae.mgmtFeeRate != null) return false;
+        if (minInterestRate != null ? !minInterestRate.equals(ljsae.minInterestRate) : ljsae.minInterestRate != null)
+            return false;
         if (minInvestAmount != null ? !minInvestAmount.equals(ljsae.minInvestAmount) : ljsae.minInvestAmount != null)
             return false;
         if (newCoinProcessSwitch != null ? !newCoinProcessSwitch.equals(ljsae.newCoinProcessSwitch) : ljsae.newCoinProcessSwitch != null)
@@ -518,7 +672,13 @@ public class LJSAE {
         if (publishedAtDateTime != null ? !publishedAtDateTime.equals(ljsae.publishedAtDateTime) : ljsae.publishedAtDateTime != null)
             return false;
         if (raisedAmount != null ? !raisedAmount.equals(ljsae.raisedAmount) : ljsae.raisedAmount != null) return false;
+        if (reducePrice != null ? !reducePrice.equals(ljsae.reducePrice) : ljsae.reducePrice != null) return false;
         if (remainingAmount != null ? !remainingAmount.equals(ljsae.remainingAmount) : ljsae.remainingAmount != null)
+            return false;
+        if (remainingSeconds != null ? !remainingSeconds.equals(ljsae.remainingSeconds) : ljsae.remainingSeconds != null)
+            return false;
+        if (riskLevel != null ? !riskLevel.equals(ljsae.riskLevel) : ljsae.riskLevel != null) return false;
+        if (riskLevelDisplay != null ? !riskLevelDisplay.equals(ljsae.riskLevelDisplay) : ljsae.riskLevelDisplay != null)
             return false;
         if (salesChannel != null ? !salesChannel.equals(ljsae.salesChannel) : ljsae.salesChannel != null) return false;
         if (sameAnyiProductCounts != null ? !sameAnyiProductCounts.equals(ljsae.sameAnyiProductCounts) : ljsae.sameAnyiProductCounts != null)
@@ -536,7 +696,22 @@ public class LJSAE {
 
     @Override
     public int hashCode() {
-        int result = displayName != null ? displayName.hashCode() : 0;
+        int result = lastUpdateTime != null ? lastUpdateTime.hashCode() : 0;
+        result = 31 * result + (buyerTransactionFee != null ? buyerTransactionFee.hashCode() : 0);
+        result = 31 * result + (countDownSeconds != null ? countDownSeconds.hashCode() : 0);
+        result = 31 * result + (doneCountDownSeconds != null ? doneCountDownSeconds.hashCode() : 0);
+        result = 31 * result + (increaseInvestAmount != null ? increaseInvestAmount.hashCode() : 0);
+        result = 31 * result + (coinsValid != null ? coinsValid.hashCode() : 0);
+        result = 31 * result + (coinsUseRatio != null ? coinsUseRatio.hashCode() : 0);
+        result = 31 * result + (reducePrice != null ? reducePrice.hashCode() : 0);
+        result = 31 * result + (acceptanceBank != null ? acceptanceBank.hashCode() : 0);
+        result = 31 * result + (minInterestRate != null ? minInterestRate.hashCode() : 0);
+        result = 31 * result + (canWithHold != null ? canWithHold.hashCode() : 0);
+        result = 31 * result + (isDanbao != null ? isDanbao.hashCode() : 0);
+        result = 31 * result + (remainingSeconds != null ? remainingSeconds.hashCode() : 0);
+        result = 31 * result + (riskLevelDisplay != null ? riskLevelDisplay.hashCode() : 0);
+        result = 31 * result + (riskLevel != null ? riskLevel.hashCode() : 0);
+        result = 31 * result + (displayName != null ? displayName.hashCode() : 0);
         result = 31 * result + (publishedAtDateTime != null ? publishedAtDateTime.hashCode() : 0);
         result = 31 * result + (remainingAmount != null ? remainingAmount.hashCode() : 0);
         result = 31 * result + (productId != null ? productId.hashCode() : 0);
@@ -591,7 +766,22 @@ public class LJSAE {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("LJSAE{");
-        sb.append("displayName='").append(displayName).append('\'');
+        sb.append("lastUpdateTime='").append(lastUpdateTime).append('\'');
+        sb.append(", buyerTransactionFee='").append(buyerTransactionFee).append('\'');
+        sb.append(", countDownSeconds='").append(countDownSeconds).append('\'');
+        sb.append(", doneCountDownSeconds='").append(doneCountDownSeconds).append('\'');
+        sb.append(", increaseInvestAmount='").append(increaseInvestAmount).append('\'');
+        sb.append(", coinsValid='").append(coinsValid).append('\'');
+        sb.append(", coinsUseRatio='").append(coinsUseRatio).append('\'');
+        sb.append(", reducePrice='").append(reducePrice).append('\'');
+        sb.append(", acceptanceBank='").append(acceptanceBank).append('\'');
+        sb.append(", minInterestRate='").append(minInterestRate).append('\'');
+        sb.append(", canWithHold='").append(canWithHold).append('\'');
+        sb.append(", isDanbao='").append(isDanbao).append('\'');
+        sb.append(", remainingSeconds='").append(remainingSeconds).append('\'');
+        sb.append(", riskLevelDisplay='").append(riskLevelDisplay).append('\'');
+        sb.append(", riskLevel='").append(riskLevel).append('\'');
+        sb.append(", displayName='").append(displayName).append('\'');
         sb.append(", publishedAtDateTime='").append(publishedAtDateTime).append('\'');
         sb.append(", remainingAmount='").append(remainingAmount).append('\'');
         sb.append(", productId='").append(productId).append('\'');

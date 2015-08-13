@@ -4,6 +4,8 @@ package cn.com.fero.tlc.spider.vo.p2p;
  * Created by wanghongmeng on 2015/6/25.
  */
 public class ZHNORMAL {
+    private String isInPartOpen;
+    private String projectRunCode;
     private String financingId;
     private String projectCode;
     private String projectName;
@@ -50,6 +52,22 @@ public class ZHNORMAL {
     private String dbType;
     private String displayType;
     private String salesType;
+
+    public String getIsInPartOpen() {
+        return isInPartOpen;
+    }
+
+    public void setIsInPartOpen(String isInPartOpen) {
+        this.isInPartOpen = isInPartOpen;
+    }
+
+    public String getProjectRunCode() {
+        return projectRunCode;
+    }
+
+    public void setProjectRunCode(String projectRunCode) {
+        this.projectRunCode = projectRunCode;
+    }
 
     public String getFinancingId() {
         return financingId;
@@ -424,89 +442,95 @@ public class ZHNORMAL {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ZHNORMAL ZHNORMAL = (ZHNORMAL) o;
+        ZHNORMAL zhnormal = (ZHNORMAL) o;
 
-        if (amount != null ? !amount.equals(ZHNORMAL.amount) : ZHNORMAL.amount != null) return false;
-        if (areaCode != null ? !areaCode.equals(ZHNORMAL.areaCode) : ZHNORMAL.areaCode != null) return false;
-        if (bankInterest != null ? !bankInterest.equals(ZHNORMAL.bankInterest) : ZHNORMAL.bankInterest != null)
+        if (amount != null ? !amount.equals(zhnormal.amount) : zhnormal.amount != null) return false;
+        if (areaCode != null ? !areaCode.equals(zhnormal.areaCode) : zhnormal.areaCode != null) return false;
+        if (bankInterest != null ? !bankInterest.equals(zhnormal.bankInterest) : zhnormal.bankInterest != null)
             return false;
-        if (bindCompanyId != null ? !bindCompanyId.equals(ZHNORMAL.bindCompanyId) : ZHNORMAL.bindCompanyId != null)
+        if (bindCompanyId != null ? !bindCompanyId.equals(zhnormal.bindCompanyId) : zhnormal.bindCompanyId != null)
             return false;
-        if (bindCompanyName != null ? !bindCompanyName.equals(ZHNORMAL.bindCompanyName) : ZHNORMAL.bindCompanyName != null)
+        if (bindCompanyName != null ? !bindCompanyName.equals(zhnormal.bindCompanyName) : zhnormal.bindCompanyName != null)
             return false;
-        if (bindUserId != null ? !bindUserId.equals(ZHNORMAL.bindUserId) : ZHNORMAL.bindUserId != null) return false;
-        if (bindUserName != null ? !bindUserName.equals(ZHNORMAL.bindUserName) : ZHNORMAL.bindUserName != null)
+        if (bindUserId != null ? !bindUserId.equals(zhnormal.bindUserId) : zhnormal.bindUserId != null) return false;
+        if (bindUserName != null ? !bindUserName.equals(zhnormal.bindUserName) : zhnormal.bindUserName != null)
             return false;
-        if (createCompanyId != null ? !createCompanyId.equals(ZHNORMAL.createCompanyId) : ZHNORMAL.createCompanyId != null)
+        if (createCompanyId != null ? !createCompanyId.equals(zhnormal.createCompanyId) : zhnormal.createCompanyId != null)
             return false;
-        if (createCompanyName != null ? !createCompanyName.equals(ZHNORMAL.createCompanyName) : ZHNORMAL.createCompanyName != null)
+        if (createCompanyName != null ? !createCompanyName.equals(zhnormal.createCompanyName) : zhnormal.createCompanyName != null)
             return false;
-        if (createTime != null ? !createTime.equals(ZHNORMAL.createTime) : ZHNORMAL.createTime != null) return false;
-        if (createUserId != null ? !createUserId.equals(ZHNORMAL.createUserId) : ZHNORMAL.createUserId != null)
+        if (createTime != null ? !createTime.equals(zhnormal.createTime) : zhnormal.createTime != null) return false;
+        if (createUserId != null ? !createUserId.equals(zhnormal.createUserId) : zhnormal.createUserId != null)
             return false;
-        if (createUserName != null ? !createUserName.equals(ZHNORMAL.createUserName) : ZHNORMAL.createUserName != null)
+        if (createUserName != null ? !createUserName.equals(zhnormal.createUserName) : zhnormal.createUserName != null)
             return false;
-        if (creditLevel != null ? !creditLevel.equals(ZHNORMAL.creditLevel) : ZHNORMAL.creditLevel != null)
+        if (creditLevel != null ? !creditLevel.equals(zhnormal.creditLevel) : zhnormal.creditLevel != null)
             return false;
-        if (dbType != null ? !dbType.equals(ZHNORMAL.dbType) : ZHNORMAL.dbType != null) return false;
-        if (displayType != null ? !displayType.equals(ZHNORMAL.displayType) : ZHNORMAL.displayType != null)
+        if (dbType != null ? !dbType.equals(zhnormal.dbType) : zhnormal.dbType != null) return false;
+        if (displayType != null ? !displayType.equals(zhnormal.displayType) : zhnormal.displayType != null)
             return false;
-        if (duration != null ? !duration.equals(ZHNORMAL.duration) : ZHNORMAL.duration != null) return false;
-        if (exclusiveCode != null ? !exclusiveCode.equals(ZHNORMAL.exclusiveCode) : ZHNORMAL.exclusiveCode != null)
+        if (duration != null ? !duration.equals(zhnormal.duration) : zhnormal.duration != null) return false;
+        if (exclusiveCode != null ? !exclusiveCode.equals(zhnormal.exclusiveCode) : zhnormal.exclusiveCode != null)
             return false;
-        if (financeApplyStatus != null ? !financeApplyStatus.equals(ZHNORMAL.financeApplyStatus) : ZHNORMAL.financeApplyStatus != null)
+        if (financeApplyStatus != null ? !financeApplyStatus.equals(zhnormal.financeApplyStatus) : zhnormal.financeApplyStatus != null)
             return false;
-        if (financingId != null ? !financingId.equals(ZHNORMAL.financingId) : ZHNORMAL.financingId != null)
+        if (financingId != null ? !financingId.equals(zhnormal.financingId) : zhnormal.financingId != null)
             return false;
-        if (hotStatus != null ? !hotStatus.equals(ZHNORMAL.hotStatus) : ZHNORMAL.hotStatus != null) return false;
-        if (iAmount != null ? !iAmount.equals(ZHNORMAL.iAmount) : ZHNORMAL.iAmount != null) return false;
-        if (iCount != null ? !iCount.equals(ZHNORMAL.iCount) : ZHNORMAL.iCount != null) return false;
-        if (investmentInterest != null ? !investmentInterest.equals(ZHNORMAL.investmentInterest) : ZHNORMAL.investmentInterest != null)
+        if (hotStatus != null ? !hotStatus.equals(zhnormal.hotStatus) : zhnormal.hotStatus != null) return false;
+        if (iAmount != null ? !iAmount.equals(zhnormal.iAmount) : zhnormal.iAmount != null) return false;
+        if (iCount != null ? !iCount.equals(zhnormal.iCount) : zhnormal.iCount != null) return false;
+        if (investmentInterest != null ? !investmentInterest.equals(zhnormal.investmentInterest) : zhnormal.investmentInterest != null)
             return false;
-        if (isExclusivePublic != null ? !isExclusivePublic.equals(ZHNORMAL.isExclusivePublic) : ZHNORMAL.isExclusivePublic != null)
+        if (isExclusivePublic != null ? !isExclusivePublic.equals(zhnormal.isExclusivePublic) : zhnormal.isExclusivePublic != null)
             return false;
-        if (isShow != null ? !isShow.equals(ZHNORMAL.isShow) : ZHNORMAL.isShow != null) return false;
-        if (jMBeginTime != null ? !jMBeginTime.equals(ZHNORMAL.jMBeginTime) : ZHNORMAL.jMBeginTime != null)
+        if (isInPartOpen != null ? !isInPartOpen.equals(zhnormal.isInPartOpen) : zhnormal.isInPartOpen != null)
             return false;
-        if (lCAmount != null ? !lCAmount.equals(ZHNORMAL.lCAmount) : ZHNORMAL.lCAmount != null) return false;
-        if (minInvestPartsCount != null ? !minInvestPartsCount.equals(ZHNORMAL.minInvestPartsCount) : ZHNORMAL.minInvestPartsCount != null)
+        if (isShow != null ? !isShow.equals(zhnormal.isShow) : zhnormal.isShow != null) return false;
+        if (jMBeginTime != null ? !jMBeginTime.equals(zhnormal.jMBeginTime) : zhnormal.jMBeginTime != null)
             return false;
-        if (partsCount != null ? !partsCount.equals(ZHNORMAL.partsCount) : ZHNORMAL.partsCount != null) return false;
-        if (progress != null ? !progress.equals(ZHNORMAL.progress) : ZHNORMAL.progress != null) return false;
-        if (projectBeginTime != null ? !projectBeginTime.equals(ZHNORMAL.projectBeginTime) : ZHNORMAL.projectBeginTime != null)
+        if (lCAmount != null ? !lCAmount.equals(zhnormal.lCAmount) : zhnormal.lCAmount != null) return false;
+        if (minInvestPartsCount != null ? !minInvestPartsCount.equals(zhnormal.minInvestPartsCount) : zhnormal.minInvestPartsCount != null)
             return false;
-        if (projectCode != null ? !projectCode.equals(ZHNORMAL.projectCode) : ZHNORMAL.projectCode != null)
+        if (partsCount != null ? !partsCount.equals(zhnormal.partsCount) : zhnormal.partsCount != null) return false;
+        if (progress != null ? !progress.equals(zhnormal.progress) : zhnormal.progress != null) return false;
+        if (projectBeginTime != null ? !projectBeginTime.equals(zhnormal.projectBeginTime) : zhnormal.projectBeginTime != null)
             return false;
-        if (projectName != null ? !projectName.equals(ZHNORMAL.projectName) : ZHNORMAL.projectName != null)
+        if (projectCode != null ? !projectCode.equals(zhnormal.projectCode) : zhnormal.projectCode != null)
             return false;
-        if (projectPayType != null ? !projectPayType.equals(ZHNORMAL.projectPayType) : ZHNORMAL.projectPayType != null)
+        if (projectName != null ? !projectName.equals(zhnormal.projectName) : zhnormal.projectName != null)
             return false;
-        if (projectStatus != null ? !projectStatus.equals(ZHNORMAL.projectStatus) : ZHNORMAL.projectStatus != null)
+        if (projectPayType != null ? !projectPayType.equals(zhnormal.projectPayType) : zhnormal.projectPayType != null)
             return false;
-        if (projectType != null ? !projectType.equals(ZHNORMAL.projectType) : ZHNORMAL.projectType != null)
+        if (projectRunCode != null ? !projectRunCode.equals(zhnormal.projectRunCode) : zhnormal.projectRunCode != null)
             return false;
-        if (readyBeginTime != null ? !readyBeginTime.equals(ZHNORMAL.readyBeginTime) : ZHNORMAL.readyBeginTime != null)
+        if (projectStatus != null ? !projectStatus.equals(zhnormal.projectStatus) : zhnormal.projectStatus != null)
             return false;
-        if (realProgress != null ? !realProgress.equals(ZHNORMAL.realProgress) : ZHNORMAL.realProgress != null)
+        if (projectType != null ? !projectType.equals(zhnormal.projectType) : zhnormal.projectType != null)
             return false;
-        if (remainAmount != null ? !remainAmount.equals(ZHNORMAL.remainAmount) : ZHNORMAL.remainAmount != null)
+        if (readyBeginTime != null ? !readyBeginTime.equals(zhnormal.readyBeginTime) : zhnormal.readyBeginTime != null)
             return false;
-        if (repayBegin != null ? !repayBegin.equals(ZHNORMAL.repayBegin) : ZHNORMAL.repayBegin != null) return false;
-        if (repaySourceType != null ? !repaySourceType.equals(ZHNORMAL.repaySourceType) : ZHNORMAL.repaySourceType != null)
+        if (realProgress != null ? !realProgress.equals(zhnormal.realProgress) : zhnormal.realProgress != null)
             return false;
-        if (repayType != null ? !repayType.equals(ZHNORMAL.repayType) : ZHNORMAL.repayType != null) return false;
-        if (salesType != null ? !salesType.equals(ZHNORMAL.salesType) : ZHNORMAL.salesType != null) return false;
-        if (updateTime != null ? !updateTime.equals(ZHNORMAL.updateTime) : ZHNORMAL.updateTime != null) return false;
-        if (updateUserId != null ? !updateUserId.equals(ZHNORMAL.updateUserId) : ZHNORMAL.updateUserId != null)
+        if (remainAmount != null ? !remainAmount.equals(zhnormal.remainAmount) : zhnormal.remainAmount != null)
             return false;
-        if (valueBegin != null ? !valueBegin.equals(ZHNORMAL.valueBegin) : ZHNORMAL.valueBegin != null) return false;
+        if (repayBegin != null ? !repayBegin.equals(zhnormal.repayBegin) : zhnormal.repayBegin != null) return false;
+        if (repaySourceType != null ? !repaySourceType.equals(zhnormal.repaySourceType) : zhnormal.repaySourceType != null)
+            return false;
+        if (repayType != null ? !repayType.equals(zhnormal.repayType) : zhnormal.repayType != null) return false;
+        if (salesType != null ? !salesType.equals(zhnormal.salesType) : zhnormal.salesType != null) return false;
+        if (updateTime != null ? !updateTime.equals(zhnormal.updateTime) : zhnormal.updateTime != null) return false;
+        if (updateUserId != null ? !updateUserId.equals(zhnormal.updateUserId) : zhnormal.updateUserId != null)
+            return false;
+        if (valueBegin != null ? !valueBegin.equals(zhnormal.valueBegin) : zhnormal.valueBegin != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = financingId != null ? financingId.hashCode() : 0;
+        int result = isInPartOpen != null ? isInPartOpen.hashCode() : 0;
+        result = 31 * result + (projectRunCode != null ? projectRunCode.hashCode() : 0);
+        result = 31 * result + (financingId != null ? financingId.hashCode() : 0);
         result = 31 * result + (projectCode != null ? projectCode.hashCode() : 0);
         result = 31 * result + (projectName != null ? projectName.hashCode() : 0);
         result = 31 * result + (bindUserId != null ? bindUserId.hashCode() : 0);
@@ -557,8 +581,10 @@ public class ZHNORMAL {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("ZHXQYEJ{");
-        sb.append("financingId='").append(financingId).append('\'');
+        final StringBuilder sb = new StringBuilder("ZHNORMAL{");
+        sb.append("isInPartOpen='").append(isInPartOpen).append('\'');
+        sb.append(", projectRunCode='").append(projectRunCode).append('\'');
+        sb.append(", financingId='").append(financingId).append('\'');
         sb.append(", projectCode='").append(projectCode).append('\'');
         sb.append(", projectName='").append(projectName).append('\'');
         sb.append(", bindUserId='").append(bindUserId).append('\'');
