@@ -22,11 +22,11 @@ import java.util.Map;
  */
 //陆金所投资频道稳盈-变现通抓取
 public class LJSBXTJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjbxt.url.list");
-    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjbxt.url.detail");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjbxt.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjbxt.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjbxt.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljsbxt.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljs.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljsbxt.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljsbxt.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljsbxt.title");
     private static final String PAGE_NAME = "currentPage";
 
     @Override
@@ -99,10 +99,8 @@ public class LJSBXTJob extends TLCSpiderJob {
         transObject.setProjectName(ljsbxt.getDisplayName() + " " + ljsbxt.getCode());
         transObject.setValueBegin(ljsbxt.getPublishedAtDateTime());
         transObject.setCreateTime(ljsbxt.getPublishedAtDateTime());
-
-        String amount = ljsbxt.getPrincipal();
-        amount = amount.split(" ")[0].replaceAll(",", "").split("\\.")[0];
-        transObject.setAmount(amount);
+        transObject.setInvestmentInterest(String.valueOf(Double.parseDouble(ljsbxt.getInterestRateDisplay()) * 100));
+        transObject.setAmount(ljsbxt.getPrice());
 
         String duration = ljsbxt.getInvestPeriodDisplay();
         if (duration.contains("月")) {

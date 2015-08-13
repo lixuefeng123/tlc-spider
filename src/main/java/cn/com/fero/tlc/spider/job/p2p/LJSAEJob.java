@@ -10,7 +10,6 @@ import cn.com.fero.tlc.spider.util.TLCSpiderSplitUtil;
 import cn.com.fero.tlc.spider.vo.p2p.LJSAE;
 import cn.com.fero.tlc.spider.vo.p2p.TransObject;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.htmlcleaner.TagNode;
 
 import java.util.ArrayList;
@@ -24,11 +23,11 @@ import java.util.Map;
  */
 //陆金所投资频道稳盈-安e通抓取
 public class LJSAEJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjtz.url.list");
-    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjtz.url.detail");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjtz.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjtz.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjtz.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljsae.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljs.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljsae.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljsae.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljsae.title");
     private static final String PAGE_NAME = "currentPage";
 
     @Override
@@ -97,15 +96,22 @@ public class LJSAEJob extends TLCSpiderJob {
     private TransObject convertToTransObject(TagNode product) {
         TransObject transObject = new TransObject();
         String href = TLCSpiderHTMLParser.parseAttribute(product, "//dl[@class='product-info']//dt[@class='product-name']/a[1]", "href");
-        String financingId = href.split("&")[0].split("=")[1];
-        transObject.setFinancingId(financingId);
+        String id = href.split("=")[1];
 
-        String projectName = TLCSpiderHTMLParser.parseText(product, "//dl[@class='product-info']//dt[@class='product-name']/a[1]");
-        String projectCode = projectName.split(" ")[1];
-        transObject.setProjectName(projectName);
-        transObject.setProjectCode(projectCode);
+        String detailLink = URL_PRODUCT_DETAIL + id + "/productDetail?_=" + System.currentTimeMillis();
+        String productContent = TLCSpiderRequest.getViaProxy(detailLink, TLCSpiderRequest.ProxyType.HTTP);
+        LJSAE ljsae = (LJSAE) TLCSpiderJsonUtil.json2Object(productContent, LJSAE.class,"investRewardInfo");
 
-        String duration = TLCSpiderHTMLParser.parseText(product, "//ul[@class='clearfix']//li[@class='invest-period']/p").trim();
+        transObject.setFinancingId(ljsae.getProductId());
+        transObject.setProjectName(ljsae.getProductId());
+        transObject.setProjectCode(ljsae.getCode());
+        transObject.setProjectName(ljsae.getDisplayName() + " " + ljsae.getCode());
+        transObject.setValueBegin(ljsae.getPublishedAtDateTime());
+        transObject.setCreateTime(ljsae.getPublishedAtDateTime());
+        transObject.setInvestmentInterest(String.valueOf(Double.parseDouble(ljsae.getInterestRateDisplay()) * 100));
+        transObject.setAmount(ljsae.getPrice());
+
+        String duration = ljsae.getInvestPeriodDisplay();
         if (duration.contains("月")) {
             duration = TLCSpiderSplitUtil.splitNumberChinese(duration, 1);
             duration = String.valueOf(Integer.parseInt(duration) * 30);
@@ -114,8 +120,8 @@ public class LJSAEJob extends TLCSpiderJob {
         }
         transObject.setDuration(duration);
 
-        String repayType = TLCSpiderHTMLParser.parseText(product, "//ul[@class='clearfix']//li[@class='collection-mode']/p");
-        if (repayType.contains("到期") && repayType.contains("本") && repayType.contains("息")) {
+        String repayType = ljsae.getCollectionModeDisplay();
+        if (repayType.contains("一次") && repayType.contains("本") && repayType.contains("息")) {
             repayType = TLCSpiderConstants.REPAY_TYPE.TOTAL.toString();
         } else if (repayType.contains("月") && !repayType.contains("本")) {
             repayType = TLCSpiderConstants.REPAY_TYPE.MONTHLY_INTEREST.toString();
@@ -124,58 +130,32 @@ public class LJSAEJob extends TLCSpiderJob {
         }
         transObject.setRepayType(repayType);
 
-        String progress = TLCSpiderHTMLParser.parseText(product, "//span[@class='progress-txt']");
-        progress = progress.replaceAll("%", "");
-        if (!NumberUtils.isNumber(progress) || progress.equals("100")) {
-            transObject.setProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
-            transObject.setRealProgress(TLCSpiderConstants.SPIDER_CONST_FULL_PROGRESS);
+        String progress = ljsae.getProgress();
+        if (!org.apache.commons.lang.math.NumberUtils.isNumber(progress) || Float.valueOf(progress) == 1.0) {
+            progress = TLCSpiderConstants.SPIDER_PARAM_PAGE_ONE;
         } else {
-            double progressNum = Double.parseDouble(progress) / 100;
-            transObject.setProgress(String.valueOf(progressNum));
-            transObject.setRealProgress(String.valueOf(progressNum));
+            progress = String.format("%.2f", Double.parseDouble(progress));
         }
+        transObject.setRealProgress(progress);
+        transObject.setProgress(progress);
 
-        String detailLink = URL_PRODUCT_DETAIL + href;
-        String detailContent = TLCSpiderRequest.getViaProxy(detailLink, TLCSpiderRequest.ProxyType.HTTP);
+        if (ljsae.getMinInvestAmount() != null) {
+            int priceNum = Integer.parseInt(ljsae.getPrice());
+            int amountNum = Integer.parseInt(ljsae.getMinInvestAmount());
 
-
-        String amount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//ul[@class='clearfix detail-info-list']//li[1]/p[2]/strong");
-        amount = amount.split(" ")[0].replaceAll(",", "").split("\\.")[0];
-        transObject.setAmount(amount);
-
-        String investmentInterest = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//ul[@class='clearfix detail-info-list']//li[2]/p[2]/strong");
-        investmentInterest = investmentInterest.replaceAll("%", "");
-        transObject.setInvestmentInterest(investmentInterest);
-
-        String increaseAmount = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='raise-status-wrap']//div[@class='markUpInfo']//p[@class='mark-up-info']/span[2]");
-        if (StringUtils.isNotEmpty(increaseAmount)) {
-            increaseAmount = increaseAmount.split("：")[1].split("\\.")[0].replaceAll(",", "");
-            int amoutNum = Integer.parseInt(amount);
-            int increaseAmountNum = Integer.parseInt(increaseAmount);
-
-            int partsCount;
-            if (amoutNum % increaseAmountNum == 0) {
-                partsCount = amoutNum / increaseAmountNum;
+            int partsCount = priceNum / amountNum;
+            if ((priceNum % amountNum) == 0) {
+                transObject.setPartsCount(String.valueOf(partsCount));
             } else {
-                partsCount = amoutNum / increaseAmountNum + 1;
+                transObject.setPartsCount(String.valueOf(partsCount + 1));
             }
-            transObject.setPartsCount(String.valueOf(partsCount));
-        }
-
-        transObject.setValueBegin(TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//li[@class='last-col']//strong"));
-
-        String publishTime = TLCSpiderHTMLParser.parseText(detailContent, "//div[@class='main-wide-wrap']//p[@class='product-published-date']");
-        if (StringUtils.isNotEmpty(publishTime)) {
-            publishTime = publishTime.split("：", 2)[1];
-            transObject.setProjectBeginTime(publishTime);
-            transObject.setReadyBeginTime(publishTime);
         }
 
         return transObject;
     }
 
     private class LJSAESubJob {
-        private final String URL_PRODUCT_SUB_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjtz.url.sublist");
+        private final String URL_PRODUCT_SUB_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljsae.url.sublist");
         private final String PAGE_NAME = "pageNo";
         private String productId;
 

@@ -21,11 +21,11 @@ import java.util.Map;
  */
 //陆金所投资频道稳盈-鑫保抓取
 public class LJSXBJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjxb.url.list");
-    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjxb.url.detail");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjxb.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjxb.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjxb.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljsxb.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljs.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljsxb.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljsxb.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljsxb.title");
     private static final String PAGE_NAME = "currentPage";
 
     @Override
@@ -95,11 +95,12 @@ public class LJSXBJob extends TLCSpiderJob {
         transObject.setFinancingId(ljsxb.getProductId());
         transObject.setProjectCode(ljsxb.getProductId());
         transObject.setProjectName(ljsxb.getDisplayName() + " " + ljsxb.getCode());
-        transObject.setAmount(ljsxb.getPrincipal());
         transObject.setValueBegin(ljsxb.getValueDate());
         transObject.setProjectBeginTime(ljsxb.getPublishedAtDateTime());
         transObject.setReadyBeginTime(ljsxb.getPublishedAtDateTime());
         transObject.setCreateTime(ljsxb.getPublishedAtDateTime());
+        transObject.setInvestmentInterest(String.valueOf(Double.parseDouble(ljsxb.getInterestRateDisplay()) * 100));
+        transObject.setAmount(ljsxb.getPrice());
 
         int duration = Integer.parseInt(TLCSpiderSplitUtil.splitNumberChinese(ljsxb.getInvestPeriodDisplay(), 1)) * 30;
         transObject.setDuration(String.valueOf(duration));

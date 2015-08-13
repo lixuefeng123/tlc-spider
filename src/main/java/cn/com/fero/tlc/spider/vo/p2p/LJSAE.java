@@ -4,6 +4,8 @@ package cn.com.fero.tlc.spider.vo.p2p;
  * Created by wanghongmeng on 2015/7/23.
  */
 public class LJSAE {
+    private String displayName;
+    private String publishedAtDateTime;
     private String remainingAmount;
     private String productId;
     private String code;
@@ -51,6 +53,22 @@ public class LJSAE {
     private String maxInvestAmount;
     private String increasedInvestAmount;
     private String sameAnyiProductCounts;
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getPublishedAtDateTime() {
+        return publishedAtDateTime;
+    }
+
+    public void setPublishedAtDateTime(String publishedAtDateTime) {
+        this.publishedAtDateTime = publishedAtDateTime;
+    }
 
     public String getRemainingAmount() {
         return remainingAmount;
@@ -430,7 +448,6 @@ public class LJSAE {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -443,6 +460,7 @@ public class LJSAE {
         if (collectionModeDisplay != null ? !collectionModeDisplay.equals(ljsae.collectionModeDisplay) : ljsae.collectionModeDisplay != null)
             return false;
         if (currentPrice != null ? !currentPrice.equals(ljsae.currentPrice) : ljsae.currentPrice != null) return false;
+        if (displayName != null ? !displayName.equals(ljsae.displayName) : ljsae.displayName != null) return false;
         if (feeDisplayFlag != null ? !feeDisplayFlag.equals(ljsae.feeDisplayFlag) : ljsae.feeDisplayFlag != null)
             return false;
         if (forceOrder != null ? !forceOrder.equals(ljsae.forceOrder) : ljsae.forceOrder != null) return false;
@@ -497,6 +515,8 @@ public class LJSAE {
         if (publishAtTime != null ? !publishAtTime.equals(ljsae.publishAtTime) : ljsae.publishAtTime != null)
             return false;
         if (publishedAt != null ? !publishedAt.equals(ljsae.publishedAt) : ljsae.publishedAt != null) return false;
+        if (publishedAtDateTime != null ? !publishedAtDateTime.equals(ljsae.publishedAtDateTime) : ljsae.publishedAtDateTime != null)
+            return false;
         if (raisedAmount != null ? !raisedAmount.equals(ljsae.raisedAmount) : ljsae.raisedAmount != null) return false;
         if (remainingAmount != null ? !remainingAmount.equals(ljsae.remainingAmount) : ljsae.remainingAmount != null)
             return false;
@@ -516,7 +536,9 @@ public class LJSAE {
 
     @Override
     public int hashCode() {
-        int result = remainingAmount != null ? remainingAmount.hashCode() : 0;
+        int result = displayName != null ? displayName.hashCode() : 0;
+        result = 31 * result + (publishedAtDateTime != null ? publishedAtDateTime.hashCode() : 0);
+        result = 31 * result + (remainingAmount != null ? remainingAmount.hashCode() : 0);
         result = 31 * result + (productId != null ? productId.hashCode() : 0);
         result = 31 * result + (code != null ? code.hashCode() : 0);
         result = 31 * result + (interestRate != null ? interestRate.hashCode() : 0);
@@ -569,7 +591,9 @@ public class LJSAE {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("LJSAE{");
-        sb.append("remainingAmount='").append(remainingAmount).append('\'');
+        sb.append("displayName='").append(displayName).append('\'');
+        sb.append(", publishedAtDateTime='").append(publishedAtDateTime).append('\'');
+        sb.append(", remainingAmount='").append(remainingAmount).append('\'');
         sb.append(", productId='").append(productId).append('\'');
         sb.append(", code='").append(code).append('\'');
         sb.append(", interestRate='").append(interestRate).append('\'');

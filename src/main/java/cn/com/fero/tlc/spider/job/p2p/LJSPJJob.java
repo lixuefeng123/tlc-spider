@@ -22,11 +22,11 @@ import java.util.Map;
  */
 //陆金所投资频道安盈-票据抓取
 public class LJSPJJob extends TLCSpiderJob {
-    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjpj.url.list");
-    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjpj.url.detail");
-    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjpj.sid");
-    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjpj.token");
-    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.lzjpj.title");
+    private static final String URL_PRODUCT_LIST = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljspj.url.list");
+    private static final String URL_PRODUCT_DETAIL = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljs.url.detail");
+    private static final String SID = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljspj.sid");
+    private static final String TOKEN = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljspj.token");
+    private static final String JOB_TITLE = TLCSpiderPropertiesUtil.getResource("tlc.spider.p2p.ljspj.title");
     private static final String PAGE_NAME = "currentPage";
     private static final String PAGE_SIZE = "5";
 
@@ -90,10 +90,8 @@ public class LJSPJJob extends TLCSpiderJob {
         transObject.setProjectBeginTime(ljspj.getPublishedAtDateTime());
         transObject.setReadyBeginTime(ljspj.getPublishedAtDateTime());
         transObject.setCreateTime(ljspj.getPublishedAtDateTime());
-
-        String amount = ljspj.getPrincipal();
-        amount = amount.split(" ")[0].replaceAll(",", "").split("\\.")[0];
-        transObject.setAmount(amount);
+        transObject.setInvestmentInterest(String.valueOf(Double.parseDouble(ljspj.getInterestRateDisplay()) * 100));
+        transObject.setAmount(ljspj.getPrice());
 
         String duration = ljspj.getInvestPeriodDisplay();
         if (duration.contains("月")) {
