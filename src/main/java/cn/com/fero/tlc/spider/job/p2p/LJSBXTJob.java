@@ -91,7 +91,7 @@ public class LJSBXTJob extends TLCSpiderJob {
 
         String detailLink = URL_PRODUCT_DETAIL + id + "/productDetail?_=" + System.currentTimeMillis();
         String productContent = TLCSpiderRequest.getViaProxy(detailLink, TLCSpiderRequest.ProxyType.HTTP);
-        LJSBXT ljsbxt = (LJSBXT) TLCSpiderJsonUtil.json2Object(productContent, LJSBXT.class);
+        LJSBXT ljsbxt = (LJSBXT) TLCSpiderJsonUtil.json2Object(productContent, LJSBXT.class, "investRewardInfo");
 
         transObject.setFinancingId(ljsbxt.getProductId());
         transObject.setProjectName(ljsbxt.getProductId());

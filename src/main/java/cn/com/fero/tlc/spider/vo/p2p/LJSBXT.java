@@ -4,6 +4,7 @@ package cn.com.fero.tlc.spider.vo.p2p;
  * Created by lixuefeng on 2015/8/7.
  */
 public class LJSBXT {
+    private String investRewardInfo;
     private String productId;
     private String code;
     private String displayName;
@@ -41,6 +42,14 @@ public class LJSBXT {
     private String remainingSeconds;
     private String riskLevelDisplay;
     private String riskLevel;
+
+    public String getInvestRewardInfo() {
+        return investRewardInfo;
+    }
+
+    public void setInvestRewardInfo(String investRewardInfo) {
+        this.investRewardInfo = investRewardInfo;
+    }
 
     public String getProductId() {
         return productId;
@@ -363,6 +372,8 @@ public class LJSBXT {
             return false;
         if (investPeriodDisplay != null ? !investPeriodDisplay.equals(ljsbxt.investPeriodDisplay) : ljsbxt.investPeriodDisplay != null)
             return false;
+        if (investRewardInfo != null ? !investRewardInfo.equals(ljsbxt.investRewardInfo) : ljsbxt.investRewardInfo != null)
+            return false;
         if (isDanbao != null ? !isDanbao.equals(ljsbxt.isDanbao) : ljsbxt.isDanbao != null) return false;
         if (isFirstProduct != null ? !isFirstProduct.equals(ljsbxt.isFirstProduct) : ljsbxt.isFirstProduct != null)
             return false;
@@ -410,7 +421,8 @@ public class LJSBXT {
 
     @Override
     public int hashCode() {
-        int result = productId != null ? productId.hashCode() : 0;
+        int result = investRewardInfo != null ? investRewardInfo.hashCode() : 0;
+        result = 31 * result + (productId != null ? productId.hashCode() : 0);
         result = 31 * result + (code != null ? code.hashCode() : 0);
         result = 31 * result + (displayName != null ? displayName.hashCode() : 0);
         result = 31 * result + (interestRateDisplay != null ? interestRateDisplay.hashCode() : 0);
@@ -452,44 +464,46 @@ public class LJSBXT {
 
     @Override
     public String toString() {
-        return "LJSBXT{" +
-                "productId='" + productId + '\'' +
-                ", code='" + code + '\'' +
-                ", displayName='" + displayName + '\'' +
-                ", interestRateDisplay='" + interestRateDisplay + '\'' +
-                ", numberOfInstalments='" + numberOfInstalments + '\'' +
-                ", productStatus='" + productStatus + '\'' +
-                ", publishedAt='" + publishedAt + '\'' +
-                ", publishedAtDateTime='" + publishedAtDateTime + '\'' +
-                ", collectionModeDisplay='" + collectionModeDisplay + '\'' +
-                ", productType='" + productType + '\'' +
-                ", isFirstProduct='" + isFirstProduct + '\'' +
-                ", price='" + price + '\'' +
-                ", principal='" + principal + '\'' +
-                ", lastUpdateTime='" + lastUpdateTime + '\'' +
-                ", sourceType='" + sourceType + '\'' +
-                ", buyerTransactionFee='" + buyerTransactionFee + '\'' +
-                ", countDownSeconds='" + countDownSeconds + '\'' +
-                ", doneCountDownSeconds='" + doneCountDownSeconds + '\'' +
-                ", adjustPrice='" + adjustPrice + '\'' +
-                ", priceAdjustmentFlag='" + priceAdjustmentFlag + '\'' +
-                ", minInvestAmount='" + minInvestAmount + '\'' +
-                ", maxInvestAmount='" + maxInvestAmount + '\'' +
-                ", remainingAmount='" + remainingAmount + '\'' +
-                ", raisedAmount='" + raisedAmount + '\'' +
-                ", increaseInvestAmount='" + increaseInvestAmount + '\'' +
-                ", salesChannel='" + salesChannel + '\'' +
-                ", productCategory='" + productCategory + '\'' +
-                ", tradingMode='" + tradingMode + '\'' +
-                ", progress='" + progress + '\'' +
-                ", reducePrice='" + reducePrice + '\'' +
-                ", investPeriodDisplay='" + investPeriodDisplay + '\'' +
-                ", minInterestRate='" + minInterestRate + '\'' +
-                ", canWithHold='" + canWithHold + '\'' +
-                ", isDanbao='" + isDanbao + '\'' +
-                ", remainingSeconds='" + remainingSeconds + '\'' +
-                ", riskLevelDisplay='" + riskLevelDisplay + '\'' +
-                ", riskLevel='" + riskLevel + '\'' +
-                '}';
+        final StringBuilder sb = new StringBuilder("LJSBXT{");
+        sb.append("investRewardInfo='").append(investRewardInfo).append('\'');
+        sb.append(", productId='").append(productId).append('\'');
+        sb.append(", code='").append(code).append('\'');
+        sb.append(", displayName='").append(displayName).append('\'');
+        sb.append(", interestRateDisplay='").append(interestRateDisplay).append('\'');
+        sb.append(", numberOfInstalments='").append(numberOfInstalments).append('\'');
+        sb.append(", productStatus='").append(productStatus).append('\'');
+        sb.append(", publishedAt='").append(publishedAt).append('\'');
+        sb.append(", publishedAtDateTime='").append(publishedAtDateTime).append('\'');
+        sb.append(", collectionModeDisplay='").append(collectionModeDisplay).append('\'');
+        sb.append(", productType='").append(productType).append('\'');
+        sb.append(", isFirstProduct='").append(isFirstProduct).append('\'');
+        sb.append(", price='").append(price).append('\'');
+        sb.append(", principal='").append(principal).append('\'');
+        sb.append(", lastUpdateTime='").append(lastUpdateTime).append('\'');
+        sb.append(", sourceType='").append(sourceType).append('\'');
+        sb.append(", buyerTransactionFee='").append(buyerTransactionFee).append('\'');
+        sb.append(", countDownSeconds='").append(countDownSeconds).append('\'');
+        sb.append(", doneCountDownSeconds='").append(doneCountDownSeconds).append('\'');
+        sb.append(", adjustPrice='").append(adjustPrice).append('\'');
+        sb.append(", priceAdjustmentFlag='").append(priceAdjustmentFlag).append('\'');
+        sb.append(", minInvestAmount='").append(minInvestAmount).append('\'');
+        sb.append(", maxInvestAmount='").append(maxInvestAmount).append('\'');
+        sb.append(", remainingAmount='").append(remainingAmount).append('\'');
+        sb.append(", raisedAmount='").append(raisedAmount).append('\'');
+        sb.append(", increaseInvestAmount='").append(increaseInvestAmount).append('\'');
+        sb.append(", salesChannel='").append(salesChannel).append('\'');
+        sb.append(", productCategory='").append(productCategory).append('\'');
+        sb.append(", tradingMode='").append(tradingMode).append('\'');
+        sb.append(", progress='").append(progress).append('\'');
+        sb.append(", reducePrice='").append(reducePrice).append('\'');
+        sb.append(", investPeriodDisplay='").append(investPeriodDisplay).append('\'');
+        sb.append(", minInterestRate='").append(minInterestRate).append('\'');
+        sb.append(", canWithHold='").append(canWithHold).append('\'');
+        sb.append(", isDanbao='").append(isDanbao).append('\'');
+        sb.append(", remainingSeconds='").append(remainingSeconds).append('\'');
+        sb.append(", riskLevelDisplay='").append(riskLevelDisplay).append('\'');
+        sb.append(", riskLevel='").append(riskLevel).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
