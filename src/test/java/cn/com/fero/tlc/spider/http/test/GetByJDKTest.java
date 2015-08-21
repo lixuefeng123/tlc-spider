@@ -9,7 +9,7 @@ import java.net.URL;
 /**
  * Created by wanghongmeng on 2015/8/3.
  */
-public class TestGetByJDK {
+public class GetByJDKTest {
     public static void main(String[] args) throws IOException, InterruptedException {
         for (int a = 0; a < 100; a++) {
             new Thread(new Runnable() {

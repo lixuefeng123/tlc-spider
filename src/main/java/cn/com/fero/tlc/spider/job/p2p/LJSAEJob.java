@@ -100,7 +100,7 @@ public class LJSAEJob extends TLCSpiderJob {
 
         String detailLink = URL_PRODUCT_DETAIL + id + "/productDetail?_=" + System.currentTimeMillis();
         String productContent = TLCSpiderRequest.getViaProxy(detailLink, TLCSpiderRequest.ProxyType.HTTP);
-        LJSAE ljsae = (LJSAE) TLCSpiderJsonUtil.json2Object(productContent, LJSAE.class,"investRewardInfo");
+        LJSAE ljsae = (LJSAE) TLCSpiderJsonUtil.json2Object(productContent, LJSAE.class, "investRewardInfo");
 
         transObject.setFinancingId(ljsae.getProductId());
         transObject.setProjectName(ljsae.getProductId());

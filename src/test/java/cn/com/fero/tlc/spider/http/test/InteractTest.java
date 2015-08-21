@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * Created by wanghongmeng on 2015/6/29.
  */
-public class TestInteract {
+public class InteractTest {
     @Test
     public void testGetUpdateList() {
         Map<String, String> map = new HashMap();
