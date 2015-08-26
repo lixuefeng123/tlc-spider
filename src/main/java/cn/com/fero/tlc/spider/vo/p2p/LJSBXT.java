@@ -42,6 +42,7 @@ public class LJSBXT {
     private String remainingSeconds;
     private String riskLevelDisplay;
     private String riskLevel;
+    private JiJinDaiXiaoInfoGson jijinDaixiaoInfoGson;
 
     public String getInvestRewardInfo() {
         return investRewardInfo;
@@ -347,6 +348,14 @@ public class LJSBXT {
         this.riskLevel = riskLevel;
     }
 
+    public JiJinDaiXiaoInfoGson getJijinDaixiaoInfoGson() {
+        return jijinDaixiaoInfoGson;
+    }
+
+    public void setJijinDaixiaoInfoGson(JiJinDaiXiaoInfoGson jijinDaixiaoInfoGson) {
+        this.jijinDaixiaoInfoGson = jijinDaixiaoInfoGson;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -376,6 +385,8 @@ public class LJSBXT {
             return false;
         if (isDanbao != null ? !isDanbao.equals(ljsbxt.isDanbao) : ljsbxt.isDanbao != null) return false;
         if (isFirstProduct != null ? !isFirstProduct.equals(ljsbxt.isFirstProduct) : ljsbxt.isFirstProduct != null)
+            return false;
+        if (jijinDaixiaoInfoGson != null ? !jijinDaixiaoInfoGson.equals(ljsbxt.jijinDaixiaoInfoGson) : ljsbxt.jijinDaixiaoInfoGson != null)
             return false;
         if (lastUpdateTime != null ? !lastUpdateTime.equals(ljsbxt.lastUpdateTime) : ljsbxt.lastUpdateTime != null)
             return false;
@@ -459,6 +470,7 @@ public class LJSBXT {
         result = 31 * result + (remainingSeconds != null ? remainingSeconds.hashCode() : 0);
         result = 31 * result + (riskLevelDisplay != null ? riskLevelDisplay.hashCode() : 0);
         result = 31 * result + (riskLevel != null ? riskLevel.hashCode() : 0);
+        result = 31 * result + (jijinDaixiaoInfoGson != null ? jijinDaixiaoInfoGson.hashCode() : 0);
         return result;
     }
 
@@ -503,6 +515,7 @@ public class LJSBXT {
         sb.append(", remainingSeconds='").append(remainingSeconds).append('\'');
         sb.append(", riskLevelDisplay='").append(riskLevelDisplay).append('\'');
         sb.append(", riskLevel='").append(riskLevel).append('\'');
+        sb.append(", jijinDaixiaoInfoGson=").append(jijinDaixiaoInfoGson);
         sb.append('}');
         return sb.toString();
     }

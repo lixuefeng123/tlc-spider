@@ -47,6 +47,7 @@ public class LJSXB {
     private String remainingSeconds;
     private String riskLevelDisplay;
     private String riskLevel;
+    private JiJinDaiXiaoInfoGson jijinDaixiaoInfoGson;
 
     public String getProductId() {
         return productId;
@@ -392,6 +393,14 @@ public class LJSXB {
         this.riskLevel = riskLevel;
     }
 
+    public JiJinDaiXiaoInfoGson getJijinDaixiaoInfoGson() {
+        return jijinDaixiaoInfoGson;
+    }
+
+    public void setJijinDaixiaoInfoGson(JiJinDaiXiaoInfoGson jijinDaixiaoInfoGson) {
+        this.jijinDaixiaoInfoGson = jijinDaixiaoInfoGson;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -425,6 +434,8 @@ public class LJSXB {
         if (isFirstProduct != null ? !isFirstProduct.equals(ljsxb.isFirstProduct) : ljsxb.isFirstProduct != null)
             return false;
         if (isForNewUser != null ? !isForNewUser.equals(ljsxb.isForNewUser) : ljsxb.isForNewUser != null) return false;
+        if (jijinDaixiaoInfoGson != null ? !jijinDaixiaoInfoGson.equals(ljsxb.jijinDaixiaoInfoGson) : ljsxb.jijinDaixiaoInfoGson != null)
+            return false;
         if (lastUpdateTime != null ? !lastUpdateTime.equals(ljsxb.lastUpdateTime) : ljsxb.lastUpdateTime != null)
             return false;
         if (maxInvestAmount != null ? !maxInvestAmount.equals(ljsxb.maxInvestAmount) : ljsxb.maxInvestAmount != null)
@@ -515,6 +526,58 @@ public class LJSXB {
         result = 31 * result + (remainingSeconds != null ? remainingSeconds.hashCode() : 0);
         result = 31 * result + (riskLevelDisplay != null ? riskLevelDisplay.hashCode() : 0);
         result = 31 * result + (riskLevel != null ? riskLevel.hashCode() : 0);
+        result = 31 * result + (jijinDaixiaoInfoGson != null ? jijinDaixiaoInfoGson.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("LJSXB{");
+        sb.append("productId='").append(productId).append('\'');
+        sb.append(", code='").append(code).append('\'');
+        sb.append(", displayName='").append(displayName).append('\'');
+        sb.append(", interestRateDisplay='").append(interestRateDisplay).append('\'');
+        sb.append(", numberOfInstalments='").append(numberOfInstalments).append('\'');
+        sb.append(", productStatus='").append(productStatus).append('\'');
+        sb.append(", publishedAt='").append(publishedAt).append('\'');
+        sb.append(", publishedAtDateTime='").append(publishedAtDateTime).append('\'');
+        sb.append(", collectionModeDisplay='").append(collectionModeDisplay).append('\'');
+        sb.append(", valueDate='").append(valueDate).append('\'');
+        sb.append(", productType='").append(productType).append('\'');
+        sb.append(", isFirstProduct='").append(isFirstProduct).append('\'');
+        sb.append(", price='").append(price).append('\'');
+        sb.append(", principal='").append(principal).append('\'');
+        sb.append(", lastUpdateTime='").append(lastUpdateTime).append('\'');
+        sb.append(", buyerUserName='").append(buyerUserName).append('\'');
+        sb.append(", sourceType='").append(sourceType).append('\'');
+        sb.append(", buyerTransactionFee='").append(buyerTransactionFee).append('\'');
+        sb.append(", countDownSeconds='").append(countDownSeconds).append('\'');
+        sb.append(", canTransferMinHoldingDays='").append(canTransferMinHoldingDays).append('\'');
+        sb.append(", isForNewUser='").append(isForNewUser).append('\'');
+        sb.append(", adjustPrice='").append(adjustPrice).append('\'');
+        sb.append(", priceAdjustmentFlag='").append(priceAdjustmentFlag).append('\'');
+        sb.append(", minInvestAmount='").append(minInvestAmount).append('\'');
+        sb.append(", maxInvestAmount='").append(maxInvestAmount).append('\'');
+        sb.append(", remainingAmount='").append(remainingAmount).append('\'');
+        sb.append(", raisedAmount='").append(raisedAmount).append('\'');
+        sb.append(", increaseInvestAmount='").append(increaseInvestAmount).append('\'');
+        sb.append(", salesChannel='").append(salesChannel).append('\'');
+        sb.append(", productCategory='").append(productCategory).append('\'');
+        sb.append(", tradingMode='").append(tradingMode).append('\'');
+        sb.append(", progress='").append(progress).append('\'');
+        sb.append(", reducePrice='").append(reducePrice).append('\'');
+        sb.append(", investRewardInfo='").append(investRewardInfo).append('\'');
+        sb.append(", newCoinProcessSwitch='").append(newCoinProcessSwitch).append('\'');
+        sb.append(", investPeriodDisplay='").append(investPeriodDisplay).append('\'');
+        sb.append(", minInterestRate='").append(minInterestRate).append('\'');
+        sb.append(", subProductCategory='").append(subProductCategory).append('\'');
+        sb.append(", canWithHold='").append(canWithHold).append('\'');
+        sb.append(", isDanbao='").append(isDanbao).append('\'');
+        sb.append(", remainingSeconds='").append(remainingSeconds).append('\'');
+        sb.append(", riskLevelDisplay='").append(riskLevelDisplay).append('\'');
+        sb.append(", riskLevel='").append(riskLevel).append('\'');
+        sb.append(", jijinDaixiaoInfoGson=").append(jijinDaixiaoInfoGson);
+        sb.append('}');
+        return sb.toString();
     }
 }

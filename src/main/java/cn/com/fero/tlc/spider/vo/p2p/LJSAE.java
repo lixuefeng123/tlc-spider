@@ -68,6 +68,7 @@ public class LJSAE {
     private String maxInvestAmount;
     private String increasedInvestAmount;
     private String sameAnyiProductCounts;
+    private JiJinDaiXiaoInfoGson jijinDaixiaoInfoGson;
 
     public String getLastUpdateTime() {
         return lastUpdateTime;
@@ -581,6 +582,14 @@ public class LJSAE {
         this.sameAnyiProductCounts = sameAnyiProductCounts;
     }
 
+    public JiJinDaiXiaoInfoGson getJijinDaixiaoInfoGson() {
+        return jijinDaixiaoInfoGson;
+    }
+
+    public void setJijinDaixiaoInfoGson(JiJinDaiXiaoInfoGson jijinDaixiaoInfoGson) {
+        this.jijinDaixiaoInfoGson = jijinDaixiaoInfoGson;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -632,6 +641,8 @@ public class LJSAE {
         if (isInSpecialGroup != null ? !isInSpecialGroup.equals(ljsae.isInSpecialGroup) : ljsae.isInSpecialGroup != null)
             return false;
         if (isVipGroup != null ? !isVipGroup.equals(ljsae.isVipGroup) : ljsae.isVipGroup != null) return false;
+        if (jijinDaixiaoInfoGson != null ? !jijinDaixiaoInfoGson.equals(ljsae.jijinDaixiaoInfoGson) : ljsae.jijinDaixiaoInfoGson != null)
+            return false;
         if (lastUpdateTime != null ? !lastUpdateTime.equals(ljsae.lastUpdateTime) : ljsae.lastUpdateTime != null)
             return false;
         if (maxInvestAmount != null ? !maxInvestAmount.equals(ljsae.maxInvestAmount) : ljsae.maxInvestAmount != null)
@@ -760,6 +771,7 @@ public class LJSAE {
         result = 31 * result + (maxInvestAmount != null ? maxInvestAmount.hashCode() : 0);
         result = 31 * result + (increasedInvestAmount != null ? increasedInvestAmount.hashCode() : 0);
         result = 31 * result + (sameAnyiProductCounts != null ? sameAnyiProductCounts.hashCode() : 0);
+        result = 31 * result + (jijinDaixiaoInfoGson != null ? jijinDaixiaoInfoGson.hashCode() : 0);
         return result;
     }
 
@@ -830,6 +842,7 @@ public class LJSAE {
         sb.append(", maxInvestAmount='").append(maxInvestAmount).append('\'');
         sb.append(", increasedInvestAmount='").append(increasedInvestAmount).append('\'');
         sb.append(", sameAnyiProductCounts='").append(sameAnyiProductCounts).append('\'');
+        sb.append(", jijinDaixiaoInfoGson=").append(jijinDaixiaoInfoGson);
         sb.append('}');
         return sb.toString();
     }
